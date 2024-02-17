@@ -35,12 +35,18 @@ def fetch_openweather_current():
         data = response.json()
         
         # Extract specific weather data from the response
-        temperature = math.floor(data["main"]["temp"])             # Current temperature
-        feels_like = math.floor(data["main"]["feels_like"])        # Feels like temperature
-        min_temp = math.floor(data["main"]["temp_min"])            # Minimum temperature
-        max_temp = math.floor(data["main"]["temp_max"])            # Maximum temperature
-        description = data["weather"][0]["description"]            # Weather description, rain, moderate rain
-        wind_speed = math.floor(data["wind"]["speed"])             # Wind speed
+        # Current temperature
+        temperature = math.floor(data["main"]["temp"])   
+        # Feels like temperature
+        feels_like = math.floor(data["main"]["feels_like"])   
+        # Minimum temperature
+        min_temp = math.floor(data["main"]["temp_min"])  
+        # Maximum temperature
+        max_temp = math.floor(data["main"]["temp_max"])   
+        # Weather description, rain, moderate rain
+        description = data["weather"][0]["description"] 
+        # Wind speed
+        wind_speed = math.floor(data["wind"]["speed"])             
         
         # Print the fetched weather data
         print("\nOpenWeatherMap Current Weather Data:")

@@ -80,8 +80,6 @@ def fetch_openweather_forecast():
         # Parse the JSON response into a Python dictionary
         data = response.json()
 
-        # Check for specific weather conditions, for, elif with error handling at the bottom
-
         # Fetching specific weather data
         min_temp = math.floor(data["list"][0]["main"]["temp_min"])  
         max_temp = math.floor(data["list"][0]["main"]["temp_max"])  
@@ -92,6 +90,8 @@ def fetch_openweather_forecast():
     except requests.RequestException as e:
         # Handle any errors that occur during the request
         print(f"Error fetching 5-day forecast data from Open Weather: {e}")
+        
+# Create a function to check extreme weather condtions according to Met Eireann warning system, fucntion with for, if, elif and error handling at the bottom
 
 # Main scheduling task function
 def main():

@@ -79,7 +79,9 @@ def fetch_openweather_forecast():
         
         # Parse the JSON response into a Python dictionary
         data = response.json()
-        
+
+        # Check for specific weather conditions, for, elif with error handling at the bottom
+
         # Fetching specific weather data
         min_temp = math.floor(data["list"][0]["main"]["temp_min"])  
         max_temp = math.floor(data["list"][0]["main"]["temp_max"])  

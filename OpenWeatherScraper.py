@@ -39,7 +39,7 @@ def fetch_openweather_current():
         feels_like = math.floor(data["main"]["feels_like"])        # Feels like temperature
         min_temp = math.floor(data["main"]["temp_min"])            # Minimum temperature
         max_temp = math.floor(data["main"]["temp_max"])            # Maximum temperature
-        description = data["weather"][0]["description"]            # Weather description
+        description = data["weather"][0]["description"]            # Weather description, rain, moderate rain
         wind_speed = math.floor(data["wind"]["speed"])             # Wind speed
         
         # Print the fetched weather data

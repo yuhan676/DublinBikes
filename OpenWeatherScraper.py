@@ -101,6 +101,8 @@ def main():
     # Schedule the forecast to run every 10 minutes
     schedule.every(10).minutes.do(fetch_openweather_forecast)
 
+    # schedule for extreme weather function
+
     # Run the scheduler in an infinite loop
     while True:
         schedule.run_pending()

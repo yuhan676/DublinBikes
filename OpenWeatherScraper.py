@@ -17,7 +17,7 @@ def fetch_openweather_current():
     
     # Parametres for API request
     params = {
-        "q": "Dublin,ie",  
+        "q": "Dublin.ie",  
         # City and country code for Dublin, Ireland
         "appid": api_key,  
         # API key for accessing the OpenWeatherMap API

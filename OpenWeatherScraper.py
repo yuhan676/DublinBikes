@@ -6,23 +6,21 @@ import schedule
 import time      
 # import math for mathematical operations
 import math      
-# import os to securly access API key
-import os        
+# import winfo to securely attain key and url
+import winfo
 
 def fetch_openweather_current():
-    # Fetch the API key from an environment variable named 'API_KEY'
-    api_key = os.environ.get('API_KEY')
-
-    url = "https://api.openweathermap.org/data/2.5/weather"
+    # fetching URL from winfo for security
+    url = winfo.URL
     
     # Parametres for API request
     params = {
-        "q": "Dublin.ie",  
         # City and country code for Dublin, Ireland
-        "appid": api_key,  
+        "q": "Dublin.ie", 
         # API key for accessing the OpenWeatherMap API
-        "units": "metric"  
+        "appid": winfo.API_KEY,  
         # Specify units as metric (for Celsius)
+        "units": "metric"  
     }
     try:
         # Make a GET request to the OpenWeatherMap API
@@ -57,15 +55,13 @@ def fetch_openweather_current():
 
 # Define a function to fetch 5-day weather forecast data from the OpenWeatherMap API
 def fetch_openweather_forecast():
-    # Fetch the API key from an environment variable named 'API_KEY'
-    api_key = os.environ.get('API_KEY')
-
-    url = "https://api.openweathermap.org/data/2.5/forecast"
+    # fetching url from winfo for security
+    url = winfo.URL2
     
-    # Define the parameters for the API request; city, api_key and units specified as metric to display Celsius
+    # Define the parameters for the API request; city, accessing api key from winfo, and units specified as metric to display Celsius
     params = {
         "q": "Dublin.ie",  
-        "appid": api_key,  
+        "appid": winfo.API_KEY,  
         "units": "metric"  
     }
     try:
@@ -89,15 +85,13 @@ def fetch_openweather_forecast():
 # function that fetches weather data from OpenWeather API, and compares with Met Eireann 
 # official severe weather warning specifications, to display extreme weather notifications
 def fetch_openweather_extreme():
-    # Fetch the API key from the environment variable name 'API_KEY'
-    api_key = os.environ.get('API_KEY')
-
-    url = "https://api.openweathermap.org/data/2.5/forecast"
+    # Fetch the URL from winfo 
+    url = winfo.URL2
 
     # parametres for the API request
     params = {
         "q": "Dublin.ie",
-        "appid": api_key,
+        "appid": winfo.API_KEY,
         "units": "metric"
     }
     try:

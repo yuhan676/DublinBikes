@@ -65,7 +65,7 @@ def fetch_openweather_forecast():
     
     # Define the parameters for the API request; city, api_key and units specified as metric to display Celsius
     params = {
-        "q": "Dublin,ie",  
+        "q": "Dublin.ie",  
         "appid": api_key,  
         "units": "metric"  
     }
@@ -84,14 +84,56 @@ def fetch_openweather_forecast():
         min_temp = math.floor(data["list"][0]["main"]["temp_min"])  
         max_temp = math.floor(data["list"][0]["main"]["temp_max"])  
         
-        # print data to console temporarily, later this will be changed to be represented in HTML component
-        print(data)
-    
     except requests.RequestException as e:
         # Handle any errors that occur during the request
         print(f"Error fetching 5-day forecast data from Open Weather: {e}")
+
+# function that fetches weather data from OpenWeather API, and compares with Met Eireann 
+# official severe weather warning specifications, to display extreme weather notifications
+def fetch_openweather_extreme():
+    # Fetch the API key from the environment variable name 'API_KEY'
+    api_key = os.environ.get('API_KEY')
+
+    url = "https://api.openweathermap.org/data/2.5/forecast"
+
+    # parametres for the API request
+    params = {
+        "q": "Dublin.ie",
+        "appid": api_key,
+        "units": "metric"
+    }
+    try:
+        # a Get request to the OpenWeather API
+        response = requests.get(url, params=params)
         
-# Create a function to check extreme weather condtions according to Met Eireann warning system, fucntion with for, if, elif and error handling at the bottom
+        # exception for any HTTP errors (4xx or 5xx)
+        response.raise_for_status()
+
+        # Parse the JSON response into a Python dictionary
+        data = response.json()
+
+        # For loop to iterate via weather data to display severe weather warnings in accordance with Met Eireann
+        for forecast in data["list"]:
+            wind_speed = forecast["wind"]["speed"]
+            gust_speed = forecast["wind"].get("gust", 0)
+            rain_3h = forecast.get("rain", {}).get("3",0)
+            temp_min = forecast["main"]["temp_min"]
+            temp_max = forecast["main"]["temp_max"]
+
+            # check for specific extreme weather conditions
+            if wind_speed > 80 or gust_speed > 130:
+                print("temporary print, will be replaced later")
+
+            # check for extreme rain conditions
+            if rain_3h > 50:
+                print("temporary text")
+
+            # check for extreme temperature conditions
+            if temp_min < -10 or temp_max > 30:
+                print("temporary text")
+                
+    except requests.exceptions.RequestsException as e:
+        print(f"Error fetching weather data: {e}")
 
 # Main scheduling task function
 def main():
@@ -101,7 +143,8 @@ def main():
     # Schedule the forecast to run every 10 minutes
     schedule.every(10).minutes.do(fetch_openweather_forecast)
 
-    # schedule for extreme weather function
+    # schedule for extreme weather function to run every 15 minutes
+    schedule.every(15).minutes.do(fetch_openweather_extreme)
 
     # Run the scheduler in an infinite loop
     while True:

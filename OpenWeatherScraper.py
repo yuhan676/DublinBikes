@@ -130,7 +130,7 @@ def fetch_openweather_extreme():
             if temp_min < -10 or temp_max > 30:
                 print("temporary text")
                 
-    except requests.exceptions.RequestsException as e:
+    except requests.RequestsException as e:
         print(f"Error fetching weather data: {e}")
 
 # Main scheduling task function

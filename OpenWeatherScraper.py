@@ -24,7 +24,6 @@ def fetch_openweather_current():
         "units": "metric"  
         # Specify units as metric (for Celsius)
     }
-    
     try:
         # Make a GET request to the OpenWeatherMap API
         response = requests.get(url, params=params)
@@ -69,7 +68,6 @@ def fetch_openweather_forecast():
         "appid": api_key,  
         "units": "metric"  
     }
-    
     try:
         # Make a GET request to the OpenWeather API
         response = requests.get(url, params=params)

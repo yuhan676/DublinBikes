@@ -8,6 +8,8 @@ import time
 import math      
 # import winfo to securely attain key and url
 import winfo
+# import traceback format
+import traceback
 
 def fetch_openweather_current():
     # fetching URL from winfo for security
@@ -52,6 +54,9 @@ def fetch_openweather_current():
     except requests.RequestException as e:
         # Handle any errors that occur during the request
         print(f"Error fetching current weather data from OpenWeatherMap: {e}")
+        # Print the traceback information
+        print(traceback.format_exc())  
+
 
 # Define a function to fetch 5-day weather forecast data from the OpenWeatherMap API
 def fetch_openweather_forecast():
@@ -81,6 +86,8 @@ def fetch_openweather_forecast():
     except requests.RequestException as e:
         # Handle any errors that occur during the request
         print(f"Error fetching 5-day forecast data from Open Weather: {e}")
+        # Print the traceback information
+        print(traceback.format_exc())  
 
 # function that fetches weather data from OpenWeather API, and compares with Met Eireann 
 # official severe weather warning specifications, to display extreme weather notifications
@@ -126,6 +133,8 @@ def fetch_openweather_extreme():
                 
     except requests.RequestsException as e:
         print(f"Error fetching weather data: {e}")
+        # Print the traceback information
+        print(traceback.format_exc())  
 
 # Main scheduling task function
 def main():

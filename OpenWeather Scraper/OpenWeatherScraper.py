@@ -13,7 +13,7 @@ import traceback
 
 def fetch_openweather_current():
     # fetching URL from winfo for security
-    url = winfo.URL
+    url = winfo.URL1
     
     # Parametres for API request
     params = {

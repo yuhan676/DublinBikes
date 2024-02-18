@@ -49,7 +49,7 @@ def fetch_openweather_current():
         
         # Print the fetched weather data
         print("\nOpenWeatherMap Current Weather Data:")
-        print(f"Temperature: {temperature}°C, Feels Like: {feels_like}°C, Min Temp: {min_temp}°C, Max Temp: {max_temp}°C, Description: {description}, Wind Speed: {wind_speed} m/s")
+        print("Temporary text, that will be replaced later")
     
     except requests.RequestException as e:
         # Handle any errors that occur during the request

@@ -1,0 +1,14 @@
+Week 3 secnd meeting
+discussing wireframe
+Time is of essence, have to give up some ideas
+google maps from and where?
+make color schemes for the map
+if the server goes down. 
+discussed with Juyan to encrypt our keys, passwird and username like advised by angus in discord
+.............
+Hi Aonghus, quick question, what's the best practice for using API keys in scripts that we're going to upload to GH? Is it best to store them in a JSON file and then include them in our gitignore file? 
+
+I know obviously for this project it's not that important as the APIs are all free but I'd like to know what the best practice is.
+aonghuslawlor — Yesterday at 12:02 PM
+Ah yes, I should have mentioned that. I think there is an example with a dbinfo.py file in one of the slides. In short- keep the keys, usernames, passwords etc in a file which is never committed to github. Pushing keys to github is a massive vulnerability, eg: https://techcrunch.com/2024/01/26/mercedez-benz-token-exposed-source-code-github/
+TechCrunch

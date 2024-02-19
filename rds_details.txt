@@ -1,0 +1,10 @@
+database name: db-test
+
+3306
+username admin
+
+endpoint: db-test.cfm2usmq8eoy.eu-north-1.rds.amazonaws.com
+
+curl -X GET "https://api.openweathermap.org/data/2.5/weather?q=Dublin&appid=daf15fe5d6b088b90171f21de62933df"
+
+conda script to run data on its prompt

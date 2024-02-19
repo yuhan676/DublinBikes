@@ -1,0 +1,1 @@
+The Subnet ID for your RDS instance is `subnet-017aef3ac0dcd1f54`, which matches the Subnet ID of your EC2 instance. Therefore, both your EC2 instance and RDS instance are in the same subnet (`subnet-017aef3ac0dcd1f54`).

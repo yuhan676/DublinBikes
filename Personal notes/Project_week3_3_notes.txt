@@ -1,0 +1,43 @@
+week 3 third meeting
+15/02/2024
+1. discussed the balsamiq wireframe and a graph in miro
+2. How to setup stands? hourly?
+- hourly bike prediction, from the users point. Predicting travelling from and to work/home.
+- stand available, bike available?!
+- color coded bars for available bikes, e-bike, mechanical etc.
+- looking at google maps graphs as examples.
+- discussing the shape of the graph
+- drop down menu to choose a day for a graph, to see tensity of the bike and/or stand
+3. Discussed using the same base scraper for both bike and station/weather 
+Looked at dublin bike offical website, and chicago bike share website.
+4. Personal to do list!!!
+*************************
+- scraper for open weather. Finish connecting RDS with SQL workspace local instance
+- expand on weather feature on balsamiq
+Weather
+- split weather
+- when clicking on weather it will expand
+-----------------------
+5. discussing sprint review retrospective
+- what could be improved upon as a team, example?
+6. review scrum process after each meeting, miro, minutes, etc
+7. reviwing the AI and discussing app features.
+- layouts, search fields, of bike stands
+- forced an/or optional search of available bike station
+- what user will see? How does it feel to the user?
+- radius of closest bikes to the users location(5 stations, forced?!)
+- no for destionation? Map might appear too cluttered
+- selection highlight!?!? green, red and yellow color code
+- Starting to destination number of bikes. What happens when users try to travel from starting to destination is close to the starting point?
+- Distinction between starting and destination station?!
+- tone of the pin, indicating the occupancy of the bike stand and/or destination and status. Density of the color?!!
+- pins with a letter of S, and D
+- gtouping the weather with bike station. To plan the trip ahead, to consider the weather prediction in relation to the trip plans
+- weather info only available for five days
+- layout of the webpage, interactive design that suits with google mapse
+
+
+
+
+
+

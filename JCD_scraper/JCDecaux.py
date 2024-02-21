@@ -6,14 +6,12 @@ import schedule
 #This prevents the server from being overwhelmed with requests
 import time
 #import url parameters from jcdinfo.py
-from JCD_scraper.jcdinfo import API_KEY, CONTRACT
+from JCD_scraper.jcdinfo import API_KEY, CONTRACT,STATION_URL
 
 #Define a new function to fetch the dynamic data and print it in the console
 def fetch_and_print_dynamic_data():
 
-    #set the url variable to the desired endpoint, this request asks for all of the station information
-    #url is not stored in jcdinfo.py as url may differ per function
-    url = "https://api.jcdecaux.com/vls/v3/stations"
+
     
     params = {
         "contract" : CONTRACT,
@@ -23,7 +21,7 @@ def fetch_and_print_dynamic_data():
     #Use a try block for error handling
     try:
         #use a get request on the url and store the response in the 'response' variable
-        response = requests.get(url, params)
+        response = requests.get(STATION_URL, params)
         #Raises an exception for 4XX/5XX errors
         response.raise_for_status()
         #Parses the JSON response content and converts it into a Python dictionary stored in the variable data

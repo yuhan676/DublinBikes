@@ -7,7 +7,7 @@ import time
 # import math for mathematical operations
 import math      
 # import winfo to securely attain key and url
-import winfo
+from Open_Weather_Scraper.winfo import API_KEY, URL1, URL2
 # import traceback format
 import traceback
 

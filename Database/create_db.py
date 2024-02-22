@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
-from db_config_Yuhan import db_type, username,password,hostname,port,default_db
+from Database.db_config_Yuhan import db_type, username,password,hostname,port,default_db
 
 
 # Create an engine to connect to the default database

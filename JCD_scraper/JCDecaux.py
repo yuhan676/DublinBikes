@@ -6,7 +6,7 @@ import schedule
 #This prevents the server from being overwhelmed with requests
 import time
 #import url parameters from jcdinfo.py
-from JCD_scraper.jcdinfo import API_KEY, CONTRACT,STATION_URL
+from jcdinfo import API_KEY, CONTRACT,STATION_URL
 
 #Define a new function to fetch the dynamic data and print it in the console
 def fetch_and_print_dynamic_data():

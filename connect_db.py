@@ -48,26 +48,51 @@ finally:
 # The try...except...finally structure ensures proper handling of exceptions and cleanup of database connections.
 
 #See following for Table creation prototype
-# sql = """
-# CREATE TABLE IF NOT EXISTS station (
-#     address VARCHAR(256),
-#     banking INTEGER,
-#     bike_stands INTEGER,
-#     bonus INTEGER,
-#     contract_name VARCHAR(256),
-#     name VARCHAR(256),
-#     number INTEGER,
-#     position_lat REAL,
-#     position_lng REAL,  
-#     status VARCHAR(256)
-# )
-# """
+    #Use TINYINT(1) for boolean values in MySQL for banking and bonus
+    #Use REAL instead of FLOAT for lat & long info because REAL has a higher precision
+sql = """
+CREATE TABLE IF NOT EXISTS station (
+    number INT NOT NULL
+    name VARCHAR (120)
+    address VARCHAR(256),
+    banking TINYINT(1), 
+    bonus TINYINT(1),
+    position_lat REAL,
+    position_lng REAL, 
+    PRIMARY KEY (station_number)
+)
+"""
 
-# try:
-#     # First, attempt to drop the table if it exists
-#     res = engine.execute("DROP TABLE IF EXISTS station")
-#     # Now, create the table
-#     res = engine.execute(sql)
-#     print("Table 'station' created successfully")
-# except Exception as e:
-#     print(e)
+try:
+    # First, attempt to drop the table if it exists
+    res = engine.execute("DROP TABLE IF EXISTS station")
+    # Now, create the table
+    res = engine.execute(sql)
+    print("Table 'station' created successfully")
+except Exception as e:
+    print(e)
+
+#Creating dynamic table
+new_table_sql = """
+DROP TABLE IF EXISTS station_status;
+CREATE TABLE station_status (
+    station_number INT NOT NULL,
+    status VARCHAR(256) NOT NULL,
+    last_update DATETIME,
+    empty_stands_number INT,
+    total_bikes INT,
+    mechanical_bikes INT,
+    electrical_internal_battery_bikes INT,
+    electrical_removable_battery_bikes INT,
+    PRIMARY KEY (station_number, last_update),
+    FOREIGN KEY (station_number) REFERENCES station(number)
+    ON DELETE CASCADE
+)
+"""
+
+try:
+    # Execute the SQL command to drop if exists and create the new table with a foreign key reference
+    res = engine.execute(new_table_sql)
+    print("Table 'station_status' dropped (if existed) and created successfully")
+except Exception as e:
+    print(e)

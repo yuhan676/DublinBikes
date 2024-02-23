@@ -1,6 +1,0 @@
-dublin bikes offical website, with main page and clickable map page, that launches to another page
-
-https://www.dublinbikes.ie/en/home
-
-Chicago bike share map 
-https://bikesharemap.com/chicago/#/9.491162369567565/-87.7262/41.9534/

@@ -1,9 +1,0 @@
-<@1154364781185216512> <@690522374277169212> We are trying to all have access to the same EC2 instance. 
-Would it be best If I shared my AWS credentials with them so they can start and stop the instance via AWS? 
-Or is there another way around this?
-........
-The proper way to do this is with Identity Access Management and AWS have extensive support for sharing all kinds of configs and credentials: https://aws.amazon.com/iam/. There is a little overhead to getting this set up- let me know how you get on.
-It is sometimes convenient to start/stop instance from the command line with AWS CLI, and this can work with shared credentials: https://docs.aws.amazon.com/cli/latest/reference/ec2/start-instances.html 
-Amazon Web Services, Inc.
-Access Management- AWS Identity and Access Management (IAM) - AWS
-Access management for AWS services and resources. Manage fine-grained permissions and analyze access to refine permissions

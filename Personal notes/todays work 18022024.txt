@@ -1,3 +1,0 @@
-todays work: 18/02/2024
-Finished scraper and all its functions, including the function checking weather severity according to Met Eireann data
-Created a script to test API connectivity, worked fine

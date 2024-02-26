@@ -55,7 +55,7 @@ def fetch_JCDStatic():
                         'banking': int(data['banking']),
                         'bonus': int(data['bonus'])
                     }
-                    connection.execute(text(sql), **values_to_insert)
+                    connection.execute(text(sql), values_to_insert)
                 
                 transaction.commit()
                 print("JCD Static data inserted successfully")
@@ -66,5 +66,5 @@ def fetch_JCDStatic():
         print(f"Error fetching data: {e}")
     except SQLAlchemyError as e:
         print(f"Database error: {e}")
-        
+
 fetch_JCDStatic()

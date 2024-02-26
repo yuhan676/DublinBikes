@@ -55,7 +55,7 @@ def fetch_JCDStatic():
                     'banking': int(data['banking']),
                     'bonus': int(data['bonus'])
                 }
-                connection.execute(text(sql), **values_to_insert)
+                connection.execute(text(sql), values_to_insert)
             
             print("JCD Static data inserted successfully")
 

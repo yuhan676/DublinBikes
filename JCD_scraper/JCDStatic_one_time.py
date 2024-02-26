@@ -43,26 +43,28 @@ def fetch_JCDStatic():
             bonus = VALUES(bonus);
         """
         with engine.connect() as connection:
-            # Insert each station into the database
-            for data in stations_data: 
-                # Map the data to your table columns
-                values_to_insert = {
-                    'number': data['number'],
-                    'name': data['name'],
-                    'address': data['address'],
-                    'position_lat': data['position']['latitude'],
-                    'position_lng': data['position']['longitude'],
-                    'banking': int(data['banking']),
-                    'bonus': int(data['bonus'])
-                }
-                connection.execute(text(sql), values_to_insert)
-            
-            print("JCD Static data inserted successfully")
-
+            transaction = connection.begin()
+            try:
+                for data in stations_data:
+                    values_to_insert = {
+                        'number': data['number'],
+                        'name': data['name'],
+                        'address': data['address'],
+                        'position_lat': data['position']['latitude'],
+                        'position_lng': data['position']['longitude'],
+                        'banking': int(data['banking']),
+                        'bonus': int(data['bonus'])
+                    }
+                    connection.execute(text(sql), **values_to_insert)
+                
+                transaction.commit()
+                print("JCD Static data inserted successfully")
+            except:
+                transaction.rollback()
+                raise
     except requests.RequestException as e:
         print(f"Error fetching data: {e}")
     except SQLAlchemyError as e:
         print(f"Database error: {e}")
-
-
+        
 fetch_JCDStatic()

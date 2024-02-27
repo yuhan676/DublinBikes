@@ -46,7 +46,7 @@ def fetch_openweather_current():
         description = data["weather"][0]["description"] 
         # Wind speed
         wind_speed = math.floor(data["wind"]["speed"])             
-        
+        timestamp_current = data["dt"]
         # Print the fetched weather data
         print("\nOpenWeatherMap Current Weather Data:")
         print("Temporary text, that will be replaced later")
@@ -82,7 +82,8 @@ def fetch_openweather_forecast():
         # Fetching specific weather data
         min_temp = math.floor(data["list"][0]["main"]["temp_min"])  
         max_temp = math.floor(data["list"][0]["main"]["temp_max"])  
-        
+        timestamp_forecast = data["dt"]
+
     except requests.RequestException as e:
         # Handle any errors that occur during the request
         print(f"Error fetching 5-day forecast data from Open Weather: {e}")
@@ -118,7 +119,7 @@ def fetch_openweather_extreme():
             rain_3h = forecast.get("rain", {}).get("3",0)
             temp_min = forecast["main"]["temp_min"]
             temp_max = forecast["main"]["temp_max"]
-
+            timestamp_extreme = data["dt"]
             # check for specific extreme weather conditions
             if wind_speed > 80 or gust_speed > 130:
                 print("temporary print, will be replaced later")

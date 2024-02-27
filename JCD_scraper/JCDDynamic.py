@@ -1,70 +1,86 @@
 import requests
+import logging
+from requests.exceptions import RequestException
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
 from datetime import datetime
-from jcdinfo import API_KEY, CONTRACT, STATION_STATUS_URL
+from jcdinfo import API_KEY, CONTRACT, STATION_URL
 from db_config import db_type, username, password, hostname, port, db_name
 
-def fetch_JCDStatus():
+# Configure logging for exception handling
+logging.basicConfig(level=logging.ERROR, filename='app.log',
+                    format='%(asctime)s - %(levelname)s - %(message)s')
+
+def fetch_JCDDynamic():
     params = {
         "contract": CONTRACT,
         "apiKey": API_KEY
     }
 
     try:
-        response = requests.get(STATION_STATUS_URL, params=params)
+        response = requests.get(STATION_URL, params=params)
         response.raise_for_status()
-        stations_status_data = response.json()
+        stations_dynamic_data = response.json()
 
         engine = create_engine(f'{db_type}://{username}:{password}@{hostname}:{port}/{db_name}')
+
         sql = """
         INSERT INTO station_status (
-            station_number,
-            status,
-            last_update,
-            empty_stands_number,
-            total_bikes,
-            mechanical_bikes,
-            electrical_internal_battery_bikes,
+            station_number, 
+            status, 
+            last_update, 
+            empty_stands_number, 
+            total_bikes, 
+            mechanical_bikes, 
+            electrical_internal_battery_bikes, 
             electrical_removable_battery_bikes
         ) VALUES (
-            :station_number,
-            :status,
-            :last_update,
-            :empty_stands_number,
-            :total_bikes,
-            :mechanical_bikes,
-            :electrical_internal_battery_bikes,
-            :electrical_removable_battery_bikes
-        ) ON DUPLICATE KEY UPDATE
-            status = VALUES(status),
-            last_update = VALUES(last_update),
-            empty_stands_number = VALUES(empty_stands_number),
-            total_bikes = VALUES(total_bikes),
-            mechanical_bikes = VALUES(mechanical_bikes),
-            electrical_internal_battery_bikes = VALUES(electrical_internal_battery_bikes),
-            electrical_removable_battery_bikes = VALUES(electrical_removable_battery_bikes);
+            :station_number, :status, :last_update, :empty_stands_number, :total_bikes, 
+            :mechanical_bikes, :electrical_internal_battery_bikes, :electrical_removable_battery_bikes
+        );
         """
         with engine.connect() as connection:
-            for data in stations_status_data:
-                values_to_insert = {
-                    'station_number': data['number'],
-                    'status': data['status'],
-                    'last_update': datetime.fromtimestamp(data['last_update'] / 1e3),
-                    'empty_stands_number': data['available_bike_stands'],
-                    'total_bikes': data['available_bikes'],
-                    'mechanical_bikes': data.get('available_mechanical_bikes', 0),  # Assuming these keys exist
-                    'electrical_internal_battery_bikes': data.get('available_electrical_internal_battery_bikes', 0),
-                    'electrical_removable_battery_bikes': data.get('available_electrical_removable_battery_bikes', 0)
-                }
-                connection.execute(text(sql), values_to_insert)
+            transaction = connection.begin()
+            try:
+                for data in stations_dynamic_data:
+                    # Parse the lastUpdate field into a datetime object
+                    last_update = datetime.strptime(data['lastUpdate'], '%Y-%m-%dT%H:%M:%SZ')
+                    # Format the datetime object into a string that matches MySQL's datetime format
+                    formatted_last_update = last_update.strftime('%Y-%m-%d %H:%M:%S')
 
-        print("JCD Status data inserted successfully")
+                    availabilities = data['totalStands']['availabilities']
+                    values_to_insert = {
+                        'station_number': data['number'],
+                        'status': data['status'],
+                        'last_update': formatted_last_update,  # Use formatted_last_update here
+                        'empty_stands_number': availabilities['stands'],
+                        'total_bikes': availabilities['bikes'],
+                        'mechanical_bikes': availabilities['mechanicalBikes'],
+                        'electrical_internal_battery_bikes': availabilities['electricalInternalBatteryBikes'],
+                        'electrical_removable_battery_bikes': availabilities['electricalRemovableBatteryBikes']
+                    }
+                    connection.execute(text(sql), **values_to_insert)
 
-    except requests.RequestException as e:
-        print(f"Error fetching data: {e}")
+                transaction.commit()
+                print("Station status data inserted successfully")
+            except:
+                transaction.rollback()
+                raise
+    except RequestException as e:
+        logging.error(f"Error fetching data from API: {e}")
+        print("There was an issue fetching data from the API. Please check the logs for more details.")
     except SQLAlchemyError as e:
-        print(f"Database error: {e}")
+        logging.error(f"Database operation failed: {e}")
+        print("A database error occurred. Please check the logs for more details.")
+    except Exception as e:
+        logging.error(f"An unexpected error occurred: {e}")
+        print("An unexpected error occurred. Please contact the system administrator.")
+    finally:
+        # We're using a context manager (with engine.connect() as connection for database operations, 
+        # which automatically takes care of closing the connection once the block is exited,
+        # even if exceptions occur. This means there is no explicit cleanup required for the database
+        # connection in the finally block. 
+        logging.info("Cleanup completed. Exiting script.")
+        pass
 
-# Schedule this to run every 5 minutes using crontab
-fetch_JCDStatus()
+fetch_JCDDynamic()

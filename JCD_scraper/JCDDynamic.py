@@ -60,7 +60,7 @@ def fetch_JCDDynamic():
                         'electrical_internal_battery_bikes': availabilities['electricalInternalBatteryBikes'],
                         'electrical_removable_battery_bikes': availabilities['electricalRemovableBatteryBikes']
                     }
-                    connection.execute(text(sql), **values_to_insert)
+                    connection.execute(text(sql), values_to_insert)
 
                 transaction.commit()
                 print("Station status data inserted successfully")

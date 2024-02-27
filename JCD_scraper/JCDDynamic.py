@@ -1,5 +1,6 @@
 import requests
 import logging
+import traceback
 from requests.exceptions import RequestException
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
@@ -8,7 +9,7 @@ from jcdinfo import API_KEY, CONTRACT, STATION_URL
 from db_config import db_type, username, password, hostname, port, db_name
 
 # Configure logging for exception handling
-logging.basicConfig(level=logging.ERROR, filename='app.log',
+logging.basicConfig(level=logging.ERROR, filename='JCD_error.log',
                     format='%(asctime)s - %(levelname)s - %(message)s')
 
 def fetch_JCDDynamic():
@@ -74,7 +75,8 @@ def fetch_JCDDynamic():
         print("A database error occurred. Please check the logs for more details.")
     except Exception as e:
         logging.error(f"An unexpected error occurred: {e}")
-        print("An unexpected error occurred. Please contact the system administrator.")
+        traceback.print_exc()  # This will log the full traceback
+        print("An unexpected error occurred. Check the JCD_error.log file")
     finally:
         # We're using a context manager (with engine.connect() as connection for database operations, 
         # which automatically takes care of closing the connection once the block is exited,

@@ -69,10 +69,10 @@ def fetch_JCDDynamic():
                 raise
     except RequestException as e:
         logging.error(f"Error fetching data from API: {e}")
-        print("There was an issue fetching data from the API. Please check the logs for more details.")
+        print("There was an issue fetching data from the API. Please check the JCD_error.log for more details.")
     except SQLAlchemyError as e:
         logging.error(f"Database operation failed: {e}")
-        print("A database error occurred. Please check the logs for more details.")
+        print("A database error occurred. Please check the JCD_error.log for more details.")
     except Exception as e:
         logging.error(f"An unexpected error occurred: {e}")
         traceback.print_exc()  # This will log the full traceback

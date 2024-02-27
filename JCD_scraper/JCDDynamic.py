@@ -12,19 +12,23 @@ from db_config import db_type, username, password, hostname, port, db_name
 logging.basicConfig(level=logging.ERROR, filename='JCD_error.log',
                     format='%(asctime)s - %(levelname)s - %(message)s')
 
+#function for teching JCD dynamic data
 def fetch_JCDDynamic():
+    #JCD API parameters
     params = {
         "contract": CONTRACT,
         "apiKey": API_KEY
     }
-
+    
     try:
+        #get the JCD data, parse it with .json()
         response = requests.get(STATION_URL, params=params)
         response.raise_for_status()
         stations_dynamic_data = response.json()
-
+        
+        #connect to db using the db_config
         engine = create_engine(f'{db_type}://{username}:{password}@{hostname}:{port}/{db_name}')
-
+        #SQL command for inserting the dynamic station data into the station_status table
         sql = """
         INSERT INTO station_status (
             station_number, 
@@ -41,8 +45,10 @@ def fetch_JCDDynamic():
         );
         """
         with engine.connect() as connection:
+            #start the transection session
             transaction = connection.begin()
             try:
+                #for data we get from the api:
                 for data in stations_dynamic_data:
                     # Parse the lastUpdate field into a datetime object
                     last_update = datetime.strptime(data['lastUpdate'], '%Y-%m-%dT%H:%M:%SZ')
@@ -61,7 +67,7 @@ def fetch_JCDDynamic():
                         'electrical_removable_battery_bikes': availabilities['electricalRemovableBatteryBikes']
                     }
                     connection.execute(text(sql), values_to_insert)
-
+                #commit the transaction session
                 transaction.commit()
                 print("Station status data inserted successfully")
             except:

@@ -13,14 +13,14 @@ import traceback
 
 def fetch_openweather_current():
     # fetching URL from winfo for security
-    url = winfo.URL1
+    url = URL1
     
     # Parametres for API request
     params = {
         # City and country code for Dublin, Ireland
         "q": "Dublin.ie", 
         # API key for accessing the OpenWeatherMap API
-        "appid": winfo.API_KEY,  
+        "appid": API_KEY,  
         # Specify units as metric (for Celsius)
         "units": "metric"  
     }
@@ -61,12 +61,12 @@ def fetch_openweather_current():
 # Define a function to fetch 5-day weather forecast data from the OpenWeatherMap API
 def fetch_openweather_forecast():
     # fetching url from winfo for security
-    url = winfo.URL2
+    url = URL2
     
     # Define the parameters for the API request; city, accessing api key from winfo, and units specified as metric to display Celsius
     params = {
         "q": "Dublin.ie",  
-        "appid": winfo.API_KEY,  
+        "appid": API_KEY,  
         "units": "metric"  
     }
     try:
@@ -94,12 +94,12 @@ def fetch_openweather_forecast():
 # official severe weather warning specifications, to display extreme weather notifications
 def fetch_openweather_extreme():
     # Fetch the URL from winfo 
-    url = winfo.URL2
+    url = URL2
 
     # parametres for the API request
     params = {
         "q": "Dublin.ie",
-        "appid": winfo.API_KEY,
+        "appid": API_KEY,
         "units": "metric"
     }
     try:

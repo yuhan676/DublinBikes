@@ -91,4 +91,9 @@ def fetch_JCDDynamic():
         logging.info("Cleanup completed. Exiting script.")
         pass
 
-fetch_JCDDynamic()
+
+def main():
+    fetch_JCDDynamic()
+
+if __name__ == "__main__":
+    main()

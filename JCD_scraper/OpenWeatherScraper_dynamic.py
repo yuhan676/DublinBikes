@@ -184,8 +184,6 @@ def main():
     try:
         engine = create_engine(f'{db_type}://{username}:{password}@{hostname}:{port}/{db_name}')
 
-        create_tables(engine)
-
         insert_current_weather()
         insert_extreme_weather()
         insert_five_day_prediction()

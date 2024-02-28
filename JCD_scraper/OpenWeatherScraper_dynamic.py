@@ -101,16 +101,23 @@ def insert_extreme_weather():
             with engine.connect() as connection:
                 transaction = connection.begin()
                 try:
-                    
-                    values_to_insert = {
-                        'time_update': datetime.datetime.utcfromtimestamp(weather_data['dt']).strftime('%Y-%m-%d %H:%M:%S'),
-                        'temp_min': weather_data['main']['temp_min'],
-                        'temp_max': weather_data['main']['temp_max'],
-                        'wind_speed': weather_data['wind']['speed'],
-                        'gust_speed': weather_data.get('wind', {}).get('gust', 0),
-                        'rain_3h': weather_data.get('rain', {}).get('3h', 0)
-                    }
-                    connection.execute(text(sql), values_to_insert)
+                    for item in weather_data['list']:
+                        time_update = datetime.datetime.utcfromtimestamp(item['dt']).strftime('%Y-%m-%d %H:%M:%S')
+                        temp_min = item['main']['temp_min']
+                        temp_max = item['main']['temp_max']
+                        wind_speed = item['wind']['speed']
+                        gust_speed = item.get('wind', {}).get('gust', 0)
+                        rain_3h = item.get('rain', {}).get('3h', 0)
+
+                        values_to_insert = {
+                            'time_update': time_update,
+                            'temp_min': temp_min,
+                            'temp_max': temp_max,
+                            'wind_speed': wind_speed,
+                            'gust_speed': gust_speed,
+                            'rain_3h': rain_3h
+                        }
+                        connection.execute(text(sql), values_to_insert)
                     
                     transaction.commit()
                     print("Extreme Weather data inserted successfully")

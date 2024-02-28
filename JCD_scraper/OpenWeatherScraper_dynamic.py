@@ -48,14 +48,18 @@ def insert_current_weather():
             transaction = connection.begin()
             try:
                 for data in weather_data:
+                    time_update = datetime.datetime.utcfromtimestamp(data['dt'])
+                    formatted_time_update = time_update.strftime('%Y-%m-%d %H:%M:%S')
+
                     values_to_insert = {
-                        'time_update': datetime.datetime.utcfromtimestamp(data['dt']).strftime('%Y-%m-%d %H:%M:%S'),
+                        'time_update': formatted_time_update,
                         'feels_like': data['feels_like'],
                         'temperature_min': data['main']['temp_min'],
                         'temperature_max': data['main']['temp_max'],
                         'weather_description': data['weather'][0]['description'],
                         'wind_speed': data['wind']['speed'],
                         'wind_gust': data.get('wind_gust', 0)
+                        # ... add the rest of your data fields here
                     }
                     connection.execute(text(sql), values_to_insert)
                 

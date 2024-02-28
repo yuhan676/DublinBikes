@@ -97,26 +97,28 @@ def insert_extreme_weather():
             :rain_3h
         ) 
         """
-
-        with engine.connect() as connection:
-            transaction = connection.begin()
-            try:
-                
-                values_to_insert = {
-                    'time_update': datetime.datetime.utcfromtimestamp(weather_data['dt']).strftime('%Y-%m-%d %H:%M:%S'),
-                    'temp_min': weather_data['main']['temp_min'],
-                    'temp_max': weather_data['main']['temp_max'],
-                    'wind_speed': weather_data['wind']['speed'],
-                    'gust_speed': weather_data.get('wind', {}).get('gust', 0),
-                    'rain_3h': weather_data.get('rain', {}).get('3h', 0)
-                }
-                connection.execute(text(sql), values_to_insert)
-                
-                transaction.commit()
-                print("Extreme Weather data inserted successfully")
-            except:
-                transaction.rollback()
-                raise
+        if 'list' in weather_data and isinstance(weather_data['list'], list):
+            with engine.connect() as connection:
+                transaction = connection.begin()
+                try:
+                    
+                    values_to_insert = {
+                        'time_update': datetime.datetime.utcfromtimestamp(weather_data['dt']).strftime('%Y-%m-%d %H:%M:%S'),
+                        'temp_min': weather_data['main']['temp_min'],
+                        'temp_max': weather_data['main']['temp_max'],
+                        'wind_speed': weather_data['wind']['speed'],
+                        'gust_speed': weather_data.get('wind', {}).get('gust', 0),
+                        'rain_3h': weather_data.get('rain', {}).get('3h', 0)
+                    }
+                    connection.execute(text(sql), values_to_insert)
+                    
+                    transaction.commit()
+                    print("Extreme Weather data inserted successfully")
+                except:
+                    transaction.rollback()
+                    raise
+        else:
+            print("Unexpected JSON structure")
     except requests.RequestException as e:
         print(f"Error fetching Extreme Weather  data: {e}")
     except SQLAlchemyError as e:

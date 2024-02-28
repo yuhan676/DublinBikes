@@ -5,6 +5,8 @@ from sqlalchemy.exc import SQLAlchemyError
 from db_config import db_type, username, password, hostname, port, db_name
 import traceback
 import datetime
+# import winfo to securely attain key and url
+from winfo import API_KEY, URL1, URL2
 
 engine = create_engine(f'{db_type}://{username}:{password}@{hostname}:{port}/{db_name}')
 

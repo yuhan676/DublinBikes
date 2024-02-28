@@ -17,6 +17,8 @@ def insert_current_weather():
         response = requests.get(URL1, params)
         response.raise_for_status()
         weather_data = response.json()
+        print(type(weather_data))
+        print(weather_data)
         # Create an engine to connect to the default database
         sql = """
         INSERT INTO CurrentWeather (

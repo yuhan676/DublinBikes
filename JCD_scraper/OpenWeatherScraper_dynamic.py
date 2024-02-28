@@ -17,8 +17,7 @@ def insert_current_weather():
         response = requests.get(URL1, params)
         response.raise_for_status()
         weather_data = response.json()
-        print(type(weather_data))
-        print(weather_data)
+    
         # Create an engine to connect to the default database
         sql = """
         INSERT INTO CurrentWeather (
@@ -102,16 +101,16 @@ def insert_extreme_weather():
         with engine.connect() as connection:
             transaction = connection.begin()
             try:
-                for data in weather_data:
-                    values_to_insert = {
-                        'time_update': datetime.datetime.utcfromtimestamp(data['dt']).strftime('%Y-%m-%d %H:%M:%S'),
-                        'temp_min': data['main']['temp_min'],
-                        'temp_max': data['main']['temp_max'],
-                        'wind_speed': data['wind']['speed'],
-                        'gust_speed': data.get('wind', {}).get('gust', 0),
-                        'rain_3h': data.get('rain', {}).get('3h', 0)
-                    }
-                    connection.execute(text(sql), values_to_insert)
+                
+                values_to_insert = {
+                    'time_update': datetime.datetime.utcfromtimestamp(weather_data['dt']).strftime('%Y-%m-%d %H:%M:%S'),
+                    'temp_min': weather_data['main']['temp_min'],
+                    'temp_max': weather_data['main']['temp_max'],
+                    'wind_speed': weather_data['wind']['speed'],
+                    'gust_speed': weather_data.get('wind', {}).get('gust', 0),
+                    'rain_3h': weather_data.get('rain', {}).get('3h', 0)
+                }
+                connection.execute(text(sql), values_to_insert)
                 
                 transaction.commit()
                 print("Extreme Weather data inserted successfully")
@@ -153,16 +152,16 @@ def insert_five_day_prediction():
         with engine.connect() as connection:
             transaction = connection.begin()
             try:
-                for data in weather_data['list']:
-                    values_to_insert = {
-                        'time_update': datetime.datetime.utcfromtimestamp(data['dt']).strftime('%Y-%m-%d %H:%M:%S'),
-                        'temp_min': data['main']['temp_min'],
-                        'temp_max': data['main']['temp_max'],
-                        'wind_speed': data['wind']['speed'],
-                        'gust': data.get('wind', {}).get('gust', 0),
-                        'rain_3h': data.get('rain', {}).get('3h', 0)
-                    }
-                    connection.execute(text(sql), values_to_insert)
+                
+                values_to_insert = {
+                    'time_update': datetime.datetime.utcfromtimestamp(weather_data['dt']).strftime('%Y-%m-%d %H:%M:%S'),
+                    'temp_min': weather_data['main']['temp_min'],
+                    'temp_max': weather_data['main']['temp_max'],
+                    'wind_speed': weather_data['wind']['speed'],
+                    'gust': weather_data.get('wind', {}).get('gust', 0),
+                    'rain_3h': weather_data.get('rain', {}).get('3h', 0)
+                }
+                connection.execute(text(sql), values_to_insert)
                 
                 transaction.commit()
                 print("Five Day Prediction data inserted successfully")

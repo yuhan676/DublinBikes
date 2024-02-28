@@ -10,7 +10,7 @@ from winfo import API_KEY, URL1, URL2
 
 
 # function that inserts values to current weather table
-def print_current_weather():
+def print_forecast():
     try:
         params = {'appid': API_KEY}
         response = requests.get(URL2, params)
@@ -26,4 +26,4 @@ def print_current_weather():
     except requests.RequestException as e:
         print(f"Error fetching CurrentWeather data: {e}")
     
-print_current_weather()
+print_forecast()

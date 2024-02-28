@@ -10,9 +10,6 @@ from winfo import API_KEY, URL1, URL2
 
 engine = create_engine(f'{db_type}://{username}:{password}@{hostname}:{port}/{db_name}')
 
-API_KEY = "daf15fe5d6b088b90171f21de62933df"
-URL1 = "https://api.openweathermap.org/data/2.5/weather"
-URL2 = "https://api.openweathermap.org/data/2.5/forecast"
 # function that inserts values to current weather table
 def insert_current_weather():
     try:

@@ -11,8 +11,8 @@ engine = create_engine(f'{db_type}://{username}:{password}@{hostname}:{port}/{db
 # function that inserts values to current weather table
 def insert_current_weather():
     try:
-        params = {'appid': API_KEY}
-        response = requests.get(URL1, params)
+        params = {'appid': winfo.API_KEY}
+        response = requests.get(winfo.URL1, params)
         response.raise_for_status()
         weather_data = response.json()
         # Create an engine to connect to the default database
@@ -71,8 +71,8 @@ def insert_current_weather():
 # function that inserts values to extreme weather table
 def insert_extreme_weather():
     try:
-        params = {'appid': API_KEY}
-        response = requests.get(URL2, params)
+        params = {'appid': winfo.API_KEY}
+        response = requests.get(winfo.URL2, params)
         response.raise_for_status()
         weather_data = response.json()
 
@@ -127,8 +127,8 @@ def insert_extreme_weather():
 # function that inserts values to five day prediction table
 def insert_five_day_prediction():
     try:
-        params = {'appid': API_KEY}
-        response = requests.get(URL2, params)
+        params = {'appid': winfo.API_KEY}
+        response = requests.get(winfo.URL2, params)
         response.raise_for_status()
         weather_data = response.json()
 

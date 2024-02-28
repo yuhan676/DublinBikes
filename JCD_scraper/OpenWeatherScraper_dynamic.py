@@ -35,33 +35,30 @@ def insert_current_weather():
             :weather_description,
             :wind_speed,
             :wind_gust
-        ) ON DUPLICATE KEY UPDATE
-            feels_like = VALUES(feels_like),
-            temperature_min = VALUES(temperature_min),
-            temperature_max = VALUES(temperature_max),
-            weather_description = VALUES(weather_description),
-            wind_speed = VALUES(wind_speed),
-            wind_gust = VALUES(wind_gust)
+        ) 
         """
 
         with engine.connect() as connection:
             transaction = connection.begin()
             try:
-                for data in weather_data:
-                    time_update = datetime.datetime.utcfromtimestamp(data['dt'])
-                    formatted_time_update = time_update.strftime('%Y-%m-%d %H:%M:%S')
+                time_update = datetime.datetime.utcfromtimestamp(weather_data['dt']).strftime('%Y-%m-%d %H:%M:%S')
+                feels_like = weather_data['main']['feels_like']
+                temp_min = weather_data['main']['temp_min']
+                temp_max = weather_data['main']['temp_max']
+                weather_description = weather_data['weather'][0]['description']
+                wind_speed = weather_data['wind']['speed']
+                wind_gust = weather_data['wind'].get('gust', 0)
 
-                    values_to_insert = {
-                        'time_update': formatted_time_update,
-                        'feels_like': data['feels_like'],
-                        'temperature_min': data['main']['temp_min'],
-                        'temperature_max': data['main']['temp_max'],
-                        'weather_description': data['weather'][0]['description'],
-                        'wind_speed': data['wind']['speed'],
-                        'wind_gust': data.get('wind_gust', 0)
-                        # ... add the rest of your data fields here
-                    }
-                    connection.execute(text(sql), values_to_insert)
+                values_to_insert = {
+                    'time_update': time_update,
+                    'feels_like': feels_like,
+                    'temperature_min': temp_min,
+                    'temperature_max': temp_max,
+                    'weather_description': weather_description,
+                    'wind_speed': wind_speed,
+                    'wind_gust': wind_gust
+                }
+                connection.execute(text(sql), values_to_insert)
                 
                 transaction.commit()
                 print("Current Weather data inserted successfully")
@@ -97,12 +94,7 @@ def insert_extreme_weather():
             :wind_speed,
             :gust_speed,
             :rain_3h
-        ) ON DUPLICATE KEY UPDATE
-            temp_min = VALUES(temp_min),
-            temp_max = VALUES(temp_max),
-            wind_speed = VALUES(wind_speed),
-            gust_speed = VALUES(gust_speed),
-            rain_3h = VALUES(rain_3h)
+        ) 
         """
 
         with engine.connect() as connection:
@@ -153,12 +145,7 @@ def insert_five_day_prediction():
             :wind_speed,
             :gust,
             :rain_3h
-        ) ON DUPLICATE KEY UPDATE
-            temp_min = VALUES(temp_min),
-            temp_max = VALUES(temp_max),
-            wind_speed = VALUES(wind_speed),
-            gust = VALUES(gust),
-            rain_3h = VALUES(rain_3h)
+        ) 
         """
 
         with engine.connect() as connection:

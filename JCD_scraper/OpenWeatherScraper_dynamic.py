@@ -6,6 +6,8 @@ from db_config import db_type, username, password, hostname, port, db_name
 import traceback
 import datetime
 
+engine = create_engine(f'{db_type}://{username}:{password}@{hostname}:{port}/{db_name}')
+
 # function that inserts values to current weather table
 def insert_current_weather():
     try:
@@ -182,8 +184,7 @@ def insert_five_day_prediction():
 # Run the main function, when the script is executed
 def main():
     try:
-        engine = create_engine(f'{db_type}://{username}:{password}@{hostname}:{port}/{db_name}')
-
+        
         insert_current_weather()
         insert_extreme_weather()
         insert_five_day_prediction()

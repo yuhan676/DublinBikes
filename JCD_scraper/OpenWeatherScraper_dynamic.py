@@ -158,25 +158,35 @@ def insert_five_day_prediction():
         ) 
         """
 
-        with engine.connect() as connection:
-            transaction = connection.begin()
-            try:
-                
-                values_to_insert = {
-                    'time_update': datetime.datetime.utcfromtimestamp(weather_data['dt']).strftime('%Y-%m-%d %H:%M:%S'),
-                    'temp_min': weather_data['main']['temp_min'],
-                    'temp_max': weather_data['main']['temp_max'],
-                    'wind_speed': weather_data['wind']['speed'],
-                    'gust': weather_data.get('wind', {}).get('gust', 0),
-                    'rain_3h': weather_data.get('rain', {}).get('3h', 0)
-                }
-                connection.execute(text(sql), values_to_insert)
-                
-                transaction.commit()
-                print("Five Day Prediction data inserted successfully")
-            except:
-                transaction.rollback()
-                raise
+        if 'list' in weather_data and isinstance(weather_data['list'], list):
+            with engine.connect() as connection:
+                transaction = connection.begin()
+                try:
+                    for item in weather_data['list']:
+                        time_update = datetime.datetime.utcfromtimestamp(item['dt']).strftime('%Y-%m-%d %H:%M:%S')
+                        temp_min = item['main']['temp_min']
+                        temp_max = item['main']['temp_max']
+                        wind_speed = item['wind']['speed']
+                        gust = item.get('wind', {}).get('gust', 0)
+                        rain_3h = item.get('rain', {}).get('3h', 0)
+
+                        values_to_insert = {
+                            'time_update': time_update,
+                            'temp_min': temp_min,
+                            'temp_max': temp_max,
+                            'wind_speed': wind_speed,
+                            'gust': gust,
+                            'rain_3h': rain_3h
+                        }
+                        connection.execute(text(sql), values_to_insert)
+                    
+                    transaction.commit()
+                    print("Five Day Prediction data inserted successfully")
+                except:
+                    transaction.rollback()
+                    raise
+        else:
+            print("Unexpected JSON structure")
     except requests.RequestException as e:
         print(f"Error fetching Five Day Prediction: {e}")
     except SQLAlchemyError as e:

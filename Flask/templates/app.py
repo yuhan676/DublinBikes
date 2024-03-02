@@ -11,7 +11,7 @@ app.config.from_object('config')
 @app.route('/')
 def hello_world():
     # debug page to confirm does the flask app fucntion
-    # return 'Hello world!'
+    return 'Hello world!'
     pass
 
 @app.route('/about')

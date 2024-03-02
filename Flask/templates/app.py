@@ -4,7 +4,9 @@ import sqlalchemy
 import pandas as pd
 import datetime as dt
 
-# app.config.from_object('config')
+# create flask app, static files for static directory
+app = Flask(__name__, static_url_patj='')
+app.config.from_object('config')
 
 @app.route('/')
 def hello_world():
@@ -15,8 +17,9 @@ def hello_world():
 @app.route('/about')
 def about():
     # an about page
-    return render_template('about.html', MAPS_APIKEY=app.config["MAPS_APIKEY"])
-    pass
+    # google maps key below
+    # render template is a flask function to call html document
+    return render_template("index.html", GMAPS_APIKEY='AIzaSyBfrNOzVJuGJnSUSCtzH6T32OZLNOWJ9_M')
 
 @app.route('/home')
 @app.route('/index')
@@ -41,6 +44,10 @@ def user():
 # this will be connected to db
 @app.route('/station/<int:station_id>')
 def station(station_id):
+    # create engine, look up from other code
+    # print('calling stations')
+    # engine = get_engine()
+    # df = pd.read_sql_table("station", engine)
     # conn = get_db()
     # https://docs.python.org/2/library/sqlite3.html#sqlite3.Row
     # returns the json station data
@@ -89,6 +96,7 @@ def weekly_station_availability():
 
 @app.teardown_appcontext
 def close_connection(exception):
+    # exception handling for db connection failure
     db = getattr(g, '_database', None)
     if db is not None:
         db.close()

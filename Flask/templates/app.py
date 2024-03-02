@@ -61,10 +61,11 @@ def current_weather():
     # returns json and weather icon
     pass
 
-@app.route('/weather_forecast')
-def weather_forecast():
+@app.route('/five_day_weather_forecast')
+def five_day_weather_forecast():
     # function that returns weather forecast
     # returns json weather forecast
+    # result=five_day_weather_forecast(host=myhost,user=myuser,password=mypassword,port=myport,db=mydb)
     pass
 
 @app.route('/extreme_weather')
@@ -73,9 +74,13 @@ def extreme_weather():
     # returns a notification of severe weather
     pass
 
-@app.route('/station_availability_forecast')
-def station_availability_forecast():
-    # returns station availability forecast
+@app.route('/hourly_station_availability')
+def hourly_station_availability():
+    # returns hourly station availability
+
+@app.route('/weekly_station_availability')
+def weekly_station_availability():
+    # returns weekly station availability
     pass
 
 # multiple functions with variations of return data

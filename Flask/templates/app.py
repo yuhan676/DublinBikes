@@ -81,6 +81,13 @@ def station_availability_forecast():
 # multiple functions with variations of return data
 # have to decide what station data will be displayed
 
+@app.teardown_appcontext
+def close_connection(exception):
+    db = getattr(g, '_database', None)
+    if db is not None:
+        db.close()
+    pass
+
 @app.route()
 def __main__():
     if __name__ == '__main__':

@@ -19,7 +19,8 @@ def about():
     # an about page
     # google maps key below
     # render template is a flask function to call html document
-    return render_template("index.html", GMAPS_APIKEY='AIzaSyBfrNOzVJuGJnSUSCtzH6T32OZLNOWJ9_M')
+    return render_template("index.html")
+    # GMAPS_APIKEY='AIzaSyBfrNOzVJuGJnSUSCtzH6T32OZLNOWJ9_M')
 
 @app.route('/home')
 @app.route('/index')

@@ -1,4 +1,6 @@
 import requests
+import logging
+from requests.exceptions import RequestException
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
 # from winfo import API_KEY, URL1, URL2
@@ -7,6 +9,10 @@ import traceback
 import datetime
 # import winfo to securely attain key and url
 from winfo import API_KEY, URL1, URL2
+
+# Configure logging for exception handling
+logging.basicConfig(level=logging.ERROR, filename='OW_error.log',
+                    format='%(asctime)s - %(levelname)s - %(message)s')
 
 engine = create_engine(f'{db_type}://{username}:{password}@{hostname}:{port}/{db_name}')
 
@@ -201,10 +207,23 @@ def main():
         insert_current_weather()
         insert_extreme_weather()
         insert_five_day_prediction()
+    except RequestException as e:
+        logging.error(f"Error fetching data from API: {e}")
+        print("There was an issue fetching data from the API. Please check the OW_error.log for more details.")
     except SQLAlchemyError as e:
-        print(f"Database error: {e}")
-        # using traceback for additional information about the stack trace, which can be helpful for debugging and understanding the context of the error.
-        print(traceback.format_exc())
+        logging.error(f"Database operation failed: {e}")
+        print("A database error occurred. Please check the OW_error.log for more details.")
+    except Exception as e:
+        logging.error(f"An unexpected error occurred: {e}")
+        traceback.print_exc()  # This will log the full traceback
+        print("An unexpected error occurred. Check the OW_error.log file")
+    finally:
+        # We're using a context manager (with engine.connect() as connection for database operations, 
+        # which automatically takes care of closing the connection once the block is exited,
+        # even if exceptions occur. This means there is no explicit cleanup required for the database
+        # connection in the finally block. 
+        logging.info("Cleanup completed. Exiting script.")
+        pass
 
 if __name__ == "__main__":
     main()

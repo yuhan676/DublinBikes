@@ -103,8 +103,8 @@ def close_connection(exception):
         db.close()
     pass
 
-# if __name__ == '__main__':
-    # app.run(debug=True, host="0.0.0.0", port=5000)
+if __name__ == '__main__':
+    app.run(debug=True, host="0.0.0.0", port=5000)
 # create a test function to test the functionality of the web page and various queries
 # app.run(debug=True)
 

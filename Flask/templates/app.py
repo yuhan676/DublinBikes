@@ -61,28 +61,21 @@ def current_weather():
     # returns json and weather icon
     pass
 
-app.route('/weather_forecast')
+@app.route('/weather_forecast')
 def weather_forecast():
     # function that returns weather forecast
     # returns json weather forecast
     pass
 
-app.route('/extreme_weather')
+@app.route('/extreme_weather')
 def extreme_weather():
     # function that returns extreme weather forecast
     # returns a notification of severe weather
     pass
 
-app.route('/station_availability_forecast')
+@app.route('/station_availability_forecast')
 def station_availability_forecast():
     # returns station availability forecast
-    pass
-
-app.teardown_appcontext
-def close_connection(exception):
-    db = getattr(g, '_database', None)
-    if db is not None:
-        db.close()
     pass
 
 # multiple functions with variations of return data

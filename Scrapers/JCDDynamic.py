@@ -42,8 +42,14 @@ def fetch_JCDDynamic():
         ) VALUES (
             :station_number, :status, :last_update, :empty_stands_number, :total_bikes, 
             :mechanical_bikes, :electrical_internal_battery_bikes, :electrical_removable_battery_bikes
-        );
-        """
+        )ON DUPLICATE KEY UPDATE
+            status = VALUES(status),
+            empty_stands_number = VALUES(empty_stands_number),
+            total_bikes = VALUES(total_bikes),
+            mechanical_bikes = VALUES(mechanical_bikes),
+            electrical_internal_battery_bikes = VALUES(electrical_internal_battery_bikes),
+            electrical_removable_battery_bikes = VALUES(electrical_removable_battery_bikes);
+            """
         with engine.connect() as connection:
             #start the transection session
             transaction = connection.begin()

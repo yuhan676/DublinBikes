@@ -1,5 +1,6 @@
 from flask import Flask, render_template 
 # import also files, jsonify etc
+import sqlalchemy 
 import pandas as pd
 import datetime as dt
 
@@ -14,7 +15,7 @@ def hello_world():
 @app.route('/about')
 def about():
     # an about page
-    # return render_template('about.html', MAPS_APIKEY=app.config["MAPS_APIKEY"])
+    return render_template('about.html', MAPS_APIKEY=app.config["MAPS_APIKEY"])
     pass
 
 @app.route('/home')

@@ -5,7 +5,7 @@ import pandas as pd
 import datetime as dt
 
 # create flask app, static files for static directory
-app = Flask(__name__, static_url_patj='')
+app = Flask(__name__, static_url_path='')
 app.config.from_object('config')
 
 @app.route('/')
@@ -85,6 +85,7 @@ def extreme_weather():
 @app.route('/hourly_station_availability')
 def hourly_station_availability():
     # returns hourly station availability
+    pass
 
 @app.route('/weekly_station_availability')
 def weekly_station_availability():
@@ -102,10 +103,8 @@ def close_connection(exception):
         db.close()
     pass
 
-@app.route()
-def __main__():
-    if __name__ == '__main__':
-        app.run(debug=True, host="0.0.0.0", port=5000)
+# if __name__ == '__main__':
+    # app.run(debug=True, host="0.0.0.0", port=5000)
 # create a test function to test the functionality of the web page and various queries
 # app.run(debug=True)
 

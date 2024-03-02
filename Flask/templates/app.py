@@ -98,9 +98,9 @@ def weekly_station_availability():
 @app.teardown_appcontext
 def close_connection(exception):
     # exception handling for db connection failure
-    db = getattr(g, '_database', None)
-    if db is not None:
-        db.close()
+    # db = getattr(g, '_database', None)
+    # if db is not None:
+        # db.close()
     pass
 
 if __name__ == '__main__':

@@ -42,7 +42,13 @@ def insert_current_weather():
             :weather_description,
             :wind_speed,
             :wind_gust
-        ) 
+        ) ON DUPLICATE KEY UPDATE
+            feels_like = VALUES(feels_like),
+            temperature_min = VALUES(temperature_min),
+            temperature_max = VALUES(temperature_max),
+            weather_description = VALUES(weather_description),
+            wind_speed = VALUES(wind_speed),
+            wind_gust = VALUES(wind_gust)
         """
 
         with engine.connect() as connection:
@@ -101,7 +107,12 @@ def insert_extreme_weather():
             :wind_speed,
             :gust_speed,
             :rain_3h
-        ) 
+        ) ON DUPLICATE KEY UPDATE
+            temp_min = VALUES(temp_min),
+            temp_max = VALUES(temp_max),
+            wind_speed = VALUES(wind_speed),
+            gust_speed = VALUES(gust_speed),
+            rain_3h = VALUES(rain_3h)
         """
         if 'list' in weather_data and isinstance(weather_data['list'], list):
             with engine.connect() as connection:
@@ -161,7 +172,12 @@ def insert_five_day_prediction():
             :wind_speed,
             :gust,
             :rain_3h
-        ) 
+        ) ON DUPLICATE KEY UPDATE
+            temp_min = VALUES(temp_min),
+            temp_max = VALUES(temp_max),
+            wind_speed = VALUES(wind_speed),
+            gust = VALUES(gust),
+            rain_3h = VALUES(rain_3h)
         """
 
         if 'list' in weather_data and isinstance(weather_data['list'], list):

@@ -9,7 +9,7 @@ import sys
 import os
 import traceback as tb
 import json
-import seaborn as sns
+# import seaborn as sns
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
 

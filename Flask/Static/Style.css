@@ -57,6 +57,39 @@
     border-top: none;
 }
 
+.input_wrap {
+    position: relative;
+}
+
+.input_wrap input {
+    width: 100%;
+}
+
+#suggestion_box {
+    position: absolute;
+    left: 0;
+    top: calc(100% + 2px);
+    width: 100%;
+    border: 1px solid #ccc;
+
+    /* Equivalent to "#suggestion_box div" */
+    & div {
+        padding: 5px;
+        text-align: center;
+        width: 100%;
+        cursor: pointer;
+        background-color: white;
+    }
+
+    & div:hover {
+        background-color: lightblue;
+    }
+
+    &:empty {
+        display: none;
+    }
+}
+
 /* Weather panel styling */
 #weather-panel {
     margin-top: 10px;

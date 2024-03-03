@@ -18,6 +18,7 @@ from sqlalchemy.exc import SQLAlchemyError
 # app.config.from_object('config')
 
 def connect_db():
+    #!!remember to move these credentials out before submitting!!
     db_type = 'mysql'  # Change to 'mysql' for MySQL/MariaDB
     username = 'admin'
     password = 'DublinBike2024%'

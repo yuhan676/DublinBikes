@@ -1,4 +1,4 @@
-from flask import Flask, render_template 
+from flask import Flask, render_template, request
 # import also files, jsonify etc
 import sqlalchemy 
 import pandas as pd
@@ -8,10 +8,10 @@ import datetime as dt
 app = Flask(__name__, static_url_path='')
 app.config.from_object('config')
 
-@app.route('/')
-def hello_world():
+# @app.route('/')
+# def hello_world():
     # debug page to confirm does the flask app fucntion
-    return 'Hello world!'
+    # return 'Hello world!'
 
 @app.route('/about')
 def about():

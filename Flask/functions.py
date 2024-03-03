@@ -13,9 +13,9 @@ import json
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
 
-# create flask app, static files for static directory
-app = Flask(__name__, static_url_patj='')
-app.config.from_object('config')
+# # create flask app, static files for static directory
+# app = Flask(__name__, static_url_patj='')
+# app.config.from_object('config')
 
 def connect_db():
     db_type = 'mysql'  # Change to 'mysql' for MySQL/MariaDB

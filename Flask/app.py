@@ -1,19 +1,22 @@
-from flask import Flask, render_template, request
+from flask import Flask
+
+app = Flask(__name__, static_url_path='')
+""", render_template, request
 # import also files, jsonify etc
 import sqlalchemy 
 import pandas as pd
 import datetime as dt
 
 # create flask app, static files for static directory
-app = Flask(__name__, static_url_path='')
-app.config.from_object('config')
 
+app.config.from_object('config')
+"""
 @app.route('/')
 def hello_world():
     return app.send_static_file("index.html")
 
-@app.route('/about')
-def about():
+"""# @app.route('/about')
+# def about():
     # an about page
     # google maps key below
     # render template is a flask function to call html document
@@ -113,9 +116,11 @@ def page_not_found(error):
 def internal_server_error(error):
     app.logger.error('Server Error: %s', error)
     return render_template('error.html', error_code=500), 500
+"""
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=5000)
+
 # create a test function to test the functionality of the web page and various queries
 # app.run(debug=True)
 

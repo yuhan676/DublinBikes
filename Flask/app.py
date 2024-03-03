@@ -18,13 +18,13 @@ app.config.from_object('config')
 def hello_world():
     return app.send_static_file("index.html")
 
-# @app.route('/suggest_stations')
-# def suggest_stations():
-#     engine = functions.connect_db()
-#     STATIONS = functions.get_station_names
-#     term = request.args.get('term', '').lower()
-#     suggestions = [station for station in STATIONS if term in station.lower()]
-#     return jsonify(suggestions)
+@app.route('/suggest_stations')
+def suggest_stations():
+    engine = functions.connect_db()
+    STATIONS = functions.get_station_names
+    term = request.args.get('term', '').lower()
+    suggestions = [station for station in STATIONS if term in station.lower()]
+    return jsonify(suggestions)
 
 """# @app.route('/about')
 # def about():

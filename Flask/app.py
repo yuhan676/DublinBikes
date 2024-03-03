@@ -119,7 +119,8 @@ def internal_server_error(error):
 """
 
 if __name__ == '__main__':
-    app.run(debug=True, host="0.0.0.0", port=5000)
+    app.run(debug=True)
+#, host="0.0.0.0", port=5000)
 
 # create a test function to test the functionality of the web page and various queries
 # app.run(debug=True)

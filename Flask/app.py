@@ -8,17 +8,16 @@ import datetime as dt
 app = Flask(__name__, static_url_path='')
 app.config.from_object('config')
 
-# @app.route('/')
-# def hello_world():
-    # debug page to confirm does the flask app fucntion
-    # return 'Hello world!'
+@app.route('/')
+def hello_world():
+    return app.send_static_file("index.html")
 
 @app.route('/about')
 def about():
     # an about page
     # google maps key below
     # render template is a flask function to call html document
-    return render_template("index.html")
+    # return render_template("index.html")
     # GMAPS_APIKEY='AIzaSyBfrNOzVJuGJnSUSCtzH6T32OZLNOWJ9_M')
 
 @app.route('/home')

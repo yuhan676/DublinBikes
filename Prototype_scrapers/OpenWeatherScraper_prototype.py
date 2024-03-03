@@ -13,14 +13,14 @@ import traceback
 
 def fetch_openweather_current():
     # fetching URL from winfo for security
-    url = winfo.URL1
+    url = URL1
     
     # Parametres for API request
     params = {
         # City and country code for Dublin, Ireland
         "q": "Dublin.ie", 
         # API key for accessing the OpenWeatherMap API
-        "appid": winfo.API_KEY,  
+        "appid": API_KEY,  
         # Specify units as metric (for Celsius)
         "units": "metric"  
     }
@@ -46,7 +46,7 @@ def fetch_openweather_current():
         description = data["weather"][0]["description"] 
         # Wind speed
         wind_speed = math.floor(data["wind"]["speed"])             
-        
+        timestamp_current = data["dt"]
         # Print the fetched weather data
         print("\nOpenWeatherMap Current Weather Data:")
         print("Temporary text, that will be replaced later")
@@ -61,12 +61,12 @@ def fetch_openweather_current():
 # Define a function to fetch 5-day weather forecast data from the OpenWeatherMap API
 def fetch_openweather_forecast():
     # fetching url from winfo for security
-    url = winfo.URL2
+    url = URL2
     
     # Define the parameters for the API request; city, accessing api key from winfo, and units specified as metric to display Celsius
     params = {
         "q": "Dublin.ie",  
-        "appid": winfo.API_KEY,  
+        "appid": API_KEY,  
         "units": "metric"  
     }
     try:
@@ -82,7 +82,8 @@ def fetch_openweather_forecast():
         # Fetching specific weather data
         min_temp = math.floor(data["list"][0]["main"]["temp_min"])  
         max_temp = math.floor(data["list"][0]["main"]["temp_max"])  
-        
+        timestamp_forecast = data["dt"]
+
     except requests.RequestException as e:
         # Handle any errors that occur during the request
         print(f"Error fetching 5-day forecast data from Open Weather: {e}")
@@ -93,12 +94,12 @@ def fetch_openweather_forecast():
 # official severe weather warning specifications, to display extreme weather notifications
 def fetch_openweather_extreme():
     # Fetch the URL from winfo 
-    url = winfo.URL2
+    url = URL2
 
     # parametres for the API request
     params = {
         "q": "Dublin.ie",
-        "appid": winfo.API_KEY,
+        "appid": API_KEY,
         "units": "metric"
     }
     try:
@@ -118,7 +119,7 @@ def fetch_openweather_extreme():
             rain_3h = forecast.get("rain", {}).get("3",0)
             temp_min = forecast["main"]["temp_min"]
             temp_max = forecast["main"]["temp_max"]
-
+            timestamp_extreme = data["dt"]
             # check for specific extreme weather conditions
             if wind_speed > 80 or gust_speed > 130:
                 print("temporary print, will be replaced later")

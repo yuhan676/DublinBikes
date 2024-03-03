@@ -1,0 +1,1 @@
+1 * * * * python /Users/yuhan_norepos/work/DublinBikes/DublinBikes/JCD_scraper/hello_world.py

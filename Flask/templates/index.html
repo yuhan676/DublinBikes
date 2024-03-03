@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bike Rental App</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="Style.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfrNOzVJuGJnSUSCtzH6T32OZLNOWJ9_M&callback=initMap&libraries=places,geometry,visualization" async defer></script>
+    <script src="map.js" defer></script>
+</head>
+
+<body>
+    <div id="map"></div>
+    <div id="left-panel">
+        <div class="tab">
+            <!-- Tabs for Rent/Return/Rent & Return -->
+            <button class="tablinks" onclick="openTab(event, 'Rent')">Rent</button>
+            <button class="tablinks" onclick="openTab(event, 'Return')">Return</button>
+            <button class="tablinks" onclick="openTab(event, 'RentReturn')">Rent & Return</button>
+        </div>
+
+        <div id="Rent" class="tabcontent">
+            <!-- Time Picker and Date Picker -->
+            <input type="time" id="rent-time" name="rent-time">
+            <input type="date" id="rent-date" name="rent-date">
+            <!-- Search field for bike stations -->
+            <input type="text" placeholder="Search for bike station to rent" id="search-rent">
+        </div>
+        <!-- Repeat for Return and Rent & Return tabs -->
+
+        <!-- Weather forecast panel -->
+        <div id="weather-panel">
+            <!-- Icons and data from weather API -->
+            <!-- Placeholder content -->
+            <p>Current weather: <span id="current-weather-icon">🌤️</span></p>
+            <p>Feels like: <span id="feels-like">18°C</span></p>
+            <!-- More weather details -->
+        </div>
+    </div>
+
+    <div id="right-panel">
+        <!-- Panel content with pseudo data about a bike station -->
+        <!-- Placeholder content -->
+        <p>Station info</p>
+        <p>Address: 123 Bike Lane</p>
+        <p>Available bikes: <span id="available-bikes">15</span></p>
+        <!-- More station details -->
+    </div>
+</body>
+
+</html>

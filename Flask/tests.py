@@ -17,23 +17,28 @@ class TestConnection(unittest.TestCase):
         This method checks if the connection to the database is successfully established
         by calling the connection_test function with example connection parameters.
         """
-        # connection parameters 
-        # Change to 'mysql' for MySQL/MariaDB
-        db_type = 'mysql'  
-        username = 'admin'
-        password = 'DublinBike2024%'
-        hostname = 'database-dublinbike.c1g2mg4aerll.eu-north-1.rds.amazonaws.com'
-        # Use '3306' for MySQL/MariaDB
-        port = '3306'  
-        # Use 'mysql' for MySQL/MariaDB
-        default_db = 'mysql'  
-        db_name = 'dublinbike_db'
+        try:
+            # connection parameters 
+            db_type = 'mysql'  
+            username = 'admin'
+            password = 'DublinBike2024%'
+            hostname = 'database-dublinbike.c1g2mg4aerll.eu-north-1.rds.amazonaws.com'
+            port = '3306'  
+            default_db = 'mysql'  
+            db_name = 'dublinbike_db'
+            
+            # Testing connection to the database
+            connection = connect_db(hostname, username, password, port, default_db, db_name)
 
-        # Testing connection to the database
-        connection = connect_db(hostname, username, password, port, default_db, db_name)
+            # Asserting that the connection object is not None, indicating a successful connection
+            self.assertIsNotNone(connection, "Failed to establish a connection to the database.")
 
-        # Asserting that the connection object is not None, indicating a successful connection
-        self.assertIsNotNone(connection, "Failed to establish a connection to the database.")
+        except Exception as exc:
+            # Print the exception for debugging
+            print(exc)
+
+            # Fail the test with the caught exception
+            self.fail("An unexpected error occurred: {}".format(exc))
 
     # Test method to test current search functionality
     def test_current_search(self):

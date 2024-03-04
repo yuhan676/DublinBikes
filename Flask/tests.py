@@ -53,6 +53,7 @@ class TestConnection(unittest.TestCase):
         # Asserting that the connection object is not None, indicating a successful connection
         self.assertIsNotNone(connection, "Failed to establish a connection to the database.")
 
+    # note for myself, have to specify wcich functiobs to use from app either or functions 
     def test_current_search(self):
         pass
 

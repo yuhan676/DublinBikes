@@ -1,31 +1,8 @@
 # Importing necessary modules
-# Importing all functions from Flask module
 from sqlalchemy import create_engine, text
 import traceback
 from functions import connect_db
-# Importing the unittest module for testing
 import unittest  
-
-# NB! note to myself, flask app has to run before running tests
-
-# Function to test connection to the database
-def connection_test(hostname, username, password, port, default_db, db_name):
-    """
-    Test the connection to the database using provided credentials.
-
-    Args:
-    - hostname: The hostname or IP address of the database server.
-    - username: The username for authenticating with the database.
-    - password: The password for authenticating with the database.
-    - port: The port number on which the database server is listening.
-    - default_db: The default database to use after connecting.
-    - db_name: The name of the specific database to connect to.
-
-    Returns:
-    - connection: The database connection object if successful, else None.
-    """
-    connection = connect_db(hostname, username, password, port, default_db, db_name)
-    return connection
 
 # Define a test case class to test the connection
 class TestConnection(unittest.TestCase):
@@ -52,7 +29,7 @@ class TestConnection(unittest.TestCase):
         db_name = 'dublinbike_db'
 
         # Testing connection to the database
-        connection = connection_test(hostname, username, password, port, default_db, db_name)
+        connection = connect_db(hostname, username, password, port, default_db, db_name)
 
         # Asserting that the connection object is not None, indicating a successful connection
         self.assertIsNotNone(connection, "Failed to establish a connection to the database.")

@@ -26,7 +26,15 @@ def connect_db():
     port = '3306'  # Use '3306' for MySQL/MariaDB
     default_db = 'mysql'  # Use 'mysql' for MySQL/MariaDB
     db_name = 'dublinbike_db'
-    return create_engine(f'{db_type}://{username}:{password}@{hostname}:{port}/{db_name}')
+    
+    try:
+        engine = create_engine(f'{db_type}://{username}:{password}@{hostname}:{port}/{db_name}')
+        return engine
+    except Exception as exc:
+        print(exc)
+        # Print traceback for detailed error information
+        traceback.print_exc() 
+        return None
 
 def get_db():
     db = getattr(g, '_database', None)

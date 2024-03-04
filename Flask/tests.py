@@ -1,4 +1,5 @@
 from sqlalchemy import create_engine, text
+from sqlalchemy.exc import SQLAlchemyError
 from flask import request, jsonify
 from functions import connect_db
 import traceback

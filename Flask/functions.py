@@ -17,7 +17,7 @@ from sqlalchemy.exc import SQLAlchemyError
 # app = Flask(__name__, static_url_patj='')
 # app.config.from_object('config')
 
-def connect_db():
+def connect_db(hostname, username, password, port, default_db, db_name):
     #!!remember to move these credentials out before submitting!!
     db_type = 'mysql'  # Change to 'mysql' for MySQL/MariaDB
     username = 'admin'

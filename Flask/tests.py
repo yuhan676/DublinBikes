@@ -1,6 +1,8 @@
 # Importing necessary modules
 # Importing all functions from Flask module
-import functions
+from sqlalchemy import create_engine, text
+import traceback
+from functions import connect_db
 # Importing the unittest module for testing
 import unittest  
 

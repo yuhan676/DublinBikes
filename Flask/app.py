@@ -4,16 +4,8 @@ import traceback
 import functions
 
 app = Flask(__name__, static_url_path='')
-""", render_template, request
-# import also files, jsonify etc
-import sqlalchemy 
-import pandas as pd
-import datetime as dt
-
-# create flask app, static files for static directory
-
 app.config.from_object('config')
-"""
+
 @app.route('/')
 def hello_world():
     return app.send_static_file("index.html")
@@ -115,23 +107,10 @@ def close_connection(exception):
     # if db is not None:
         # db.close()
     pass
-
-# Custom error handler for 404 Not Found errors
-@app.errorhandler(404)
-def page_not_found(error):
-    app.logger.error('Page not found: %s', (request.path))
-    return render_template('error.html', error_code=404), 404
-
-# Custom error handler for 500 Internal Server Error
-@app.errorhandler(500)
-def internal_server_error(error):
-    app.logger.error('Server Error: %s', error)
-    return render_template('error.html', error_code=500), 500
 """
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=5000)
 
-# create a test function to test the functionality of the web page and various queries
-# app.run(debug=True)
+
 

@@ -1,6 +1,6 @@
 # Importing necessary modules
 # Importing all functions from Flask module
-from flask import functions 
+import functions
 # Importing the unittest module for testing
 import unittest  
 

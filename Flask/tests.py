@@ -1,4 +1,3 @@
-# Importing necessary modules
 from sqlalchemy import create_engine, text
 from flask import request, jsonify
 from functions import connect_db

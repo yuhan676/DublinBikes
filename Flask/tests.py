@@ -4,6 +4,8 @@ import functions
 # Importing the unittest module for testing
 import unittest  
 
+# NB! note to myself, flask app has to run before running tests
+
 # Function to test connection to the database
 def connection_test(hostname, username, password, port, default_db, db_name):
     """

@@ -53,6 +53,15 @@ class TestConnection(unittest.TestCase):
         # Asserting that the connection object is not None, indicating a successful connection
         self.assertIsNotNone(connection, "Failed to establish a connection to the database.")
 
+    def test_current_search(self):
+        pass
+
+    def test_future_search(self):
+        pass
+
+    def test_invalid_search(self):
+        pass 
+
 # Entry point of the script
 if __name__ == "__main__":
     # Running the test case

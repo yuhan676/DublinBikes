@@ -35,20 +35,34 @@ class TestConnection(unittest.TestCase):
         # Asserting that the connection object is not None, indicating a successful connection
         self.assertIsNotNone(connection, "Failed to establish a connection to the database.")
 
-    # note for myself, have to specify wcich functions to use from app either/or functions 
+    # Test method to test current search functionality
     def test_current_search(self):
-        # use GET to test current search
-        # use assertEqual from unittest
+        """
+        Test current search functionality.
+        This method tests the functionality of the current search feature by using the GET method.
+        """
+        # Use GET method to test current search
+        # Use assertEqual from unittest to validate the results
         pass
 
+    # Test method to test future search functionality
     def test_future_search(self):
-        # use POST to test future search 
-        # use assertEqual from unittest
+        """
+        Test future search functionality.
+        This method tests the functionality of the future search feature by using the POST method.
+        """
+        # Use POST method to test future search
+        # Use assertEqual from unittest to validate the results
         pass
 
+    # Test method to test invalid search functionality
     def test_invalid_search(self):
-        # use http method PUT to test invalid search
-        # user assertEqual from unittest
+        """
+        Test invalid search functionality.
+        This method tests the functionality of the invalid search feature by using the PUT method.
+        """
+        # Use PUT method to test invalid search
+        # Use assertEqual from unittest to validate the results
         pass 
 
 # Entry point of the script

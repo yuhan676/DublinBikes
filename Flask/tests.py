@@ -55,12 +55,18 @@ class TestConnection(unittest.TestCase):
 
     # note for myself, have to specify wcich functiobs to use from app either or functions 
     def test_current_search(self):
+        # use GET to test current search
+        # use assertEqual from unittest
         pass
 
     def test_future_search(self):
+        # use POST to test future search 
+        # use assertEqual from unittest
         pass
 
     def test_invalid_search(self):
+        # use http method PUT to test invalid search
+        # user assertEqual from unittest
         pass 
 
 # Entry point of the script

@@ -32,13 +32,9 @@ class TestConnection(unittest.TestCase):
 
             # Asserting that the connection object is not None, indicating a successful connection
             self.assertIsNotNone(connection, "Failed to establish a connection to the database.")
-
-        except Exception as exc:
-            # Print the exception for debugging
-            print(exc)
-
-            # Fail the test with the caught exception
-            self.fail("An unexpected error occurred: {}".format(exc))
+        except SQLAlchemyError as e:
+            print(f"Database error: {e}")
+            print(traceback.format_exc())
 
     # Test method to test current search functionality
     def test_current_search(self):

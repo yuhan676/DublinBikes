@@ -14,8 +14,10 @@ def hello_world():
 def suggest_stations():
     engine = functions.connect_db()
     STATIONS = functions.get_station_names
+    STATIONS_test = ['Dundrum','Dawson']
     term = request.args.get('term', '').lower()
-    suggestions = [station for station in STATIONS if term in station.lower()]
+    #change STATIONS_test to STATIONS once flask app runs
+    suggestions = [station for station in STATIONS_test if term in station.lower()]
     return jsonify(suggestions)
 
 """# @app.route('/about')

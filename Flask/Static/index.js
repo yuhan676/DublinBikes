@@ -1,3 +1,4 @@
+//this line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded
 $(document).ready(function() {
     // populates station suggestions when user starts typing
     $('#search_rent').on('input', function() {

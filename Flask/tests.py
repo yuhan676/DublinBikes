@@ -1,10 +1,10 @@
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
 from flask import request, jsonify
-from functions import connect_db, get_station_names
+from functions import connect_db, get_station_names, suggest_stations
 import traceback
 import unittest
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 
 # Define a test case class to test the connection
 class TestConnection(unittest.TestCase):
@@ -53,6 +53,19 @@ class TestConnection(unittest.TestCase):
 
         # Asserting that the function returns the expected station names
         self.assertEqual(station_names, ['Station 1', 'Station 2'])
+
+    def suggest_stations():
+        try:
+            engine = connect_db()
+            STATIONS = get_station_names(engine)
+            suggestions = [station for station in STATIONS if term in station.lower()]
+            return jsonify(suggestions)
+        except:
+            STATIONS_test = ['Dundrum','Dawson']
+            term = request.args.get('term', '').lower()
+            #change STATIONS_test to STATIONS once flask app runs
+            suggestions = [station for station in STATIONS_test if term in station.lower()]
+            return jsonify(suggestions)
 
     def test_current_search(self):
         """

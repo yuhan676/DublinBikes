@@ -1,9 +1,10 @@
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
 from flask import request, jsonify
-from functions import connect_db, get_station_name
+from functions import connect_db, get_station_names
 import traceback
 import unittest
+from unittest.mock import MagicMock
 
 # Define a test case class to test the connection
 class TestConnection(unittest.TestCase):
@@ -37,30 +38,20 @@ class TestConnection(unittest.TestCase):
             print(traceback.format_exc())
 
     def test_get_station_names(self):
-        # Mock the engine object
-        class MockEngine:
-            def __init__(self):
-                self.connect = self
-
-            def __enter__(self):
-                return self
-
-            def __exit__(self, *args):
-                pass
-
-            def execute(self, sql):
-                if sql == "SELECT name FROM station;":
-                    return self.fetchall()
-
-            def fetchall(self):
-                return [{'name': 'Station 1'}, {'name': 'Station 2'}]
+        # Mocking the engine object
+        engine_mock = MagicMock()
         
-        engine_mock = MockEngine()
+        # Mocking the connection object
+        connection_mock = MagicMock()
+        connection_mock.execute.return_value.fetchall.return_value = [{'name': 'Station 1'}, {'name': 'Station 2'}]
         
-        # Call the get_station_names function with the mock engine
-        get_station_names = get_station_names(engine_mock)
-        
-        # Assert that the function returns the expected station names
+        # Setting up the engine to return the connection mock
+        engine_mock.connect.return_value.__enter__.return_value = connection_mock
+
+        # Calling the function with the mocked engine object
+        station_names = get_station_names(engine_mock)
+
+        # Asserting that the function returns the expected station names
         self.assertEqual(station_names, ['Station 1', 'Station 2'])
 
     def test_current_search(self):

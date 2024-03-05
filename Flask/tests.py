@@ -3,13 +3,24 @@ from sqlalchemy.exc import SQLAlchemyError
 from flask import request, jsonify
 from functions import connect_db
 import traceback
-import unittest  
+import unittest
 
 # Define a test case class to test the connection
 class TestConnection(unittest.TestCase):
     """
     Test case class for testing database connection functionality.
     """
+
+    def setUp(self):
+        """
+        Set up the test client.
+        """
+        # Set the application configuration to testing mode
+        app.config['TESTING'] = True
+        
+        # Create a test client for making requests to the Flask app
+        self.app = app.test_client()
+
     # Test method to check database connection
     def test_connection(self):
         """
@@ -36,15 +47,18 @@ class TestConnection(unittest.TestCase):
             print(f"Database error: {e}")
             print(traceback.format_exc())
 
-    # Test method to test current search functionality
     def test_current_search(self):
         """
         Test current search functionality.
         This method tests the functionality of the current search feature by using the GET method.
         """
-        # Use GET method to test current search
-        # Use assertEqual from unittest to validate the results
-        pass
+        # Perform a current search (replace 'search_criteria' with your actual search criteria)
+        search_criteria = "current_search_criteria"
+        response = self.app.get(f"/search?criteria={search_criteria}")
+
+        # Validate the response
+        self.assertEqual(response.status_code, 200)  # Assuming 200 is the expected status code
+        self.assertIn("expected_content", response.data)  # Check if the expected content is in the response
 
     # Test method to test future search functionality
     def test_future_search(self):
@@ -52,9 +66,13 @@ class TestConnection(unittest.TestCase):
         Test future search functionality.
         This method tests the functionality of the future search feature by using the POST method.
         """
-        # Use POST method to test future search
-        # Use assertEqual from unittest to validate the results
-        pass
+        # Perform a future search (replace 'search_data' with your actual search data)
+        search_data = {"future_criteria": "future_search_criteria"}
+        response = self.app.post("/search", json=search_data)
+
+        # Validate the response
+        self.assertEqual(response.status_code, 200)  # Assuming 200 is the expected status code
+        self.assertIn("expected_content", response.data)  # Check if the expected content is in the response
 
     # Test method to test invalid search functionality
     def test_invalid_search(self):
@@ -62,14 +80,14 @@ class TestConnection(unittest.TestCase):
         Test invalid search functionality.
         This method tests the functionality of the invalid search feature by using the PUT method.
         """
-        # Use PUT method to test invalid search
-        # Use assertEqual from unittest to validate the results
-        pass 
+        # Perform an invalid search (replace 'invalid_data' with your actual invalid search data)
+        invalid_data = {"invalid_criteria": "invalid_search_criteria"}
+        response = self.app.put("/search", json=invalid_data)
+
+        # Validate the response
+        self.assertEqual(response.status_code, 400)  # Assuming 400 is the expected status code for an invalid request
 
 # Entry point of the script
 if __name__ == "__main__":
     # Running the test case
     unittest.main()
-
-
-

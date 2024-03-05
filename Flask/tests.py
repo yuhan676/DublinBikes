@@ -1,7 +1,8 @@
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
 from flask import request, jsonify
-from functions import connect_db, get_station_names, suggest_stations
+from functions import connect_db, get_station_names
+from app import suggest_stations
 import traceback
 import unittest
 from unittest.mock import MagicMock, patch

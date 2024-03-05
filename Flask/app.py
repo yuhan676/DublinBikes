@@ -13,7 +13,7 @@ def hello_world():
 @app.route('/suggest_stations')
 def suggest_stations():
     engine = functions.connect_db()
-    STATIONS = functions.get_station_names
+    #STATIONS = functions.get_station_names
     STATIONS_test = ['Dundrum','Dawson']
     term = request.args.get('term', '').lower()
     #change STATIONS_test to STATIONS once flask app runs

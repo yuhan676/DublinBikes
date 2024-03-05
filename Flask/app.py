@@ -12,13 +12,17 @@ def hello_world():
 
 @app.route('/suggest_stations')
 def suggest_stations():
-    # engine = connect_db()
-    # STATIONS = get_station_names(engine)
-    STATIONS_test = ['Dundrum','Dawson']
-    term = request.args.get('term', '').lower()
-    #change STATIONS_test to STATIONS once flask app runs
-    suggestions = [station for station in STATIONS_test if term in station.lower()]
-    return jsonify(suggestions)
+    try:
+        engine = connect_db()
+        STATIONS = get_station_names(engine)
+        suggestions = [station for station in STATIONS if term in station.lower()]
+        return jsonify(suggestions)
+    except:
+        STATIONS_test = ['Dundrum','Dawson']
+        term = request.args.get('term', '').lower()
+        #change STATIONS_test to STATIONS once flask app runs
+        suggestions = [station for station in STATIONS_test if term in station.lower()]
+        return jsonify(suggestions)
 
 """# @app.route('/about')
 # def about():

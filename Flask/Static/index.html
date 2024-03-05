@@ -8,7 +8,20 @@
     <link rel="stylesheet" href="Style.css">
     <script src="jquery-3.6.0.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfrNOzVJuGJnSUSCtzH6T32OZLNOWJ9_M&callback=initMap&libraries=places,geometry,visualization" async defer></script>
-    <script src="map.js" defer></script>
+    <script src="map.js" defer></script>    
+    <script src="index.js" defer></script>
+    <script>
+        
+        // Yuhan: We put this here because initMap is in map.js but the other
+        //        more generic init funcitons are in index.js. This is the 
+        //        logical place to put it as we have access to both here.
+        window.onload = function() {
+            // You also need to call this function on window load to ensure proper initial placement
+            initMap();
+            openTab(null, 'rent'); // Open the 'Rent' tab by default
+            adjustWeatherPanelPosition(); // Adjust the weather panel position on load
+        };
+    </script>
 </head>
 <body>
     <div id="map"></div>

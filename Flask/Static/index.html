@@ -6,12 +6,12 @@
     <title>Bike Rental App</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="Style.css">
-    <script src="jquery-3.6.0.min.js"></script>
+    <script src="jquery-3.7.1.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfrNOzVJuGJnSUSCtzH6T32OZLNOWJ9_M&callback=initMap&libraries=places,geometry,visualization" async defer></script>
-    <script src="map.js" defer></script>    
-    <script src="index.js" defer></script>
+    <script src="map.js"></script>    
+    <script src="index.js"></script>
     <script>
-        
+
         // Yuhan: We put this here because initMap is in map.js but the other
         //        more generic init funcitons are in index.js. This is the 
         //        logical place to put it as we have access to both here.
@@ -35,16 +35,18 @@
             <input type="time" id="rent_time" name="rent-time">
             <input type="date" id="rent_date" name="rent-date">
             <div class="input_wrap">
-                <input type="text" placeholder="Search for bike station to rent" id="search_rent">
-                <div id="suggestion_box"></div>
+                <input type="text" placeholder="Search for bike station to rent" id="search_rent" autocomplete="off">
+                <div class="suggestion_box" id="suggestion_box_rent">
+                    <div class="suggestion_div">Placeholder yee</div>
+                </div>
             </div>
         </div>
         <div id="return" class="tabcontent">
             <input type="time" id="return_time" name="rent-time">
             <input type="date" id="return_date" name="rent-date">
             <div class="input_wrap">
-                <input type="text" placeholder="Search for bike station to return" id="search_return">
-                <div id="suggestion_box"></div>
+                <input type="text" placeholder="Search for bike station to return" id="search_return" autocomplete="off">
+                <div class="suggestion_box" id="suggestion_box_return"></div>
             </div>
         </div>
     </div>

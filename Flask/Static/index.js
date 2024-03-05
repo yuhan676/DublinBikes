@@ -1,39 +1,56 @@
+function fetchStationSuggestions(element_out_id, input) {
+    var inputVal = input.val();
+    if(inputVal.length > 0) {
+        $.ajax({
+            url: "/suggest_stations", // The endpoint in Flask
+            type: "GET",
+            dataType: 'json',
+            data: { 'term': inputVal },
+            success: function(data) {
+                $('#'+element_out_id).empty();
+                $.each(data, function(i, station) {
+                    var $optionDiv = $('<div>')
+                                        .addClass("suggestion_div")
+                                        .text(station);
+                    $('#'+element_out_id).append($optionDiv);
+                });
+            }
+        });
+    } else {
+        $('#'+element_out_id).empty();
+    }
+}
+
 //this line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded
 $(document).ready(function() {
     // populates station suggestions when user starts typing
     $('#search_rent').on('input', function() {
-        var inputVal = $(this).val();
-        if(inputVal.length > 0) {
-            $.ajax({
-                url: "/suggest_stations", // The endpoint in Flask
-                type: "GET",
-                dataType: 'json',
-                data: { 'term': inputVal },
-                success: function(data) {
-                    $('#suggestion_box').empty();
-                    $.each(data, function(i, station) {
-                        var $optionDiv = $('<div>')
-                                            .addClass("suggestion_div")
-                                            .text(station);
-                        $('#suggestion_box').append($optionDiv);
-                    });
-                }
-            });
-        } else {
-            $('#suggestion_box').empty();
-        }
+        fetchStationSuggestions('suggestion_box_rent', $(this))
+    });
+    $('#search_return').on('input', function() {
+        fetchStationSuggestions('suggestion_box_return', $(this))
     });
 
     // set selected station when clicking suggestion
-    $('#suggestion_box').on('mousedown', '.suggestion_div', function() {
+    $('#suggestion_box_rent').on('mousedown', '.suggestion_div', function() {
         var stationName = $(this).text();
         $('#search_rent').val(stationName);
-        $('#suggestion_box').empty();
+        $('#suggestion_box_rent').empty();
     });
-
     // empty suggestion box when user clicks outside of suggestion box
     $('#search_rent').focusout(function() {
-        $('#suggestion_box').empty();
+        $('#suggestion_box_rent').empty();
+    });
+
+    // set selected station when clicking suggestion
+    $('#suggestion_box_return').on('mousedown', '.suggestion_div', function() {
+        var stationName = $(this).text();
+        $('#search_return').val(stationName);
+        $('#suggestion_box_return').empty();
+    });
+    // empty suggestion box when user clicks outside of suggestion box
+    $('#search_return').focusout(function() {
+        $('#suggestion_box_return').empty();
     });
 });
 

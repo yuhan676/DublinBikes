@@ -27,14 +27,21 @@
     left: 10px;
     display: flex;
     flex-direction: column; /* Stack children vertically */
+    z-index: 11;
 }
 
 /* Style input fields to fill the panel width and add margin */
 #left-panel input[type="time"],
 #left-panel input[type="date"],
-#left-panel input[type="text"] {
+#left-panel input[type="text"],
+.input_wrap {
     width: 100%; /* Input fields will fill the available horizontal space */
     margin-bottom: 10px; /* Add space between input fields */
+}
+
+#left-panel input[type="text"]
+{
+    margin-bottom: 0;
 }
 
 /* Remove bottom margin for the last input field */
@@ -140,7 +147,17 @@
     position: relative;
 }
 
-#suggestion_box {
+.suggestion_div
+{
+    padding: 5px;
+}
+
+.suggestion_div:hover
+{
+    background-color: lightblue;
+}
+
+.suggestion_box {
     position: absolute;
     left: 0;
     top: calc(100% + 2px);

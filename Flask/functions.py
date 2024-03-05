@@ -33,7 +33,7 @@ def connect_db(hostname, username, password, port, default_db, db_name):
     except Exception as exc:
         print(exc)
         # Print traceback for detailed error information
-        traceback.print_exc() 
+        tb.print_exc() 
         return None
 
 def get_db():
@@ -42,7 +42,7 @@ def get_db():
         db = g._database = connect_to_database(host, username, password, port)
     return db
 
-def get_station_names():
+def get_station_names(engine):
         sql = "SELECT name FROM station;"
         try:
             with engine.connect() as conn:
@@ -51,7 +51,7 @@ def get_station_names():
                 station_names = [row['name'] for row in result.fetchall()]
                 return station_names
         except Exception as e:
-            print(f"An error occurred: {traceback.format_exc()}")
+            print(f"An error occurred: {tb.format_exc()}")
             return []
 
 

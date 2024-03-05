@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 from sqlalchemy import create_engine, text
 import traceback
-import functions
+from functions import connect_db, get_station_names
 
 app = Flask(__name__, static_url_path='')
 app.config.from_object('config')
@@ -12,14 +12,13 @@ def hello_world():
 
 @app.route('/suggest_stations')
 def suggest_stations():
-    engine = functions.connect_db()
-    #STATIONS = functions.get_station_names
+    # engine = connect_db()
+    # STATIONS = get_station_names(engine)
     STATIONS_test = ['Dundrum','Dawson']
     term = request.args.get('term', '').lower()
     #change STATIONS_test to STATIONS once flask app runs
     suggestions = [station for station in STATIONS_test if term in station.lower()]
-    # return jsonify(suggestions)
-    return app.send_static_file("index.html")
+    return jsonify(suggestions)
 
 """# @app.route('/about')
 # def about():

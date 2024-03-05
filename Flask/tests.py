@@ -1,18 +1,13 @@
-from sqlalchemy import create_engine, text
-from sqlalchemy.exc import SQLAlchemyError
-from flask import request, jsonify
-from functions import connect_db, get_station_names
-from app import suggest_stations
-import traceback
 import unittest
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock
+from flask import jsonify
+from functions import connect_db, get_station_names
 
-# Define a test case class to test the connection
 class TestConnection(unittest.TestCase):
     """
     Test case class for testing database connection functionality.
     """
-    # Test method to check database connection
+
     def test_connection(self):
         """
         Test database connection.
@@ -20,7 +15,7 @@ class TestConnection(unittest.TestCase):
         by calling the connection_test function with example connection parameters.
         """
         try:
-            # connection parameters 
+            # Connection parameters 
             db_type = 'mysql'  
             username = 'admin'
             password = 'DublinBike2024%'
@@ -36,7 +31,6 @@ class TestConnection(unittest.TestCase):
             self.assertIsNotNone(connection, "Failed to establish a connection to the database.")
         except SQLAlchemyError as e:
             print(f"Database error: {e}")
-            print(traceback.format_exc())
 
     def test_get_station_names(self):
         # Mocking the engine object
@@ -55,43 +49,6 @@ class TestConnection(unittest.TestCase):
         # Asserting that the function returns the expected station names
         self.assertEqual(station_names, ['Station 1', 'Station 2'])
 
-    def suggest_stations():
-        try:
-            engine = connect_db()
-            STATIONS = get_station_names(engine)
-            suggestions = [station for station in STATIONS if term in station.lower()]
-            return jsonify(suggestions)
-        except:
-            STATIONS_test = ['Dundrum','Dawson']
-            term = request.args.get('term', '').lower()
-            #change STATIONS_test to STATIONS once flask app runs
-            suggestions = [station for station in STATIONS_test if term in station.lower()]
-            return jsonify(suggestions)
-
-    def test_current_search(self):
-        """
-        Test current search functionality.
-        This method tests the functionality of the current search feature by using the GET method.
-        """
-        pass
-
-    # Test method to test future search functionality
-    def test_future_search(self):
-        """
-        Test future search functionality.
-        This method tests the functionality of the future search feature by using the POST method.
-        """
-        pass
-
-    # Test method to test invalid search functionality
-    def test_invalid_search(self):
-        """
-        Test invalid search functionality.
-        This method tests the functionality of the invalid search feature by using the PUT method.
-        """
-        pass
-
 # Entry point of the script
 if __name__ == "__main__":
-    # Running the test case
     unittest.main()

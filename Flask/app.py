@@ -18,7 +18,8 @@ def suggest_stations():
     term = request.args.get('term', '').lower()
     #change STATIONS_test to STATIONS once flask app runs
     suggestions = [station for station in STATIONS_test if term in station.lower()]
-    return jsonify(suggestions)
+    # return jsonify(suggestions)
+    return app.send_static_file("index.html")
 
 """# @app.route('/about')
 # def about():

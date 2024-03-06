@@ -8,7 +8,8 @@ app.config.from_object('config')
 
 @app.route('/')
 def hello_world():
-    return app.send_static_file("index.html")
+    return 'hello world'
+    # return app.send_static_file("index.html")
 
 @app.route('/suggest_stations')
 def suggest_stations():

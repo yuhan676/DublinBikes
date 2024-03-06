@@ -12,12 +12,14 @@ def hello_world():
 
 @app.route('/suggest_stations')
 def suggest_stations():
+    term = request.args.get('term', '').lower()
     try:
         engine = connect_db()
         STATIONS = get_station_names(engine)
         suggestions = [station for station in STATIONS if term in station.lower()]
         return jsonify(suggestions)
-    except:
+    except Exception as e:
+        app.logger.error('Error in suggest_stations: %s', traceback.format_exc())
         STATIONS_test = ['Dundrum','Dawson']
         term = request.args.get('term', '').lower()
         #change STATIONS_test to STATIONS once flask app runs

@@ -13,12 +13,10 @@ import json
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
 import requests
-from Scrapers.winfo import API_KEY, URL2
+from winfo import API_KEY, URL2
 # # create flask app, static files for static directory
 # app = Flask(__name__, static_url_patj='')
 # app.config.from_object('config')
-
-
 
 def connect_db(hostname, username, password, port, default_db, db_name):
     #!!remember to move these credentials out before submitting!!
@@ -95,8 +93,6 @@ def fetch_openweather_extreme():
         print("Error fetching weather data:", e)
         return False  # Unable to fetch weather data, assume no extreme weather
 
-if __name__ == '__main__':
-    app.run(debug=True)
 
 
 

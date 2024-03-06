@@ -2,7 +2,6 @@ from flask import Flask, jsonify, request, render_template
 from sqlalchemy import create_engine, text
 import traceback
 from functions import connect_db, get_station_names, fetch_openweather_extreme
-from winfo import API_KEY, URL2, URL1
 
 app = Flask(__name__, static_url_path='')
 app.config.from_object('config')

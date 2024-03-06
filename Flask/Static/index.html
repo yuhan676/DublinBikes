@@ -21,6 +21,27 @@
             openTab(null, 'rent'); // Open the 'Rent' tab by default
             adjustWeatherPanelPosition(); // Adjust the weather panel position on load
         };
+        // JavaScript extreme weather pop up
+        // JavaScript function to close the pop-up
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+        function openPopup() {
+            fetch('/extreme_weather_data')
+            .then(response => response.json())
+            .then(data => {
+            // Populate the pop-up container with extreme weather dat
+            document.getElementById('extreme-weather-content').innerText = data;
+            // Show the pop-up
+            document.getElementById('popup').style.display = 'block';
+        })
+        .catch(error => console.error('Error fetching extreme weather data:', error));
+}
+
+// Trigger the pop-up
+function triggerPopup() {
+    openPopup(); // Call openPopup function to display the pop-up
+}
     </script>
 </head>
 <body>
@@ -67,5 +88,16 @@
         <p>Address: 123 Bike Lane</p>
         <p>Available bikes: <span id="available-bikes">15</span></p>
     </div>
+        <!-- Pop-up container -->
+        <div id="popup" class="popup">
+            <div class="popup-content">
+                <span class="close" onclick="closePopup()">&times;</span>
+                <h3>Extreme Weather Alert</h3>
+                <p id="extreme-weather-content"></p>
+            </div>
+        </div>
+    
+        <!-- Button to trigger the pop-up -->
+        <button onclick="openPopup()">Show Extreme Weather Alert</button>
 </body>
 </html>

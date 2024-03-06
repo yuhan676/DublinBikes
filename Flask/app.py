@@ -1,7 +1,8 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from sqlalchemy import create_engine, text
 import traceback
-from functions import connect_db, get_station_names
+from functions import connect_db, get_station_names, fetch_openweather_extreme
+from Scraper.winfo import API_KEY, URL1, URL2
 
 app = Flask(__name__, static_url_path='')
 app.config.from_object('config')
@@ -26,7 +27,15 @@ def suggest_stations():
         #change STATIONS_test to STATIONS once flask app runs
         suggestions = [station for station in STATIONS_test if term in station.lower()]
         return jsonify(suggestions)
-"""
+
+@app.route('/index')
+def index():
+    # Wether to show the pop-up based on extreme weather conditions
+    show_popup = fetch_openweather_extreme()
+
+    # Render the HTML template with the 'show_popup' variable
+    return render_template('index.html', show_popup=show_popup)
+    """
 @app.route('/current_weather')
 def current_weather():
     # function that returns current weather

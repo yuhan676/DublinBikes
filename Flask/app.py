@@ -23,6 +23,25 @@ def suggest_stations():
         #change STATIONS_test to STATIONS once flask app runs
         suggestions = [station for station in STATIONS_test if term in station.lower()]
         return jsonify(suggestions)
+"""
+@app.route('/current_weather')
+def current_weather():
+    # function that returns current weather
+    # returns json and weather icon
+    pass
+
+@app.route('/five_day_weather_forecast')
+def five_day_weather_forecast():
+    # function that returns weather forecast
+    # returns json weather forecast
+    # result=five_day_weather_forecast(host=myhost,user=myuser,password=mypassword,port=myport,db=mydb)
+    pass
+
+@app.route('/extreme_weather')
+def extreme_weather():
+    # function that returns extreme weather forecast
+    # returns a notification of severe weather
+    pass
 
 """# @app.route('/about')
 # def about():
@@ -72,25 +91,6 @@ def station(station_id):
 @app.route('/availability')
 def availability():
     # function that returns the dataframe of the station and availability data
-    pass
-
-@app.route('/current_weather')
-def current_weather():
-    # function that returns current weather
-    # returns json and weather icon
-    pass
-
-@app.route('/five_day_weather_forecast')
-def five_day_weather_forecast():
-    # function that returns weather forecast
-    # returns json weather forecast
-    # result=five_day_weather_forecast(host=myhost,user=myuser,password=mypassword,port=myport,db=mydb)
-    pass
-
-@app.route('/extreme_weather')
-def extreme_weather():
-    # function that returns extreme weather forecast
-    # returns a notification of severe weather
     pass
 
 @app.route('/hourly_station_availability')

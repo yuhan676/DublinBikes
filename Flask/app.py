@@ -8,8 +8,8 @@ app.config.from_object('config')
 
 @app.route('/')
 def hello_world():
-    return 'hello world'
-    # return app.send_static_file("index.html")
+    # return 'hello world'
+    return app.send_static_file("index.html")
 
 @app.route('/suggest_stations')
 def suggest_stations():
@@ -119,7 +119,7 @@ def close_connection(exception):
 """
 
 if __name__ == '__main__':
-    app.run(debug=True, host="0.0.0.0", port=8080)
+    app.run(debug=True, host="0.0.0.0", port=5000)
 
 
 

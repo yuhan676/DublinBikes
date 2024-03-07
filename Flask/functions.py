@@ -12,20 +12,12 @@ import json
 # import seaborn as sns
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
+from db_config import db_type,username,password,hostname,port,db_name
 # create flask app, static files for static directory
 # app = Flask(__name__, static_url_patj='')
 # app.config.from_object('config')
 
-def connect_db(hostname, username, password, port, default_db, db_name):
-    #!!remember to move these credentials out before submitting!!
-    db_type = 'mysql'  # Change to 'mysql' for MySQL/MariaDB
-    username = 'admin'
-    password = 'DublinBike2024%'
-    hostname = 'database-dublinbike.c1g2mg4aerll.eu-north-1.rds.amazonaws.com'
-    port = '3306'  # Use '3306' for MySQL/MariaDB
-    default_db = 'mysql'  # Use 'mysql' for MySQL/MariaDB
-    db_name = 'dublinbike_db'
-    
+def connect_db():
     try:
         engine = create_engine(f'{db_type}://{username}:{password}@{hostname}:{port}/{db_name}')
         return engine
@@ -34,6 +26,28 @@ def connect_db(hostname, username, password, port, default_db, db_name):
         # Print traceback for detailed error information
         tb.print_exc() 
         return None
+    
+def fetch_dummy_data(table_name):
+    """
+    Connects to the database, fetches 100 rows from the desired table,
+    and returns the result as JSON.
+    """
+    engine = connect_db()
+    if engine is not None:
+        query = f"SELECT * FROM {table_name} LIMIT 100;"  # This just pulls 100 rows 
+        df = pd.read_sql(query, engine)
+        return df.to_json(orient='records')
+    else:
+        print('DB connection failed')
+        return None
+
+def write_json_to_file(data, file_name='data.json'):
+    """
+    Writes the provided JSON data to a file.
+    """
+    if data is not None:
+        with open(file_name, 'w') as file:
+            file.write(data)
 
 def get_db():
     db = getattr(g, '_database', None)

@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, jsonify, request, render_template, url_for
 from sqlalchemy import create_engine, text
 import traceback
 from functions import connect_db, get_station_names, fetch_openweather_extreme

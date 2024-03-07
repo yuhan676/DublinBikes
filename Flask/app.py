@@ -14,10 +14,10 @@ dummy_data = {
     "Station 5": {"available_bikes": 6}
 }
 
-@app.route('/')
+@app.route('/root')
 def hello_world():
     # return 'hello world'
-    return app.send_static_file("index.html")
+    return app.render_template("index.html")
 
 @app.route('/suggest_stations')
 def suggest_stations():

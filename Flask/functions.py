@@ -12,9 +12,7 @@ import json
 # import seaborn as sns
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
-import requests
-from winfo import API_KEY, URL2
-# # create flask app, static files for static directory
+# create flask app, static files for static directory
 # app = Flask(__name__, static_url_patj='')
 # app.config.from_object('config')
 
@@ -55,25 +53,11 @@ def get_station_names(engine):
             print(f"An error occurred: {tb.format_exc()}")
             return []
 
-# Function to fetch weather data and determine extreme weather conditions
-def fetch_openweather_extreme():
-    # Fetch the URL from winfo 
-    url = URL2
-
-    # Parameters for the API request
-    params = {
-        "q": "Dublin.ie",
-        "appid": API_KEY,
-        "units": "metric"
-    }
-
+def fetch_openweather_extreme(json_file):
     try:
-        # Get request to the OpenWeather API
-        response = requests.get(url, params=params)
-        response.raise_for_status()
-
-        # Parse the JSON response into a Python dictionary
-        data = response.json()
+        # Load the weather data from the provided JSON file
+        with open(json_file, 'r') as file:
+            data = json.load(file)
 
         # Logic to determine extreme weather conditions
         for forecast in data["list"]:
@@ -89,10 +73,8 @@ def fetch_openweather_extreme():
 
         return False  # Extreme weather conditions not met
 
-    except requests.exceptions.RequestException as e:
-        print("Error fetching weather data:", e)
-        return False  # Unable to fetch weather data, assume no extreme weather
-
-
+    except FileNotFoundError as e:
+        print("Error loading weather data:", e)
+        return False  # Unable to load weather data, assume no extreme weather
 
 

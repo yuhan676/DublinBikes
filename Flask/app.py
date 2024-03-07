@@ -27,14 +27,15 @@ def suggest_stations():
         suggestions = [station for station in STATIONS_test if term in station.lower()]
         return jsonify(suggestions)
 
-@app.route('/index')
-def index():
-    # Wether to show the pop-up based on extreme weather conditions
-    show_popup = fetch_openweather_extreme()
-
-    # Render the HTML template with the 'show_popup' variable
-    return render_template('index.html', show_popup=show_popup)
-    """
+@app.route('/fetch_extreme_weather')
+def fetch_extreme_weather():
+    # Define the path to the JSON file
+    json_file = r'C:\Users\riink\OneDrive\Desktop\UCD\COMP30830_software_engineering\Group Project\Dummy_data_folder\openweather_data.json'
+    # Fetch extreme weather conditions
+    extreme_conditions_met = fetch_openweather_extreme(json_file)
+    # Return extreme weather conditions as JSON data
+    return jsonify(extreme_conditions_met=extreme_conditions_met)
+"""
 @app.route('/current_weather')
 def current_weather():
     # function that returns current weather

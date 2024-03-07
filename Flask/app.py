@@ -17,7 +17,7 @@ dummy_data = {
 @app.route('/root')
 def hello_world():
     # return 'hello world'
-    return app.render_template("index.html")
+    return render_template("index.html")
 
 @app.route('/suggest_stations')
 def suggest_stations():

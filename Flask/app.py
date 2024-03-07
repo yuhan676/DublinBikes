@@ -3,6 +3,8 @@ from sqlalchemy import create_engine, text
 import traceback
 from functions import connect_db, get_station_names, fetch_openweather_extreme
 
+logging.basicConfig(level=logging.INFO)
+
 app = Flask(__name__, static_url_path='')
 app.config.from_object('config')
 
@@ -29,12 +31,16 @@ def suggest_stations():
 
 @app.route('/fetch_extreme_weather')
 def fetch_extreme_weather():
-    # Define the path to the JSON file
-    json_file = r'C:\Users\riink\OneDrive\Desktop\UCD\COMP30830_software_engineering\Group Project\Dummy_data_folder\openweather_data.json'
-    # Fetch extreme weather conditions
-    extreme_conditions_met = fetch_openweather_extreme(json_file)
-    # Return extreme weather conditions as JSON data
-    return jsonify(extreme_conditions_met=extreme_conditions_met)
+    try:
+        # Define the path to the JSON file
+        json_file = r'C:\Users\riink\OneDrive\Desktop\UCD\COMP30830_software_engineering\Group Project\Dummy_data_folder\openweather_data.json'
+        # Fetch extreme weather conditions
+        extreme_conditions_met = fetch_openweather_extreme(json_file)
+        # Return extreme weather conditions as JSON data
+        return jsonify(extreme_conditions_met=extreme_conditions_met)
+    except Exception as e:
+        return jsonify(extreme_conditions_met=False)
+
 """
 @app.route('/current_weather')
 def current_weather():

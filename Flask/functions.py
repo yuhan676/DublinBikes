@@ -56,13 +56,14 @@ def get_db():
     return db
 
 def get_station_names(engine):
-        sql = "SELECT name FROM station;"
         try:
-            with engine.connect() as conn:
-                result = conn.execute(sql)
-                # Fetch all the results and extract the 'name' column into a list
-                station_names = [row['name'] for row in result.fetchall()]
-                return station_names
+            if engine is not None:
+                query = "SELECT name FROM station;"  # Selects all the station names from JCD Static (station table)
+                df = pd.read_sql(query, engine)
+                return df['name'].tolist()
+            else:
+                print('DB connection failed')
+                return []
         except Exception as e:
             print(f"An error occurred: {tb.format_exc()}")
             return []

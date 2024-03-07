@@ -6,10 +6,7 @@
     <title>Bike Rental App</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="Style.css">
-    <!-- <script src="jquery-3.7.1.min.js"></script> -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfrNOzVJuGJnSUSCtzH6T32OZLNOWJ9_M&callback=initMap&libraries=places,geometry,visualization" async defer></script>
-    <!-- <script src="map.js"></script>    
-    <script src="index.js"></script> -->
     <script src="{{ url_for('static', filename='jquery-3.7.1.min.js') }}"></script>
     <script src="{{ url_for('static', filename='index.js') }}"></script>
     <script src="{{ url_for('static', filename='map.js') }}"></script>
@@ -22,7 +19,7 @@
             // You also need to call this function on window load to ensure proper initial placement
             initMap();
             openTab(null, 'rent'); // Open the 'Rent' tab by default
-            // Call pop up function to display weather when conditions are met
+            // Call pop up function to display extreme weather, when conditions are met
             openPopup();
             adjustWeatherPanelPosition(); // Adjust the weather panel position on load
             // Add event listener to the dropdown list when the page loads

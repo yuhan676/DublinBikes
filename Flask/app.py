@@ -25,15 +25,9 @@ def suggest_stations():
     try:
         engine = connect_db()
         STATIONS = get_station_names(engine)
-        suggestions = [station for station in STATIONS if term in station.lower()]
+        suggestions = [station.title() for station in STATIONS if station.lower().startswith(term)]
         return jsonify(suggestions)
     except Exception as e:
-        # app.logger.error('Error in suggest_stations: %s', traceback.format_exc())
-        # STATIONS_test = ['Dundrum','Dawson']
-        # term = request.args.get('term', '').lower()
-        # #change STATIONS_test to STATIONS once flask app runs
-        # suggestions = [station for station in STATIONS_test if term in station.lower()]
-        # return jsonify(suggestions)
         app.logger.error('Error in suggest_stations: %s', e)
         return jsonify([])
         

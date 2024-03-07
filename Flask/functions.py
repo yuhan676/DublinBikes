@@ -82,7 +82,7 @@ def fetch_openweather_extreme(json_file):
             temp_max = forecast["main"]["temp_max"]
 
             # Check for specific extreme weather conditions
-            # Sever weather conditions are taken from Met Eireann official website. 
+            # Severe weather conditions are taken from Met Eireann official website. 
             # https://www.met.ie/cms/assets/uploads/2020/04/Severe-weather-chart.pdf
             if wind_speed > 80 or gust_speed > 130 or rain_3h > 50 or temp_min < -10 or temp_max > 30:
                 return True  # Extreme weather conditions met

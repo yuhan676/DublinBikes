@@ -25,17 +25,18 @@
         // Function to open the pop-up based on extreme weather conditions
         // Function to open the pop-up based on extreme weather conditions
         function openPopup() {
+            console.log("fetchhing extreme data..");
             fetch('/fetch_extreme_weather')
-            .then(response => response.json())
-            .then(data => {
-                if (data.extreme_conditions_met) {
+                .then(response => response.json())
+                .then(data => {
+                    if (data.extreme_conditions_met) {
                     // Display the extreme weather alert message
-                    document.getElementById('extreme-weather-content').innerText = 'Extreme weather conditions have been detected!';
+                        document.getElementById('extreme-weather-content').innerText = 'Extreme weather conditions have been detected!';
                     // Show the pop-up
-                    document.getElementById('popup').style.display = 'block';
-                }
-            })
-            .catch(error => console.error('Error fetching extreme weather data:', error));
+                        document.getElementById('popup').style.display = 'block';
+                    }
+                })
+                .catch(error => console.error('Error fetching extreme weather data:', error));
         }
         function closePopup() {
             document.getElementById('popup').style.display = 'none';}

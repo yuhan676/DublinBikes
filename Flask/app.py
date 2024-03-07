@@ -46,7 +46,7 @@ def fetch_extreme_weather():
         return jsonify(extreme_conditions_met=extreme_conditions_met)
     except Exception as e:
         return jsonify(extreme_conditions_met=False)
-
+# stil working on this function
 @app.route('/get_availability')
 def get_availability():
     station_name = request.args.get('station_name')

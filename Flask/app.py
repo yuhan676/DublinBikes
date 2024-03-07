@@ -34,7 +34,8 @@ def suggest_stations():
         #change STATIONS_test to STATIONS once flask app runs
         suggestions = [station for station in STATIONS_test if term in station.lower()]
         return jsonify(suggestions)
-# this function does not work unfortunately. Will try to debug
+        
+# Extreme weather notification function decorator
 @app.route('/fetch_extreme_weather')
 def fetch_extreme_weather():
     try:

@@ -3,8 +3,6 @@ from sqlalchemy import create_engine, text
 import traceback
 from functions import connect_db, get_station_names, fetch_openweather_extreme
 
-logging.basicConfig(level=logging.INFO)
-
 app = Flask(__name__, static_url_path='')
 app.config.from_object('config')
 

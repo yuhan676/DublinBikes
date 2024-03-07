@@ -19,10 +19,13 @@
             // You also need to call this function on window load to ensure proper initial placement
             initMap();
             openTab(null, 'rent'); // Open the 'Rent' tab by default
+            // Call pop up function to display weather when conditions are met
+            openPopup();
             adjustWeatherPanelPosition(); // Adjust the weather panel position on load
+            // Add event listener to the dropdown list when the page loads
+            document.getElementById('stationDropdown').addEventListener('change', getAvailability);
         };
         // JavaScript extreme weather pop up
-        // Function to open the pop-up based on extreme weather conditions
         // Function to open the pop-up based on extreme weather conditions
         function openPopup() {
             console.log("fetchhing extreme data..");
@@ -39,7 +42,22 @@
                 .catch(error => console.error('Error fetching extreme weather data:', error));
         }
         function closePopup() {
-            document.getElementById('popup').style.display = 'none';}
+            document.getElementById('popup').style.display = 'none';
+        }
+        // Function to get Available stations
+        function getAvailability() {
+            var stationName = document.getElementById('search_rent').value;
+            var availabilityDisplay = document.getElementById('available-bikes');
+            fetch(`/get_availability?station_name=${stationName}`)
+            .then(response => response.json())
+            .then(data => {
+                availabilityDisplay.innerText = data.availability;
+            })
+            .catch(error => {
+                console.error('Error fetching availability:', error);
+                availabilityDisplay.innerText = 'Data not available';
+            });
+        }
     </script>
 </head>
 <body>
@@ -54,6 +72,7 @@
             <input type="time" id="rent_time" name="rent-time">
             <input type="date" id="rent_date" name="rent-date">
             <div class="input_wrap">
+                <div id="available-bikes-rent"></div>
                 <input type="text" placeholder="Search for bike station to rent" id="search_rent" autocomplete="off">
                 <div class="suggestion_box" id="suggestion_box_rent"></div>
             </div>

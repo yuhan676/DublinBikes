@@ -6,6 +6,14 @@ from functions import connect_db, get_station_names, fetch_openweather_extreme
 app = Flask(__name__, static_url_path='')
 app.config.from_object('config')
 
+dummy_data = {
+    "Station 1": {"available_bikes": 8},
+    "Station 2": {"available_bikes": 5},
+    "Station 3": {"available_bikes": 10},
+    "Station 4": {"available_bikes": 3},
+    "Station 5": {"available_bikes": 6}
+}
+
 @app.route('/')
 def hello_world():
     # return 'hello world'
@@ -26,7 +34,7 @@ def suggest_stations():
         #change STATIONS_test to STATIONS once flask app runs
         suggestions = [station for station in STATIONS_test if term in station.lower()]
         return jsonify(suggestions)
-
+# this function does not work unfortunately. Will try to debug
 @app.route('/fetch_extreme_weather')
 def fetch_extreme_weather():
     try:
@@ -38,6 +46,12 @@ def fetch_extreme_weather():
         return jsonify(extreme_conditions_met=extreme_conditions_met)
     except Exception as e:
         return jsonify(extreme_conditions_met=False)
+
+@app.route('/get_availability')
+def get_availability():
+    station_name = request.args.get('station_name')
+    availability = dummy_data.get(station_name, {}).get('available_bikes', 'Data not available')
+    return jsonify({'availability': availability})
 
 """
 @app.route('/current_weather')

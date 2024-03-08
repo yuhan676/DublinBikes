@@ -100,10 +100,39 @@
             </div>
         </div>
     </div>
-    <div id="right-panel">
-        <p>Station info</p>
-        <p>Address: 123 Bike Lane</p>
-        <p>Available bikes: <span id="available-bikes">15</span></p>
+    <!-- class flag set by jquery to change panel content -->
+    <div id="right_panel" class="rp_live rp_closed rp_rent">
+        <div class="rp_tab_container">
+            <div class="rp_tab_rent">Rent</div>
+            <div class="rp_tab_return">Return</div>
+        </div>
+        <div id="rp_content"> 
+            <div class="rp_station_name">
+                <p id="rp_station_name">Station Name</p>
+                <div class="live_label">Live</div>
+                <div class="predicted_label">Predicted</div>
+                <div class="rp_station_open">Open</div>
+                <div class="rp_station_close">Closed</div>
+            </div>
+            <div class="rp_station_info_rent">
+                <div class="rp_bike_total_label">total bike: <p id="available-bikes">num</p></div>
+                <div class="rp_info_label">Mechanical Bikes: <p id="available_mechanical">placeholder</p> </div>
+                <div class="rp_info_label">E-Bike removable battery: <p id="available_e_removable">placeholder</p></div>
+                <div class="rp_info_label">E-Bike internal battery: <p id="available_e_internal">placeholder</p></div>
+
+            </div>
+            <div class="rp_station_info_return">
+                <div class="rp_park_total_label">total parking: <p id="available-park">num</p></div>
+
+            </div>
+            <div class="rp_prediction_rent">
+                <p>Placeholder for bike availability prediction graph</p>
+            </div>
+            <div class="rp_prediction_return">
+                <p>Placeholder for park availability prediction graph </p>
+            </div>
+        </div>
+        <!-- <p>Available bikes: <span id="available-bikes">15</span></p> -->
     </div>
     <div id="popup" class="popup">
         <div class="popup-content">

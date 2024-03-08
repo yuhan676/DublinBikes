@@ -12,14 +12,14 @@
 }
 
 /* Panel styling */
-#left-panel, #weather-panel, #right-panel {
+#left-panel, #weather-panel, #right_panel {
     position: absolute;
     background: white;
     padding: 10px;
     border-radius: 4px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.3);
     z-index: 10;
-    max-width: 300px;
+    width: 300px;
 }
 
 #left-panel {
@@ -102,11 +102,130 @@
     max-height: 300px; /* Maximum height when expanded */
 }
 
-#right-panel {
+#right_panel {
     top: 10px;
     right: 10px;
+    width: 400px;
+    padding: 0;
 }
 
+.rp_tab_container
+{
+    width: 100%;
+    display: flex;
+}
+
+.rp_tab_rent, .rp_tab_return
+{
+    width: 50%;
+    padding: 20px;
+    display: inline-block;
+    text-align: center;
+    font-size: 1.4rem;
+    border: 0px solid grey;
+    border-bottom-width: 2px;
+}
+
+.rp_rent .rp_tab_rent, .rp_return .rp_tab_return
+{
+    border: 2px solid grey;
+    border-bottom-width: 0;
+}
+
+#rp_content
+{
+    padding: 10px;
+    border: 2px solid grey;
+    border-top-width: 0;
+}
+
+.rp_station_name
+{
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    position: relative;
+}
+
+.live_label, .predicted_label
+{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 2px;
+    font-size: 1rem;
+    display: none;
+}
+
+.rp_live .live_label
+{
+    display: block;
+    color: green;
+}
+
+.rp_predicted .predicted_label
+{
+    display: block;
+}
+
+.rp_station_open, .rp_station_close
+{
+    position: absolute;
+    top:100%;
+    left: 0;
+    padding: 2px;
+    font-size: 1rem;
+    display:none;
+}
+.rp_open .rp_station_open
+{
+    display:block;
+}
+.rp_closed .rp_station_close
+{
+    display: block;
+}
+
+.rp_station_info_rent, .rp_station_info_return
+{
+    text-align: center;
+    padding-top: 1rem;
+    display: none;
+}
+
+.rp_station_info_rent p
+{
+    display: inline;
+}
+.rp_rent .rp_station_info_rent
+{
+    display: block;
+}
+.rp_return .rp_station_info_return
+{
+    display:block;
+}
+
+.rp_prediction_rent, .rp_prediction_return
+{
+    height: 100px;
+    background-color: red;
+    display:none;
+}
+.rp_prediction_return
+{
+    background-color: green;
+}
+.rp_rent .rp_prediction_rent
+{
+    display:block;
+}
+.rp_return .rp_prediction_return
+{
+    display:block;
+}
 /* Tab container styling */
 .tab {
     /* Adjustments to flex container */

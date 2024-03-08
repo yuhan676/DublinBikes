@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, jsonify, request, render_template, url_for
 from sqlalchemy import create_engine, text
 import traceback
 from functions import connect_db, get_station_names, fetch_openweather_extreme
@@ -14,10 +14,10 @@ dummy_data = {
     "Station 5": {"available_bikes": 6}
 }
 
-@app.route('/')
+@app.route('/root')
 def hello_world():
     # return 'hello world'
-    return app.send_static_file("index.html")
+    return render_template("index.html")
 
 @app.route('/suggest_stations')
 def suggest_stations():
@@ -25,16 +25,13 @@ def suggest_stations():
     try:
         engine = connect_db()
         STATIONS = get_station_names(engine)
-        suggestions = [station for station in STATIONS if term in station.lower()]
+        suggestions = [station.title() for station in STATIONS if station.lower().startswith(term)]
         return jsonify(suggestions)
     except Exception as e:
-        app.logger.error('Error in suggest_stations: %s', traceback.format_exc())
-        STATIONS_test = ['Dundrum','Dawson']
-        term = request.args.get('term', '').lower()
-        #change STATIONS_test to STATIONS once flask app runs
-        suggestions = [station for station in STATIONS_test if term in station.lower()]
-        return jsonify(suggestions)
-# this function does not work unfortunately. Will try to debug
+        app.logger.error('Error in suggest_stations: %s', e)
+        return jsonify([])
+        
+# Extreme weather notification function decorator
 @app.route('/fetch_extreme_weather')
 def fetch_extreme_weather():
     try:
@@ -46,7 +43,7 @@ def fetch_extreme_weather():
         return jsonify(extreme_conditions_met=extreme_conditions_met)
     except Exception as e:
         return jsonify(extreme_conditions_met=False)
-
+# stil working on this function
 @app.route('/get_availability')
 def get_availability():
     station_name = request.args.get('station_name')

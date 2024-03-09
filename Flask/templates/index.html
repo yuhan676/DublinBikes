@@ -11,6 +11,7 @@
     <script src="{{ url_for('static', filename='index.js') }}"></script>
     <script src="{{ url_for('static', filename='map.js') }}"></script>
     <script>
+        // Javascript to display Dublin by default instead of Sidney
                 function initMap() {
             var dublin = { lat: 53.349805, lng: -6.26031 };
             var map = new google.maps.Map(document.getElementById('map'), {

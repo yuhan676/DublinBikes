@@ -122,28 +122,78 @@ function openPopup() {
         .then(response => response.json())
         .then(data => {
             if (data.extreme_conditions_met) {
-                document.getElementById('extreme-weather-content').innerText = 'Extreme weather conditions have been detected!';
+                // Extract weather information from the data
+                const weatherInfo = data.extreme_conditions_met.list[0];
+                const windSpeed = weatherInfo.wind.speed;
+                const windGust = weatherInfo.wind.gust;
+                const rainProbability = weatherInfo.rain["3"];
+                const minTemperature = weatherInfo.main.temp_min;
+                const maxTemperature = weatherInfo.main.temp_max;
+
+                // Format the weather information for display
+                const weatherDisplay = `
+                    <div>Wind Speed: ${windSpeed} m/s</div>
+                    <div>Wind Gust: ${windGust} m/s</div>
+                    <div>Rain Probability: ${rainProbability}%</div>
+                    <div>Min Temperature: ${minTemperature}°C</div>
+                    <div>Max Temperature: ${maxTemperature}°C</div>
+                `;
+
+                // Display the formatted weather information in the pop-up
+                document.getElementById('extreme-weather-content').innerHTML = weatherDisplay;
                 document.getElementById('popup').style.display = 'block';
             }
         })
         .catch(error => console.error('Error fetching extreme weather data:', error));
 }
+// function to opentab on the left side of the page pane, for return, rent and return/rent
+$(document).ready(function() {
+    // Function to handle selecting an option from the suggestion box
+    function selectOption(option, inputField) {
+        var stationName = $(option).text().split(' (')[0]; // Extract station name from the suggestion
+        inputField.val(stationName); // Set the input field value to the selected station name
+        $(option).parent().empty(); // Clear the suggestion box
+    }
 
-function closePopup() {
-    document.getElementById('popup').style.display = 'none';
-}
-// working on this feature
-function getAvailability() {
-    var stationName = document.getElementById('search_rent').value;
-    var availabilityDisplay = document.getElementById('available-bikes-rent');
-    fetch(`/get_availability?station_name=${stationName}`)
-        .then(response => response.json())
-        .then(data => {
-            availabilityDisplay.innerText = data.availability;
-        })
-        .catch(error => {
-            console.error('Error fetching availability:', error);
-            availabilityDisplay.innerText = 'Data not available';
+    // Event listener for input field for renting
+    $('#search_rent').on('input', function() {
+        var query = $(this).val();
+        $.ajax({
+            url: '/search',
+            data: { query: query },
+            success: function(response) {
+                $('#suggestion_box_rent').empty();
+                response.forEach(function(station) {
+                    $('#suggestion_box_rent').append('<div class="suggestion_div">' + station.station + ' (Available Bikes: ' + station.available_bikes + ')</div>');
+                });
+            }
         });
-}
+    });
 
+    // Event listener for input field for returning
+    $('#search_return').on('input', function() {
+        var query = $(this).val();
+        $.ajax({
+            url: '/search',
+            data: { query: query },
+            success: function(response) {
+                $('#suggestion_box_return').empty();
+                response.forEach(function(station) {
+                    $('#suggestion_box_return').append('<div class="suggestion_div">' + station.station + ' (Available Bikes: ' + station.available_bikes + ')</div>');
+                });
+            }
+        });
+    });
+
+    // Event listener for selecting suggestion for renting
+    $('#suggestion_box_rent').on('mousedown', '.suggestion_div', function() {
+        var inputField = $('#search_rent');
+        selectOption(this, inputField);
+    });
+
+    // Event listener for selecting suggestion for returning
+    $('#suggestion_box_return').on('mousedown', '.suggestion_div', function() {
+        var inputField = $('#search_return');
+        selectOption(this, inputField);
+    });
+});

@@ -60,12 +60,20 @@ def fetch_extreme_weather():
     except Exception as e:
         return jsonify(error=str(e))
 
-# stil working on this function
-@app.route('/get_availability')
-def get_availability():
-    station_name = request.args.get('station_name')
-    availability = dummy_data.get(station_name, {}).get('available_bikes', 'Data not available')
-    return jsonify({'availability': availability})
+# Stations suggestion for rent, return and rent/return, currently using dummy data 
+@app.route('/search', methods=['GET'])
+def search():
+    query = request.args.get('query')
+    results = []
+    for station, data in dummy_data.items():
+        if station.lower().startswith(query.lower()):
+            results.append({
+                'station': station,
+                'available_bikes': data['available_bikes']
+            })
+            if len(results) == 5:  # Limit to 5 closest options
+                break
+    return jsonify(results)
 
 """
 @app.route('/current_weather')

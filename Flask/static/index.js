@@ -115,3 +115,35 @@ function toggleWeatherPanel() {
         weatherPanel.classList.add('expanded');
     }
 }
+// extreme weather pop up
+function openPopup() {
+    console.log("fetching extreme data..");
+    fetch('/fetch_extreme_weather')
+        .then(response => response.json())
+        .then(data => {
+            if (data.extreme_conditions_met) {
+                document.getElementById('extreme-weather-content').innerText = 'Extreme weather conditions have been detected!';
+                document.getElementById('popup').style.display = 'block';
+            }
+        })
+        .catch(error => console.error('Error fetching extreme weather data:', error));
+}
+
+function closePopup() {
+    document.getElementById('popup').style.display = 'none';
+}
+// working on this feature
+function getAvailability() {
+    var stationName = document.getElementById('search_rent').value;
+    var availabilityDisplay = document.getElementById('available-bikes-rent');
+    fetch(`/get_availability?station_name=${stationName}`)
+        .then(response => response.json())
+        .then(data => {
+            availabilityDisplay.innerText = data.availability;
+        })
+        .catch(error => {
+            console.error('Error fetching availability:', error);
+            availabilityDisplay.innerText = 'Data not available';
+        });
+}
+

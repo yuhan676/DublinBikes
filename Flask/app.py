@@ -37,11 +37,8 @@ def suggest_stations():
 @app.route('/fetch_extreme_weather')
 def fetch_extreme_weather():
     try:
-        # Define the path to the JSON file within the static folder
-        json_file_path = os.path.join(app.static_folder, json_filename)
-        
-        # Open the JSON file and read its contents
-        with open(json_file_path, 'r') as json_file:
+        # Open the JSON file in the same directory as app.py
+        with open('extreme_weather_dummy_data.json', 'r') as json_file:
             extreme_conditions_met = json.load(json_file)
         
         # Return extreme weather conditions as JSON data

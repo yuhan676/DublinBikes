@@ -2,9 +2,12 @@ from flask import Flask, jsonify, request, render_template, url_for
 from sqlalchemy import create_engine, text
 import traceback
 from functions import connect_db, get_station_names, fetch_openweather_extreme
+import os
 
 app = Flask(__name__, static_url_path='')
 app.config.from_object('config')
+# Define the filename of the JSON file within the static folder, file with dummy data to display extreme weather conditions
+json_filename = 'extreme_weather_dummy_data.json'
 
 dummy_data = {
     "Station 1": {"available_bikes": 8},
@@ -31,18 +34,21 @@ def suggest_stations():
         app.logger.error('Error in suggest_stations: %s', e)
         return jsonify([])
         
-# Extreme weather notification function decorator
 @app.route('/fetch_extreme_weather')
 def fetch_extreme_weather():
     try:
-        # Define the path to the JSON file
-        json_file = r'C:\Users\riink\OneDrive\Desktop\UCD\COMP30830_software_engineering\Group Project\Dummy_data_folder\openweather_data.json'
-        # Fetch extreme weather conditions
-        extreme_conditions_met = fetch_openweather_extreme(json_file)
+        # Define the path to the JSON file within the static folder
+        json_file_path = os.path.join(app.static_folder, json_filename)
+        
+        # Open the JSON file and read its contents
+        with open(json_file_path, 'r') as json_file:
+            extreme_conditions_met = json.load(json_file)
+        
         # Return extreme weather conditions as JSON data
         return jsonify(extreme_conditions_met=extreme_conditions_met)
     except Exception as e:
-        return jsonify(extreme_conditions_met=False)
+        return jsonify(error=str(e))
+
 # stil working on this function
 @app.route('/get_availability')
 def get_availability():

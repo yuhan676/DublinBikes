@@ -6,15 +6,33 @@ import os
 
 app = Flask(__name__, static_url_path='')
 app.config.from_object('config')
-# Define the filename of the JSON file within the static folder, file with dummy data to display extreme weather conditions
-json_filename = 'extreme_weather_dummy_data.json'
 
+# temporary dummy data to create function to display 5 station suggestions on the left hand panel
 dummy_data = {
     "Station 1": {"available_bikes": 8},
     "Station 2": {"available_bikes": 5},
     "Station 3": {"available_bikes": 10},
     "Station 4": {"available_bikes": 3},
     "Station 5": {"available_bikes": 6}
+}
+# Dummy data to display extreme weather pop up
+dummy_data1 = {
+    "list": [
+        {
+            "wind": {
+                "speed": 85,
+                "gust": 140
+            },
+            "rain": {
+                "3": 60
+            },
+            "main": {
+                "temp_min": -15,
+                "temp_max": 35
+            }
+        }
+    ]
+
 }
 
 @app.route('/root')
@@ -33,16 +51,12 @@ def suggest_stations():
     except Exception as e:
         app.logger.error('Error in suggest_stations: %s', e)
         return jsonify([])
-        
+
 @app.route('/fetch_extreme_weather')
 def fetch_extreme_weather():
     try:
-        # Open the JSON file in the same directory as app.py
-        with open('extreme_weather_dummy_data.json', 'r') as json_file:
-            extreme_conditions_met = json.load(json_file)
-        
-        # Return extreme weather conditions as JSON data
-        return jsonify(extreme_conditions_met=extreme_conditions_met)
+        # Return extreme weather conditions from the dummy data dictionary
+        return jsonify(extreme_conditions_met=dummy_data1)
     except Exception as e:
         return jsonify(error=str(e))
 

@@ -102,6 +102,7 @@
     max-height: 300px; /* Maximum height when expanded */
 }
 
+/* container for right panel */
 #right_panel {
     top: 10px;
     right: 10px;
@@ -109,12 +110,14 @@
     padding: 0;
 }
 
+/* container for rent/return station info tab  */
 .rp_tab_container
 {
     width: 100%;
     display: flex;
 }
 
+/* styling for right panel rent/return tab */
 .rp_tab_rent, .rp_tab_return
 {
     width: 50%;
@@ -126,12 +129,14 @@
     border-bottom-width: 2px;
 }
 
+/* change tab styling when tab is set to rp_rent or rp_return */
 .rp_rent .rp_tab_rent, .rp_return .rp_tab_return
 {
     border: 2px solid grey;
     border-bottom-width: 0;
 }
 
+/* container for right panel */
 #rp_content
 {
     padding: 10px;
@@ -139,6 +144,7 @@
     border-top-width: 0;
 }
 
+/* styling for station name container */
 .rp_station_name
 {
     width: 100%;
@@ -148,7 +154,7 @@
     font-weight: bold;
     position: relative;
 }
-
+/* styling for live and predicted lebel, display= none until class flag rp_live or rp_predicted is set */
 .live_label, .predicted_label
 {
     position: absolute;
@@ -159,17 +165,21 @@
     display: none;
 }
 
+/* display live_label when id 'right_panel's class flag is set to .rp_live */
 .rp_live .live_label
 {
     display: block;
     color: green;
 }
 
+/* display predicted_label when id 'right_panel's class flag is set to .rp_predicted */
 .rp_predicted .predicted_label
 {
     display: block;
+    color:blue;
 }
 
+/* styling for the station status lable: open or closed */
 .rp_station_open, .rp_station_close
 {
     position: absolute;
@@ -179,15 +189,21 @@
     font-size: 1rem;
     display:none;
 }
+
+/* display rp_station_open when id 'right_panel's class flag is set to .rp_open */
+
 .rp_open .rp_station_open
 {
     display:block;
 }
+
+/* display rp_station_close when id 'right_panel's class flag is set to .rp_closed */
 .rp_closed .rp_station_close
 {
     display: block;
 }
 
+/* styling for station's availability info depending on whether rent or return is selected, default display = none*/
 .rp_station_info_rent, .rp_station_info_return
 {
     text-align: center;
@@ -195,37 +211,50 @@
     display: none;
 }
 
+/* styling for the p  elements in .rp_station info_rent  */
 .rp_station_info_rent p
 {
     display: inline;
 }
+
+/* display rp_station_info_rent when id 'right_panel's class flag is set to .rp_rent */
 .rp_rent .rp_station_info_rent
 {
     display: block;
 }
+
+/* display rp_station_info_return when id 'right_panel's class flag is set to .rp_return */
 .rp_return .rp_station_info_return
 {
     display:block;
 }
 
+/* styling for prediction graphs container  */
 .rp_prediction_rent, .rp_prediction_return
 {
     height: 100px;
     background-color: red;
     display:none;
 }
+
+/* Testing use: override the background  color of rp_prediction_return so we can see the difference */
 .rp_prediction_return
 {
     background-color: green;
 }
+
+/* display rp_prediction_rent when id 'right_panel's class flag is set to .rp_rent */
 .rp_rent .rp_prediction_rent
 {
     display:block;
 }
+
+/* display rp_prediction_return when id 'right_panel's class flag is set to .rp_return */
 .rp_return .rp_prediction_return
 {
     display:block;
 }
+
 /* Tab container styling */
 .tab {
     /* Adjustments to flex container */

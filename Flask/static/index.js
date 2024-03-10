@@ -52,6 +52,24 @@ $(document).ready(function() {
     $('#search_return').focusout(function() {
         $('#suggestion_box_return').empty();
     });
+
+    
+    var rentTabClass = "rp_rent";
+    var returnTabClass = "rp_return";
+    // toggle functions for the right panel content
+    $('#rp_tab_rent').click(function() {
+        if (!$('#right_panel').hasClass(rentTabClass)){
+            $('#right_panel').addClass(rentTabClass);
+            $('#right_panel').removeClass(returnTabClass);
+        }
+    });
+
+    $('#rp_tab_return').click(function() {
+        if (!$('#right_panel').hasClass(returnTabClass)){
+            $('#right_panel').addClass(returnTabClass);
+            $('#right_panel').removeClass(rentTabClass);
+        }
+    });
 });
 
 

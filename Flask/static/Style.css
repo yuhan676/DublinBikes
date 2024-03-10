@@ -127,6 +127,7 @@
     font-size: 1.4rem;
     border: 0px solid grey;
     border-bottom-width: 2px;
+    cursor: pointer;
 }
 
 /* change tab styling when tab is set to rp_rent or rp_return */

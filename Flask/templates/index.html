@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bike Rental App</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="Style.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfrNOzVJuGJnSUSCtzH6T32OZLNOWJ9_M&callback=initMap&libraries=places,geometry,visualization&center=53.349805,-6.26031&zoom=10" async defer></script>
+    <script src="{{ url_for('static', filename='jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
+    <script src="{{ url_for('static', filename='map.js') }}"></script>
+    <script>
+        // Javascript to display Dublin by default instead of Sidney
+                function initMap() {
+            var dublin = { lat: 53.349805, lng: -6.26031 };
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 10,
+                center: dublin
+            });
+
+        // Yuhan: We put this here because initMap is in map.js but the other
+        //        more generic init funcitons are in index.js. This is the 
+        //        logical place to put it as we have access to both here.
+        window.onload = function() {
+            // You also need to call this function on window load to ensure proper initial placement
+            initMap();
+            openTab(null, 'rent'); // Open the 'Rent' tab by default
+            // Call pop up function to display extreme weather, when conditions are met
+            openPopup();
+            adjustWeatherPanelPosition(); // Adjust the weather panel position on load
+        };
+    }
+    </script>
+</head>
+<body>
+    <div id="map"></div>
+    <div id="left-panel">
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'rent')">Rent</button>
+            <button class="tablinks" onclick="openTab(event, 'return')">Return</button>
+            <button class="tablinks" onclick="openTab(event, 'rent_return')">Rent & Return</button>
+        </div>
+        <div id="rent" class="tabcontent">
+            <input type="time" id="rent_time" name="rent-time">
+            <input type="date" id="rent_date" name="rent-date">
+            <div class="input_wrap">
+                <div id="available-bikes-rent"></div>
+                <input type="text" placeholder="Search for bike station to rent" id="search_rent" autocomplete="off">
+                <div class="suggestion_box" id="suggestion_box_rent"></div>
+            </div>
+        </div>
+        <div id="return" class="tabcontent">
+            <input type="time" id="return_time" name="rent-time">
+            <input type="date" id="return_date" name="rent-date">
+            <div class="input_wrap">
+                <input type="text" placeholder="Search for bike station to return" id="search_return" autocomplete="off">
+                <div class="suggestion_box" id="suggestion_box_return"></div>
+            </div>
+        </div>
+    </div>
+    <div id="weather-panel" class="panel">
+        <div class="weather-header" onclick="toggleWeatherPanel()">
+            <span>Current weather</span>
+            <span class="material-icons">expand_more</span>
+        </div>
+        <div class="weather-content">
+            <p>Outside: <span id="current-weather-icon">🌤️</span></p>
+            <p>Feels like: <span id="feels-like">18°C</span></p>
+            <div class="weather-more-info" style="display:none;">
+                <p>Wind: <span id="wind-info">10 km/h</span></p>
+                <p>Humidity: <span id="humidity-info">50%</span></p>
+            </div>
+        </div>
+    </div>
+    <!-- class flag set by jquery to change panel content -->
+    <div id="right_panel" class="rp_live rp_closed rp_rent">
+        <div class="rp_tab_container">
+            <div class="rp_tab_rent" id="rp_tab_rent">Rent</div>
+            <div class="rp_tab_return" id="rp_tab_return">Return</div>
+        </div>
+        <div id="rp_content"> 
+            <div class="rp_station_name">
+                <p id="rp_station_name">Station Name</p>
+                <div class="live_label">Live</div>
+                <div class="predicted_label">Predicted</div>
+                <div class="rp_station_open">Open</div>
+                <div class="rp_station_close">Closed</div>
+            </div>
+            <div class="rp_station_info_rent">
+                <div class="rp_bike_total_label">total bike: <p id="available-bikes">num</p></div>
+                <div class="rp_info_label">Mechanical Bikes: <p id="available_mechanical">placeholder</p> </div>
+                <div class="rp_info_label">E-Bike removable battery: <p id="available_e_removable">placeholder</p></div>
+                <div class="rp_info_label">E-Bike internal battery: <p id="available_e_internal">placeholder</p></div>
+
+            </div>
+            <div class="rp_station_info_return">
+                <div class="rp_park_total_label">total parking: <p id="available-park">num</p></div>
+
+            </div>
+            <div class="rp_prediction_rent">
+                <p>Placeholder for bike availability prediction graph</p>
+            </div>
+            <div class="rp_prediction_return">
+                <p>Placeholder for park availability prediction graph </p>
+            </div>
+        </div>
+        <!-- <p>Available bikes: <span id="available-bikes">15</span></p> -->
+    </div>
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <h3>Extreme Weather Alert</h3>
+            <p id="extreme-weather-content"></p>
+        </div>
+    </div>
+</body>
+</html>

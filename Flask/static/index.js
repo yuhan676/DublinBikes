@@ -133,37 +133,54 @@ function toggleWeatherPanel() {
         weatherPanel.classList.add('expanded');
     }
 }
-// extreme weather pop up
+// Function to open the pop-up when the page loads and bind close event
+$(document).ready(function() {
+    openPopup(); // Show the popup when the page loads
+});
+
+// Function to open the pop-up and fetch extreme weather data
 function openPopup() {
-    console.log("fetching extreme data..");
+    console.log("Fetching extreme data..");
     fetch('/fetch_extreme_weather')
         .then(response => response.json())
         .then(data => {
-            if (data.extreme_conditions_met) {
-                // Extract weather information from the data
-                const weatherInfo = data.extreme_conditions_met.list[0];
-                const windSpeed = weatherInfo.wind.speed;
-                const windGust = weatherInfo.wind.gust;
-                const rainProbability = weatherInfo.rain["3"];
-                const minTemperature = weatherInfo.main.temp_min;
-                const maxTemperature = weatherInfo.main.temp_max;
-
-                // Format the weather information for display
-                const weatherDisplay = `
-                    <div>Wind Speed: ${windSpeed} m/s</div>
-                    <div>Wind Gust: ${windGust} m/s</div>
-                    <div>Rain Probability: ${rainProbability}%</div>
-                    <div>Min Temperature: ${minTemperature}°C</div>
-                    <div>Max Temperature: ${maxTemperature}°C</div>
-                `;
-
-                // Display the formatted weather information in the pop-up
-                document.getElementById('extreme-weather-content').innerHTML = weatherDisplay;
-                document.getElementById('popup').style.display = 'block';
+            if (data && data.extreme_conditions_met) {
+                displayWeatherPopup(data.extreme_conditions_met);
+            } else {
+                console.error('Extreme weather data not available.');
             }
         })
         .catch(error => console.error('Error fetching extreme weather data:', error));
 }
+
+// Function to display extreme weather data in a popup
+function displayWeatherPopup(weatherData) {
+    const weatherInfo = weatherData.list[0];
+    const windSpeed = weatherInfo.wind.speed;
+    const windGust = weatherInfo.wind.gust;
+    const rainProbability = weatherInfo.rain["3"];
+    const minTemperature = weatherInfo.main.temp_min;
+    const maxTemperature = weatherInfo.main.temp_max;
+
+    // Format the weather information for display
+    const weatherDisplay = `
+        <div>Wind Speed: ${windSpeed} m/s</div>
+        <div>Wind Gust: ${windGust} m/s</div>
+        <div>Rain Probability: ${rainProbability}%</div>
+        <div>Min Temperature: ${minTemperature}°C</div>
+        <div>Max Temperature: ${maxTemperature}°C</div>
+    `;
+
+    // Display the formatted weather information in the pop-up
+    $('#extreme-weather-content').html(weatherDisplay); // Using jQuery to set HTML content
+    $('#popup').show(); // Using jQuery to show the popup
+
+    // Bind click event to close button
+    $('#close-popup').on('click', function() {
+        $('#popup').hide(); // Hide the popup when the close button is clicked
+    });
+}
+
 // function to opentab on the left side of the page pane, for return, rent and return/rent
 $(document).ready(function() {
     // Function to handle selecting an option from the suggestion box

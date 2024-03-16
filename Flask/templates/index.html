@@ -12,25 +12,17 @@
     <script src="{{ url_for('static', filename='map.js') }}"></script>
     <script>
         // Javascript to display Dublin by default instead of Sidney
-        function initMap() {
-            var dublin = { lat: 53.349805, lng: -6.26031 };
-            var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 10,
-                center: dublin
-            });
-
         // Yuhan: We put this here because initMap is in map.js but the other
         //        more generic init funcitons are in index.js. This is the 
         //        logical place to put it as we have access to both here.
         window.onload = function() {
             // You also need to call this function on window load to ensure proper initial placement
-            initMap();
+            initDublin();
             openTab(null, 'rent'); // Open the 'Rent' tab by default
             // Call pop up function to display extreme weather, when conditions are met
             openPopup();
             adjustWeatherPanelPosition(); // Adjust the weather panel position on load
         };
-    }
     </script>
 </head>
 <body>

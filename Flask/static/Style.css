@@ -340,31 +340,22 @@
     background-color: #ccc;
 }
 /* Extreme weather pop up */
-/* Pop-up styles */
 .popup {
-    display: none;
     position: fixed;
-    z-index: 9999; /* Ensure it's above other content */
-    left: 50%; /* Center horizontally */
-    top: 20%; /* Adjust as needed */
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #fefefe;
-    border: 1px solid #888;
+    background-color: white;
     padding: 20px;
-    width: 300px; /* Adjust width as needed */
-    box-shadow: 0 2px 6px rgba(0,0,0,0.3); /* Add box shadow for better visibility */
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 9999; /* Ensure the panel appears on top */
+    cursor: pointer; /* Change cursor to pointer */
 }
-
-.popup-content {
-    text-align: center; /* Center content */
-}
-
 .close {
     position: absolute;
-    top: 5px;
+    top: 10px;
     right: 10px;
-    cursor: pointer;
-    font-size: 20px; /* Increase font size for better visibility */
-    color: #888; /* Adjust color for better visibility */
 }
+
 /* Add any additional styling needed */

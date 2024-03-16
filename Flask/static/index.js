@@ -134,12 +134,20 @@ function toggleWeatherPanel() {
     }
 }
 // Function to open the pop-up when the page loads and bind close event
+// Function to open the pop-up when the page loads and bind close event
 $(document).ready(function() {
     openPopup(); // Show the popup when the page loads
 });
 
 // Function to open the pop-up and fetch extreme weather data
 function openPopup() {
+    // JavaScript to close the weather panel when clicked
+    document.getElementById("popup").addEventListener("click", function(event) {
+        // Check if the click occurred outside the close button
+        if (!event.target.closest(".close")) {
+            document.getElementById("popup").style.display = "none";
+        }
+    });
     console.log("Fetching extreme data..");
     fetch('/fetch_extreme_weather')
         .then(response => response.json())
@@ -174,12 +182,14 @@ function displayWeatherPopup(weatherData) {
     // Display the formatted weather information in the pop-up
     $('#extreme-weather-content').html(weatherDisplay); // Using jQuery to set HTML content
     $('#popup').show(); // Using jQuery to show the popup
-
-    // Bind click event to close button
-    $('#close-popup').on('click', function() {
-        $('#popup').hide(); // Hide the popup when the close button is clicked
-    });
+    
 }
+
+// Bind click event to close button
+$('#close-popup').on('click', function() {
+    $('#popup').hide(); // Hide the popup when the close button is clicked
+});
+
 
 // function to opentab on the left side of the page pane, for return, rent and return/rent
 $(document).ready(function() {

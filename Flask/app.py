@@ -3,10 +3,13 @@ from sqlalchemy import create_engine, text
 import traceback
 from functions import connect_db, get_station_names, fetch_openweather_extreme
 import os
+import json
+# from pull_dummy import tables_to_files
+# from functions import connect_db, fetch_dummy_data, write_json_to_file
 
 app = Flask(__name__, static_url_path='')
 app.config.from_object('config')
-
+'''
 # temporary dummy data to create function to display 5 station suggestions on the left hand panel
 dummy_data = {
     "Station 1": {"available_bikes": 8},
@@ -15,6 +18,14 @@ dummy_data = {
     "Station 4": {"available_bikes": 3},
     "Station 5": {"available_bikes": 6}
 }
+'''
+tables_to_files = {
+    'station': 'dummy_JCDStatic.json',
+    'station_status': 'dummy_JCDDynamic.json',
+    'CurrentWeather': 'dummy_WeaCurrent.json',
+    'FiveDayPrediction': 'dummy_WeaPredict.json',
+    'ExtremeWeather': 'dummy_WeaExtreme.json'
+    }
 # Dummy data to display extreme weather pop up
 dummy_data1 = {
     "list": [
@@ -60,20 +71,25 @@ def fetch_extreme_weather():
     except Exception as e:
         return jsonify(error=str(e))
 
-# Stations suggestion for rent, return and rent/return, currently using dummy data 
+# function to fetch 5 closest rent, return and rent&return option stations to display
 @app.route('/search', methods=['GET'])
 def search():
     query = request.args.get('query')
     results = []
-    for station, data in dummy_data.items():
-        if station.lower().startswith(query.lower()):
-            results.append({
-                'station': station,
-                'available_bikes': data['available_bikes']
-            })
-            if len(results) == 5:  # Limit to 5 closest options
-                break
-    return jsonify(results)
+    try:
+        with open('dummy_JCDStatic.json', 'r') as f:
+            station_data = json.load(f)
+        for station, data in station_data.items():
+            if station.lower().startswith(query.lower()):
+                results.append({
+                    'station': station,
+                    'available_bikes': data['available_bikes']
+                })
+                if len(results) == 5:  # Limit to 5 closest options
+                    break
+        return jsonify(results)
+    except Exception as e:
+        return jsonify(error=str(e))
 
 """
 @app.route('/current_weather')

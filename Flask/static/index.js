@@ -134,11 +134,11 @@ function toggleWeatherPanel() {
     }
 }
 // Function to open the pop-up when the page loads and bind close event
+
 // Function to open the pop-up when the page loads and bind close event
 $(document).ready(function() {
     openPopup(); // Show the popup when the page loads
 });
-
 // Function to open the pop-up and fetch extreme weather data
 function openPopup() {
     // JavaScript to close the weather panel when clicked
@@ -182,15 +182,12 @@ function displayWeatherPopup(weatherData) {
     // Display the formatted weather information in the pop-up
     $('#extreme-weather-content').html(weatherDisplay); // Using jQuery to set HTML content
     $('#popup').show(); // Using jQuery to show the popup
-    
 }
 
 // Bind click event to close button
 $('#close-popup').on('click', function() {
     $('#popup').hide(); // Hide the popup when the close button is clicked
 });
-
-
 // function to opentab on the left side of the page pane, for return, rent and return/rent
 $(document).ready(function() {
     // Function to handle selecting an option from the suggestion box

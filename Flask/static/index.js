@@ -1,3 +1,7 @@
+// We use this for our state a lot, so keep track of the currently open tab here
+// Rent is open by default
+var activeTab = "rent";
+
 function initTimeAndDate() {
     // A new Date object defaults to today and now
     var date = new Date();
@@ -45,15 +49,91 @@ function fetchStationSuggestions(element_out_id, input) {
     }
 }
 
+// Use the global active tab var to check if we can enable the search button
+function updateSearchBtn() {
+    isRent = activeTab == "rent";
+    var searchBtn = $('#search_btn');
+    var inputElem = $(isRent ? '#search_rent' : '#search_return');
+    if (inputElem.val().length > 0) {
+        searchBtn.removeClass('disabled');
+    }
+    else {
+        searchBtn.addClass('disabled');
+    }
+}
+
+// Do some input validity checking and submit the search
+function verifyAndSubmitQuery() {
+    // Clear the error text
+    $('#error_text').empty();
+
+    isRent = activeTab == "rent";
+
+    // Get currently set time and date for the active tab
+    // [0] is used to get the DOM element from JQuery, so we can get the date and time easily
+    var timeElem = $(isRent ? '#rent_time' : '#return_time')[0];
+    var dateElem = $(isRent ? '#rent_date' : '#return_date')[0];
+
+
+    // If date is today, check that the time is not earlier than now or correct it
+    var dateNow = new Date();
+    var dateSelected = dateElem.valueAsDate;
+    var timeSelected = timeElem.valueAsDate;
+    if (!(dateSelected > dateNow))
+    {
+        if (timeSelected.getHours() < dateNow.getHours() || 
+           (timeSelected.getHours() == dateNow.getHours() && timeSelected.getMinutes() < dateNow.getMinutes()))
+        {
+            // Use current time for query...
+            timeSelected = dateNow;
+            // ...and set current time in the input element
+            timeElem.value = dateNow.toISOString().substring(11,16);
+        }
+    }
+
+    // For simplicity, compact our date and time into one
+    dateSelected.setHours(timeSelected.getHours());
+    dateSelected.setMinutes(timeSelected.getMinutes());
+
+    // Package and submit query
+    var stationName = $(isRent ? '#search_rent' : '#search_return').val();
+    $.ajax({
+        url: "/search", // The endpoint in Flask
+        type: "GET",
+        dataType: 'json',
+        data: { 
+            'isRent': isRent,
+            'stationName': stationName,
+            'date': JSON.stringify(dateSelected) // format: YYYY-MM-DDTHH:MM:SS.MMMZ
+        },
+        success: function(return_data) {
+            // Success! return_data should contain the five stations plus any other necessary info
+            // Pass this to a function to display here, maybe don't add population code here to keep things clean
+        },
+        error: function(request, status, errorString) {
+            if (request.status == 500)
+            {
+                // 500 here is so we can show the user when they have entered an invalid station name
+                $('#error_text').text(request.responseJSON.message);
+            }
+        }
+    });
+
+
+    // Handle failure/invalid station name
+}
+
 // This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded
 // All JQuery event handler definitions should go in here
 $(document).ready(function() {
     // populates station suggestions when user starts typing
     $('#search_rent').on('input', function() {
         fetchStationSuggestions('suggestion_box_rent', $(this))
+        updateSearchBtn();
     });
     $('#search_return').on('input', function() {
         fetchStationSuggestions('suggestion_box_return', $(this))
+        updateSearchBtn();
     });
 
     // set selected station when clicking suggestion
@@ -97,6 +177,12 @@ $(document).ready(function() {
     });
 
 
+    // Search button click listener
+    $('#search_btn').click(function() {
+        verifyAndSubmitQuery();
+    });
+
+
 
     // Extreme weather popup
     // Bind click event to close button
@@ -116,6 +202,9 @@ function adjustWeatherPanelPosition() {
 
 
 function openTab(evt, tabName) {
+    // Update global tab value
+    activeTab = tabName;
+
     // Get all elements with class="tabcontent" and hide them
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName('tabcontent');
@@ -147,6 +236,9 @@ function openTab(evt, tabName) {
 
     // Adjust the weather panel position
     adjustWeatherPanelPosition();
+
+    // Check if the search button needs updating
+    updateSearchBtn();
 }
 
 

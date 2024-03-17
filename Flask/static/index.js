@@ -30,9 +30,9 @@ function fetchStationSuggestions(element_out_id, input) {
             type: "GET",
             dataType: 'json',
             data: { 'term': inputVal },
-            success: function(data) {
+            success: function(return_data) {
                 $('#'+element_out_id).empty();
-                $.each(data, function(i, station) {
+                $.each(return_data, function(i, station) {
                     var $optionDiv = $('<div>')
                                         .addClass("suggestion_div")
                                         .text(station);

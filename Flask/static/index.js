@@ -45,7 +45,8 @@ function fetchStationSuggestions(element_out_id, input) {
     }
 }
 
-//this line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded
+// This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded
+// All JQuery event handler definitions should go in here
 $(document).ready(function() {
     // populates station suggestions when user starts typing
     $('#search_rent').on('input', function() {
@@ -93,6 +94,14 @@ $(document).ready(function() {
             $('#right_panel').addClass(returnTabClass);
             $('#right_panel').removeClass(rentTabClass);
         }
+    });
+
+
+
+    // Extreme weather popup
+    // Bind click event to close button
+    $('#close-popup').on('click', function() {
+        $('#popup').hide(); // Hide the popup when the close button is clicked
     });
 });
 
@@ -159,12 +168,7 @@ function toggleWeatherPanel() {
         weatherPanel.classList.add('expanded');
     }
 }
-// Function to open the pop-up when the page loads and bind close event
 
-// Function to open the pop-up when the page loads and bind close event
-$(document).ready(function() {
-    openPopup(); // Show the popup when the page loads
-});
 // Function to open the pop-up and fetch extreme weather data
 function openPopup() {
     // JavaScript to close the weather panel when clicked
@@ -210,58 +214,58 @@ function displayWeatherPopup(weatherData) {
     $('#popup').show(); // Using jQuery to show the popup
 }
 
-// Bind click event to close button
-$('#close-popup').on('click', function() {
-    $('#popup').hide(); // Hide the popup when the close button is clicked
-});
+
+
+// Commented out for the time being as it clashes with station name suggestion code.
+
 // function to opentab on the left side of the page pane, for return, rent and return/rent
-$(document).ready(function() {
-    // Function to handle selecting an option from the suggestion box
-    function selectOption(option, inputField) {
-        var stationName = $(option).text().split(' (')[0]; // Extract station name from the suggestion
-        inputField.val(stationName); // Set the input field value to the selected station name
-        $(option).parent().empty(); // Clear the suggestion box
-    }
+// $(document).ready(function() {
+//     // Function to handle selecting an option from the suggestion box
+//     function selectOption(option, inputField) {
+//         var stationName = $(option).text().split(' (')[0]; // Extract station name from the suggestion
+//         inputField.val(stationName); // Set the input field value to the selected station name
+//         $(option).parent().empty(); // Clear the suggestion box
+//     }
 
-    // Event listener for input field for renting
-    $('#search_rent').on('input', function() {
-        var query = $(this).val();
-        $.ajax({
-            url: '/search',
-            data: { query: query },
-            success: function(response) {
-                $('#suggestion_box_rent').empty();
-                response.forEach(function(station) {
-                    $('#suggestion_box_rent').append('<div class="suggestion_div">' + station.station + ' (Available Bikes: ' + station.available_bikes + ')</div>');
-                });
-            }
-        });
-    });
+//     // Event listener for input field for renting
+//     $('#search_rent').on('input', function() {
+//         var query = $(this).val();
+//         $.ajax({
+//             url: '/search',
+//             data: { query: query },
+//             success: function(response) {
+//                 $('#suggestion_box_rent').empty();
+//                 response.forEach(function(station) {
+//                     $('#suggestion_box_rent').append('<div class="suggestion_div">' + station.station + ' (Available Bikes: ' + station.available_bikes + ')</div>');
+//                 });
+//             }
+//         });
+//     });
 
-    // Event listener for input field for returning
-    $('#search_return').on('input', function() {
-        var query = $(this).val();
-        $.ajax({
-            url: '/search',
-            data: { query: query },
-            success: function(response) {
-                $('#suggestion_box_return').empty();
-                response.forEach(function(station) {
-                    $('#suggestion_box_return').append('<div class="suggestion_div">' + station.station + ' (Available Bikes: ' + station.available_bikes + ')</div>');
-                });
-            }
-        });
-    });
+//     // Event listener for input field for returning
+//     $('#search_return').on('input', function() {
+//         var query = $(this).val();
+//         $.ajax({
+//             url: '/search',
+//             data: { query: query },
+//             success: function(response) {
+//                 $('#suggestion_box_return').empty();
+//                 response.forEach(function(station) {
+//                     $('#suggestion_box_return').append('<div class="suggestion_div">' + station.station + ' (Available Bikes: ' + station.available_bikes + ')</div>');
+//                 });
+//             }
+//         });
+//     });
 
-    // Event listener for selecting suggestion for renting
-    $('#suggestion_box_rent').on('mousedown', '.suggestion_div', function() {
-        var inputField = $('#search_rent');
-        selectOption(this, inputField);
-    });
+//     // Event listener for selecting suggestion for renting
+//     $('#suggestion_box_rent').on('mousedown', '.suggestion_div', function() {
+//         var inputField = $('#search_rent');
+//         selectOption(this, inputField);
+//     });
 
-    // Event listener for selecting suggestion for returning
-    $('#suggestion_box_return').on('mousedown', '.suggestion_div', function() {
-        var inputField = $('#search_return');
-        selectOption(this, inputField);
-    });
-});
+//     // Event listener for selecting suggestion for returning
+//     $('#suggestion_box_return').on('mousedown', '.suggestion_div', function() {
+//         var inputField = $('#search_return');
+//         selectOption(this, inputField);
+//     });
+// });

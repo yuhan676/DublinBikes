@@ -1,3 +1,26 @@
+function initTimeAndDate() {
+    // A new Date object defaults to today and now
+    var date = new Date();
+
+    // Get our elements
+    var rentTimeElem = document.getElementById("rent_time");
+    var returnTimeElem = document.getElementById("return_time");
+    var rentDateElem = document.getElementById("rent_date");
+    var returnDateElem = document.getElementById("return_date");
+
+    // Set default date and time to today and now
+    // toISOString is a member function of the JS Date object that turns the horrible UTC 
+    // time number into a useable format. substring(11,16) gets the bit we need (current time HH:MM)
+    rentTimeElem.value = date.toISOString().substring(11,16);
+    returnTimeElem.value = date.toISOString().substring(11,16);
+    rentDateElem.valueAsDate = date;
+    returnDateElem.valueAsDate = date;
+
+    // Set min data to today
+    rentDateElem.min = date.toISOString().split("T")[0];
+    returnDateElem.min = date.toISOString().split("T")[0];
+}
+
 // Given the user input, fetch station name suggestions and populate given output element
 function fetchStationSuggestions(element_out_id, input) {
     var inputVal = input.val();

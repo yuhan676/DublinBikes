@@ -68,6 +68,38 @@
     margin-right: 0; /* Resetting the right margin for the date picker */
 }
 
+.search_btn_container
+{
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+#search_btn
+{
+    width: 100%;
+    background-color: green;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    border: 2px solid rgb(2, 189, 2);
+    border-radius: 5px;
+}
+
+#search_btn:not(.disabled):hover
+{
+    background-color: rgb(2, 189, 2);
+    border: 2px solid green;
+}
+
+#search_btn.disabled
+{
+    background-color: rgb(97, 97, 97);
+    border: 2px solid grey;
+    cursor: default;
+}
+
 /* Adjust the position of the weather panel */
 #weather-panel {
     top: calc(100% + 20px); /* Place it below the left panel with a 10px margin */

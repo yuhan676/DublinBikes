@@ -29,7 +29,7 @@
     <div id="map"></div>
     <div id="left-panel">
         <div class="tab">
-            <button class="tablinks" onclick="openTab(event, 'rent')">Rent</button>
+            <button class="tablinks active" onclick="openTab(event, 'rent')">Rent</button>
             <button class="tablinks" onclick="openTab(event, 'return')">Return</button>
             <button class="tablinks" onclick="openTab(event, 'rent_return')">Rent & Return</button>
         </div>
@@ -49,6 +49,10 @@
                 <input type="text" placeholder="Search for bike station to return" id="search_return" autocomplete="off">
                 <div class="suggestion_box" id="suggestion_box_return"></div>
             </div>
+        </div>
+
+        <div class="search_btn_container">
+            <button id="search_btn" class="disabled">Submit</button>
         </div>
     </div>
     <div id="weather-panel" class="panel">

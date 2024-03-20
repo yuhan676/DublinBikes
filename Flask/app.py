@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request, render_template, url_for, send_from_directory
 from sqlalchemy import create_engine, text
-from functions import connect_db, get_station_names, fetch_openweather_extreme
+from functions import connect_db, get_station_names, fetch_dummy_data
 import json
 import os
 import traceback 
@@ -26,13 +26,20 @@ dummy_data1 = {
     ]
 
 }
-# Connect json station data with google map
+# Associate database json station data with Google map
 @app.route('/bike_stations')
 def get_bike_stations():
     try:
-        # Access the dictionary directly
-        station_data = tables_to_files['station']
-        return jsonify(station_data)
+        # Fetch data from the 'station_status' table
+        station_status_data = fetch_dummy_data('station_status')
+
+        # Check if data is fetched successfully
+        if station_status_data is not None:
+            # Return the fetched data as JSON response
+            return jsonify(station_status_data)
+        else:
+            return jsonify(error='Failed to fetch station status data from the database')
+
     except Exception as e:
         return jsonify(error=str(e))
     

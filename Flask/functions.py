@@ -9,13 +9,9 @@ import sys
 import os
 import traceback as tb
 import json
-# import seaborn as sns
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
 from db_config import db_type,username,password,hostname,port,db_name
-# create flask app, static files for static directory
-# app = Flask(__name__, static_url_patj='')
-# app.config.from_object('config')
 
 def connect_db():
     try:

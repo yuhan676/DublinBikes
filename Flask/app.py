@@ -8,6 +8,8 @@ import traceback
 app = Flask(__name__, static_url_path='')
 app.config.from_object('config')
 
+connect_db()
+
 dummy_data1 = {
     "list": [
         {

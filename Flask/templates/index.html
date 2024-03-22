@@ -37,26 +37,23 @@
         <div id="rent" class="tabcontent">
             <input type="time" id="rent_time" name="rent-time">
             <input type="date" id="rent_date" name="rent-date">
-            <div class="input_wrap">
-                <div id="available-bikes-rent"></div>
-                <input type="text" placeholder="Search for bike station to rent" id="search_rent" autocomplete="off">
-                <div class="suggestion_box" id="suggestion_box_rent"></div>
-            </div>
+            <div id="available-bikes-rent"></div>
+            <input type="text" placeholder="Search for bike station to rent" id="search_rent" autocomplete="off">
+            <div class="suggestion_box" id="suggestion_box_rent"></div>
         </div>
         <div id="return" class="tabcontent">
             <input type="time" id="return_time" name="rent-time">
             <input type="date" id="return_date" name="rent-date">
-            <div class="input_wrap">
-                <input type="text" placeholder="Search for bike station to return" id="search_return" autocomplete="off">
-                <div class="suggestion_box" id="suggestion_box_return"></div>
-            </div>
-        </div>
-
-        <div class="search_btn_container">
-            <button id="search_btn" class="disabled">Search</button>
-            <div id="error_text"></div>
+            <input type="text" placeholder="Search for bike station to return" id="search_return" autocomplete="off">
+            <div class="suggestion_box" id="suggestion_box_return"></div>
         </div>
     </div>
+    
+    <div class="search_btn_container">
+        <button id="search_btn" class="disabled">Search</button>
+        <div id="error_text"></div>
+    </div>
+
     <div id="weather-panel" class="panel">
         <div class="weather-header" onclick="toggleWeatherPanel()">
             <span>Current weather</span>
@@ -102,13 +99,16 @@
             <div class="rp_prediction_return">
                 <p>Placeholder for park availability prediction graph </p>
             </div>
-            <div id="popup" class="popup">
-                <span id="close-popup" class="close">&times;</span>
-                <h2>Severe Weather Alert</h2>
-                <div id="extreme-weather-content">
-                    <!-- Weather information will be displayed here -->
-                    <p>This is a placeholder for weather information.</p>
-                </div>
-            </div>       
-        </body>
-        </html>          
+        </div>
+    </div>
+    <!-- Severe Weather Popu -->
+    <div id="popup" class="popup">
+        <span id="close-popup" class="close">&times;</span>
+        <h2>Severe Weather Alert</h2>
+        <div id="extreme-weather-content">
+            <!-- Weather information will be displayed here -->
+            <p>This is a placeholder for weather information.</p>
+        </div>
+    </div>       
+</body>
+</html>          

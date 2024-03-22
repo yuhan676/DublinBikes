@@ -98,16 +98,6 @@ def search():
     except Exception as e:
         return jsonify(error=str(e))
 
-
-"""# @app.route('/about')
-# def about():
-    # an about page
-    # google maps key below
-    # render template is a flask function to call html document
-    # return render_template("index.html")
-    # GMAPS_APIKEY='AIzaSyBfrNOzVJuGJnSUSCtzH6T32OZLNOWJ9_M')
-"""
-
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=8080)
 

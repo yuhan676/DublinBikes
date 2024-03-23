@@ -148,10 +148,6 @@ def save_weather_to_json(data, filename='weather_data.json'):
     except Exception as e:
         print("Error saving weather data:", e)
 
-import pandas as pd
-import json
-from functions import connect_db
-
 def fetch_weather_data():
     """
     Fetches weather data from the CurrentWeather table in the database.

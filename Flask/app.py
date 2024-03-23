@@ -118,6 +118,8 @@ def search():
             return jsonify(message='No matching stations found!'), 500
         
         engine = connect_db()
+        connection = engine.connect()
+
         results = []
         for number in station_numbers:
             # Use a parameterized query to safely fetch data from both tables
@@ -129,7 +131,7 @@ def search():
                 JOIN station_status ss ON s.number = ss.station_number
                 WHERE s.number = :number
             """)
-            result = engine.execute(query, {"number": number}).fetchone()
+            result = connection.execute(query, {"number": number}).fetchone()
             if result:
                 results.append({
                     'number': result.number,
@@ -149,7 +151,7 @@ def search():
         
         if len(results) == 0:
             return jsonify(message='No data found for closest stations'), 500
-        
+        connection.close()
         return jsonify(results)
     
     except JSONDecodeError as jde:

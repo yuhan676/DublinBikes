@@ -1,9 +1,11 @@
 from flask import Flask, jsonify, request, render_template
-from sqlalchemy import create_engine, text
+from sqlalchemy import create_engine, text, SQLAlchemyError
 from functions import connect_db, get_station_names, fetch_dummy_data
 import json
 import os
 import traceback 
+from json.decoder import JSONDecodeError
+
 
 app = Flask(__name__, static_url_path='')
 app.config.from_object('config')
@@ -150,8 +152,25 @@ def search():
         
         return jsonify(results)
     
+    except JSONDecodeError as jde:
+        # Specific error handling for JSON decoding errors
+        app.logger.error(f"Error decoding JSON from mapping file: {jde}")
+        return jsonify(error="Error processing mapping file."), 500
+
+    except SQLAlchemyError as sqle:
+        # Specific error handling for database related errors
+        app.logger.error(f"Database query failed: {sqle}")
+        return jsonify(error="Database error occurred."), 500
+
+    except FileNotFoundError:
+        # Specific error when the mapping file is not found
+        app.logger.error(f"Mapping file not found for station search: {stationName}")
+        return jsonify(error="Mapping file not found."), 500
+
     except Exception as e:
-        return jsonify(error=str(e)), 500
+        # Catch-all for any other exceptions that were not caught by the specific handlers
+        app.logger.error(f"Unhandled exception in /search route for station '{stationName}': {e}\n{traceback.format_exc()}")
+        return jsonify(error="An unexpected error occurred."), 500
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=8080)

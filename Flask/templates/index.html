@@ -36,22 +36,36 @@
         <div id="rent" class="tabcontent">
             <input type="time" id="rent_time" name="rent-time">
             <input type="date" id="rent_date" name="rent-date">
-            <div id="available-bikes-rent"></div>
+            <div class="input_wrap">
+                <div id="available-bikes-rent"></div>
+                <input type="text" placeholder="Search for bike station to rent" id="search_rent" autocomplete="off">
+                <div class="suggestion_box" id="suggestion_box_rent"></div>
+            </div>
+            <!-- <div id="available-bikes-rent"></div>
             <input type="text" placeholder="Search for bike station to rent" id="search_rent" autocomplete="off">
-            <div class="suggestion_box" id="suggestion_box_rent"></div>
+            <div class="suggestion_box" id="suggestion_box_rent"></div> -->
         </div>
         <div id="return" class="tabcontent">
             <input type="time" id="return_time" name="rent-time">
             <input type="date" id="return_date" name="rent-date">
-            <input type="text" placeholder="Search for bike station to return" id="search_return" autocomplete="off">
-            <div class="suggestion_box" id="suggestion_box_return"></div>
+            <div class="input_wrap">
+                <input type="text" placeholder="Search for bike station to return" id="search_return" autocomplete="off">
+                <div class="suggestion_box" id="suggestion_box_return"></div>
+            </div>
+        </div>
+
+        <div class="search_btn_container">
+            <button id="search_btn" class="disabled">Search</button>
+            <div id="error_text"></div>
+            <!-- <input type="text" placeholder="Search for bike station to return" id="search_return" autocomplete="off">
+            <div class="suggestion_box" id="suggestion_box_return"></div> -->
         </div>
     </div>
     
-    <div class="search_btn_container">
+    <!-- <div class="search_btn_container">
         <button id="search_btn" class="disabled">Search</button>
         <div id="error_text"></div>
-    </div>
+    </div> -->
 
     <div class="suggestion-container" id="suggestion-container">
     </div>

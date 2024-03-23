@@ -114,44 +114,52 @@ def search():
                     station_numbers = numbers
                     break
         
-        if not station_numbers:
-            return jsonify(message='No matching stations found!'), 500
-        
         engine = connect_db()
         connection = engine.connect()
 
-        results = []
         for number in station_numbers:
-            # Use a parameterized query to safely fetch data from both tables
-            query = text("""
-                SELECT s.number, s.name, s.address, s.banking, s.bonus, s.position_lat, s.position_lng, 
-                       ss.status, ss.last_update, ss.empty_stands_number, ss.total_bikes, 
+            # Fetch the latest status for the station
+            status_query = text("""
+                SELECT ss.status, ss.last_update, ss.empty_stands_number, ss.total_bikes, 
                        ss.mechanical_bikes, ss.electrical_internal_battery_bikes, ss.electrical_removable_battery_bikes
-                FROM station s
-                JOIN station_status ss ON s.number = ss.station_number
-                WHERE s.number = :number
+                FROM station_status ss
+                WHERE ss.station_number = :number
+                ORDER BY ss.last_update DESC
+                LIMIT 1
             """)
-            result = connection.execute(query, {"number": number}).fetchone()
-            if result:
-                results.append({
-                    'number': result.number,
-                    'name': result.name,
-                    'address': result.address,
-                    'banking': result.banking,
-                    'bonus': result.bonus,
-                    'position': {'lat': result.position_lat, 'lng': result.position_lng},
-                    'status': result.status,
-                    'last_update': result.last_update.strftime('%Y-%m-%dT%H:%M:%S.%fZ'),
-                    'empty_stands_number': result.empty_stands_number,
-                    'total_bikes': result.total_bikes,
-                    'mechanical_bikes': result.mechanical_bikes,
-                    'electrical_internal_battery_bikes': result.electrical_internal_battery_bikes,
-                    'electrical_removable_battery_bikes': result.electrical_removable_battery_bikes
-                })
-        
-        if len(results) == 0:
-            return jsonify(message='No data found for closest stations'), 500
+            status_result = connection.execute(status_query, {"number": number}).fetchone()
+            
+            if status_result:
+                # Fetch the corresponding station details
+                station_query = text("""
+                    SELECT number, name, address, banking, bonus, position_lat, position_lng
+                    FROM station
+                    WHERE number = :number
+                """)
+                station_result = connection.execute(station_query, {"number": number}).fetchone()
+                
+                if station_result:
+                    # Combine the details into one dictionary and append to results
+                    combined_result = {
+                        'number': station_result.number,
+                        'name': station_result.name,
+                        'address': station_result.address,
+                        'banking': station_result.banking,
+                        'bonus': station_result.bonus,
+                        'position': {'lat': station_result.position_lat, 'lng': station_result.position_lng},
+                        'status': status_result.status,
+                        'last_update': status_result.last_update.strftime('%Y-%m-%dT%H:%M:%S.%fZ'),
+                        'empty_stands_number': status_result.empty_stands_number,
+                        'total_bikes': status_result.total_bikes,
+                        'mechanical_bikes': status_result.mechanical_bikes,
+                        'electrical_internal_battery_bikes': status_result.electrical_internal_battery_bikes,
+                        'electrical_removable_battery_bikes': status_result.electrical_removable_battery_bikes
+                    }
+                    results.append(combined_result)
+
         connection.close()
+        if not results:
+            return jsonify(message='No data found for closest stations'), 404
         return jsonify(results)
     
     except JSONDecodeError as jde:

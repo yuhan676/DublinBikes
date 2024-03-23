@@ -133,8 +133,6 @@ def save_mapping_to_json(data, filename='1_to_5_Mapping.json'):
     with open(filename, 'w') as f:
         json.dump(data, f, indent=4)
 
-import json
-
 def save_weather_to_json(data, filename='weather_data.json'):
     """
     Saves weather data to a JSON file.
@@ -152,21 +150,20 @@ def save_weather_to_json(data, filename='weather_data.json'):
 
 def fetch_weather_data():
     """
-    Fetches all weather data from the CurrentWeather table in the database.
-    Returns a list of dictionaries where each dictionary represents a row of weather data.
+    Fetches weather data from the CurrentWeather table in the database.
+    Returns a DataFrame with the weather data.
     """
     engine = connect_db()
     if engine is not None:
-        connection = engine.connect()
         try:
-            query = """
-            SELECT * FROM CurrentWeather;
-            """
-            result = connection.execute(query)
-            weather_data = [dict(row) for row in result]
-            return weather_data
-        finally:
-            connection.close()
+            query = "SELECT * FROM CurrentWeather"
+            df = pd.read_sql(query, engine)
+            return df
+        except Exception as e:
+            print("Error fetching weather data:", e)
+            return None
     else:
         print('DB connection failed')
         return None
+
+

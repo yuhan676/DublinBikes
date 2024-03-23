@@ -67,6 +67,8 @@ function verifyAndSubmitQuery() {
     // Clear the error text
     $('#error_text').empty();
 
+    // Clear the content of 5 suggestion box here
+
     isRent = activeTab == "rent";
 
     // Get currently set time and date for the active tab
@@ -143,6 +145,22 @@ function populateSuggestionBox(suggestions) {
         // Hide the container when empty
         suggestionContainer.style.display = 'none';
     }
+}
+
+// Given a station name, update the content on the right pane;
+function populateRightPanel(stationName){
+    $.ajax({
+        url: "get_rp_info", // The end point in flask
+        type: "GET",
+        dataType: 'json',
+        data: {
+            'stationName': stationName
+        },
+        success: function(return_data) {
+            // Success! return_data should contain the five station's newest status 
+            // Pass this into a function to display here
+        }
+    })
 }
 // This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded
 // All JQuery event handler definitions should go in here

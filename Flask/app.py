@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request, render_template
-from sqlalchemy import create_engine, text, SQLAlchemyError
+from sqlalchemy import create_engine, text
 from functions import connect_db, get_station_names, fetch_dummy_data
 import json
 import os
@@ -156,11 +156,6 @@ def search():
         # Specific error handling for JSON decoding errors
         app.logger.error(f"Error decoding JSON from mapping file: {jde}")
         return jsonify(error="Error processing mapping file."), 500
-
-    except SQLAlchemyError as sqle:
-        # Specific error handling for database related errors
-        app.logger.error(f"Database query failed: {sqle}")
-        return jsonify(error="Database error occurred."), 500
 
     except FileNotFoundError:
         # Specific error when the mapping file is not found

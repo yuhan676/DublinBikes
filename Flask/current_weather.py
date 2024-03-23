@@ -3,16 +3,15 @@ from functions import save_mapping_to_json, connect_db
 def main():
     try:
         # Connect to the database
-        connection = connect_db()
+        engine = connect_db()
+        connection = engine.connect()
 
         # Execute query to fetch all rows from the CurrentWeather table
         query = "SELECT * FROM CurrentWeather"
         result = connection.execute(query)
 
         # Format fetched data into a list of dictionaries
-        weather_data = []
-        for row in result:
-            weather_data.append(dict(row))
+        weather_data = [dict(row) for row in result]
 
         # Close the database connection
         connection.close()

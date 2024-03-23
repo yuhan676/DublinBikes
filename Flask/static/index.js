@@ -233,38 +233,12 @@ $(document).ready(function() {
         verifyAndSubmitQuery();
     });
 
-    // Still working on it
-    // Function to fetch weather data from Flask route and update right panel
-function updateRightPanelWeather() {
-    $.ajax({
-        url: "/get_weather_data", // Flask route for fetching weather data
-        type: "GET",
-        dataType: 'json',
-        success: function(weatherData) {
-            // Update weather content in the right panel with fetched data
-            $('#rp_weather-icon').text(weatherData.icon);
-            $('#rp_feels-like').text(weatherData.feels_like);
-            $('#rp_wind-info').text(weatherData.wind);
-            $('#rp_humidity-info').text(weatherData.humidity);
-        },
-        error: function(error) {
-            console.error('Error fetching weather data:', error);
-        }
-    });
-}
-// Call the function to fetch and update weather data when the page loads
-$(document).ready(function() {
-    updateRightPanelWeather();
-});
-
-
     // Extreme weather popup
     // Bind click event to close button
     $('#close-popup').on('click', function() {
         $('#popup').hide(); // Hide the popup when the close button is clicked
     });
 });
-
 
 function adjustWeatherPanelPosition() {
     // Adjust the weather panel position based on the height of the left panel
@@ -273,7 +247,6 @@ function adjustWeatherPanelPosition() {
     var topPosition = leftPanel.offsetTop + leftPanel.offsetHeight + 10; // Additional 10px for spacing
     weatherPanel.style.top = topPosition + 'px';
 }
-
 
 function openTab(evt, tabName) {
     // Update global tab value
@@ -314,26 +287,30 @@ function openTab(evt, tabName) {
     // Check if the search button needs updating
     updateSearchBtn();
 }
-
-
-function toggleWeatherPanel() {
-    var weatherPanel = document.getElementById('weather-panel');
-    var moreInfo = weatherPanel.querySelector('.weather-more-info');
-    var icon = weatherPanel.querySelector('.material-icons');
-
-    // Check if the panel is currently expanded
-    if (weatherPanel.classList.contains('expanded')) {
-        // Collapse the panel
-        moreInfo.style.display = 'none';
-        icon.textContent = 'expand_more';
-        weatherPanel.classList.remove('expanded');
-    } else {
-        // Expand the panel
-        moreInfo.style.display = 'block';
-        icon.textContent = 'expand_less';
-        weatherPanel.classList.add('expanded');
-    }
+// Function to fetch weather data using AJAX
+function fetchWeatherData() {
+    $.ajax({
+        url: "/weather_data",
+        type: "GET",
+        success: function(response) {
+            // Check if response contains weather data
+            if (response.hasOwnProperty('weather_data')) {
+                // Update weather content with fetched data
+                $('#weather-content').html(response.weather_data);
+            } else {
+                // Handle error
+                $('#weather-content').html('Failed to fetch weather data');
+            }
+        },
+        error: function(xhr, status, error) {
+            // Handle AJAX error
+            console.error(xhr.responseText);
+            $('#weather-content').html('Error fetching weather data');
+        }
+    });
 }
+// Call the fetchWeatherData function directly after its definition
+fetchWeatherData();
 
 // Function to open the pop-up and fetch extreme weather data
 function openPopup() {
@@ -379,5 +356,6 @@ function displayWeatherPopup(weatherData) {
     $('#extreme-weather-content').html(weatherDisplay); // Using jQuery to set HTML content
     $('#popup').show(); // Using jQuery to show the popup
 }
+
 
 

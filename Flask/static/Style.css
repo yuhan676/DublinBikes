@@ -118,7 +118,6 @@
     top: calc(100% + 20px); /* Place it below the left panel with a 10px margin */
     left: 10px;
     width: 300px;
-    cursor: pointer;
     overflow: hidden;
     transition: max-height 0.5s ease;
 }
@@ -128,7 +127,6 @@
     justify-content: space-between;
     align-items: center;
     font-size: 1.1em;
-    cursor: pointer;
     padding: 10px;
 }
 
@@ -137,15 +135,6 @@
     padding: 0 10px; /* Same horizontal padding as header for consistency */
 }
 
-/* Set the initial content to show when collapsed */
-#weather-panel.collapsed .weather-content {
-    max-height: 50px; /* Adjust this value based on your content */
-}
-
-/* Style for expanded weather panel */
-#weather-panel.expanded .weather-content {
-    max-height: 300px; /* Maximum height when expanded */
-}
 
 /* container for right panel */
 #right_panel {
@@ -299,53 +288,6 @@
 .rp_return .rp_prediction_return
 {
     display:block;
-}
-/* Adjust the position of the weather panel */
-#weather-panel {
-    top: calc(100% + 20px); /* Place it below the left panel with a 10px margin */
-    left: 10px;
-    width: 300px;
-    cursor: pointer;
-    overflow: hidden;
-    transition: max-height 0.5s ease;
-}
-
-/* Adjusted for right panel weather */
-#rp_weather-panel {
-    top: calc(100% + 20px); /* Place it below the left panel with a 10px margin */
-    left: 10px;
-    width: 300px;
-    cursor: pointer;
-    overflow: hidden;
-    transition: max-height 0.5s ease;
-}
-
-/* Adjusted for right panel weather */
-.rp_weather-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 1.1em;
-    cursor: pointer;
-    padding: 10px;
-}
-
-/* Adjusted for right panel weather */
-.rp_weather-content {
-    transition: max-height 0.2s ease-out;
-    padding: 0 10px; /* Same horizontal padding as header for consistency */
-}
-
-/* Set the initial content to show when collapsed */
-#weather-panel.collapsed .weather-content,
-#rp_weather-panel.collapsed .rp_weather-content {
-    max-height: 50px; /* Adjust this value based on your content */
-}
-
-/* Style for expanded weather panel */
-#weather-panel.expanded .weather-content,
-#rp_weather-panel.expanded .rp_weather-content {
-    max-height: 300px; /* Maximum height when expanded */
 }
 
 /* Tab container styling */

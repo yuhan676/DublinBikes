@@ -150,26 +150,17 @@ def save_weather_to_json(data, filename='weather_data.json'):
     except Exception as e:
         print("Error saving weather data:", e)
 
+def save_weather_to_json(data, filename='weather_data.json'):
+    """
+    Saves the weather data to a JSON file.
+    """
+    try:
+        with open(filename, 'w') as f:
+            json.dump(data, f, indent=4)
+        print("Weather data saved to", filename)
+    except Exception as e:
+        print("Error saving weather data:", e)
 
-def fetch_weather_data():
-    """
-    Fetches weather data from the CurrentWeather table in the database.
-    Returns a list of dictionaries where each dictionary represents a row of weather data.
-    """
-    engine = connect_db()
-    if engine is not None:
-        try:
-            query = "SELECT * FROM CurrentWeather"
-            df = pd.read_sql(query, engine)
-            # Convert DataFrame to list of dictionaries
-            weather_data = df.to_dict(orient='records')
-            return weather_data
-        except Exception as e:
-            print("Error fetching weather data:", e)
-            return None
-    else:
-        print('DB connection failed')
-        return None
 
 
 

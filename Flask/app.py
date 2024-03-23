@@ -61,6 +61,7 @@ def get_weather_data():
     except Exception as e:
         return jsonify(error=str(e))
 
+# provide suggestion for station names based on user's input of station name
 @app.route('/suggest_stations')
 def suggest_stations():
     term = request.args.get('term', '').lower()
@@ -84,7 +85,8 @@ def fetch_extreme_weather():
     except Exception as e:
         return jsonify(error=str(e))
 
-# function to fetch 5 closest rent, return and rent&return option stations to display
+# function to fetch the closest 5 stations' data and return 1) if action is rent 2) time of interest 3) packaged 5-station info
+# into a json file 
 @app.route('/search', methods=['GET'])
 def search():
     # boolean: is this for rent?

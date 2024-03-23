@@ -12,6 +12,7 @@ import json
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
 from db_config import db_type,username,password,hostname,port,db_name
+from geopy.distance import geodesic
 
 def connect_db():
     try:
@@ -90,4 +91,44 @@ def fetch_openweather_extreme(json_file):
         print("Error loading weather data:", e)
         return False  # Unable to load weather data, assume no extreme weather
 
+#Following 3 functions are for producing the 1-to-5 station mapping.
+def fetch_stations_coordinates():
+    """
+    Fetches stations's number, name, longitude and lattitude from the database using a direct SQL query.
+    Returns a dataframe with columns that match the database schema.
+    """
+    engine = connect_db()
+    if engine is not None:
+        query = """
+        SELECT 
+            number, name, position_lat, position_lng
+        FROM 
+            station;
+        """
+        df = pd.read_sql(query, engine)
+        return df
+    else:
+        print('DB connection failed')
+        return None
+    
+def calculate_distances(stations):
+    """
+    Calculates the closest five stations for each station.
+    Returns a dictionary with station names as keys and a list of the closest station numbers as values.
+    """
+    closest_stations = {}
+    for _, station in stations.iterrows():
+        station_coords = (station['position_lat'], station['position_lng'])
+        distances = stations.apply(lambda x: geodesic(station_coords, (x['position_lat'], x['position_lng'])).km, axis=1)
+        stations['distance'] = distances
+        sorted_stations = stations.sort_values(by='distance').head(5)  # Including itself, 5 stations
+        closest_numbers = sorted_stations['number'].tolist()
+        closest_stations[station['name']] = closest_numbers
+    return closest_stations
 
+def save_mapping_to_json(data, filename='1_to_5_Mapping.json'):
+    """
+    Saves the mapping of stations to their closest stations in a JSON file.
+    """
+    with open(filename, 'w') as f:
+        json.dump(data, f, indent=4)

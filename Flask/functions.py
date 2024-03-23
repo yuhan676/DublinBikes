@@ -157,14 +157,16 @@ def fetch_weather_data():
     """
     engine = connect_db()
     if engine is not None:
-        query = """
-        SELECT * FROM CurrentWeather;
-        """
         connection = engine.connect()
-        result = connection.execute(query)
-        weather_data = [dict(row) for row in result]
-        connection.close()
-        return weather_data
+        try:
+            query = """
+            SELECT * FROM CurrentWeather;
+            """
+            result = connection.execute(query)
+            weather_data = [dict(row) for row in result]
+            return weather_data
+        finally:
+            connection.close()
     else:
         print('DB connection failed')
         return None

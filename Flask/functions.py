@@ -132,3 +132,39 @@ def save_mapping_to_json(data, filename='1_to_5_Mapping.json'):
     """
     with open(filename, 'w') as f:
         json.dump(data, f, indent=4)
+
+import json
+
+def save_weather_to_json(data, filename='weather_data.json'):
+    """
+    Saves weather data to a JSON file.
+    
+    Args:
+        data (list): List of dictionaries representing weather data.
+        filename (str): Name of the JSON file to save the data to.
+    """
+    try:
+        with open(filename, 'w') as f:
+            json.dump(data, f, indent=4)
+        print(f"Weather data saved to {filename}")
+    except Exception as e:
+        print("Error saving weather data:", e)
+
+def fetch_weather_data():
+    """
+    Fetches all weather data from the CurrentWeather table in the database.
+    Returns a list of dictionaries where each dictionary represents a row of weather data.
+    """
+    engine = connect_db()
+    if engine is not None:
+        query = """
+        SELECT * FROM CurrentWeather;
+        """
+        connection = engine.connect()
+        result = connection.execute(query)
+        weather_data = [dict(row) for row in result]
+        connection.close()
+        return weather_data
+    else:
+        print('DB connection failed')
+        return None

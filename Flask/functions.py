@@ -135,18 +135,21 @@ def save_mapping_to_json(data, filename='1_to_5_Mapping.json'):
 
 def save_weather_to_json(data, filename='weather_data.json'):
     """
-    Saves weather data to a JSON file.
-    
-    Args:
-        data (list): List of dictionaries representing weather data.
-        filename (str): Name of the JSON file to save the data to.
+    Saves the weather data to a JSON file.
     """
     try:
-        with open(filename, 'w') as f:
-            json.dump(data, f, indent=4)
-        print(f"Weather data saved to {filename}")
+        # Convert Timestamp columns to strings
+        data_str = data.copy()
+        for col in data_str.columns:
+            if pd.api.types.is_datetime64_any_dtype(data_str[col]):
+                data_str[col] = data_str[col].dt.strftime('%Y-%m-%d %H:%M:%S')
+
+        # Save the modified DataFrame to JSON
+        data_str.to_json(filename, orient='records')
+        print("Weather data saved to", filename)
     except Exception as e:
         print("Error saving weather data:", e)
+
 
 def fetch_weather_data():
     """

@@ -83,7 +83,34 @@ def fetch_extreme_weather():
         return jsonify(extreme_conditions_met=dummy_data1)
     except Exception as e:
         return jsonify(error=str(e))
-    
+
+# function to fetch 5 closest rent, return and rent&return option stations to display
+@app.route('/search', methods=['GET'])
+def search():
+    # boolean: is this for rent?
+    isRent = request.args.get('isRent')
+    # strip() removes leading and trailing whitespace
+    stationName = request.args.get('stationName').strip()
+    # format: YYYY-MM-DDTHH:MM:SS.MMMZ
+    date = request.args.get('date')
+
+    results = []
+    try:
+        with open('dummy_JCDStatic.json', 'r') as f:
+            station_data = json.load(f)
+        for station, data in station_data.items():
+            if station.lower().startswith(stationName.lower()):
+                results.append({
+                    'station': station,
+                    'available_bikes': data['available_bikes']
+                })
+                if len(results) == 5:  # Limit to 5 closest options
+                    break
+        if len(results) == 0:
+            return jsonify(message='No matching stations found!'),500
+        return jsonify(results)
+    except Exception as e:
+        return jsonify(error=str(e))
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=8080)
 

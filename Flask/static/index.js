@@ -299,7 +299,7 @@ function fetchWeatherData() {
                 $('#weather-content').html(response.weather_data);
             } else {
                 // Handle error
-                $('#weather-content').html('Failed to fetch weather data');
+                $('#weather-content').html('Error');
             }
         },
         error: function(xhr, status, error) {

@@ -1,3 +1,6 @@
+// Global variable to store the last search results
+var lastSearchJSON = {};
+
 // We use this for our state a lot, so keep track of the currently open tab here
 // Rent is open by default
 var activeTab = "rent";
@@ -111,6 +114,15 @@ function verifyAndSubmitQuery() {
         success: function(return_data) {
             // Success! return_data should contain the five stations plus any other necessary info
             // Pass this to a function to display here, maybe don't add population code here to keep things clean
+
+            // Clear the global variable
+            lastSearchJSON = {};
+
+            // Update the global variable with the new data
+            lastSearchJSON = return_data;
+
+            // Now, lastSearchJSON contains the latest search results
+            console.log(lastSearchJSON); // For debugging: log the latest search results. 
         },
         error: function(request, status, errorString) {
             if (request.status == 500)

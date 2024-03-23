@@ -98,21 +98,61 @@ def search():
 
     results = []
     try:
-        with open('dummy_JCDStatic.json', 'r') as f:
+        with open('1_to_5_Mapping.json', 'r') as f:
             station_data = json.load(f)
-        for station, data in station_data.items():
-            if station.lower().startswith(stationName.lower()):
-                results.append({
-                    'station': station,
-                    'available_bikes': data['available_bikes']
-                })
-                if len(results) == 5:  # Limit to 5 closest options
+        
+        station_numbers = []
+        # First, find the station numbers directly if the station name matches exactly
+        if stationName in station_data:
+            station_numbers = station_data[stationName]
+        else:
+            # If not found, attempt to find a station starting with the given name
+            for station, numbers in station_data.items():
+                if station.lower().startswith(stationName.lower()):
+                    station_numbers = numbers
                     break
+        
+        if not station_numbers:
+            return jsonify(message='No matching stations found!'), 500
+        
+        engine = connect_db()
+        results = []
+        for number in station_numbers:
+            # Use a parameterized query to safely fetch data from both tables
+            query = text("""
+                SELECT s.number, s.name, s.address, s.banking, s.bonus, s.position_lat, s.position_lng, 
+                       ss.status, ss.last_update, ss.empty_stands_number, ss.total_bikes, 
+                       ss.mechanical_bikes, ss.electrical_internal_battery_bikes, ss.electrical_removable_battery_bikes
+                FROM station s
+                JOIN station_status ss ON s.number = ss.station_number
+                WHERE s.number = :number
+            """)
+            result = engine.execute(query, {"number": number}).fetchone()
+            if result:
+                results.append({
+                    'number': result.number,
+                    'name': result.name,
+                    'address': result.address,
+                    'banking': result.banking,
+                    'bonus': result.bonus,
+                    'position': {'lat': result.position_lat, 'lng': result.position_lng},
+                    'status': result.status,
+                    'last_update': result.last_update.strftime('%Y-%m-%dT%H:%M:%S.%fZ'),
+                    'empty_stands_number': result.empty_stands_number,
+                    'total_bikes': result.total_bikes,
+                    'mechanical_bikes': result.mechanical_bikes,
+                    'electrical_internal_battery_bikes': result.electrical_internal_battery_bikes,
+                    'electrical_removable_battery_bikes': result.electrical_removable_battery_bikes
+                })
+        
         if len(results) == 0:
-            return jsonify(message='No matching stations found!'),500
+            return jsonify(message='No data found for closest stations'), 500
+        
         return jsonify(results)
+    
     except Exception as e:
-        return jsonify(error=str(e))
+        return jsonify(error=str(e)), 500
+
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=8080)
 

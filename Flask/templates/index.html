@@ -11,7 +11,6 @@
     <script src="{{ url_for('static', filename='index.js') }}"></script>
     <script src="{{ url_for('static', filename='map.js') }}"></script>
     <script>
-        // Javascript to display Dublin by default instead of Sidney
         // Yuhan: We put this here because initMap is in map.js but the other
         //        more generic init funcitons are in index.js. This is the 
         //        logical place to put it as we have access to both here.
@@ -52,6 +51,9 @@
     <div class="search_btn_container">
         <button id="search_btn" class="disabled">Search</button>
         <div id="error_text"></div>
+    </div>
+
+    <div class="suggestion-container" id="suggestion-container">
     </div>
 
     <div id="weather-panel" class="panel">
@@ -99,9 +101,22 @@
             <div class="rp_prediction_return">
                 <p>Placeholder for park availability prediction graph </p>
             </div>
-        </div>
+            <div id="right_weather-panel">
+                <div class="right-weather-header">
+                    <span>Right Panel Weather</span>
+                    <span class="material-icons">expand_more</span>
+                </div>
+                <div class="right_weather-content">
+                     <p>Outside: <span id="rp_weather-icon">Loading...</span></p>
+                        <p>Feels like: <span id="rp_feels-like">Loading...</span></p>
+                        <div class="weather-more-info">
+                            <p>Wind: <span id="rp_wind-info">Loading...</span></p>
+                            <p>Humidity: <span id="rp_humidity-info">Loading...</span></p>
+                        </div>
+                    </div>
+                </div>
     </div>
-    <!-- Severe Weather Popu -->
+    <!-- Severe Weather Popup -->
     <div id="popup" class="popup">
         <span id="close-popup" class="close">&times;</span>
         <h2>Severe Weather Alert</h2>

@@ -122,7 +122,28 @@ function verifyAndSubmitQuery() {
 
     // Handle failure/invalid station name
 }
+// Populate suggestion box dynamically
+function populateSuggestionBox(suggestions) {
+    // Clear previous suggestions
+    suggestionContainer.innerHTML = '';
 
+    // Check if suggestions exist
+    if (suggestions.length > 0) {
+        // Display the container
+        suggestionContainer.style.display = 'block';
+
+        // Create and append station boxes
+        suggestions.forEach(function(suggestion) {
+            const stationBox = document.createElement('div');
+            stationBox.classList.add('station-box');
+            stationBox.textContent = suggestion;
+            suggestionContainer.appendChild(stationBox);
+        });
+    } else {
+        // Hide the container when empty
+        suggestionContainer.style.display = 'none';
+    }
+}
 // This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded
 // All JQuery event handler definitions should go in here
 $(document).ready(function() {
@@ -182,6 +203,29 @@ $(document).ready(function() {
         verifyAndSubmitQuery();
     });
 
+    // Still working on it
+    // Function to fetch weather data from Flask route and update right panel
+function updateRightPanelWeather() {
+    $.ajax({
+        url: "/get_weather_data", // Flask route for fetching weather data
+        type: "GET",
+        dataType: 'json',
+        success: function(weatherData) {
+            // Update weather content in the right panel with fetched data
+            $('#rp_weather-icon').text(weatherData.icon);
+            $('#rp_feels-like').text(weatherData.feels_like);
+            $('#rp_wind-info').text(weatherData.wind);
+            $('#rp_humidity-info').text(weatherData.humidity);
+        },
+        error: function(error) {
+            console.error('Error fetching weather data:', error);
+        }
+    });
+}
+// Call the function to fetch and update weather data when the page loads
+$(document).ready(function() {
+    updateRightPanelWeather();
+});
 
 
     // Extreme weather popup
@@ -307,57 +351,3 @@ function displayWeatherPopup(weatherData) {
 }
 
 
-
-// Commented out for the time being as it clashes with station name suggestion code.
-
-// function to opentab on the left side of the page pane, for return, rent and return/rent
-// $(document).ready(function() {
-//     // Function to handle selecting an option from the suggestion box
-//     function selectOption(option, inputField) {
-//         var stationName = $(option).text().split(' (')[0]; // Extract station name from the suggestion
-//         inputField.val(stationName); // Set the input field value to the selected station name
-//         $(option).parent().empty(); // Clear the suggestion box
-//     }
-
-//     // Event listener for input field for renting
-//     $('#search_rent').on('input', function() {
-//         var query = $(this).val();
-//         $.ajax({
-//             url: '/search',
-//             data: { query: query },
-//             success: function(response) {
-//                 $('#suggestion_box_rent').empty();
-//                 response.forEach(function(station) {
-//                     $('#suggestion_box_rent').append('<div class="suggestion_div">' + station.station + ' (Available Bikes: ' + station.available_bikes + ')</div>');
-//                 });
-//             }
-//         });
-//     });
-
-//     // Event listener for input field for returning
-//     $('#search_return').on('input', function() {
-//         var query = $(this).val();
-//         $.ajax({
-//             url: '/search',
-//             data: { query: query },
-//             success: function(response) {
-//                 $('#suggestion_box_return').empty();
-//                 response.forEach(function(station) {
-//                     $('#suggestion_box_return').append('<div class="suggestion_div">' + station.station + ' (Available Bikes: ' + station.available_bikes + ')</div>');
-//                 });
-//             }
-//         });
-//     });
-
-//     // Event listener for selecting suggestion for renting
-//     $('#suggestion_box_rent').on('mousedown', '.suggestion_div', function() {
-//         var inputField = $('#search_rent');
-//         selectOption(this, inputField);
-//     });
-
-//     // Event listener for selecting suggestion for returning
-//     $('#suggestion_box_return').on('mousedown', '.suggestion_div', function() {
-//         var inputField = $('#search_return');
-//         selectOption(this, inputField);
-//     });
-// });

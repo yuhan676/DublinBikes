@@ -293,14 +293,8 @@ function fetchWeatherData() {
         url: "/weather_data",
         type: "GET",
         success: function(response) {
-            // Check if response contains weather data
-            if (response.hasOwnProperty('weather_data')) {
-                // Update weather content with fetched data
-                $('#weather-content').html(response.weather_data);
-            } else {
-                // Handle error
-                $('#weather-content').html('Error');
-            }
+            // Update weather content with fetched data
+            $('#weather-content').html(response);
         },
         error: function(xhr, status, error) {
             // Handle AJAX error

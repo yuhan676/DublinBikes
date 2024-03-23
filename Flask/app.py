@@ -51,17 +51,24 @@ def get_bike_stations():
 
     except Exception as e:
         return jsonify(error=str(e))
-    
-@app.route('/weather_data')
+
+@app.route('/weather_data', methods=['GET'])
 def get_weather_data():
     try:
-        weather_data = fetch_dummy_data('CurrentWeather')
-        if weather_data is not None:
-            return jsonify(weather_data)
-        else:
-            return jsonify(error='Failed to fetch weather data from the database')
+        # Open the JSON file containing weather data
+        with open('weather_data.json', 'r') as file:
+            weather_data = json.load(file)
+
+        # Return the weather data as JSON response
+        return jsonify(weather_data)
+
+    except FileNotFoundError:
+        # Handle the case where the JSON file is not found
+        return jsonify(error='Weather data file not found'), 404
+
     except Exception as e:
-        return jsonify(error=str(e))
+        # Handle any other exceptions
+        return jsonify(error=str(e)), 500
 
 # provide suggestion for station names based on user's input of station name
 @app.route('/suggest_stations')

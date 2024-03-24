@@ -50,7 +50,7 @@ def get_bike_stations():
 
     except Exception as e:
         return jsonify(error=str(e))
-
+    
 @app.route('/weather_data', methods=['GET'])
 def get_weather_data():
     try:
@@ -58,7 +58,7 @@ def get_weather_data():
         engine = connect_db()
 
         # Assuming 'CurrentWeather' is the correct table name
-        query = "SELECT * FROM CurrentWeather"
+        query = "SELECT feels_like, temperature_min, temperature_max, weather_description, wind_speed, wind_gust FROM CurrentWeather"
         connection = engine.connect()
 
         # Execute the query

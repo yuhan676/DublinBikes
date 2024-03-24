@@ -291,15 +291,13 @@ function openTab(evt, tabName) {
 function fetchWeatherData() {
     $.ajax({
         url: "/weather_data",
+        type: "GET",
         dataType: "json", // Specify that the expected response is JSON
         success: function(response) {
-            // Extract weather data from the "text" key of the response
-            var weatherData = response.text;
+            // Extract weather data from the response
+            var weatherData = response;
 
-            // Convert time_update to a human-readable format
-            var timeUpdate = new Date(weatherData.time_update).toLocaleString();
-
-            // Extract other weather data properties
+            // Extracting individual weather data fields
             var feelsLike = weatherData.feels_like;
             var tempMin = weatherData.temperature_min;
             var tempMax = weatherData.temperature_max;
@@ -308,7 +306,6 @@ function fetchWeatherData() {
             var windGust = weatherData.wind_gust;
 
             // Update HTML content with fetched weather data
-            $('#time_update').text("Last Update: " + timeUpdate);
             $('#feels_like').text("Feels Like: " + feelsLike);
             $('#temp_min').text("Min Temperature: " + tempMin);
             $('#temp_max').text("Max Temperature: " + tempMax);
@@ -324,7 +321,7 @@ function fetchWeatherData() {
     });
 }
 
-// Call the fetchWeatherData function
+// Call the fetchWeatherData function directly after its definition
 fetchWeatherData();
 
 // Function to open the pop-up and fetch extreme weather data

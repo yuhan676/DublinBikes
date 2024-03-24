@@ -57,10 +57,11 @@ def get_weather_data():
         # Call connect_db to get the SQLAlchemy Engine object
         engine = connect_db()
 
-        # Assuming there's a 'CurrentWeather' table in your database
-        # You might need to adjust this query based on your database schema
+        # Assuming 'CurrentWeather' is the correct table name
         query = "SELECT * FROM CurrentWeather"
         connection = engine.connect()
+
+        # Execute the query
         result = connection.execute(query)
 
         # Fetch all rows from the result and convert them into a list of dictionaries
@@ -73,6 +74,9 @@ def get_weather_data():
         return jsonify(weather_data)
 
     except Exception as e:
+        # Log the exception traceback
+        traceback.print_exc()
+
         # Handle any exceptions
         return jsonify(error=str(e)), 500
 

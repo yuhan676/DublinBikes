@@ -287,35 +287,6 @@ function openTab(evt, tabName) {
     // Check if the search button needs updating
     updateSearchBtn();
 }
-success: function(response) {
-    console.log(response); // Log the response to see its structure
-    var weatherData = response.text;
-    console.log(weatherData); // Log the weather data to see its structure
-
-    // Check if time_update exists in weatherData
-    if ('time_update' in weatherData) {
-        // Convert time_update to a human-readable format
-        var timeUpdate = new Date(weatherData.time_update).toLocaleString();
-        // Extract other weather data properties
-        var feelsLike = weatherData.feels_like;
-        var tempMin = weatherData.temperature_min;
-        var tempMax = weatherData.temperature_max;
-        var weatherDescription = weatherData.weather_description;
-        var windSpeed = weatherData.wind_speed;
-        var windGust = weatherData.wind_gust;
-
-        // Update HTML content with fetched weather data
-        $('#time_update').text("Last Update: " + timeUpdate);
-        $('#feels_like').text("Feels Like: " + feelsLike);
-        $('#temp_min').text("Min Temperature: " + tempMin);
-        $('#temp_max').text("Max Temperature: " + tempMax);
-        $('#weather_description').text("Description: " + weatherDescription);
-        $('#wind_speed').text("Wind Speed: " + windSpeed);
-        $('#wind_gust').text("Wind Gust: " + windGust);
-    } else {
-        console.error("time_update is not present in the weatherData object.");
-    }
-}
 // Function to fetch weather data using AJAX
 function fetchWeatherData() {
     $.ajax({

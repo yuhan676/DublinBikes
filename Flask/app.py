@@ -55,8 +55,20 @@ def get_bike_stations():
 @app.route('/weather_data', methods=['GET'])
 def get_weather_data():
     try:
-        # Call your connect_db function to retrieve weather data
-        weather_data = connect_db()
+        # Call connect_db to get the SQLAlchemy Engine object
+        engine = connect_db()
+
+        # Assuming there's a 'weather_data' table in your database
+        # You might need to adjust this query based on your database schema
+        query = "SELECT * FROM weather_data"
+        connection = engine.connect()
+        result = connection.execute(query)
+        
+        # Convert query result to a list of dictionaries
+        weather_data = [dict(row) for row in result]
+        
+        # Close the database connection
+        connection.close()
 
         # Return the weather data as JSON response
         return jsonify(weather_data)

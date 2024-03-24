@@ -286,6 +286,9 @@ function openTab(evt, tabName) {
 
     // Check if the search button needs updating
     updateSearchBtn();
+
+    // Call the fetchWeatherData function directly after its definition
+    fetchWeatherData();
 }
 // Function to fetch weather data using AJAX
 function fetchWeatherData() {
@@ -322,9 +325,6 @@ function fetchWeatherData() {
         }
     });
 }
-
-// Call the fetchWeatherData function directly after its definition
-fetchWeatherData();
 
 // Dynamic conversion functions
 function kelvinToCelsius(kelvin) {

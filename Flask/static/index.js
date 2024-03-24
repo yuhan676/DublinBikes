@@ -298,21 +298,21 @@ function fetchWeatherData() {
             var weatherData = response;
 
             // Extracting individual weather data fields
-            var feelsLike = weatherData[0].feels_like;
-            var tempMin = weatherData[0].temperature_min;
-            var tempMax = weatherData[0].temperature_max;
+            var feelsLike = kelvinToCelsius(weatherData[0].feels_like);
+            var tempMin = kelvinToCelsius(weatherData[0].temperature_min);
+            var tempMax = kelvinToCelsius(weatherData[0].temperature_max);
             var weatherDescription = weatherData[0].weather_description;
-            var windSpeed = weatherData[0].wind_speed;
-            var windGust = weatherData[0].wind_gust;
+            var windSpeed = mpsToKph(weatherData[0].wind_speed);
+            var windGust = mpsToKph(weatherData[0].wind_gust);
 
             // Update HTML content with fetched weather data
             $('#weather-content').html(
-                "<p>Feels Like: " + feelsLike + "</p>" +
-                "<p>Min Temperature: " + tempMin + "</p>" +
-                "<p>Max Temperature: " + tempMax + "</p>" +
+                "<p>Feels Like: " + feelsLike + " °C</p>" +
+                "<p>Min Temperature: " + tempMin + " °C</p>" +
+                "<p>Max Temperature: " + tempMax + " °C</p>" +
                 "<p>Description: " + weatherDescription + "</p>" +
-                "<p>Wind Speed: " + windSpeed + "</p>" +
-                "<p>Wind Gust: " + windGust + "</p>"
+                "<p>Wind Speed: " + windSpeed + " km/h</p>" +
+                "<p>Wind Gust: " + windGust + " km/h</p>"
             );
         },
         error: function(xhr, status, error) {
@@ -322,8 +322,18 @@ function fetchWeatherData() {
         }
     });
 }
+
 // Call the fetchWeatherData function directly after its definition
 fetchWeatherData();
+
+// Dynamic conversion functions
+function kelvinToCelsius(kelvin) {
+    return (kelvin - 273.15).toFixed(2);
+}
+
+function mpsToKph(mps) {
+    return (mps * 3.6).toFixed(2);
+}
 
 // Function to open the pop-up and fetch extreme weather data
 function openPopup() {

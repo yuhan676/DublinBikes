@@ -51,8 +51,6 @@ def get_bike_stations():
     except Exception as e:
         return jsonify(error=str(e))
 
-from flask import jsonify
-
 @app.route('/weather_data', methods=['GET'])
 def get_weather_data():
     try:
@@ -94,9 +92,6 @@ def suggest_stations():
     except Exception as e:
         app.logger.error('Error in suggest_stations: %s', e)
         return jsonify([])
-    
-# still working on this     
-# @app.route('/search_list_5')
 
 @app.route('/fetch_extreme_weather')
 def fetch_extreme_weather():

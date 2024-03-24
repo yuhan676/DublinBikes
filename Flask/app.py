@@ -35,6 +35,8 @@ def hello_world():
     return render_template("index.html")
 
 # Associate database json station data with Google map
+# Discuss with Yuhan can this be used to fetch station data, or should it be done anew
+# is 100 rows enough, how many stations are there
 @app.route('/bike_stations')
 def get_bike_stations():
     try:

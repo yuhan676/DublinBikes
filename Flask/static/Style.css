@@ -120,6 +120,10 @@
     width: 300px;
     overflow: hidden;
     transition: max-height 0.5s ease;
+    border: 1px solid #ccc; /* Add border for better visibility */
+    border-radius: 5px; /* Add border radius for rounded corners */
+    background-color: #f8f8f8; /* Set background color */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
 }
 
 .weather-header {
@@ -128,13 +132,27 @@
     align-items: center;
     font-size: 1.1em;
     padding: 10px;
+    border-bottom: 1px solid #ccc; /* Add bottom border for header */
+    background-color: #e0e0e0; /* Set header background color */
 }
 
 .weather-content {
-    transition: max-height 0.2s ease-out;
-    padding: 0 10px; /* Same horizontal padding as header for consistency */
+    padding: 10px; /* Add padding to content for better spacing */
 }
 
+.weather-content p {
+    margin: 5px 0; /* Add margin to paragraphs for better readability */
+}
+
+/* Additional styles for specific elements */
+
+.weather-header h2 {
+    color: #333; /* Set header text color */
+}
+
+.weather-content p {
+    color: #555; /* Set content text color */
+}
 
 /* container for right panel */
 #right_panel {

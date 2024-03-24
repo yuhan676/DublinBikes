@@ -297,22 +297,29 @@ function fetchWeatherData() {
             // Extract weather data from the response
             var weatherData = response;
 
+            // Dynamic conversion functions
+            function kelvinToCelsius(kelvin) {
+                return kelvin - 273.15;
+            }
+
+            function mpsToKph(mps) {
+                return mps * 3.6;
+            }
+
             // Extracting individual weather data fields
-            var feelsLike = kelvinToCelsius(weatherData.feels_like);
-            var tempMin = kelvinToCelsius(weatherData.temp_min);
-            var tempMax = kelvinToCelsius(weatherData.temp_max);
-            var weatherDescription = weatherData.weather_description;
-            var windSpeed = mpsToKph(weatherData.wind.speed);
-            var windGust = mpsToKph(weatherData.wind.gust);
+            var feelsLikeCelsius = kelvinToCelsius(weatherData.main.feels_like);
+            var tempMinCelsius = kelvinToCelsius(weatherData.main.temp_min);
+            var tempMaxCelsius = kelvinToCelsius(weatherData.main.temp_max);
+            var windSpeedKph = mpsToKph(weatherData.wind.speed);
+            var windGustKph = mpsToKph(weatherData.wind.gust);
 
             // Update HTML content with fetched weather data
             $('#weather-content').html(
-                "<p>Feels Like: " + feelsLike + " °C</p>" +
-                "<p>Min Temperature: " + tempMin + " °C</p>" +
-                "<p>Max Temperature: " + tempMax + " °C</p>" +
-                "<p>Description: " + weatherDescription + "</p>" +
-                "<p>Wind Speed: " + windSpeed + " km/h</p>" +
-                "<p>Wind Gust: " + windGust + " km/h</p>"
+                "<p>Feels Like: " + feelsLikeCelsius.toFixed(2) + " °C</p>" +
+                "<p>Min Temperature: " + tempMinCelsius.toFixed(2) + " °C</p>" +
+                "<p>Max Temperature: " + tempMaxCelsius.toFixed(2) + " °C</p>" +
+                "<p>Wind Speed: " + windSpeedKph.toFixed(2) + " km/h</p>" +
+                "<p>Wind Gust: " + windGustKph.toFixed(2) + " km/h</p>"
             );
         },
         error: function(xhr, status, error) {

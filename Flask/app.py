@@ -70,6 +70,11 @@ def get_weather_data():
         # Close the database connection
         connection.close()
 
+        # Format the time_update field to ISO 8601 format
+        for data in weather_data:
+            if 'time_update' in data:
+                data['time_update'] = data['time_update'].isoformat()
+        
         # Return the weather data as JSON response
         return jsonify(weather_data)
 

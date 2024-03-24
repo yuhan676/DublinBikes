@@ -295,7 +295,7 @@ function fetchWeatherData() {
         dataType: "json", // Specify that the expected response is JSON
         success: function(response) {
             // Extract weather data from the "text" key of the response
-            var weatherData = response.text;
+            var weatherData = response;
 
             // Parse the JSON response and extract relevant information
             var timeUpdate = weatherData.time_update;

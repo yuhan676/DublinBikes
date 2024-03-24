@@ -71,7 +71,7 @@ def get_weather_data():
         connection.close()
 
         # Return the weather data as JSON response
-        return jsonify(text=weather_data)
+        return jsonify(weather_data)
 
     except Exception as e:
         # Log the exception traceback

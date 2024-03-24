@@ -298,12 +298,12 @@ function fetchWeatherData() {
             var weatherData = response;
 
             // Extracting individual weather data fields
-            var feelsLike = weatherData.feels_like;
-            var tempMin = weatherData.temperature_min;
-            var tempMax = weatherData.temperature_max;
-            var weatherDescription = weatherData.weather_description;
-            var windSpeed = weatherData.wind_speed;
-            var windGust = weatherData.wind_gust;
+            var feelsLike = weatherData[0].feels_like;
+            var tempMin = weatherData[0].temperature_min;
+            var tempMax = weatherData[0].temperature_max;
+            var weatherDescription = weatherData[0].weather_description;
+            var windSpeed = weatherData[0].wind_speed;
+            var windGust = weatherData[0].wind_gust;
 
             // Update HTML content with fetched weather data
             $('#weather-content').html(

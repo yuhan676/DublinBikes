@@ -291,14 +291,15 @@ function openTab(evt, tabName) {
 function fetchWeatherData() {
     $.ajax({
         url: "/weather_data",
-        type: "GET",
         dataType: "json", // Specify that the expected response is JSON
         success: function(response) {
             // Extract weather data from the "text" key of the response
             var weatherData = response.text;
 
-            // Parse the JSON response and extract relevant information
-            var timeUpdate = weatherData.time_update;
+            // Convert time_update to a human-readable format
+            var timeUpdate = new Date(weatherData.time_update).toLocaleString();
+
+            // Extract other weather data properties
             var feelsLike = weatherData.feels_like;
             var tempMin = weatherData.temperature_min;
             var tempMax = weatherData.temperature_max;
@@ -307,15 +308,13 @@ function fetchWeatherData() {
             var windGust = weatherData.wind_gust;
 
             // Update HTML content with fetched weather data
-            $('#weather-content').html(`
-                <p>Last Update: ${timeUpdate}</p>
-                <p>Feels Like: ${feelsLike}</p>
-                <p>Min Temperature: ${tempMin}</p>
-                <p>Max Temperature: ${tempMax}</p>
-                <p>Description: ${weatherDescription}</p>
-                <p>Wind Speed: ${windSpeed}</p>
-                <p>Wind Gust: ${windGust}</p>
-            `);
+            $('#time_update').text("Last Update: " + timeUpdate);
+            $('#feels_like').text("Feels Like: " + feelsLike);
+            $('#temp_min').text("Min Temperature: " + tempMin);
+            $('#temp_max').text("Max Temperature: " + tempMax);
+            $('#weather_description').text("Description: " + weatherDescription);
+            $('#wind_speed').text("Wind Speed: " + windSpeed);
+            $('#wind_gust').text("Wind Gust: " + windGust);
         },
         error: function(xhr, status, error) {
             // Handle AJAX error

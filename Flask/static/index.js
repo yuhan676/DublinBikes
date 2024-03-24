@@ -292,9 +292,28 @@ function fetchWeatherData() {
     $.ajax({
         url: "/weather_data",
         type: "GET",
+        dataType: "json", // Specify that the expected response is JSON
         success: function(response) {
-            // Update weather content with fetched data
-            $('#weather-content').html(response);
+            // Parse the JSON response and extract relevant information
+            var weatherData = response;
+
+            // Accessing individual weather data fields
+            var timeUpdate = weatherData.time_update;
+            var feelsLike = weatherData.feels_like;
+            var tempMin = weatherData.temperature_min;
+            var tempMax = weatherData.temperature_max;
+            var weatherDescription = weatherData.weather_description;
+            var windSpeed = weatherData.wind_speed;
+            var windGust = weatherData.wind_gust;
+
+            // Update HTML content with fetched weather data
+            $('#time-update').text("Last Update: " + timeUpdate);
+            $('#feels-like').text("Feels Like: " + feelsLike);
+            $('#temp-min').text("Min Temperature: " + tempMin);
+            $('#temp-max').text("Max Temperature: " + tempMax);
+            $('#weather-description').text("Description: " + weatherDescription);
+            $('#wind-speed').text("Wind Speed: " + windSpeed);
+            $('#wind-gust').text("Wind Gust: " + windGust);
         },
         error: function(xhr, status, error) {
             // Handle AJAX error
@@ -303,6 +322,7 @@ function fetchWeatherData() {
         }
     });
 }
+
 // Call the fetchWeatherData function directly after its definition
 fetchWeatherData();
 

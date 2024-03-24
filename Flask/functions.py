@@ -133,41 +133,8 @@ def save_mapping_to_json(data, filename='1_to_5_Mapping.json'):
     with open(filename, 'w') as f:
         json.dump(data, f, indent=4)
 
-def save_weather_to_json(data, filename='weather_data.json'):
-    """
-    Saves the weather data to a JSON file.
-    """
-    try:
-        # Convert Timestamp columns to strings
-        data_str = data.copy()
-        for col in data_str.columns:
-            if pd.api.types.is_datetime64_any_dtype(data_str[col]):
-                data_str[col] = data_str[col].dt.strftime('%Y-%m-%d %H:%M:%S')
-
-        # Save the modified DataFrame to JSON
-        data_str.to_json(filename, orient='records')
-        print("Weather data saved to", filename)
-    except Exception as e:
-        print("Error saving weather data:", e)
 
 
-def fetch_weather_data():
-    """
-    Fetches weather data from the CurrentWeather table in the database.
-    Returns a DataFrame containing the weather data.
-    """
-    engine = connect_db()
-    if engine is not None:
-        try:
-            query = "SELECT * FROM CurrentWeather"
-            df = pd.read_sql(query, engine)
-            return df
-        except Exception as e:
-            print("Error fetching weather data:", e)
-            return None
-    else:
-        print('DB connection failed')
-        return None
 
 
 

@@ -306,12 +306,14 @@ function fetchWeatherData() {
             var windGust = weatherData.wind_gust;
 
             // Update HTML content with fetched weather data
-            $('#feels_like').text("Feels Like: " + feelsLike);
-            $('#temp_min').text("Min Temperature: " + tempMin);
-            $('#temp_max').text("Max Temperature: " + tempMax);
-            $('#weather_description').text("Description: " + weatherDescription);
-            $('#wind_speed').text("Wind Speed: " + windSpeed);
-            $('#wind_gust').text("Wind Gust: " + windGust);
+            $('#weather-content').html(
+                "<p>Feels Like: " + feelsLike + "</p>" +
+                "<p>Min Temperature: " + tempMin + "</p>" +
+                "<p>Max Temperature: " + tempMax + "</p>" +
+                "<p>Description: " + weatherDescription + "</p>" +
+                "<p>Wind Speed: " + windSpeed + "</p>" +
+                "<p>Wind Gust: " + windGust + "</p>"
+            );
         },
         error: function(xhr, status, error) {
             // Handle AJAX error

@@ -5,6 +5,7 @@ import json
 import os
 import traceback 
 from json.decoder import JSONDecodeError
+from datetime import datetime
 
 
 app = Flask(__name__, static_url_path='')
@@ -74,6 +75,9 @@ def get_weather_data():
         for data in weather_data:
             if 'time_update' in data:
                 data['time_update'] = data['time_update'].isoformat()
+        
+        # Debugging: Print the weather data before returning
+        print("Weather Data:", weather_data)
         
         # Return the weather data as JSON response
         return jsonify(weather_data)

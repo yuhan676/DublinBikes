@@ -51,6 +51,8 @@ def get_bike_stations():
     except Exception as e:
         return jsonify(error=str(e))
 
+from flask import jsonify
+
 @app.route('/weather_data', methods=['GET'])
 def get_weather_data():
     try:
@@ -71,7 +73,7 @@ def get_weather_data():
         connection.close()
 
         # Return the weather data as JSON response
-        return jsonify(weather_data)
+        return jsonify(text=weather_data)
 
     except Exception as e:
         # Log the exception traceback

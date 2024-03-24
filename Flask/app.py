@@ -5,8 +5,6 @@ import json
 import os
 import traceback 
 from json.decoder import JSONDecodeError
-from datetime import datetime
-
 
 app = Flask(__name__, static_url_path='')
 app.config.from_object('config')
@@ -59,26 +57,18 @@ def get_weather_data():
         # Call connect_db to get the SQLAlchemy Engine object
         engine = connect_db()
 
-        # Assuming there's a 'weather_data' table in your database
+        # Assuming there's a 'CurrentWeather' table in your database
         # You might need to adjust this query based on your database schema
-        query = "SELECT * FROM weather_data"
+        query = "SELECT * FROM CurrentWeather"
         connection = engine.connect()
         result = connection.execute(query)
-        
-        # Convert query result to a list of dictionaries
+
+        # Fetch all rows from the result and convert them into a list of dictionaries
         weather_data = [dict(row) for row in result]
-        
+
         # Close the database connection
         connection.close()
 
-        # Format the time_update field to ISO 8601 format
-        for data in weather_data:
-            if 'time_update' in data:
-                data['time_update'] = data['time_update'].isoformat()
-        
-        # Debugging: Print the weather data before returning
-        print("Weather Data:", weather_data)
-        
         # Return the weather data as JSON response
         return jsonify(weather_data)
 

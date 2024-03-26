@@ -75,7 +75,9 @@ def get_weather_data():
         # result = connection.execute(query)
 
         # Fetch all rows from the result and convert them into a list of dictionaries
-        weather_data = [dict(row) for row in result]
+        # weather_data = [dict(row) for row in result]
+        return jsonify(query)
+
 
         # Close the database connection
         connection.close()

@@ -312,8 +312,8 @@ function fetchWeatherData() {
             var month = timeupdate.toLocaleDateString(undefined, { month: 'long' });
             var day = timeupdate.toLocaleDateString(undefined, { day: 'numeric' });
             var year = timeupdate.toLocaleDateString(undefined, { year: 'numeric' });
-            var time = timeupdate.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Europe/Dublin' });
-            var timezone = timeupdate.toLocaleTimeString(undefined, { timeZone: 'Europe/Dublin', timeZoneName: 'short' });
+            //var time = timeupdate.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Europe/Dublin' });
+            //var timezone = timeupdate.toLocaleTimeString(undefined, { timeZone: 'Europe/Dublin', timeZoneName: 'short' });
             
             var timestamp = dayOfWeek + ", " + month + " " + day + ", " + year + ", " + time + " " + timezone;
 

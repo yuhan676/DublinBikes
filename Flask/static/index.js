@@ -298,17 +298,21 @@ function fetchWeatherData() {
             var weatherData = response;
 
             // Extracting individual weather data fields
-            var timeupdate = (weatherData[0].time_update)
+            // Convert time update to a Date object
+            var timeupdate = new Date(weatherData[0].time_update); 
             var feelsLike = kelvinToCelsius(weatherData[0].feels_like);
             var tempMin = kelvinToCelsius(weatherData[0].temperature_min);
             var tempMax = kelvinToCelsius(weatherData[0].temperature_max);
             var weatherDescription = weatherData[0].weather_description;
             var windSpeed = mpsToKph(weatherData[0].wind_speed);
             var windGust = mpsToKph(weatherData[0].wind_gust);
+            
+            // Format time update as a timestamp
+            var timestamp = timeupdate.toLocaleString();
 
             // Update HTML content with fetched weather data
             $('#weather-content').html(
-                "<p>Time Update: " + timeupdate + " <p>" + 
+                "<p>Latest Weather Update Time: " + timestamp + " <p>" + 
                 "<p>Feels Like: " + feelsLike + " °C</p>" +
                 "<p>Min Temperature: " + tempMin + " °C</p>" +
                 "<p>Max Temperature: " + tempMax + " °C</p>" +

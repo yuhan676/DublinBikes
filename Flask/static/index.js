@@ -319,14 +319,15 @@ function fetchWeatherData() {
 
             // Update HTML content with fetched weather data
             $('#weather-content').html(
-                "<p><strong>Latest Weather Update Time:</strong> <span style='color: #007ACC;'>" + timestamp + "</span></p>" + 
-                "<p>Feels Like: " + feelsLike + " °C</p>" +
-                "<p>Min Temperature: " + tempMin + " °C</p>" +
-                "<p>Max Temperature: " + tempMax + " °C</p>" +
-                "<p>Description: " + weatherDescription + "</p>" +
-                "<p>Wind Speed: " + windSpeed + " km/h</p>" +
-                "<p>Wind Gust: " + windGust + " km/h</p>"
+                "<p><strong>Latest Weather Update Time:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + timestamp + "</span></p>" + 
+                "<p><span style='font-size: 1.1em;'>Feels Like:</span> " + feelsLike + " °C</p>" +
+                "<p><span style='font-size: 1.1em;'>Min Temperature:</span> " + tempMin + " °C</p>" +
+                "<p><span style='font-size: 1.1em;'>Max Temperature:</span> " + tempMax + " °C</p>" +
+                "<p><span style='font-size: 1.1em;'>Description:</span> " + weatherDescription + "</p>" +
+                "<p><span style='font-size: 1.1em;'>Wind Speed:</span> " + windSpeed + " km/h</p>" +
+                "<p><span style='font-size: 1.1em;'>Wind Gust:</span> " + windGust + " km/h</p>" + 
                 );
+
 
         },
         error: function(xhr, status, error) {

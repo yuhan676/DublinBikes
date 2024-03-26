@@ -59,9 +59,15 @@ def get_weather_data():
         # Call connect_db to get the SQLAlchemy Engine object
         engine = connect_db()
 
-        # Assuming 'CurrentWeather' is the correct table name
-        query = "SELECT feels_like, temperature_min, temperature_max, weather_description, wind_speed, wind_gust FROM CurrentWeather"
-        connection = engine.connect()
+        # Select from 'CurrentWeather' table name
+        query = text("""
+                SELECT cw.feels_like, cw.temperature_min, cw.temperature_max, cw.weather_description,
+                cw.wind_speed, cw.wind_gust
+                FROM CurrentWeather cw
+                ORDER BY cw.last_update DESC
+                LIMIT 1
+            """)
+        connection = engine.connect().execute(query).fetchone()
 
         # Execute the query
         result = connection.execute(query)

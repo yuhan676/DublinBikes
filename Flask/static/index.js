@@ -306,20 +306,28 @@ function fetchWeatherData() {
             var weatherDescription = weatherData[0].weather_description;
             var windSpeed = mpsToKph(weatherData[0].wind_speed);
             var windGust = mpsToKph(weatherData[0].wind_gust);
-            
+
             // Format time update as a timestamp
-            var timestamp = timeupdate.toLocaleString();
+            var dayOfWeek = timeupdate.toLocaleDateString(undefined, { weekday: 'long' });
+            var month = timeupdate.toLocaleDateString(undefined, { month: 'long' });
+            var day = timeupdate.toLocaleDateString(undefined, { day: 'numeric' });
+            var year = timeupdate.toLocaleDateString(undefined, { year: 'numeric' });
+            var time = timeupdate.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
+            var timezone = timeupdate.toLocaleTimeString(undefined, { timeZoneName: 'short' });
+
+            var timestamp = dayOfWeek + ", " + month + " " + day + ", " + year + ", " + time + " " + timezone;
 
             // Update HTML content with fetched weather data
             $('#weather-content').html(
-                "<p>Latest Weather Update Time: " + timestamp + " <p>" + 
+                "<p>Latest Weather Update Time: " + timestamp + "</p>" + 
                 "<p>Feels Like: " + feelsLike + " °C</p>" +
                 "<p>Min Temperature: " + tempMin + " °C</p>" +
                 "<p>Max Temperature: " + tempMax + " °C</p>" +
                 "<p>Description: " + weatherDescription + "</p>" +
                 "<p>Wind Speed: " + windSpeed + " km/h</p>" +
                 "<p>Wind Gust: " + windGust + " km/h</p>"
-            );
+                );
+
         },
         error: function(xhr, status, error) {
             // Handle AJAX error

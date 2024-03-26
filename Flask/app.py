@@ -68,9 +68,10 @@ def get_weather_data():
                 ORDER BY cw.time_update DESC
                 LIMIT 1
             """)
+        
         # Execute the query
         connection = engine.connect()
-        result = connection.execute(query).fetchone()
+        result = connection.execute()
         # Execute the query
 
         # Fetch all rows from the result and convert them into a list of dictionaries

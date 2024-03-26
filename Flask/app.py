@@ -68,16 +68,13 @@ def get_weather_data():
                 ORDER BY cw.time_update DESC
                 LIMIT 1
             """)
-        
-        connection = engine.execute(query).fetchone()
-
         # Execute the query
-        result = connection.execute(query)
+        connection = engine.connect()
+        result = connection.execute(query).fetchone()
+        # Execute the query
 
         # Fetch all rows from the result and convert them into a list of dictionaries
         weather_data = [dict(row) for row in result]
-        # return jsonify(query)
-
 
         # Close the database connection
         connection.close()

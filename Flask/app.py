@@ -67,7 +67,7 @@ def get_weather_data():
         # Select from 'CurrentWeather' table name
         query = text("""
                 SELECT cw.feels_like, cw.temperature_min, cw.temperature_max, cw.weather_description,
-                cw.wind_speed, cw.wind_gust
+                cw.wind_speed, cw.wind_gust, cw.time_update
                 FROM CurrentWeather cw
                 ORDER BY cw.time_update DESC
                 LIMIT 1

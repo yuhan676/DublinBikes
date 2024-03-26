@@ -81,7 +81,12 @@ def get_weather_data():
 
         # Fetch all rows from the result and convert them into a list of dictionaries
         # weather_data = [dict(row) for row in result]
-        weather_data = dict(row)
+        # weather_data = dict(row)
+        # If row exists, convert it to a dictionary
+        if row:
+            weather_data = [dict(row)]
+        else:
+            weather_data = []
 
         # Close the database connection
         connection.close()

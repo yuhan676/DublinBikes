@@ -143,8 +143,8 @@ function populateSuggestionBox(suggestions) {
 
     // Check if suggestions exist
     if (suggestions.length > 0) {
-        // Display the container
-        suggestionContainer.style.display = 'block';
+        // // Display the container
+        // suggestionContainer.style.display = 'block';
 
         // Create and append station boxes
         suggestions.forEach(function(suggestion) {
@@ -153,9 +153,9 @@ function populateSuggestionBox(suggestions) {
             stationBox.textContent = suggestion;
             suggestionContainer.appendChild(stationBox);
         });
-    } else {
-        // Hide the container when empty
-        suggestionContainer.style.display = 'none';
+    // } else {
+    //     // Hide the container when empty
+    //     suggestionContainer.style.display = 'none';
     }
 }
 

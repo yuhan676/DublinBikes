@@ -319,7 +319,7 @@ function fetchWeatherData() {
 
             // Update HTML content with fetched weather data
             $('#weather-content').html(
-                "<p><strong>Latest Weather Update Time:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + timestamp + "</span></p>" + 
+                "<p><strong>Latest Update:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + timestamp + "</span></p>" + 
                 "<p><span style='font-size: 1.1em;'>Feels Like:</span> " + feelsLike + " °C</p>" +
                 "<p><span style='font-size: 1.1em;'>Min Temperature:</span> " + tempMin + " °C</p>" +
                 "<p><span style='font-size: 1.1em;'>Max Temperature:</span> " + tempMax + " °C</p>" +

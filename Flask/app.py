@@ -37,7 +37,7 @@ def hello_world():
 # Associate database json station data with Google map
 # Discuss with Yuhan can this be used to fetch station data, or should it be done anew
 # is 100 rows enough, how many stations are there
-@app.route('/bike_stations')
+"""@app.route('/bike_stations')
 def get_bike_stations():
     try:
         # Fetch data from the 'station_status' table
@@ -49,10 +49,8 @@ def get_bike_stations():
             return jsonify(station_status_data)
         else:
             return jsonify(error='Failed to fetch station status data from the database')
+"""
 
-    except Exception as e:
-        return jsonify(error=str(e))
-    
 @app.route('/weather_data', methods=['GET'])
 def get_weather_data():
     try:
@@ -70,9 +68,7 @@ def get_weather_data():
             """)
         
         # Execute the query
-        connection = engine.connect()
-        result = connection.execute(query).fetchone()
-        # Execute the query
+        result = connection.execute(query)
 
         # Fetch all rows from the result and convert them into a list of dictionaries
         weather_data = [dict(row) for row in result]

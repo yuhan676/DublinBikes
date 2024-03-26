@@ -58,6 +58,7 @@ def get_weather_data():
     try:
         # Call connect_db to get the SQLAlchemy Engine object
         engine = connect_db()
+        connection = engine.connect()
 
         # Select from 'CurrentWeather' table name
         query = text("""
@@ -68,10 +69,13 @@ def get_weather_data():
                 LIMIT 1
             """)
         
-        result = engine.execute(query).fetchone()
+        result = connection.engine.execute(query).fetchone()
 
         # Generate dictionary from the fetched row
         weather_data = dict(result)
+
+        # Close the database connection
+        connection.close()
 
         # Return the weather data as JSON response
         return jsonify(weather_data)

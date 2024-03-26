@@ -315,7 +315,7 @@ function fetchWeatherData() {
             var time = timeupdate.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Europe/Dublin' });
             var timezone = timeupdate.toLocaleTimeString(undefined, { timeZone: 'Europe/Dublin', timeZoneName: 'short' });
             
-            var timestamp = dayOfWeek + " , " + month + " , " + day + " , " + timezone;
+            var timestamp = dayOfWeek + ", " + month + "  " + day + ", " + timezone;
 
             // Update HTML content with fetched weather data
             $('#weather-content').html(

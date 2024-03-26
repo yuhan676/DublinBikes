@@ -325,10 +325,8 @@ function fetchWeatherData() {
                 "<p><span style='font-size: 1.1em;'>Max Temperature:</span> " + tempMax + " °C</p>" +
                 "<p><span style='font-size: 1.1em;'>Description:</span> " + weatherDescription + "</p>" +
                 "<p><span style='font-size: 1.1em;'>Wind Speed:</span> " + windSpeed + " km/h</p>" +
-                "<p><span style='font-size: 1.1em;'>Wind Gust:</span> " + windGust + " km/h</p>" + 
-                );
-
-
+                "<p><span style='font-size: 1.1em;'>Wind Gust:</span> " + windGust + " km/h</p>"
+            );
         },
         error: function(xhr, status, error) {
             // Handle AJAX error

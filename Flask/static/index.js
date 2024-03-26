@@ -1,6 +1,9 @@
 // Global variable to store the last search results
 var lastSearchJSON = {};
 
+// Global variable to store the last weather search data
+var lastWeatherJSON = {};
+
 // We use this for our state a lot, so keep track of the currently open tab here
 // Rent is open by default
 var activeTab = "rent";

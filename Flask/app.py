@@ -64,7 +64,7 @@ def get_weather_data():
                 SELECT cw.feels_like, cw.temperature_min, cw.temperature_max, cw.weather_description,
                 cw.wind_speed, cw.wind_gust
                 FROM CurrentWeather cw
-                ORDER BY cw.last_update DESC
+                ORDER BY cw.time_update DESC
                 LIMIT 1
             """)
         connection = engine.connect().execute(query).fetchone()

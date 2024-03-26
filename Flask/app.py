@@ -71,7 +71,7 @@ def get_weather_data():
         
         # Execute the query
         connection = engine.connect()
-        result = connection.execute()
+        result = connection.execute(query).fetchone()
         # Execute the query
 
         # Fetch all rows from the result and convert them into a list of dictionaries

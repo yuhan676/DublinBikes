@@ -58,6 +58,7 @@ def get_weather_data():
     try:
         # Call connect_db to get the SQLAlchemy Engine object
         engine = connect_db()
+        connection = engine.connect()
 
         # Select from 'CurrentWeather' table name
         query = text("""
@@ -68,7 +69,7 @@ def get_weather_data():
                 LIMIT 1
             """)
         
-        connection = engine.connect().execute(query).fetchone()
+        connection = engine.execute(query).fetchone()
 
         # Execute the query
         result = connection.execute(query)

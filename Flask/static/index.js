@@ -126,7 +126,18 @@ function verifyAndSubmitQuery() {
 
             // Now, lastSearchJSON contains the latest search results
             console.log(lastSearchJSON); // For debugging: log the latest search results. 
-        },
+            // Determine the current date in the same format as your 'date' variable
+        var currentDate = new Date().toISOString();
+
+        // Check if the 'date' selected matches the current date and proceed to populate the correct container
+        if (JSON.stringify(dateSelected).split('T')[0] === currentDate.split('T')[0]) {
+            // Choose the container to populate based on the isRent value
+            var containerId = isRent ? '#selection_container_rent' : '#selection_container_return';
+
+            // Call the function to populate the container with the new data
+            populateSelectionContainer(containerId);
+        }
+    },
         error: function(request, status, errorString) {
             if (request.status == 500)
             {
@@ -139,28 +150,57 @@ function verifyAndSubmitQuery() {
 
     // Handle failure/invalid station name
 }
-// Populate suggestion box dynamically
-function populateSuggestionBox(suggestions) {
-    // Clear previous suggestions
-    suggestionContainer.innerHTML = '';
+// The following functions populate the selection box dynamically
 
-    // Check if suggestions exist
-    if (suggestions.length > 0) {
-        // // Display the container
-        // suggestionContainer.style.display = 'block';
-
-        // Create and append station boxes
-        suggestions.forEach(function(suggestion) {
-            const stationBox = document.createElement('div');
-            stationBox.classList.add('station-box');
-            stationBox.textContent = suggestion;
-            suggestionContainer.appendChild(stationBox);
-        });
-    // } else {
-    //     // Hide the container when empty
-    //     suggestionContainer.style.display = 'none';
-    }
+// Function to create the HTML for a single station
+function createStationBox(name, status, mechanicalBikes, emptyStandsNumber, banking) {
+    // Convert banking to a Yes/No string
+    let paymentAvailable = banking ? 'Yes' : 'No';
+  
+    return `
+        <div class="selection_box">
+            <div class="station_info">
+                <div class="station_name">${name}</div>
+                <div class="info_section">
+                    <img src="static/image/info.png" class="selection_icon" id="info_icon">
+                    <div class="station_status">${status}</div>
+                </div>
+                <div class="bike_section">
+                    <img src="static/image/bike.png" class="selection_icon" id="bicycle_icon">
+                    <div class="bikes_available">${mechanicalBikes}</div>
+                </div>
+                <div class="parking_section">
+                    <img src="static/image/parking.png" class="selection_icon" id="parking_icon">
+                    <div class="parking_available">${emptyStandsNumber}</div>
+                </div>
+                <div class="payment_section">
+                    <img src="static/image/payment.png" class="selection_icon" id="payment_icon">
+                    <div class="payment_available">${paymentAvailable}</div>
+                </div>
+            </div>
+        </div>`;
 }
+
+// Function to populate the selection container using the lastSearchJSON global variable
+function populateSelectionContainer() {
+    var container = $('#selection_container_rent');
+    container.empty(); // Clear the container before populating
+
+    // Add the title
+    container.append('<div class="nearest_station">Nearest Stations:</div>');
+
+    // Iterate over the lastSearchJSON to add each station box
+    lastSearchJSON.forEach(function(station) {
+        container.append(createStationBox(
+            station.name, 
+            station.status, 
+            station.mechanical_bikes, 
+            station.empty_stands_number, 
+            station.banking
+        ));
+    });
+}
+
 
 // Given a station name, update the content on the right pane;
 function populateRightPanel(stationName){

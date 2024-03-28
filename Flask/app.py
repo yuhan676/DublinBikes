@@ -31,10 +31,7 @@ def get_weather_data():
                 LIMIT 1
             """)
       
-        # Execute the query
         result = connection.execute(query)
-
-        # Fetch one row from the result
         row = result.fetchone()
 
         # If row exists, convert it to a dictionary
@@ -43,17 +40,12 @@ def get_weather_data():
         else:
             weather_data = []
 
-        # Close the database connection
         connection.close()
-
-        # Return the weather data as JSON response
         return jsonify(weather_data)
 
     except Exception as e:
-        # Log the exception traceback
         traceback.print_exc()
 
-        # Handle any exceptions
         return jsonify(error=str(e)), 500
     
 @app.route('/five_day_prediction', methods=['GET'])
@@ -79,7 +71,7 @@ def fetch_extreme_weather():
 
         # If 'trigger' is present and its value is 'true', return dummy data
         # dummy data is generated based on Met Eireann extreme weather classification to trigger the extreme weather pop up
-        # when conditions of the databaseb data are not met, to demonstrate how the function operates in frontend when the 
+        # when conditions of the database data are not met, to demonstrate how the function operates in frontend when the 
         # actual database doesn't meet Met Eireann extreme weather conditions
         if trigger == 'true':
             dummy_data1 = {
@@ -106,7 +98,8 @@ def fetch_extreme_weather():
             # If 'trigger' is not 'true', fetch and return real data from the database
             engine = connect_db()
             connection = engine.connect()
-
+            # generated ExtremeWeather table uses fivedayprediction OpenWeather API, and is created for specific purpose of 
+            # generating severe weather predictions
             query = text("""
                 SELECT ew.temp_max, ew.temp_min, ew.wind_speed, ew.gust_speed,
                 ew.rain, ew.time_update
@@ -115,10 +108,7 @@ def fetch_extreme_weather():
                 LIMIT 1
             """)
             
-            # Execute the query
             result = connection.execute(query)
-
-            # Fetch one row from the result
             row = result.fetchone()
 
             # If row exists, convert it to a dictionary
@@ -127,18 +117,27 @@ def fetch_extreme_weather():
             else:
                 weather_data = []
 
-            # Close the database connection
             connection.close()
 
-            # Return the weather data as JSON response
-            return jsonify(weather_data)
+            # Logic to determine extreme weather conditions
+            for forecast in weather_data:
+                wind_speed = forecast["wind_speed"]
+                gust_speed = forecast["gust_speed"]
+                rain_3h = forecast.get("rain", 0)
+                temp_min = forecast["temp_min"]
+                temp_max = forecast["temp_max"]
 
-    except Exception as e:
-        # Log the exception traceback
-        traceback.print_exc()
+                # Check for specific extreme weather conditions 
+                # Severe weather conditions are taken from Met Eireann official website. 
+                # https://www.met.ie/cms/assets/uploads/2020/04/Severe-weather-chart.pdf
+                if (wind_speed > 80 or gust_speed > 130 or rain_3h > 50 or temp_min < -10 or temp_max > 30):
+                    return jsonify(True)  # Extreme weather conditions met
 
-        # Handle any exceptions
-        return jsonify(error=str(e)), 500
+            return jsonify(False)  # Extreme weather conditions not met
+
+    except FileNotFoundError as e:
+        print("Error loading weather data:", e)
+        return jsonify(False)  # Unable to load weather data, assume no extreme weather
 
 # provide suggestion for station names based on user's input of station name
 @app.route('/suggest_stations')

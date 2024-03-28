@@ -270,6 +270,16 @@ $(document).ready(function() {
     $('#search_btn').click(function() {
         verifyAndSubmitQuery();
     });
+    // Add event listener to detect keyboard stroke for opening the popup
+    document.addEventListener('keydown', openPopupWithKeystroke);
+        
+    // Bind click event to close the popup when clicked outside of it
+    $(document).on('click', function(event) {
+        // Check if the clicked element is not the popup or its children
+        if (!$(event.target).closest('#popup').length) {
+            $('#popup').hide(); // Hide the popup
+        }
+    });
 
     // Extreme weather popup
     // Bind click event to close button
@@ -413,55 +423,47 @@ function mpsToKph(mps) {
 }
 // Function to open the pop-up and fetch extreme weather data
 function openPopup() {
-    // Fetch extreme weather data and display the popup every hour
-    const popupInterval = setInterval(() => {
-        fetch('/fetch_extreme_weather')
-            .then(response => response.json())
-            .then(data => {
-                if (data && data.extreme_conditions_met) {
-                    // Store the fetched extreme weather data in global variable
-                    lastWeatherJSON = data.extreme_conditions_met;
-                    displayWeatherPopup(data.extreme_conditions_met);
-                } else {
-                    console.error('Extreme weather data not available.');
-                }
-            })
-            .catch(error => console.error('Error fetching extreme weather data:', error));
-    }, 3600000); // Repeat every hour (3600 seconds * 1000 milliseconds)
-
-    // Function to display the popup
-    function displayWeatherPopup(weatherData) {
-        const weatherInfo = weatherData.list[0];
-        const windSpeed = weatherInfo.wind.speed;
-        const windGust = weatherInfo.wind.gust;
-        const rainProbability = weatherInfo.rain["3"];
-        const minTemperature = weatherInfo.main.temp_min;
-        const maxTemperature = weatherInfo.main.temp_max;
-
-        // Format the weather information for display
-        const weatherDisplay = `
-            <div>Wind Speed: ${windSpeed} m/s</div>
-            <div>Wind Gust: ${windGust} m/s</div>
-            <div>Rain Probability: ${rainProbability}%</div>
-            <div>Min Temperature: ${minTemperature}°C</div>
-            <div>Max Temperature: ${maxTemperature}°C</div>
-        `;
-
-        // Display the formatted weather information in the pop-up
-        $('#extreme-weather-content').html(weatherDisplay); // Using jQuery to set HTML content
-        $('#popup').show(); // Using jQuery to show the popup
-
-        // Close the popup after 10 seconds
-        setTimeout(() => {
-            $('#popup').hide(); // Using jQuery to hide the popup
-        }, 10000); // 10 seconds (10,000 milliseconds)
-    }
-
-    // JavaScript to close the weather panel when clicked
-    document.getElementById("popup").addEventListener("click", function(event) {
-        // Check if the click occurred outside the close button
-        if (!event.target.closest(".close")) {
-            document.getElementById("popup").style.display = "none";
-        }
-    });
+    // Fetch extreme weather data and display the popup
+    fetch('/fetch_extreme_weather?trigger=true')
+        .then(response => response.json())
+        .then(data => {
+            if (data) {
+                displayWeatherPopup(data);
+            } else {
+                console.error('Weather data not available.');
+            }
+        })
+        .catch(error => console.error('Error fetching extreme weather data:', error));
 }
+
+// Function to display the popup
+function displayWeatherPopup(weatherData) {
+    const weatherInfo = weatherData.list[0];
+    const windSpeed = weatherInfo.wind.speed;
+    const windGust = weatherInfo.wind.gust;
+    const rainProbability = weatherInfo.rain["3"];
+    const minTemperature = weatherInfo.main.temp_min;
+    const maxTemperature = weatherInfo.main.temp_max;
+
+    // Format the weather information for display
+    const weatherDisplay = `
+        <div>Wind Speed: ${windSpeed} m/s</div>
+        <div>Wind Gust: ${windGust} m/s</div>
+        <div>Rain Probability: ${rainProbability}%</div>
+        <div>Min Temperature: ${minTemperature}°C</div>
+        <div>Max Temperature: ${maxTemperature}°C</div>
+    `;
+            
+    // Display the formatted weather information in the popup
+    $('#extreme-weather-content').html(weatherDisplay); // Using jQuery to set HTML content
+    $('#popup').show(); // Using jQuery to show the popup
+}
+
+// Function to open the popup
+function openPopupWithKeystroke(event) {
+    // Check if the keystroke is the one you want to trigger the popup
+    if (event.key === 'p') { // Change 'p' to the desired keystroke
+        openPopup();
+    }
+}
+

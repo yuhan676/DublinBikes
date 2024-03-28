@@ -21,7 +21,8 @@ def create_tables(engine):
             wind_gust DECIMAL(5, 2) NOT NULL DEFAULT 0
         );
         """
-
+        # ExtremeWeather table is pulling FiveDayPrediction data from the Open Weather database, but it used for specific conditions, 
+        # and created separatelly for clarity of its usage
         ExtremeWeather = """
         CREATE TABLE IF NOT EXISTS ExtremeWeather (
             time_update DATETIME NOT NULL,

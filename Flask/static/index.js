@@ -178,10 +178,10 @@ function populateSelectionContainer() {
             // Now, lastSearchJSON contains the latest search results
             console.log(lastSearchJSON); // For debugging: log the latest search results. 
             // Determine the current date in the same format as your 'date' variable
-        var currentDate = new Date().toISOString();
+            var currentDate = new Date().toISOString();
 
         // Check if the 'date' selected matches the current date and proceed to populate the correct container
-        if (JSON.stringify(dateSelected).split('T')[0] === currentDate.split('T')[0]) {
+        // if (JSON.stringify(dateSelected).split('T')[0] === currentDate.split('T')[0]) {
             // Choose the container to populate based on the isRent value
             var containerId = isRent ? '#selection_container_rent' : '#selection_container_return';
 

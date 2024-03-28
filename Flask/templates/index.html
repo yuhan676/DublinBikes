@@ -6,10 +6,19 @@
     <title>Bike Rental App</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="Style.css">
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfrNOzVJuGJnSUSCtzH6T32OZLNOWJ9_M&callback=initMap&libraries=places,geometry,visualization&center=53.349805,-6.26031&zoom=10" async defer></script>
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfrNOzVJuGJnSUSCtzH6T32OZLNOWJ9_M&callback=initMap&libraries=places,geometry,visualization&center=53.349805,-6.26031&zoom=10" async defer></script> -->
     <script src="{{ url_for('static', filename='jquery-3.7.1.min.js') }}"></script>
     <script src="{{ url_for('static', filename='index.js') }}"></script>
     <script src="{{ url_for('static', filename='map.js') }}"></script>
+    <!-- New Google Maps API import for Advanced Marker migration purpose -->
+    <script>
+        (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+          key: "AIzaSyBfrNOzVJuGJnSUSCtzH6T32OZLNOWJ9_M",
+          v: "weekly",
+          // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
+          // Add other bootstrap parameters as needed, using camel case.
+        });
+      </script>
     <script>
         // Yuhan: We put this here because initMap is in map.js but the other
         //        more generic init funcitons are in index.js. This is the 
@@ -38,7 +47,38 @@
                 <div id="available-bikes-rent"></div>
                 <input type="text" placeholder="Search for bike station to rent" id="search_rent" autocomplete="off">
                 <div class="suggestion_box" id="suggestion_box_rent"> </div>
-                <div class="selection_container" id="selection_container_rent"> </div>
+                <div class="selection_container" id="selection_container_rent">
+                    <button onclick="selectionToggle()" class="nearest_station" id="nearest_station_rent">Nearest Stations ▲</button>
+
+                    <div id="rent_selection_wrapper">
+                        <div class="selection_box">
+                            <div class="station_info">
+                                <div class="station_name">FREDERICK STREET SOUTH</div>
+
+                                <div class="info_section">
+                                    <img src="{{ url_for('static', filename='image/info.png') }}" class="selection_icon" id="info_icon">
+                                    <div class="station_status">OPEN</div>
+                                </div>
+                                
+                                <div class="bike_section">
+                                    <img src="{{ url_for('static', filename='image/bike.png') }}" class="selection_icon" id="bicycle_icon" >
+                                    <div class="bikes_available"> 3 </div>
+                                </div>
+                                
+                                
+                                <div class="parking_section">
+                                    <img src="{{ url_for('static', filename='image/parking.png') }}" class="selection_icon"id="parking_icon" >
+                                    <div class="parking_available"> 13 </div>
+                                </div>
+
+                                <div class="payment_section">
+                                    <img src="{{ url_for('static', filename='image/payment.png') }}" class="selection_icon"id="payment_icon" >
+                                    <div class="payment_available"> No </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         <div id="return" class="tabcontent">
@@ -59,6 +99,11 @@
             </div>
         </div>
     </div>    
+
+
+
+
+    
     <!-- <div class="search_btn_container">
         <button id="search_btn" class="disabled">Search</button>
         <div id="error_text"></div>

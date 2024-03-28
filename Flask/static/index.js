@@ -391,8 +391,6 @@ $(document).ready(function() {
             $('#popup').hide(); // Hide the popup
         }
     });
-
-    // Extreme weather popup
     // Bind click event to close button
     $('#close-popup').on('click', function() {
         $('#popup').hide(); // Hide the popup when the close button is clicked
@@ -497,9 +495,7 @@ function fetchCurrenthWeatherData() {
             var dayOfWeek = timeupdate.toLocaleDateString(undefined, { weekday: 'long' });
             var month = timeupdate.toLocaleDateString(undefined, { month: 'long' });
             var day = timeupdate.toLocaleDateString(undefined, { day: 'numeric' });
-            var year = timeupdate.toLocaleDateString(undefined, { year: 'numeric' });
-            var time = timeupdate.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'Europe/Dublin' });
-            var timezone = timeupdate.toLocaleTimeString(undefined, { timeZone: 'Europe/Dublin', timeZoneName: 'short' });
+            var timezone = timeupdate.toLocaleTimeString(undefined, { timeZone: 'Europe/Dublin', hour: '2-digit', minute: '2-digit', hour12: true });
             
             var timestamp = dayOfWeek + ", " + month + "  " + day + ", " + timezone;
 

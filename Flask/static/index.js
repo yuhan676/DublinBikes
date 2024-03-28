@@ -181,13 +181,13 @@ function populateSelectionContainer() {
             var currentDate = new Date().toISOString();
 
         // Check if the 'date' selected matches the current date and proceed to populate the correct container
-        // if (JSON.stringify(dateSelected).split('T')[0] === currentDate.split('T')[0]) {
+        if (JSON.stringify(dateSelected).split('T')[0] === currentDate.split('T')[0]) {
             // Choose the container to populate based on the isRent value
             var containerId = isRent ? '#selection_container_rent' : '#selection_container_return';
 
             // Call the function to populate the container with the new data
             populateSelectionContainer(containerId);
-        // }
+        }
     },
         error: function(request, status, errorString) {
             if (request.status == 500)

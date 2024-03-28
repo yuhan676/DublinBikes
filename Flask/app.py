@@ -67,6 +67,7 @@ def fetch_five_day_prediction():
 def fetch_extreme_weather():
     try:
         # Check if the 'trigger' parameter is present in the request query string
+        # trigger is lowercase "p" on the keyboard. Popup can be closed by clicking outside of it or from the x on the top right hand corner
         trigger = request.args.get('trigger')
 
         # If 'trigger' is present and its value is 'true', return dummy data

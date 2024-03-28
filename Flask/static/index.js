@@ -535,6 +535,7 @@ function mpsToKph(mps) {
 // Function to open the pop-up and fetch extreme weather data
 function openPopup() {
     // Fetch extreme weather data and display the popup
+    // trigger is lowercase "p" on the keyboard. Popup can be closed by clicking outside of it or from the x on the top right hand corner
     fetch('/fetch_extreme_weather?trigger=true')
         .then(response => response.json())
         .then(data => {

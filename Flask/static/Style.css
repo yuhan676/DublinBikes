@@ -453,15 +453,23 @@
   
   
   .selection_container:empty {
-    display: block;
+    display: none
   }
 /* Add any additional styling needed */
 
 .nearest_station{
     width:100%;
     padding: 5px;
-    text-align: left;
+    text-align: center;
     font-family: 'Arial', sans-serif;
+    background-color: #50a152;
+    border:1.5px black;
+    border-radius: 2px;
+}
+
+.nearest_station:hover{
+    cursor: pointer;
+    
 }
     
 
@@ -530,4 +538,8 @@
     width: 40px; /* Adjust the width as needed to fit the word 'CLOSED' */
     text-align: center; /* This will center-align the text within the fixed width */
     /* Rest of your styling */
+}
+
+#rent_selection_wrapper{
+    display:block
 }

@@ -199,6 +199,22 @@ function populateSelectionContainer() {
         ));
     });
 }
+
+// Function to show/unshow the selection wrapper
+function selectionToggle() {
+    var x = document.getElementById("rent_selection_wrapper");
+    var y = document.getElementById("nearest_station_rent");
+
+    if (x.style.display === "none") {
+        x.style.display = "block";
+        y.innerHTML = "Nearest Stations ▲"; 
+        y.style.backgroundColor = "#50a152"
+    } else {
+        x.style.display = "none";
+        y.innerHTML = "Nearest Stations ▼"; 
+        y.style.backgroundColor = "#5cb85c"
+    }
+}
 // Given a station name, update the content on the right pane;
 function populateRightPanel(stationName){
     $.ajax({

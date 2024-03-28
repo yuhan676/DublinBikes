@@ -103,54 +103,7 @@ function verifyAndSubmitQuery() {
     dateSelected.setHours(timeSelected.getHours());
     dateSelected.setMinutes(timeSelected.getMinutes());
 
-    // Package and submit query
-    var stationName = $(isRent ? '#search_rent' : '#search_return').val();
-    $.ajax({
-        url: "/search", // The endpoint in Flask
-        type: "GET",
-        dataType: 'json',
-        data: { 
-            'isRent': isRent,
-            'stationName': stationName,
-            'date': JSON.stringify(dateSelected) // format: YYYY-MM-DDTHH:MM:SS.MMMZ
-        },
-        success: function(return_data) {
-            // Success! return_data should contain the five stations plus any other necessary info
-            // Pass this to a function to display here, maybe don't add population code here to keep things clean
-
-            // Clear the global variable
-            lastSearchJSON = {};
-
-            // Update the global variable with the new data
-            lastSearchJSON = return_data;
-
-            // Now, lastSearchJSON contains the latest search results
-            console.log(lastSearchJSON); // For debugging: log the latest search results. 
-            // Determine the current date in the same format as your 'date' variable
-        var currentDate = new Date().toISOString();
-
-        // Check if the 'date' selected matches the current date and proceed to populate the correct container
-        if (JSON.stringify(dateSelected).split('T')[0] === currentDate.split('T')[0]) {
-            // Choose the container to populate based on the isRent value
-            var containerId = isRent ? '#selection_container_rent' : '#selection_container_return';
-
-            // Call the function to populate the container with the new data
-            populateSelectionContainer(containerId);
-        }
-    },
-        error: function(request, status, errorString) {
-            if (request.status == 500)
-            {
-                // 500 here is so we can show the user when they have entered an invalid station name
-                $('#error_text').text(request.responseJSON.message);
-            }
-        }
-    });
-
-
-    // Handle failure/invalid station name
-}
-// The following functions populate the selection box dynamically
+    // The following functions populate the selection box dynamically
 
 // Function to create the HTML for a single station
 function createStationBox(name, status, mechanicalBikes, emptyStandsNumber, banking) {
@@ -199,6 +152,54 @@ function populateSelectionContainer() {
             station.banking
         ));
     });
+}
+
+    // Package and submit query
+    var stationName = $(isRent ? '#search_rent' : '#search_return').val();
+    $.ajax({
+        url: "/search", // The endpoint in Flask
+        type: "GET",
+        dataType: 'json',
+        data: { 
+            'isRent': isRent,
+            'stationName': stationName,
+            'date': JSON.stringify(dateSelected) // format: YYYY-MM-DDTHH:MM:SS.MMMZ
+        },
+        success: function(return_data) {
+            // Success! return_data should contain the five stations plus any other necessary info
+            // Pass this to a function to display here, maybe don't add population code here to keep things clean
+
+            // Clear the global variable
+            lastSearchJSON = {};
+
+            // Update the global variable with the new data
+            lastSearchJSON = return_data;
+
+            // Now, lastSearchJSON contains the latest search results
+            console.log(lastSearchJSON); // For debugging: log the latest search results. 
+            // Determine the current date in the same format as your 'date' variable
+        var currentDate = new Date().toISOString();
+
+        // Check if the 'date' selected matches the current date and proceed to populate the correct container
+        if (JSON.stringify(dateSelected).split('T')[0] === currentDate.split('T')[0]) {
+            // Choose the container to populate based on the isRent value
+            var containerId = isRent ? '#selection_container_rent' : '#selection_container_return';
+
+            // Call the function to populate the container with the new data
+            populateSelectionContainer(containerId);
+        }
+    },
+        error: function(request, status, errorString) {
+            if (request.status == 500)
+            {
+                // 500 here is so we can show the user when they have entered an invalid station name
+                $('#error_text').text(request.responseJSON.message);
+            }
+        }
+    });
+
+
+    // Handle failure/invalid station name
 }
 
 

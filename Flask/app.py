@@ -79,15 +79,15 @@ def fetch_extreme_weather():
                 "list": [
                     {
                         "wind": {
-                            "speed": 85,
-                            "gust": 140
+                            "speed": 80,
+                            "gust": 130
                         },
                         "rain": {
-                            "3": 60
+                            "3": 50
                         },
                         "main": {
-                            "temp_min": -15,
-                            "temp_max": 35
+                            "temp_min": -10,
+                            "temp_max": 30
                         }
                     }
                 ]

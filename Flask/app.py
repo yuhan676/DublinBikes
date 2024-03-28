@@ -70,52 +70,75 @@ def fetch_five_day_prediction():
         return jsonify(weather_data)
     else:
         return jsonify(error='Failed to fetch weather data from the database'), 500
-    
-# Route for fetching extreme weather data
+
 @app.route('/fetch_extreme_weather', methods=['GET'])
 def fetch_extreme_weather():
     try:
-        query = text("""
-            SELECT ew.temp_max, ew.temp_min, ew.wind_speed, ew.gust_speed,
-            ew.rain, ew.time_update
-            FROM ExtremeWeather ew
-            ORDER BY ew.time_update DESC
-            LIMIT 1
-        """)
-        
-        # Fetch extreme weather data from the database
-        extreme_weather_data = fetch_weather_data_database(query)
-        
-        if extreme_weather_data:
-            return jsonify(extreme_weather_data)
+        # Check if the 'trigger' parameter is present in the request query string
+        trigger = request.args.get('trigger')
+
+        # If 'trigger' is present and its value is 'true', return dummy data
+        # dummy data is generated based on Met Eireann extreme weather classification to trigger the extreme weather pop up
+        # when conditions of the databaseb data are not met, to demonstrate how the function operates in frontend when the 
+        # actual database doesn't meet Met Eireann extreme weather conditions
+        if trigger == 'true':
+            dummy_data1 = {
+                "list": [
+                    {
+                        "wind": {
+                            "speed": 85,
+                            "gust": 140
+                        },
+                        "rain": {
+                            "3": 60
+                        },
+                        "main": {
+                            "temp_min": -15,
+                            "temp_max": 35
+                        }
+                    }
+                ]
+            }
+            
+            return jsonify(dummy_data1)
+
         else:
-            # Return error message if fetching from the database fails
-            return jsonify(error='Failed to fetch extreme weather data from the database'), 500
+            # If 'trigger' is not 'true', fetch and return real data from the database
+            engine = connect_db()
+            connection = engine.connect()
+
+            query = text("""
+                SELECT ew.temp_max, ew.temp_min, ew.wind_speed, ew.gust_speed,
+                ew.rain, ew.time_update
+                FROM ExtremeWeather ew
+                ORDER BY ew.time_update DESC
+                LIMIT 1
+            """)
+            
+            # Execute the query
+            result = connection.execute(query)
+
+            # Fetch one row from the result
+            row = result.fetchone()
+
+            # If row exists, convert it to a dictionary
+            if row:
+                weather_data = [dict(row)]
+            else:
+                weather_data = []
+
+            # Close the database connection
+            connection.close()
+
+            # Return the weather data as JSON response
+            return jsonify(weather_data)
 
     except Exception as e:
         # Log the exception traceback
         traceback.print_exc()
 
-        # Return dummy extreme weather data if fetching from database fails
-        dummy_data1 = {
-            "list": [
-                {
-                    "wind": {
-                        "speed": 85,
-                        "gust": 140
-                    },
-                    "rain": {
-                        "3": 60
-                    },
-                    "main": {
-                        "temp_min": -15,
-                        "temp_max": 35
-                    }
-                }
-            ]
-        }
-        
-        return jsonify(extreme_conditions_met=dummy_data1)
+        # Handle any exceptions
+        return jsonify(error=str(e)), 500
 
 # provide suggestion for station names based on user's input of station name
 @app.route('/suggest_stations')
@@ -222,27 +245,3 @@ def search():
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=8080)
-
-"""# Associate database json station data with Google map
-# Discuss with Yuhan can this be used to fetch station data, or should it be done anew
-# is 100 rows enough, how many stations are there
-@app.route('/bike_stations')
-def get_bike_stations():
-    try:
-        # Fetch data from the 'station_status' table
-        station_status_data = fetch_dummy_data('station_status')
-
-        # Check if data is fetched successfully
-        if station_status_data is not None:
-            # Return the fetched data as JSON response
-            return jsonify(station_status_data)
-        else:
-            return jsonify(error='Failed to fetch station status data from the database')
-        
-    except Exception as e:
-        # Log the exception traceback
-        traceback.print_exc()
-
-        # Handle any exceptions
-        return jsonify(error=str(e)), 500
-"""

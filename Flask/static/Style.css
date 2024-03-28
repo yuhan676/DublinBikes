@@ -153,6 +153,26 @@
 .weather-content p {
     color: #555; /* Set content text color */
 }
+/* Style the tab buttons */
+.weather-tablinks {
+    background-color: #f0f0f0; /* Background color */
+    border: none; /* Remove border */
+    color: #333; /* Text color */
+    padding: 10px 15px; /* Padding */
+    cursor: pointer; /* Cursor style */
+    transition: background-color 0.3s; /* Transition effect for hover */
+}
+
+/* Style the active tab button */
+.weather-tablinks.active {
+    background-color: #ccc; /* Background color */
+    color: #fff; /* Text color */
+}
+
+/* Hover effect */
+.weather-tablinks:hover {
+    background-color: #ddd; /* Background color on hover */
+}
 
 /* container for right panel */
 #right_panel {
@@ -409,33 +429,117 @@
     top: 10px;
     right: 10px;
 }
-/* suggestion box style*/
-  #suggestion-container {
-    width: 80%;
+/* 5 selection box style*/
+  .selection_container {
+    width: 100%;
     margin: 0 auto;
-    padding: 20px;
+    padding: 0px;
     border: 1px solid #ccc;
+    position: absolute;
+    height: fit-content;
+    background-color: white;
   }
   
-  .suggestion-box {
-    background-color: #f0f0f0;
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin-bottom: 10px;
-  }
+  .selection_box {
+    background-color: lightgray; /* White background */
+    border-radius: 8px; /* Rounded corners for the card */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+    padding: 5px; /* Space inside the card */
+    margin:8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Arial', sans-serif;}
   
-  .suggestion-image {
-    width: 100px; /* Adjust image width as needed */
-    height: auto; /* Maintain aspect ratio */
-    display: block;
-    margin: 0 auto;
-  }
   
-  .suggestion-text {
-    text-align: center;
-  }
-  
-  #suggestion-container:empty {
-    display: none;
+  .selection_container:empty {
+    display: none
   }
 /* Add any additional styling needed */
+
+.nearest_station{
+    width:100%;
+    padding: 5px;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    background-color: #50a152;
+    border:1.5px black;
+    border-radius: 2px;
+}
+
+.nearest_station:hover{
+    cursor: pointer;
+    
+}
+    
+
+.station_info {
+    display: flex;
+    align-items: center;
+}
+
+.station_name  {
+    font-weight: bold;
+    /* margin-right: 5px; */
+    font-size: 0.7em; /* Larger font size for station names */
+    width: 100px; /* Adjust as needed */
+    min-width: 100px; /* Optional: Ensure that the name doesn't shrink below a certain point */
+    max-width: 100px; 
+}
+
+.station_status .status_open {
+    background-color: #5cb85c; /* Green for open status */
+    color: white;
+    padding: 2px 5px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.station_details {
+    display: flex;
+    align-items: center;
+    font-size: 1em;
+}
+
+.station_details div {
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.selection_icon{
+    width: 24px;
+    height: 24px;
+    object-fit: contain; 
+}
+
+.info_section, .bike_section, .parking_section, .payment_section {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers content horizontally in the flex container */
+    margin-right: 4px; /* Adjust as necessary for spacing */
+    font-size: 0.75rem;
+}
+
+.info_selection{
+    margin-right: 5px;
+}
+.selection_box:hover {
+    background-color: #ccc;
+    cursor: pointer;
+}
+
+.selection_box.active {
+    background-color: #ccc;
+}
+
+.station_status {
+    display: inline-block; /* or block if they are not already within a flex container */
+    width: 40px; /* Adjust the width as needed to fit the word 'CLOSED' */
+    text-align: center; /* This will center-align the text within the fixed width */
+    /* Rest of your styling */
+}
+
+#rent_selection_wrapper{
+    display:block
+}

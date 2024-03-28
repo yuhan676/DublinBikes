@@ -5,14 +5,13 @@ import requests
 import sqlalchemy as sqla
 import datetime as dt
 import numpy as mp
-import sys
-import os
 import traceback as tb
 import json
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
 from db_config import db_type,username,password,hostname,port,db_name
 from geopy.distance import geodesic
+import traceback
 
 def connect_db():
     try:
@@ -65,32 +64,6 @@ def get_station_names(engine):
             print(f"An error occurred: {tb.format_exc()}")
             return []
 
-def fetch_openweather_extreme(json_file):
-    try:
-        # Load the weather data from the provided JSON file
-        with open(json_file, 'r') as file:
-            data = json.load(file)
-
-        # Logic to determine extreme weather conditions
-        for forecast in data["list"]:
-            wind_speed = forecast["wind"]["speed"]
-            gust_speed = forecast["wind"].get("gust", 0)
-            rain_3h = forecast.get("rain", {}).get("3", 0)
-            temp_min = forecast["main"]["temp_min"]
-            temp_max = forecast["main"]["temp_max"]
-
-            # Check for specific extreme weather conditions
-            # Severe weather conditions are taken from Met Eireann official website. 
-            # https://www.met.ie/cms/assets/uploads/2020/04/Severe-weather-chart.pdf
-            if wind_speed > 80 or gust_speed > 130 or rain_3h > 50 or temp_min < -10 or temp_max > 30:
-                return True  # Extreme weather conditions met
-
-        return False  # Extreme weather conditions not met
-
-    except FileNotFoundError as e:
-        print("Error loading weather data:", e)
-        return False  # Unable to load weather data, assume no extreme weather
-
 #Following 3 functions are for producing the 1-to-5 station mapping.
 def fetch_stations_coordinates():
     """
@@ -132,6 +105,28 @@ def save_mapping_to_json(data, filename='1_to_5_Mapping.json'):
     """
     with open(filename, 'w') as f:
         json.dump(data, f, indent=4)
+
+# Define a function to fetch data from the database and return it as JSON
+def fetch_weather_data_database(query):
+    try:
+        engine = connect_db()
+        connection = engine.connect()
+
+        result = connection.execute(query)
+        row = result.fetchone()  # Fetch one row from the result
+
+        # If row exists, convert it to a dictionary
+        if row:
+            weather_data = [dict(row)]
+        else:
+            weather_data = []
+
+        connection.close()  # Close the database connection
+        return weather_data
+
+    except Exception as e:
+        traceback.print_exc()  # Log the exception traceback
+        return None, str(e)  # Handle any exceptions
 
 
 

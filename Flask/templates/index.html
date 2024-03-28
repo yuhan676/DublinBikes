@@ -48,37 +48,68 @@
             <div class="input_wrap">
                 <div id="available-bikes-rent"></div>
                 <input type="text" placeholder="Search for bike station to rent" id="search_rent" autocomplete="off">
-                <div class="suggestion_box" id="suggestion_box_rent"></div>
+                <div class="suggestion_box" id="suggestion_box_rent"> </div>
+                <div class="selection_container" id="selection_container_rent">
+                    <button onclick="selectionToggle()" class="nearest_station" id="nearest_station_rent">Nearest Stations ▲</button>
+
+                    <div id="rent_selection_wrapper">
+                        <div class="selection_box">
+                            <div class="station_info">
+                                <div class="station_name">FREDERICK STREET SOUTH</div>
+
+                                <div class="info_section">
+                                    <img src="{{ url_for('static', filename='image/info.png') }}" class="selection_icon" id="info_icon">
+                                    <div class="station_status">OPEN</div>
+                                </div>
+                                
+                                <div class="bike_section">
+                                    <img src="{{ url_for('static', filename='image/bike.png') }}" class="selection_icon" id="bicycle_icon" >
+                                    <div class="bikes_available"> 3 </div>
+                                </div>
+                                
+                                
+                                <div class="parking_section">
+                                    <img src="{{ url_for('static', filename='image/parking.png') }}" class="selection_icon"id="parking_icon" >
+                                    <div class="parking_available"> 13 </div>
+                                </div>
+
+                                <div class="payment_section">
+                                    <img src="{{ url_for('static', filename='image/payment.png') }}" class="selection_icon"id="payment_icon" >
+                                    <div class="payment_available"> No </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!-- <div id="available-bikes-rent"></div>
-            <input type="text" placeholder="Search for bike station to rent" id="search_rent" autocomplete="off">
-            <div class="suggestion_box" id="suggestion_box_rent"></div> -->
-        </div>
+
         <div id="return" class="tabcontent">
             <input type="time" id="return_time" name="rent-time">
             <input type="date" id="return_date" name="rent-date">
             <div class="input_wrap">
                 <input type="text" placeholder="Search for bike station to return" id="search_return" autocomplete="off">
-                <div class="suggestion_box" id="suggestion_box_return"></div>
+                <div class="suggestion_box" id="suggestion_box_return"> </div>
+                <div class="selection_container" id="selection_container_return"> 
+                    </div>
+                </div>
+            </div>
+            <div class="search_btn_container">
+                <button id="search_btn" class="disabled">Search</button>
+                <div id="error_text"></div>
+                <!-- <input type="text" placeholder="Search for bike station to return" id="search_return" autocomplete="off">
+                <div class="suggestion_box" id="suggestion_box_return"></div> -->
             </div>
         </div>
+    </div>    
 
-        <div class="search_btn_container">
-            <button id="search_btn" class="disabled">Search</button>
-            <div id="error_text"></div>
-            <!-- <input type="text" placeholder="Search for bike station to return" id="search_return" autocomplete="off">
-            <div class="suggestion_box" id="suggestion_box_return"></div> -->
-        </div>
-    </div>
+
+
+
     
     <!-- <div class="search_btn_container">
         <button id="search_btn" class="disabled">Search</button>
         <div id="error_text"></div>
     </div> -->
-
-    <div class="suggestion-container" id="suggestion-container">
-    </div>
-
     <div id="weather-panel" class="panel">
         <div class="weather-header">
             <span>Current weather</span>
@@ -86,6 +117,34 @@
         <div class="weather-content" id="weather-content">
         </div>
     </div>
+    <!--
+    <div id="weather-panel" class="panel">
+        <div class="weather-header">
+            <div class="weather-tab">
+                <button class="weather-tablinks active" onclick="openWeatherTab(event, 'current')">Current Weather</button>   
+                <button class="weather-tablinks" onclick="openWeatherTab(event, 'fivedayprediction')">Forecast</button>
+            </div>
+        </div>
+        <div id="current" class="weather-tabcontent">
+            <div class="weather-panel">
+                <div class="weather-header">
+                    <span>Current Weather</span>
+                </div>
+                <div class="weather-content" id="current-weather-content">
+
+                </div>
+            </div>
+        </div>
+        <div id="fivedayprediction" class="weather-tabcontent">
+            <div class="weather-panel">
+                <div class="weather-header">
+                    <span>Forecast</span>
+                </div>
+                <div class="weather-content" id="fivedayprediction-content">
+            </div>
+        </div>
+    </div>
+-->
     <!-- class flag set by jquery to change panel content -->
     <div id="right_panel" class="rp_live rp_closed rp_rent">
         <div class="rp_tab_container">

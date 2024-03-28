@@ -8,6 +8,8 @@ var lastWeatherJSON = {};
 // Rent is open by default
 var activeTab = "rent";
 
+// var weatherActiveTab = "Current Weather";
+
 function initTimeAndDate() {
     // A new Date object defaults to today and now
     var date = new Date();
@@ -146,8 +148,6 @@ function verifyAndSubmitQuery() {
             }
         }
     });
-
-
     // Handle failure/invalid station name
 }
 // The following functions populate the selection box dynamically
@@ -180,7 +180,6 @@ function createStationBox(name, status, mechanicalBikes, emptyStandsNumber, bank
             </div>
         </div>`;
 }
-
 // Function to populate the selection container using the lastSearchJSON global variable
 function populateSelectionContainer() {
     var container = $('#selection_container_rent');
@@ -200,8 +199,6 @@ function populateSelectionContainer() {
         ));
     });
 }
-
-
 // Given a station name, update the content on the right pane;
 function populateRightPanel(stationName){
     $.ajax({
@@ -252,7 +249,6 @@ $(document).ready(function() {
         $('#suggestion_box_return').empty();
     });
 
-    
     var rentTabClass = "rp_rent";
     var returnTabClass = "rp_return";
     // toggle functions for the right panel content
@@ -269,7 +265,6 @@ $(document).ready(function() {
             $('#right_panel').removeClass(rentTabClass);
         }
     });
-
 
     // Search button click listener
     $('#search_btn').click(function() {
@@ -324,19 +319,46 @@ function openTab(evt, tabName) {
         evt.currentTarget.className += ' active';
     }
 
-    // Adjust the weather panel position
-    adjustWeatherPanelPosition();
-
     // Check if the search button needs updating
     updateSearchBtn();
+        
+    // Adjust the weather panel position
+    adjustWeatherPanelPosition();
 }
+/* function openWeatherTab(evt, tabName) {
+    console.log('Tab name:', tabName);
+    // Update global variable value
+    activeWeatherTab = tabName;
+
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("weather-tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = 'none';
+    }
+    
+    if (evt) {
+        tablinks = document.getElementsByClassName('weather-tablinks');
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove('active');
+        }
+    }    
+    document.getElementById(tabName).style.display = 'block';
+    if (evt) {
+        evt.currentTarget.classList.add('active');
+    }
+    // Adjust the weather panel position
+    adjustWeatherPanelPosition()
+    */
 // Function to fetch weather data using AJAX
-function fetchWeatherData() {
+function fetchCurrenthWeatherData() {
     $.ajax({
         url: "/weather_data",
         type: "GET",
         dataType: "json", // Specify that the expected response is JSON
         success: function(response) {
+            //Store the fecthed weather data in the global variable
+            lastWeatherJSON = response;
+
             // Extract weather data from the response
             var weatherData = response;
 
@@ -378,8 +400,8 @@ function fetchWeatherData() {
         }
     });
 }
-// Call the fetchWeatherData function directly after its definition
-fetchWeatherData();
+// Call the fetchCurrentWeatherData function directly after its definition
+fetchCurrenthWeatherData();
 
 // Dynamic conversion functions
 function kelvinToCelsius(kelvin) {
@@ -389,7 +411,6 @@ function kelvinToCelsius(kelvin) {
 function mpsToKph(mps) {
     return (mps * 3.6).toFixed(2);
 }
-
 // Function to open the pop-up and fetch extreme weather data
 function openPopup() {
     // Fetch extreme weather data and display the popup every hour
@@ -398,6 +419,8 @@ function openPopup() {
             .then(response => response.json())
             .then(data => {
                 if (data && data.extreme_conditions_met) {
+                    // Store the fetched extreme weather data in global variable
+                    lastWeatherJSON = data.extreme_conditions_met;
                     displayWeatherPopup(data.extreme_conditions_met);
                 } else {
                     console.error('Extreme weather data not available.');

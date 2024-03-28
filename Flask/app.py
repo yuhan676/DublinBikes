@@ -1,8 +1,7 @@
 from flask import Flask, jsonify, request, render_template
 from sqlalchemy import create_engine, text
-from functions import connect_db, get_station_names, fetch_dummy_data
+from functions import connect_db, get_station_names, fetch_weather_data_database
 import json
-import os
 import traceback 
 from json.decoder import JSONDecodeError
 
@@ -11,51 +10,10 @@ app.config.from_object('config')
 
 connect_db()
 
-dummy_data1 = {
-    "list": [
-        {
-            "wind": {
-                "speed": 85,
-                "gust": 140
-            },
-            "rain": {
-                "3": 60
-            },
-            "main": {
-                "temp_min": -15,
-                "temp_max": 35
-            }
-        }
-    ]
-
-}
 @app.route('/root')
 def hello_world():
     # return 'hello world'
     return render_template("index.html")
-
-# Associate database json station data with Google map
-# Discuss with Yuhan can this be used to fetch station data, or should it be done anew
-# is 100 rows enough, how many stations are there
-@app.route('/bike_stations')
-def get_bike_stations():
-    try:
-        # Fetch data from the 'station_status' table
-        station_status_data = fetch_dummy_data('station_status')
-
-        # Check if data is fetched successfully
-        if station_status_data is not None:
-            # Return the fetched data as JSON response
-            return jsonify(station_status_data)
-        else:
-            return jsonify(error='Failed to fetch station status data from the database')
-        
-    except Exception as e:
-        # Log the exception traceback
-        traceback.print_exc()
-
-        # Handle any exceptions
-        return jsonify(error=str(e)), 500
 
 @app.route('/weather_data', methods=['GET'])
 def get_weather_data():
@@ -72,16 +30,13 @@ def get_weather_data():
                 ORDER BY cw.time_update DESC
                 LIMIT 1
             """)
-        
+      
         # Execute the query
         result = connection.execute(query)
 
         # Fetch one row from the result
         row = result.fetchone()
 
-        # Fetch all rows from the result and convert them into a list of dictionaries
-        # weather_data = [dict(row) for row in result]
-        # weather_data = dict(row)
         # If row exists, convert it to a dictionary
         if row:
             weather_data = [dict(row)]
@@ -100,6 +55,67 @@ def get_weather_data():
 
         # Handle any exceptions
         return jsonify(error=str(e)), 500
+    
+@app.route('/five_day_prediction', methods=['GET'])
+def fetch_five_day_prediction():
+    query = text("""
+        SELECT fp.temp_min, fp.temp_min, fp.wind_speed, 
+        fp.gust, fp.rain_3h, fp.time_update
+        FROM FiveDayPrediction fp
+        ORDER BY fp.time_update DESC
+        LIMIT 1
+    """)
+    weather_data = fetch_weather_data_database(query)
+    if weather_data is not None:
+        return jsonify(weather_data)
+    else:
+        return jsonify(error='Failed to fetch weather data from the database'), 500
+    
+# Route for fetching extreme weather data
+@app.route('/fetch_extreme_weather', methods=['GET'])
+def fetch_extreme_weather():
+    try:
+        query = text("""
+            SELECT ew.temp_max, ew.temp_min, ew.wind_speed, ew.gust_speed,
+            ew.rain, ew.time_update
+            FROM ExtremeWeather ew
+            ORDER BY ew.time_update DESC
+            LIMIT 1
+        """)
+        
+        # Fetch extreme weather data from the database
+        extreme_weather_data = fetch_weather_data_database(query)
+        
+        if extreme_weather_data:
+            return jsonify(extreme_weather_data)
+        else:
+            # Return error message if fetching from the database fails
+            return jsonify(error='Failed to fetch extreme weather data from the database'), 500
+
+    except Exception as e:
+        # Log the exception traceback
+        traceback.print_exc()
+
+        # Return dummy extreme weather data if fetching from database fails
+        dummy_data1 = {
+            "list": [
+                {
+                    "wind": {
+                        "speed": 85,
+                        "gust": 140
+                    },
+                    "rain": {
+                        "3": 60
+                    },
+                    "main": {
+                        "temp_min": -15,
+                        "temp_max": 35
+                    }
+                }
+            ]
+        }
+        
+        return jsonify(extreme_conditions_met=dummy_data1)
 
 # provide suggestion for station names based on user's input of station name
 @app.route('/suggest_stations')
@@ -113,14 +129,6 @@ def suggest_stations():
     except Exception as e:
         app.logger.error('Error in suggest_stations: %s', e)
         return jsonify([])
-
-@app.route('/fetch_extreme_weather')
-def fetch_extreme_weather():
-    try:
-        # Return extreme weather conditions from the dummy data dictionary
-        return jsonify(extreme_conditions_met=dummy_data1)
-    except Exception as e:
-        return jsonify(error=str(e))
 
 # function to fetch the closest 5 stations' data and return 1) if action is rent 2) time of interest 3) packaged 5-station info
 # into a json file 
@@ -215,5 +223,26 @@ def search():
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=8080)
 
+"""# Associate database json station data with Google map
+# Discuss with Yuhan can this be used to fetch station data, or should it be done anew
+# is 100 rows enough, how many stations are there
+@app.route('/bike_stations')
+def get_bike_stations():
+    try:
+        # Fetch data from the 'station_status' table
+        station_status_data = fetch_dummy_data('station_status')
 
+        # Check if data is fetched successfully
+        if station_status_data is not None:
+            # Return the fetched data as JSON response
+            return jsonify(station_status_data)
+        else:
+            return jsonify(error='Failed to fetch station status data from the database')
+        
+    except Exception as e:
+        # Log the exception traceback
+        traceback.print_exc()
 
+        # Handle any exceptions
+        return jsonify(error=str(e)), 500
+"""

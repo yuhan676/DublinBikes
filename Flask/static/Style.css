@@ -113,7 +113,6 @@
     margin-top: 0;
 }
 
-
 /* Adjust the position of the weather panel */
 #weather-panel {
     top: calc(100% + 20px); /* Place it below the left panel with a 10px margin */
@@ -153,6 +152,26 @@
 
 .weather-content p {
     color: #555; /* Set content text color */
+}
+/* Style the tab buttons */
+.weather-tablinks {
+    background-color: #f0f0f0; /* Background color */
+    border: none; /* Remove border */
+    color: #333; /* Text color */
+    padding: 10px 15px; /* Padding */
+    cursor: pointer; /* Cursor style */
+    transition: background-color 0.3s; /* Transition effect for hover */
+}
+
+/* Style the active tab button */
+.weather-tablinks.active {
+    background-color: #ccc; /* Background color */
+    color: #fff; /* Text color */
+}
+
+/* Hover effect */
+.weather-tablinks:hover {
+    background-color: #ddd; /* Background color on hover */
 }
 
 /* container for right panel */

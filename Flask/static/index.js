@@ -123,11 +123,106 @@ function verifyAndSubmitQuery() {
 
             // Update the global variable with the new data
             lastSearchJSON = return_data;
-
+            
             // Now, lastSearchJSON contains the latest search results
             console.log(lastSearchJSON); // For debugging: log the latest search results. 
+            updateMarkers()
         },
         error: function(request, status, errorString) {
+            // This is the dummy data I used to test on my local machine
+            // lastSearchJSON = [
+            //     {
+            //         "address": "Clarendon Row",
+            //         "banking": 0,
+            //         "bonus": 0,
+            //         "electrical_internal_battery_bikes": 0,
+            //         "electrical_removable_battery_bikes": 2,
+            //         "empty_stands_number": 25,
+            //         "last_update": "2024-03-27T18:13:45.000000Z",
+            //         "mechanical_bikes": 4,
+            //         "name": "CLARENDON ROW",
+            //         "number": 1,
+            //         "position": {
+            //             "lat": 53.340927,
+            //             "lng": -6.262501
+            //         },
+            //         "status": "OPEN",
+            //         "total_bikes": 6
+            //     },
+            //     {
+            //         "address": "York Street West",
+            //         "banking": 0,
+            //         "bonus": 0,
+            //         "electrical_internal_battery_bikes": 0,
+            //         "electrical_removable_battery_bikes": 2,
+            //         "empty_stands_number": 36,
+            //         "last_update": "2024-03-27T18:14:15.000000Z",
+            //         "mechanical_bikes": 2,
+            //         "name": "YORK STREET WEST",
+            //         "number": 51,
+            //         "position": {
+            //             "lat": 53.339334,
+            //             "lng": -6.264699
+            //         },
+            //         "status": "OPEN",
+            //         "total_bikes": 4
+            //     },
+            //     {
+            //         "address": "York Street East",
+            //         "banking": 0,
+            //         "bonus": 0,
+            //         "electrical_internal_battery_bikes": 0,
+            //         "electrical_removable_battery_bikes": 1,
+            //         "empty_stands_number": 30,
+            //         "last_update": "2024-03-27T18:06:25.000000Z",
+            //         "mechanical_bikes": 1,
+            //         "name": "YORK STREET EAST",
+            //         "number": 52,
+            //         "position": {
+            //             "lat": 53.338755,
+            //             "lng": -6.262003
+            //         },
+            //         "status": "OPEN",
+            //         "total_bikes": 2
+            //     },
+            //     {
+            //         "address": "Exchequer Street",
+            //         "banking": 0,
+            //         "bonus": 0,
+            //         "electrical_internal_battery_bikes": 0,
+            //         "electrical_removable_battery_bikes": 8,
+            //         "empty_stands_number": 6,
+            //         "last_update": "2024-03-27T18:13:01.000000Z",
+            //         "mechanical_bikes": 10,
+            //         "name": "EXCHEQUER STREET",
+            //         "number": 9,
+            //         "position": {
+            //             "lat": 53.343034,
+            //             "lng": -6.263578
+            //         },
+            //         "status": "OPEN",
+            //         "total_bikes": 18
+            //     },
+            //     {
+            //         "address": "Molesworth Street",
+            //         "banking": 0,
+            //         "bonus": 0,
+            //         "electrical_internal_battery_bikes": 0,
+            //         "electrical_removable_battery_bikes": 0,
+            //         "empty_stands_number": 18,
+            //         "last_update": "2024-03-27T18:08:19.000000Z",
+            //         "mechanical_bikes": 2,
+            //         "name": "MOLESWORTH STREET",
+            //         "number": 27,
+            //         "position": {
+            //             "lat": 53.341288,
+            //             "lng": -6.258117
+            //         },
+            //         "status": "OPEN",
+            //         "total_bikes": 1
+            //     }
+            // ]
+            // updateMarkers()
             if (request.status == 500)
             {
                 // 500 here is so we can show the user when they have entered an invalid station name

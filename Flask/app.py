@@ -102,7 +102,7 @@ def fetch_extreme_weather():
             # generated ExtremeWeather table uses fivedayprediction OpenWeather API, and is created for specific purpose of 
             # generating severe weather predictions
             query = text("""
-                SELECT ew.temp_max, ew.temp_min, ew.wind_speed, ew.gust_speed,
+                SELECT ew.temp_max, ew.temp_min, ew.wind_speed,
                 ew.rain, ew.time_update
                 FROM ExtremeWeather ew
                 ORDER BY ew.time_update DESC
@@ -123,7 +123,6 @@ def fetch_extreme_weather():
             # Logic to determine extreme weather conditions
             for forecast in weather_data:
                 wind_speed = forecast["wind_speed"]
-                gust_speed = forecast["gust_speed"]
                 rain_3h = forecast.get("rain", 0)
                 temp_min = forecast["temp_min"]
                 temp_max = forecast["temp_max"]
@@ -131,7 +130,7 @@ def fetch_extreme_weather():
                 # Check for specific extreme weather conditions 
                 # Severe weather conditions are taken from Met Eireann official website. 
                 # https://www.met.ie/cms/assets/uploads/2020/04/Severe-weather-chart.pdf
-                if (wind_speed > 80 or gust_speed > 130 or rain_3h > 50 or temp_min < -10 or temp_max > 30):
+                if (wind_speed > 130 or rain_3h > 50 or temp_min < -10 or temp_max > 30):
                     return jsonify(True)  # Extreme weather conditions met
 
             return jsonify(False)  # Extreme weather conditions not met

@@ -548,7 +548,6 @@ function openPopup() {
 function displayWeatherPopup(weatherData) {
     const weatherInfo = weatherData.list[0];
     const windSpeed = weatherInfo.wind.speed;
-    const windGust = weatherInfo.wind.gust;
     const rainProbability = weatherInfo.rain["3"];
     const minTemperature = weatherInfo.main.temp_min;
     const maxTemperature = weatherInfo.main.temp_max;
@@ -556,10 +555,9 @@ function displayWeatherPopup(weatherData) {
     // Format the weather information for display
     const weatherDisplay = `
         <div>Wind Speed: ${windSpeed} m/s</div>
-        <div>Wind Gust: ${windGust} m/s</div>
-        <div>Rain Probability: ${rainProbability}%</div>
-        <div>Min Temperature: ${minTemperature}°C</div>
-        <div>Max Temperature: ${maxTemperature}°C</div>
+        <div>Rainfall exceeding 50mm within a span of 6 hours: ${rainProbability}%</div>
+        <div>Minimum Temperature: ${minTemperature}°C</div>
+        <div>Maximum Temperature: ${maxTemperature}°C</div>
     `;
             
     // Display the formatted weather information in the popup

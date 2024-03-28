@@ -187,7 +187,7 @@ function populateSelectionContainer() {
 
             // Call the function to populate the container with the new data
             populateSelectionContainer(containerId);
-        }
+        // }
     },
         error: function(request, status, errorString) {
             if (request.status == 500)

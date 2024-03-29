@@ -168,10 +168,6 @@
     background-color: #ddd; /* Background color on hover */
     color: #666; /* Text color on hover */
 }
-.weather-forecast-content {
-    margin: 200px;
-}
-
 /* container for right panel */
 #right_panel {
     top: 10px;

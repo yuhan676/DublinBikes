@@ -473,14 +473,14 @@ window.onload = function() {
     weatherOpenTab({ currentTarget: document.querySelector('.weather-tablinks.active') }, 'weather-current-content');
 };
 
-// Function to fetch weather data using AJAX
+// Function to fetch current weather data using AJAX
 function fetchCurrentWeatherData() {
     $.ajax({
         url: "/weather_data",
         type: "GET",
         dataType: "json", // Specify that the expected response is JSON
         success: function(response) {
-            //Store the fecthed weather data in the global variable
+            // Store the fetched weather data in the global variable
             lastWeatherJSON = response;
 
             // Extract weather data from the response
@@ -503,6 +503,7 @@ function fetchCurrentWeatherData() {
             var timezone = timeupdate.toLocaleTimeString(undefined, { timeZone: 'Europe/Dublin', hour: '2-digit', minute: '2-digit', hour12: true });
             
             var timestamp = dayOfWeek + ", " + month + "  " + day + ", " + timezone;
+
             // Update HTML content with fetched weather data
             $('#weather-current-content').html(
                 "<p><span style='font-size: 1.1em;'>Feels Like:</span> " + feelsLike + " °C</p>" +
@@ -512,7 +513,11 @@ function fetchCurrentWeatherData() {
                 "<p><span style='font-size: 1.1em;'>Wind Speed:</span> " + windSpeed + " km/h</p>" +
                 "<p><span style='font-size: 1.1em;'>Wind Gust:</span> " + windGust + " km/h</p>" + 
                 "<p><strong>Updated On:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + timestamp + "</span></p>"
-    )},
+            );
+
+            // Adjust the margin dynamically after content has been populated
+            $('#weather-current-content').css('margin-top', '20px');
+        },
         error: function(xhr, status, error) {
             // Handle AJAX error
             console.error(xhr.responseText);
@@ -520,13 +525,15 @@ function fetchCurrentWeatherData() {
         }
     });
 }
+
+// Function to fetch forecast data using AJAX
 function fetchForecastData() {
     $.ajax({
         url: "/five_day_prediction",
         type: "GET",
         dataType: "json", // Specify that the expected response is JSON
         success: function(response) {
-            //Store the fecthed weather data in the global variable
+            // Store the fetched weather data in the global variable
             lastWeatherJSON = response;
 
             // Extract weather data from the response
@@ -548,6 +555,7 @@ function fetchForecastData() {
             var timezone = timeupdate.toLocaleTimeString(undefined, { timeZone: 'Europe/Dublin', hour: '2-digit', minute: '2-digit', hour12: true });
             
             var timestamp = dayOfWeek + ", " + month + "  " + day + ", " + timezone;
+
             // Update HTML content with fetched weather data
             $('#weather-forecast-content').html(
                 "<p><span style='font-size: 1.1em;'>Min Temperature:</span> " + tempMin + " °C</p>" +
@@ -556,8 +564,11 @@ function fetchForecastData() {
                 "<p><span style='font-size: 1.1em;'>Wind Speed:</span> " + windSpeed + " km/h</p>" +
                 "<p><span style='font-size: 1.1em;'>Wind Gust:</span> " + windGust + " km/h</p>" +
                 "<p><strong>Updated On:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + timestamp + "</span></p>"
+            );
 
-    )},
+            // Adjust the margin dynamically after content has been populated
+            $('#weather-forecast-content').css('margin-top', '20px');
+        },
         error: function(xhr, status, error) {
             // Handle AJAX error
             console.error(xhr.responseText);
@@ -565,6 +576,7 @@ function fetchForecastData() {
         }
     });
 }
+
 // Call the fetchCurrentWeatherData 
 fetchCurrentWeatherData();
 // Call the fetchForecastData function 

@@ -556,13 +556,14 @@ function fetchForecastData() {
             
             var timestamp = dayOfWeek + ", " + month + "  " + day + ", " + timezone;
 
-            // hide rain if it is undefined
             if (typeof rain === "undefined") {
+                console.log("Rain is undefined");
                 $('#rain').hide();
             } else {
+                console.log("Rain is defined");
                 $('#rain').text(rain);
                 $('#rain').show();
-            }
+            }            
 
             // hide max temperature if it is NaN
             if (tempMax === "NaN °C") {

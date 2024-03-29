@@ -168,6 +168,9 @@
     background-color: #ddd; /* Background color on hover */
     color: #666; /* Text color on hover */
 }
+.weather-forecast-content {
+    margin: 20px;
+}
 
 /* container for right panel */
 #right_panel {
@@ -176,7 +179,6 @@
     width: 400px;
     padding: 0;
 }
-
 /* container for rent/return station info tab  */
 .rp_tab_container
 {

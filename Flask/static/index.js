@@ -555,7 +555,7 @@ function fetchForecastData() {
             var timezone = timeupdate.toLocaleTimeString(undefined, { timeZone: 'Europe/Dublin', hour: '2-digit', minute: '2-digit', hour12: true });
             
             var timestamp = dayOfWeek + ", " + month + "  " + day + ", " + timezone;
-            
+
             // will continue working with this code
             if (typeof rain === "undefined") {
                 console.log("Rain is undefined");
@@ -644,11 +644,15 @@ function displayWeatherPopup(weatherData) {
     $('#popup').show(); // Using jQuery to show the popup
 }
 
-// Function to open the popup
+// Function to open the popup when the 'p' key is pressed
 function openPopupWithKeystroke(event) {
-    // Check if the keystroke is the one you want to trigger the popup
-    if (event.key === 'p') { 
-        openPopup();
+    // Check if the event object exists and has the 'key' property
+    if (event && event.key) { 
+        // Check if the pressed key is 'p'
+        if (event.key === 'p') { 
+            openPopup();
+        }
     }
 }
+
 

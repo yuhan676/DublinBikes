@@ -567,7 +567,7 @@ function fetchForecastData() {
             );
 
             // Adjust the margin dynamically after content has been populated
-            $('#weather-forecast-content').css('margin-top', '10x');
+            $('#weather-forecast-content').css('margin-top', '10px');
         },
         error: function(xhr, status, error) {
             // Handle AJAX error

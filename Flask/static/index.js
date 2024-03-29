@@ -643,7 +643,7 @@ function displayWeatherPopup(weatherData) {
     $('#extreme-weather-content').html(weatherDisplay); // Using jQuery to set HTML content
     $('#popup').show(); // Using jQuery to show the popup
 }
-/*
+
 // Function to open the popup when the 'p' key is pressed
 function openPopupWithKeystroke(event) {
     // Check if the event object exists and has the 'key' property
@@ -654,5 +654,4 @@ function openPopupWithKeystroke(event) {
         }
     }
 }
-*/
 

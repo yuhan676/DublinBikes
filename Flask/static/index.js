@@ -506,13 +506,14 @@ function fetchCurrentWeatherData() {
 
             // Update HTML content with fetched weather data
             $('#weather-current-content').html(
-                "<p><strong>Latest Update:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + timestamp + "</span></p>" + 
                 "<p><span style='font-size: 1.1em;'>Feels Like:</span> " + feelsLike + " °C</p>" +
                 "<p><span style='font-size: 1.1em;'>Min Temperature:</span> " + tempMin + " °C</p>" +
                 "<p><span style='font-size: 1.1em;'>Max Temperature:</span> " + tempMax + " °C</p>" +
                 "<p><span style='font-size: 1.1em;'>Description:</span> " + weatherDescription + "</p>" +
                 "<p><span style='font-size: 1.1em;'>Wind Speed:</span> " + windSpeed + " km/h</p>" +
-                "<p><span style='font-size: 1.1em;'>Wind Gust:</span> " + windGust + " km/h</p>"
+                "<p><span style='font-size: 1.1em;'>Wind Gust:</span> " + windGust + " km/h</p>" + 
+                "<p><strong>Latest Update:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + timestamp + "</span></p>"
+
             );
         },
         error: function(xhr, status, error) {
@@ -553,12 +554,12 @@ function fetchForecastData() {
 
             // Update HTML content with fetched weather data
             $('#weather-forecast-content').html(
-                "<p><strong>Latest Update:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + timestamp + "</span></p>" + 
                 "<p><span style='font-size: 1.1em;'>Min Temperature:</span> " + tempMin + " °C</p>" +
                 "<p><span style='font-size: 1.1em;'>Max Temperature:</span> " + tempMax + " °C</p>" +
                 "<p><span style='font-size: 1.1em;'>Rain:</span> " + rain + "</p>" +
                 "<p><span style='font-size: 1.1em;'>Wind Speed:</span> " + windSpeed + " km/h</p>" +
-                "<p><span style='font-size: 1.1em;'>Wind Gust:</span> " + windGust + " km/h</p>"
+                "<p><span style='font-size: 1.1em;'>Wind Gust:</span> " + windGust + " km/h</p>" +
+                "<p><strong>Latest Update:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + timestamp + "</span></p>"
             );
         },
         error: function(xhr, status, error) {

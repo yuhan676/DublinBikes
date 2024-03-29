@@ -568,7 +568,7 @@ function displayWeatherPopup(weatherData) {
 // Function to open the popup
 function openPopupWithKeystroke(event) {
     // Check if the keystroke is the one you want to trigger the popup
-    if (event.key === 'p') { // Change 'p' to the desired keystroke
+    if (event.key === 'p') { 
         openPopup();
     }
 }

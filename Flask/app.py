@@ -52,6 +52,10 @@ def get_weather_data():
 @app.route('/five_day_prediction', methods=['GET'])
 def fetch_five_day_prediction():
     try:
+        # Call connect_db to get the SQLAlchemy Engine object
+        engine = connect_db()
+        connection = engine.connect()
+
         query = text("""
             SELECT fp.temp_min, fp.temp_min, fp.wind_speed, 
             fp.gust, fp.rain_3h, fp.time_update
@@ -59,15 +63,23 @@ def fetch_five_day_prediction():
             ORDER BY fp.time_update DESC
             LIMIT 1
         """)
-        weather_data = fetch_weather_data_database(query)
-        if weather_data is not None:
-            return jsonify(weather_data)
+        result = connection.execute(query)
+        row = result.fetchone()
+
+        # If row exists, convert it to a dictionary
+        if row:
+            weather_data = [dict(row)]
         else:
-            return jsonify(error='Failed to fetch weather data from the database'), 500
+            weather_data = []
+
+        connection.close()
+        return jsonify(weather_data)
+
     except Exception as e:
-        app.logger.error('Error fetching five day prediction:', e)
         traceback.print_exc()
-        return jsonify(error='An unexpected error occurred'), 500
+        app.logger.error('Error fetching weather data:', e)
+        traceback.print_exc()
+        return jsonify(error=str(e)), 500
 
 @app.route('/fetch_extreme_weather', methods=['GET'])
 def fetch_extreme_weather():

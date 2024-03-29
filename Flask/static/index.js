@@ -8,7 +8,8 @@ var lastWeatherJSON = {};
 // Rent is open by default
 var activeTab = "rent";
 
-// var weatherActiveTab = "Current Weather";
+// Define a global variable to store the active tab
+var weatherActiveTab = 'weather-current-content';
 
 function initTimeAndDate() {
     // A new Date object defaults to today and now
@@ -444,32 +445,36 @@ function openTab(evt, tabName) {
     // Adjust the weather panel position
     adjustWeatherPanelPosition();
 }
-/* function openWeatherTab(evt, tabName) {
-    console.log('Tab name:', tabName);
-    // Update global variable value
-    activeWeatherTab = tabName;
+// Function to handle clicking on the tabs
+function weatherOpenTab(evt, tabContentId) {
+    // Update the value of the global variable
+    weatherActiveTab = tabContentId;
 
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("weather-tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = 'none';
+    // Get all elements with class="weather-tabcontent" and hide them
+    var weather_tabcontent = document.getElementsByClassName('weather-tabcontent');
+    for (var i = 0; i < weather_tabcontent.length; i++) {
+        weather_tabcontent[i].style.display = 'none';
     }
-    
-    if (evt) {
-        tablinks = document.getElementsByClassName('weather-tablinks');
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].classList.remove('active');
-        }
-    }    
-    document.getElementById(tabName).style.display = 'block';
-    if (evt) {
-        evt.currentTarget.classList.add('active');
+
+    // Get all elements with class="weather-tablinks" and remove the class "active"
+    var weather_tablinks = document.getElementsByClassName('weather-tablinks');
+    for (var i = 0; i < weather_tablinks.length; i++) {
+        weather_tablinks[i].classList.remove('active');
     }
-    // Adjust the weather panel position
-    adjustWeatherPanelPosition()
-    */
+
+    // Show the content of the clicked tab and add the "active" class to the button
+    document.getElementById(tabContentId).style.display = 'block';
+    evt.currentTarget.classList.add('active');
+}
+
+// Set the "Current" tab as active on page load
+window.onload = function() {
+    // Call weatherOpenTab function with 'weather-current-content' tabContentId to make it active on page load
+    weatherOpenTab({ currentTarget: document.querySelector('.weather-tablinks.active') }, 'weather-current-content');
+};
+
 // Function to fetch weather data using AJAX
-function fetchCurrenthWeatherData() {
+function fetchCurrentWeatherData() {
     $.ajax({
         url: "/weather_data",
         type: "GET",
@@ -500,7 +505,7 @@ function fetchCurrenthWeatherData() {
             var timestamp = dayOfWeek + ", " + month + "  " + day + ", " + timezone;
 
             // Update HTML content with fetched weather data
-            $('#weather-content').html(
+            $('#weather-current-content').html(
                 "<p><strong>Latest Update:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + timestamp + "</span></p>" + 
                 "<p><span style='font-size: 1.1em;'>Feels Like:</span> " + feelsLike + " °C</p>" +
                 "<p><span style='font-size: 1.1em;'>Min Temperature:</span> " + tempMin + " °C</p>" +
@@ -513,12 +518,60 @@ function fetchCurrenthWeatherData() {
         error: function(xhr, status, error) {
             // Handle AJAX error
             console.error(xhr.responseText);
-            $('#weather-content').html('Error fetching weather data');
+            $('#weather-current-content').html('Error fetching weather data');
         }
     });
 }
-// Call the fetchCurrentWeatherData function directly after its definition
-fetchCurrenthWeatherData();
+function fetchForecastData() {
+    $.ajax({
+        url: "/five_day_prediction",
+        type: "GET",
+        dataType: "json", // Specify that the expected response is JSON
+        success: function(response) {
+            //Store the fecthed weather data in the global variable
+            lastWeatherJSON = response;
+
+            // Extract weather data from the response
+            var weatherData = response;
+
+            // Extracting individual weather data fields
+            // Convert time update to a Date object
+            var timeupdate = new Date(weatherData[0].time_update); 
+            var tempMin = kelvinToCelsius(weatherData[0].temp_min);
+            var tempMax = kelvinToCelsius(weatherData[0].temp_max);
+            var rain = weatherData[0].rain;
+            var windSpeed = mpsToKph(weatherData[0].wind_speed);
+            var windGust = mpsToKph(weatherData[0].gust);
+
+            // Format time update as a timestamp
+            var dayOfWeek = timeupdate.toLocaleDateString(undefined, { weekday: 'long' });
+            var month = timeupdate.toLocaleDateString(undefined, { month: 'long' });
+            var day = timeupdate.toLocaleDateString(undefined, { day: 'numeric' });
+            var timezone = timeupdate.toLocaleTimeString(undefined, { timeZone: 'Europe/Dublin', hour: '2-digit', minute: '2-digit', hour12: true });
+            
+            var timestamp = dayOfWeek + ", " + month + "  " + day + ", " + timezone;
+
+            // Update HTML content with fetched weather data
+            $('#weather-forecast-content').html(
+                "<p><strong>Latest Update:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + timestamp + "</span></p>" + 
+                "<p><span style='font-size: 1.1em;'>Min Temperature:</span> " + tempMin + " °C</p>" +
+                "<p><span style='font-size: 1.1em;'>Max Temperature:</span> " + tempMax + " °C</p>" +
+                "<p><span style='font-size: 1.1em;'>Description:</span> " + rain + "</p>" +
+                "<p><span style='font-size: 1.1em;'>Wind Speed:</span> " + windSpeed + " km/h</p>" +
+                "<p><span style='font-size: 1.1em;'>Wind Gust:</span> " + windGust + " km/h</p>"
+            );
+        },
+        error: function(xhr, status, error) {
+            // Handle AJAX error
+            console.error(xhr.responseText);
+            $('#weather-forecast-content').html('Error fetching weather data');
+        }
+    });
+}
+// Call the fetchCurrentWeatherData 
+fetchCurrentWeatherData();
+// Call the fetchForecastData function 
+fetchForecastData();
 
 // Dynamic conversion functions
 function kelvinToCelsius(kelvin) {

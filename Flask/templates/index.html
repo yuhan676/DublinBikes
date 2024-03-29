@@ -108,41 +108,7 @@
         <button id="search_btn" class="disabled">Search</button>
         <div id="error_text"></div>
     </div> -->
-    <div id="weather-panel" class="panel">
-        <div class="weather-header">
-            <span>Current weather</span>
-        </div>
-        <div class="weather-content" id="weather-content">
-        </div>
-    </div>
-    <!--
-    <div id="weather-panel" class="panel">
-        <div class="weather-header">
-            <div class="weather-tab">
-                <button class="weather-tablinks active" onclick="openWeatherTab(event, 'current')">Current Weather</button>   
-                <button class="weather-tablinks" onclick="openWeatherTab(event, 'fivedayprediction')">Forecast</button>
-            </div>
-        </div>
-        <div id="current" class="weather-tabcontent">
-            <div class="weather-panel">
-                <div class="weather-header">
-                    <span>Current Weather</span>
-                </div>
-                <div class="weather-content" id="current-weather-content">
-
-                </div>
-            </div>
-        </div>
-        <div id="fivedayprediction" class="weather-tabcontent">
-            <div class="weather-panel">
-                <div class="weather-header">
-                    <span>Forecast</span>
-                </div>
-                <div class="weather-content" id="fivedayprediction-content">
-            </div>
-        </div>
-    </div>
--->
+    
     <!-- class flag set by jquery to change panel content -->
     <div id="right_panel" class="rp_live rp_closed rp_rent">
         <div class="rp_tab_container">
@@ -182,5 +148,27 @@
         <h2>Severe Weather Alert</h2>
         <div id="extreme-weather-content"></div>
     </div>
+     
+    <div id="weather-panel" class="panel">
+        <div class="weather-header">
+            <div class="weather-tab">
+                <!-- Dynamic tabs -->
+                <button class="weather-tablinks active" onclick="weatherOpenTab(event, 'weather-current-content')">Current Weather</button>   
+                <button class="weather-tablinks" onclick="weatherOpenTab(event, 'weather-forecast-content')">Forecast</button>
+            </div>
+        </div>
+        <div id="weather-current-content" class="weather-tabcontent">
+            <div class="current-weather-content">
+                <!-- Content for Current Weather tab -->
+            </div>
+        </div>
+        <div id="weather-forecast-content" class="weather-tabcontent">
+            <div class="forecast-weather-content">
+                <!-- Content for Forecast tab -->
+            </div>
+        </div>
+    </div>
+    
+
 </body>
 </html>          

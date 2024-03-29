@@ -45,23 +45,29 @@ def get_weather_data():
 
     except Exception as e:
         traceback.print_exc()
-
+        app.logger.error('Error fetching weather data:', e)
+        traceback.print_exc()
         return jsonify(error=str(e)), 500
     
 @app.route('/five_day_prediction', methods=['GET'])
 def fetch_five_day_prediction():
-    query = text("""
-        SELECT fp.temp_min, fp.temp_min, fp.wind_speed, 
-        fp.gust, fp.rain_3h, fp.time_update
-        FROM FiveDayPrediction fp
-        ORDER BY fp.time_update DESC
-        LIMIT 1
-    """)
-    weather_data = fetch_weather_data_database(query)
-    if weather_data is not None:
-        return jsonify(weather_data)
-    else:
-        return jsonify(error='Failed to fetch weather data from the database'), 500
+    try:
+        query = text("""
+            SELECT fp.temp_min, fp.temp_min, fp.wind_speed, 
+            fp.gust, fp.rain_3h, fp.time_update
+            FROM FiveDayPrediction fp
+            ORDER BY fp.time_update DESC
+            LIMIT 1
+        """)
+        weather_data = fetch_weather_data_database(query)
+        if weather_data is not None:
+            return jsonify(weather_data)
+        else:
+            return jsonify(error='Failed to fetch weather data from the database'), 500
+    except Exception as e:
+        app.logger.error('Error fetching five day prediction:', e)
+        traceback.print_exc()
+        return jsonify(error='An unexpected error occurred'), 500
 
 @app.route('/fetch_extreme_weather', methods=['GET'])
 def fetch_extreme_weather():
@@ -137,6 +143,7 @@ def fetch_extreme_weather():
 
     except FileNotFoundError as e:
         print("Error loading weather data:", e)
+        traceback.print_exc()
         return jsonify(False)  # Unable to load weather data, assume no extreme weather
 
 # provide suggestion for station names based on user's input of station name

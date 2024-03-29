@@ -512,7 +512,7 @@ function fetchCurrentWeatherData() {
                 "<p><span style='font-size: 1.1em;'>Description:</span> " + weatherDescription + "</p>" +
                 "<p><span style='font-size: 1.1em;'>Wind Speed:</span> " + windSpeed + " km/h</p>" +
                 "<p><span style='font-size: 1.1em;'>Wind Gust:</span> " + windGust + " km/h</p>" + 
-                "<p><strong>Latest Update:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + timestamp + "</span></p>"
+                "<p><strong>Updated On:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + timestamp + "</span></p>"
 
             );
         },
@@ -559,7 +559,7 @@ function fetchForecastData() {
                 "<p><span style='font-size: 1.1em;'>Rain:</span> " + rain + "</p>" +
                 "<p><span style='font-size: 1.1em;'>Wind Speed:</span> " + windSpeed + " km/h</p>" +
                 "<p><span style='font-size: 1.1em;'>Wind Gust:</span> " + windGust + " km/h</p>" +
-                "<p><strong>Latest Update:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + timestamp + "</span></p>"
+                "<p><strong>Updated On:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + timestamp + "</span></p>"
             );
         },
         error: function(xhr, status, error) {

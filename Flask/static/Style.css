@@ -121,7 +121,9 @@
     transition: max-height 0.5s ease;
     border: 1px solid #ccc; /* Add border for better visibility */
     background-color: #f8f8f8; /* Set background color */
+    left: 10px; /* Adjust the margin to move the weather panel slightly to the left */
 }
+
 
 .weather-header {
     display: flex;

@@ -555,7 +555,8 @@ function fetchForecastData() {
             var timezone = timeupdate.toLocaleTimeString(undefined, { timeZone: 'Europe/Dublin', hour: '2-digit', minute: '2-digit', hour12: true });
             
             var timestamp = dayOfWeek + ", " + month + "  " + day + ", " + timezone;
-
+            
+            // will continue working with this code
             if (typeof rain === "undefined") {
                 console.log("Rain is undefined");
                 $('#rain').hide();

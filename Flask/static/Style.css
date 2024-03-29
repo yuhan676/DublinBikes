@@ -135,14 +135,6 @@
     background-color: #e0e0e0; /* Set header background color */
 }
 
-.weather-content {
-    padding: 20px; /* Add padding to content for better spacing */
-}
-
-.weather-content p {
-    margin: 10px 0; /* Add margin to paragraphs for better readability */
-}
-
 /* Additional styles for specific elements */
 
 .weather-header h2 {

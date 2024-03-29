@@ -153,21 +153,17 @@
         <div class="weather-header">
             <div class="weather-tab">
                 <!-- Dynamic tabs -->
-                <button class="weather-tablinks active" onclick="weatherOpenTab(event, 'weather-current-content')">Current Weather</button>   
-                <button class="weather-tablinks" onclick="weatherOpenTab(event, 'weather-forecast-content')">Forecast</button>
+                <button class="weather-tablinks active" onclick="weatherOpenTab(event, 'current-weather-content')">Current Weather</button>   
+                <button class="weather-tablinks" onclick="weatherOpenTab(event, 'forecast-weather-content')">Forecast</button>
             </div>
         </div>
-        <div id="current-content" class="weather-tabcontent">
-            <div class="current-weather-content">
-                <!-- Content for Current Weather tab -->
-            </div>
+        <div id="current-weather-content" class="weather-tabcontent">
+            <!-- Content for Current Weather tab -->
         </div>
-        <div id="forecast-content" class="weather-tabcontent">
-            <div class="forecast-weather-content">
-                <!-- Content for Forecast tab -->
-            </div>
+        <div id="forecast-weather-content" class="weather-tabcontent">
+            <!-- Content for Forecast tab -->
         </div>
-    </div>
+    </div>    
     
 
 </body>

@@ -362,18 +362,27 @@ function populateSelectionContainer() {
 
 // Function to show/unshow the selection wrapper
 function selectionToggle(isRent) {
-    
-    var x = document.getElementsByClassName("rent_selection_wrapper");
-    var y = document.getElementsByClassName("nearest_station");
+    // Determine the correct ID based on isRent
+    var wrapperId = isRent ? 'selection_wrapper_rent' : 'selection_wrapper_return';
+    var buttonId = isRent ? 'nearest_station_rent' : 'nearest_station_return';
 
-    if (x.style.display === "none") {
-        x.style.display = "block";
-        y.innerHTML = "Nearest Stations ▲"; 
-        y.style.backgroundColor = "#50a152";
+    // Use getElementById to select the wrapper and button
+    var x = document.getElementById(wrapperId);
+    var y = document.getElementById(buttonId);
+
+    // Make sure that both elements exist
+    if (x && y) {
+        if (x.style.display === "none" || x.style.display === "") {
+            x.style.display = "block";
+            y.textContent = "Nearest Stations ▲"; // Use textContent for text
+            y.style.backgroundColor = "#50a152";
+        } else {
+            x.style.display = "none";
+            y.textContent = "Nearest Stations ▼"; // Use textContent for text
+            y.style.backgroundColor = "#5cb85c";
+        }
     } else {
-        x.style.display = "none";
-        y.innerHTML = "Nearest Stations ▼"; 
-        y.style.backgroundColor = "#5cb85c";
+        console.error('One of the elements was not found in the DOM.');
     }
 }
 // Given a station name, update the content on the right pane;

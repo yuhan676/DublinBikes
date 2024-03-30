@@ -139,8 +139,7 @@ function verifyAndSubmitQuery() {
         //     var containerId = isRent ? '#selection_container_rent' : '#selection_container_return';
 
             // Call the function to populate the container with the new data
-             const container=document.getElementById(isRent ? 'selection_container_rent' : 'selection_container_return');
-            container.textContent = "";
+            
             // If the selection toggle doesn't exist, create it
             if (!document.getElementById(isRent ? 'nearest_station_rent' : 'nearest_station_return')) 
             {createSelectionToggle(isRent);}

@@ -319,6 +319,9 @@ function createStationBox() {
     selectionContainer.textContent = '';
     selectionContainer.appendChild(selectionToggle);
     selectionContainer.appendChild(SelectionWrapper);
+    document.addEventListener('DOMContentLoaded', function() {
+        setSelectionToggle();
+    });    
     SelectionWrapper.appendChild(selectionBox);
     selectionBox.appendChild(stationInfo);
     stationInfo.appendChild(stationName);
@@ -355,6 +358,16 @@ function populateSelectionContainer() {
             station.banking
         ));
     });
+}
+// This function is able to get all of the elements with class selection_wrapper
+function setSelectionToggle() {
+    // Get all elements with the 'selection_wrapper' class
+    var wrappers = document.getElementsByClassName("selection_wrapper");
+
+    // Loop through the collection and set the onclick event for each element
+    for (var i = 0; i < wrappers.length; i++) {
+        wrappers[i].onclick = selectionToggle; // Set the selectionToggle function as the click event handler
+    }
 }
 
 // Function to show/unshow the selection wrapper

@@ -260,6 +260,7 @@ function createStationBox(isRent) {
     const SelectionWrapper = document.createElement('div');
     SelectionWrapper.className='selection_wrapper';
     SelectionWrapper.id = isRent ? 'selection_wrapper_rent' : 'selection_wrapper_return';
+    SelectionWrapper.style.display='block';
     selectionToggle.setAttribute('onclick','selectionToggle()');
 
     const selectionBox = document.createElement('div');

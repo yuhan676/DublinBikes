@@ -359,7 +359,7 @@ function populateSelectionContainer() {
 
 // Function to show/unshow the selection wrapper
 function selectionToggle() {
-    var x = document.getElementById("rent_selection_wrapper");
+    var x = document.getElementsByClassName("rent_selection_wrapper");
     var y = document.getElementsByClassName("nearest_station");
 
     if (x.style.display === "none") {

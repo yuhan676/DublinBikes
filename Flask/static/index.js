@@ -255,11 +255,46 @@ function createStationBox() {
     const selectionToggle = document.createElement('button');
     selectionToggle.onclick='selectionToggle()';
     selectionToggle.className='nearest_station';
-    selectionToggle.textContent='Test';
+    selectionToggle.textContent='Nearest Stations ▲';
+
+    const rentSelectionWrapper = document.createElement('div');
+    rentSelectionWrapper.className='rent_selection_wrapper';
+
+    const selectionBox = document.createElement('div');
+    selectionBox.className = 'selection_box';
+
+    const stationInfo = document.createElement('div');
+    stationInfo.className = 'station_info';
+
+    const stationName = document.createElement('div');
+    stationName.className = 'station_name';
+    stationName.textContent = 'FREDERICK STREET SOUTH';//hard coded now
+
+    const infoSection = document.createElement('div');
+    infoSection.className = 'info_section';
+
+    const infoIcon= document.createElement('img');
+    infoIcon.className = 'selection_icon';
+    infoIcon.setAttribute('id','info_icon');
+    infoIcon.src = "{{ url_for('static', filename='image/info.png') }}";
+
+    const stationStatus = document.createElement('div');
+    stationStatus.className = 'station_status';
+    stationStatus.textContent = 'OPEN';
+
+    
+
     
     selectionContainer=document.getElementById('selection_container_rent');
     selectionContainer.textContent = '';
     selectionContainer.appendChild(selectionToggle);
+    selectionContainer.appendChild(rentSelectionWrapper);
+    rentSelectionWrapper.appendChild(selectionBox);
+    selectionBox.appendChild(stationInfo);
+    stationInfo.appendChild(stationName);
+    stationInfo.appendChild(infoSection);
+    infoSection.appendChild(infoIcon);
+    infoSection.appendChild(stationStatus);
 
     
 }

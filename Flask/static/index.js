@@ -248,10 +248,10 @@ function verifyAndSubmitQuery() {
 }
 // The following functions populate the selection box dynamically
 
-// Function to create the HTML for a single station
+// Function to create the HTML for a single station selection box
 function createStationBox() {
     // Convert banking to a Yes/No string
-    let paymentAvailable = banking ? 'Yes' : 'No';
+    // let paymentAvailable = banking ? 'Yes' : 'No';
     const selectionToggle = document.createElement('button');
     selectionToggle.onclick='selectionToggle()';
     selectionToggle.className='nearest_station';

@@ -249,15 +249,17 @@ function verifyAndSubmitQuery() {
 // The following functions populate the selection box dynamically
 
 // Function to create the HTML for a single station selection box
-function createStationBox() {
+function createStationBox(isRent) {
     // Convert banking to a Yes/No string
     // let paymentAvailable = banking ? 'Yes' : 'No';
     const selectionToggle = document.createElement('button');
     selectionToggle.className='nearest_station';
+    selectionToggle.id  = isRent ? 'selection_wrapper_rent' : 'selection_wrapper_return';
     selectionToggle.textContent='Nearest Stations ▲';
 
     const SelectionWrapper = document.createElement('div');
     SelectionWrapper.className='selection_wrapper';
+    SelectionWrapper.id = isRent ? 'selection_wrapper_rent' : 'selection_wrapper_return';
     selectionToggle.setAttribute('onclick','selectionToggle()');
 
     const selectionBox = document.createElement('div');
@@ -315,13 +317,10 @@ function createStationBox() {
     
 
     
-    selectionContainer=document.getElementById('selection_container_rent');
+    const selectionContainer = document.getElementById(isRent ? 'selection_container_rent' : 'selection_container_return');
     selectionContainer.textContent = '';
     selectionContainer.appendChild(selectionToggle);
     selectionContainer.appendChild(SelectionWrapper);
-    document.addEventListener('DOMContentLoaded', function() {
-        setSelectionToggle();
-    });    
     SelectionWrapper.appendChild(selectionBox);
     selectionBox.appendChild(stationInfo);
     stationInfo.appendChild(stationName);
@@ -359,30 +358,30 @@ function populateSelectionContainer() {
         ));
     });
 }
-// This function is able to get all of the elements with class selection_wrapper
-function setSelectionToggle() {
-    // Get all elements with the 'selection_wrapper' class
-    var wrappers = document.getElementsByClassName("selection_wrapper");
-
-    // Loop through the collection and set the onclick event for each element
-    for (var i = 0; i < wrappers.length; i++) {
-        wrappers[i].onclick = selectionToggle; // Set the selectionToggle function as the click event handler
-    }
-}
 
 // Function to show/unshow the selection wrapper
-function selectionToggle() {
-    // The 'this' keyword refers to the clicked element
-    var displayStyle = this.style.display;
+function selectionToggle(isRent) {
+    // Determine the correct ID based on isRent
+    var wrapperId = isRent ? 'selection_wrapper_rent' : 'selection_wrapper_return';
+    var buttonId = isRent ? 'nearest_station_rent' : 'nearest_station_return';
 
-    if (displayStyle === "none") {
-        this.style.display = "block";
-        // Update the text content of the corresponding nearest_station button
-        this.previousElementSibling.textContent = "Nearest Stations ▼";
+    // Use getElementById to select the wrapper and button
+    var x = document.getElementById(wrapperId);
+    var y = document.getElementById(buttonId);
+
+    // Make sure that both elements exist
+    if (x && y) {
+        if (x.style.display === "none" || x.style.display === "") {
+            x.style.display = "block";
+            y.textContent = "Nearest Stations ▲"; // Use textContent for text
+            y.style.backgroundColor = "#50a152";
+        } else {
+            x.style.display = "none";
+            y.textContent = "Nearest Stations ▼"; // Use textContent for text
+            y.style.backgroundColor = "#5cb85c";
+        }
     } else {
-        this.style.display = "none";
-        // Update the text content of the corresponding nearest_station button
-        this.previousElementSibling.textContent = "Nearest Stations ▲";
+        console.error('One of the elements was not found in the DOM.');
     }
 }
 // Given a station name, update the content on the right pane;

@@ -253,7 +253,7 @@ function createStationBox() {
     // Convert banking to a Yes/No string
     // let paymentAvailable = banking ? 'Yes' : 'No';
     const selectionToggle = document.createElement('button');
-    selectionToggle.setAttribute=('onclick','selectionToggle()');
+    selectionToggle.setAttribute('onclick','selectionToggle()');
     selectionToggle.className='nearest_station';
     selectionToggle.textContent='Nearest Stations ▲';
 
@@ -276,8 +276,7 @@ function createStationBox() {
     const infoIcon= document.createElement('img');
     infoIcon.className = 'selection_icon';
     infoIcon.setAttribute('id','info_icon');
-    const Info_static_url = "{{ url_for('static', filename='') }}";
-    infoIcon.src = Info_static_url + 'image/parking.png';
+    infoIcon.src = BASE_STATIC_URL + 'image/info.png';
 
     const stationStatus = document.createElement('div');
     stationStatus.className = 'station_status';

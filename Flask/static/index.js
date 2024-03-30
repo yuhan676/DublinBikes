@@ -261,6 +261,7 @@ function createStationBox(isRent) {
     SelectionWrapper.className='selection_wrapper';
     SelectionWrapper.setAttribute('id', isRent ? 'selection_wrapper_rent' : 'selection_wrapper_return');
     SelectionWrapper.style.display='block';
+    selectionToggle.onclick = function() {selectionToggle(isRent);};
     
 
     const selectionBox = document.createElement('div');
@@ -337,7 +338,6 @@ function createStationBox(isRent) {
     stationInfo.appendChild(paymentSection);
     paymentSection.appendChild(paymentIcon);
     paymentSection.appendChild(paymentAvailable);
-    selectionToggle.setAttribute('onclick','selectionToggle()');
     
 }
 // Function to populate the selection container using the lastSearchJSON global variable

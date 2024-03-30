@@ -252,16 +252,16 @@ function verifyAndSubmitQuery() {
 function createStationBox(isRent) {
     // Convert banking to a Yes/No string
     // let paymentAvailable = banking ? 'Yes' : 'No';
-    const selectionToggle = document.createElement('button');
-    selectionToggle.className='nearest_station';
-    selectionToggle.setAttribute('id', isRent ? 'nearest_station_rent' : 'nearest_station_return');
-    selectionToggle.textContent='Nearest Stations ▲';
+    const Togglebutton = document.createElement('button');
+    Togglebutton.className='nearest_station';
+    Togglebutton.setAttribute('id', isRent ? 'nearest_station_rent' : 'nearest_station_return');
+    Togglebutton.textContent='Nearest Stations ▲';
 
     const SelectionWrapper = document.createElement('div');
     SelectionWrapper.className='selection_wrapper';
     SelectionWrapper.setAttribute('id', isRent ? 'selection_wrapper_rent' : 'selection_wrapper_return');
     SelectionWrapper.style.display='block';
-    selectionToggle.onclick = function() {selectionToggle(isRent);};
+    Togglebutton.onclick = function() {selectionToggle(isRent);};
     
 
     const selectionBox = document.createElement('div');
@@ -321,7 +321,7 @@ function createStationBox(isRent) {
     
     const selectionContainer = document.getElementById(isRent ? 'selection_container_rent' : 'selection_container_return');
     selectionContainer.textContent = '';
-    selectionContainer.appendChild(selectionToggle);
+    selectionContainer.appendChild(Togglebutton);
     selectionContainer.appendChild(SelectionWrapper);
     SelectionWrapper.appendChild(selectionBox);
     selectionBox.appendChild(stationInfo);

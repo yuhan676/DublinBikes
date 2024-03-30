@@ -253,12 +253,12 @@ function createStationBox() {
     // Convert banking to a Yes/No string
     // let paymentAvailable = banking ? 'Yes' : 'No';
     const selectionToggle = document.createElement('button');
-    selectionToggle.setAttribute('onclick','selectionToggle()');
     selectionToggle.className='nearest_station';
     selectionToggle.textContent='Nearest Stations ▲';
 
     const rentSelectionWrapper = document.createElement('div');
-    rentSelectionWrapper.className='rent_selection_wrapper';
+    rentSelectionWrapper.setAttribute('id','rent_selection_wrapper');
+    selectionToggle.setAttribute('onclick','selectionToggle()');
 
     const selectionBox = document.createElement('div');
     selectionBox.className = 'selection_box';

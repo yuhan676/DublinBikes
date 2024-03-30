@@ -139,6 +139,8 @@ function verifyAndSubmitQuery() {
         //     var containerId = isRent ? '#selection_container_rent' : '#selection_container_return';
 
             // Call the function to populate the container with the new data
+            const selectionContainer = document.getElementById(isRent ? 'selection_container_rent' : 'selection_container_return');
+            selectionContainer.textContent = '';
             createSelectionToggle(isRent);
             createStationBox(isRent);
             createStationBox(isRent);
@@ -264,7 +266,6 @@ function createSelectionToggle(isRent){
     Togglebutton.onclick = function() {selectionToggle(isRent);};
 
     const selectionContainer = document.getElementById(isRent ? 'selection_container_rent' : 'selection_container_return');
-    selectionContainer.textContent = '';
     selectionContainer.appendChild(Togglebutton);
     selectionContainer.appendChild(SelectionWrapper);}
 

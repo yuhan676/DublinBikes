@@ -139,11 +139,11 @@ function verifyAndSubmitQuery() {
         //     var containerId = isRent ? '#selection_container_rent' : '#selection_container_return';
 
             // Call the function to populate the container with the new data
-            const selectionContainer = document.getElementById(isRent ? 'selection_container_rent' : 'selection_container_return');
-            selectionContainer.textContent = '';
-            createSelectionToggle(isRent);
-            createStationBox(isRent);
-            createStationBox(isRent);
+            // If the selection toggle doesn't exist, create it
+            if (!document.getElementById(isRent ? 'nearest_station_rent' : 'nearest_station_return')) 
+            {createSelectionToggle(isRent);}
+            // Populate the selection boxes
+            populateStationBoxes(isRent);
         
     },
         error: function(request, status, errorString) {
@@ -270,7 +270,7 @@ function createSelectionToggle(isRent){
     selectionContainer.appendChild(SelectionWrapper);}
 
 // Function to create the HTML for a single station selection box
-function createStationBox(isRent) {
+function createStationBox(isRent,stationData) {
     // Convert banking to a Yes/No string
     // let paymentAvailable = banking ? 'Yes' : 'No';
 
@@ -282,7 +282,7 @@ function createStationBox(isRent) {
 
     const stationName = document.createElement('div');
     stationName.className = 'station_name';
-    stationName.textContent = 'FREDERICK STREET SOUTH';//hard coded now
+    stationName.textContent = stationData.name;//hard coded now
 
     const infoSection = document.createElement('div');
     infoSection.className = 'info_section';
@@ -293,7 +293,7 @@ function createStationBox(isRent) {
 
     const stationStatus = document.createElement('div');
     stationStatus.className = 'station_status';
-    stationStatus.textContent = 'OPEN';// hard coded now
+    stationStatus.textContent = stationData.status;// hard coded now
 
     const bikeSection = document.createElement('div');
     bikeSection.className = 'bike_section';
@@ -303,7 +303,7 @@ function createStationBox(isRent) {
     bikeIcon.src = BASE_STATIC_URL + 'image/bike.png';
 
     const bikeAvailable=document.createElement('div');
-    bikeAvailable.textContent='3';//hard corded
+    bikeAvailable.textContent=stationData.bikesAvailable;//hard corded
 
     const parkingSection = document.createElement('div');
     parkingSection.className = 'parking_section';
@@ -313,7 +313,7 @@ function createStationBox(isRent) {
     parkingIcon.src = BASE_STATIC_URL + 'image/parking.png';
 
     const parkingAvailable=document.createElement('div');
-    parkingAvailable.textContent='13';//hard corded
+    parkingAvailable.textContent=stationData.parkingAvailable;//hard corded
 
     const paymentSection = document.createElement('div');
     paymentSection.className = 'payment_section';
@@ -323,7 +323,7 @@ function createStationBox(isRent) {
     paymentIcon.src = BASE_STATIC_URL + 'image/payment.png';
 
     const paymentAvailable=document.createElement('div');
-    paymentAvailable.textContent='No';//hard corded
+    paymentAvailable.textContent=stationData.paymentAvailable;//hard corded
     
     const SelectionWrapper = document.getElementById(isRent ? 'selection_wrapper_rent' : 'selection_wrapper_return');
     SelectionWrapper.appendChild(selectionBox);
@@ -344,27 +344,25 @@ function createStationBox(isRent) {
     
 }
 
-// Function to populate the selection container using the lastSearchJSON global variable
-function populateSelectionContainer() {
-    var container = $('#selection_container_rent');
-    container.empty(); // Clear the container before populating
+// Function to populate the selection container with station boxes using the lastSearchJSON global variable
+function populateStationBoxes(isRent) {
+    // Get the appropriate wrapper based on the isRent flag
+    const selectionWrapper = document.getElementById(isRent ? 'selection_wrapper_rent' : 'selection_wrapper_return');
+    selectionWrapper.textContent = ''; // Clear any existing content
 
-    // Add the title
-    container.append('<div class="nearest_station">Nearest Stations:</div>');
-
-    // Iterate over the lastSearchJSON to add each station box
-    lastSearchJSON.forEach(function(station) {
-        container.append(createStationBox(
-            station.name, 
-            station.status, 
-            station.mechanical_bikes, 
-            station.empty_stands_number, 
-            station.banking
-        ));
+    // Loop through the lastSearchJSON array and create a selection box for each station
+    lastSearchJSON.forEach(stationData => {
+        createStationBox(isRent, {
+            name: stationData.name,
+            status: stationData.status,
+            bikesAvailable: stationData.total_bikes,
+            parkingAvailable: stationData.empty_stands_number,
+            paymentAvailable: stationData.banking === 1 ? 'Yes' : 'No' // Assuming banking: 1 means 'Yes', 0 means 'No'
+        });
     });
 }
 
-// Function to show/unshow the selection wrapper
+// Function to show/unshow the selection wrapper using toggle, distinguishing rent and return
 function selectionToggle(isRent) {
     // Determine the correct ID based on isRent
     var wrapperId = isRent ? 'selection_wrapper_rent' : 'selection_wrapper_return';

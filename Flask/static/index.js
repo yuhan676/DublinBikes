@@ -257,7 +257,7 @@ function createStationBox() {
     selectionToggle.textContent='Nearest Stations ▲';
 
     const rentSelectionWrapper = document.createElement('div');
-    rentSelectionWrapper.setAttribute('id','rent_selection_wrapper');
+    rentSelectionWrapper.className='rent_selection_wrapper';
     selectionToggle.setAttribute('onclick','selectionToggle()');
 
     const selectionBox = document.createElement('div');
@@ -275,7 +275,6 @@ function createStationBox() {
 
     const infoIcon= document.createElement('img');
     infoIcon.className = 'selection_icon';
-    infoIcon.setAttribute('id','info_icon');
     infoIcon.src = BASE_STATIC_URL + 'image/info.png';
 
     const stationStatus = document.createElement('div');
@@ -287,7 +286,6 @@ function createStationBox() {
 
     const bikeIcon= document.createElement('img');
     bikeIcon.className = 'selection_icon';
-    bikeIcon.setAttribute('id','bicycle_icon');
     bikeIcon.src = BASE_STATIC_URL + 'image/bike.png';
 
     const bikeAvailable=document.createElement('div');
@@ -298,7 +296,6 @@ function createStationBox() {
 
     const parkingIcon= document.createElement('img');
     parkingIcon.className = 'selection_icon';
-    parkingIcon.setAttribute('id','parking_icon');
     parkingIcon.src = BASE_STATIC_URL + 'image/parking.png';
 
     const parkingAvailable=document.createElement('div');
@@ -309,7 +306,6 @@ function createStationBox() {
 
     const paymentIcon= document.createElement('img');
     paymentIcon.className = 'selection_icon';
-    paymentIcon.setAttribute('id','payment_icon');
     paymentIcon.src = BASE_STATIC_URL + 'image/payment.png';
 
     const paymentAvailable=document.createElement('div');

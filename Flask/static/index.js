@@ -256,8 +256,8 @@ function createStationBox() {
     selectionToggle.className='nearest_station';
     selectionToggle.textContent='Nearest Stations ▲';
 
-    const rentSelectionWrapper = document.createElement('div');
-    rentSelectionWrapper.className='rent_selection_wrapper';
+    const SelectionWrapper = document.createElement('div');
+    SelectionWrapper.className='selection_wrapper';
     selectionToggle.setAttribute('onclick','selectionToggle()');
 
     const selectionBox = document.createElement('div');
@@ -318,8 +318,8 @@ function createStationBox() {
     selectionContainer=document.getElementById('selection_container_rent');
     selectionContainer.textContent = '';
     selectionContainer.appendChild(selectionToggle);
-    selectionContainer.appendChild(rentSelectionWrapper);
-    rentSelectionWrapper.appendChild(selectionBox);
+    selectionContainer.appendChild(SelectionWrapper);
+    SelectionWrapper.appendChild(selectionBox);
     selectionBox.appendChild(stationInfo);
     stationInfo.appendChild(stationName);
     stationInfo.appendChild(infoSection);
@@ -359,7 +359,7 @@ function populateSelectionContainer() {
 
 // Function to show/unshow the selection wrapper
 function selectionToggle() {
-    var x = document.getElementsByClassName("rent_selection_wrapper");
+    var x = document.getElementsByClassName("selection_wrapper");
     var y = document.getElementsByClassName("nearest_station");
 
     if (x.style.display === "none") {

@@ -280,7 +280,41 @@ function createStationBox() {
 
     const stationStatus = document.createElement('div');
     stationStatus.className = 'station_status';
-    stationStatus.textContent = 'OPEN';
+    stationStatus.textContent = 'OPEN';// hard coded now
+
+    const bikeSection = document.createElement('div');
+    bikeSection.className = 'bike_section';
+
+    const bikeIcon= document.createElement('img');
+    bikeIcon.className = 'selection_icon';
+    bikeIcon.setAttribute('id','bicycle_icon');
+    bikeIcon.src = BASE_STATIC_URL + 'image/bike.png';
+
+    const bikeAvailable=document.createElement('div');
+    bikeAvailable.textContent='3';//hard corded
+
+    const parkingSection = document.createElement('div');
+    parkingSection.className = 'parking_section';
+
+    const parkingIcon= document.createElement('img');
+    parkingIcon.className = 'selection_icon';
+    parkingIcon.setAttribute('id','parking_icon');
+    parkingIcon.src = BASE_STATIC_URL + 'image/parking.png';
+
+    const parkingAvailable=document.createElement('div');
+    parkingAvailable.textContent='13';//hard corded
+
+    const paymentSection = document.createElement('div');
+    paymentSection.className = 'payment_section';
+
+    const paymentIcon= document.createElement('img');
+    paymentIcon.className = 'selection_icon';
+    paymentIcon.setAttribute('id','payment_icon');
+    paymentIcon.src = BASE_STATIC_URL + 'image/payment.png';
+
+    const paymentAvailable=document.createElement('div');
+    paymentAvailable.textContent='No';//hard corded
+    
 
     
 
@@ -295,6 +329,15 @@ function createStationBox() {
     stationInfo.appendChild(infoSection);
     infoSection.appendChild(infoIcon);
     infoSection.appendChild(stationStatus);
+    stationInfo.appendChild(bikeSection);
+    bikeSection.appendChild(bikeIcon);
+    bikeSection.appendChild(bikeAvailable);
+    stationInfo.appendChild(parkingSection);
+    parkingSection.appendChild(parkingIcon);
+    parkingSection.appendChild(parkingAvailable);
+    stationInfo.appendChild(paymentSection);
+    paymentSection.appendChild(paymentIcon);
+    paymentSection.appendChild(paymentAvailable);
 
     
 }
@@ -326,11 +369,11 @@ function selectionToggle() {
     if (x.style.display === "none") {
         x.style.display = "block";
         y.innerHTML = "Nearest Stations ▲"; 
-        y.style.backgroundColor = "#50a152"
+        y.style.backgroundColor = "#50a152";
     } else {
         x.style.display = "none";
         y.innerHTML = "Nearest Stations ▼"; 
-        y.style.backgroundColor = "#5cb85c"
+        y.style.backgroundColor = "#5cb85c";
     }
 }
 // Given a station name, update the content on the right pane;

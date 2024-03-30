@@ -139,6 +139,8 @@ function verifyAndSubmitQuery() {
         //     var containerId = isRent ? '#selection_container_rent' : '#selection_container_return';
 
             // Call the function to populate the container with the new data
+            createSelectionToggle(isRent);
+            createStationBox(isRent);
             createStationBox(isRent);
         
     },
@@ -248,10 +250,8 @@ function verifyAndSubmitQuery() {
 }
 // The following functions populate the selection box dynamically
 
-// Function to create the HTML for a single station selection box
-function createStationBox(isRent) {
-    // Convert banking to a Yes/No string
-    // let paymentAvailable = banking ? 'Yes' : 'No';
+//Create the toggle button and the selection wrapper
+function createSelectionToggle(isRent){
     const Togglebutton = document.createElement('button');
     Togglebutton.className='nearest_station';
     Togglebutton.setAttribute('id', isRent ? 'nearest_station_rent' : 'nearest_station_return');
@@ -262,7 +262,16 @@ function createStationBox(isRent) {
     SelectionWrapper.setAttribute('id', isRent ? 'selection_wrapper_rent' : 'selection_wrapper_return');
     SelectionWrapper.style.display='block';
     Togglebutton.onclick = function() {selectionToggle(isRent);};
-    
+
+    const selectionContainer = document.getElementById(isRent ? 'selection_container_rent' : 'selection_container_return');
+    selectionContainer.textContent = '';
+    selectionContainer.appendChild(Togglebutton);
+    selectionContainer.appendChild(SelectionWrapper);}
+
+// Function to create the HTML for a single station selection box
+function createStationBox(isRent) {
+    // Convert banking to a Yes/No string
+    // let paymentAvailable = banking ? 'Yes' : 'No';
 
     const selectionBox = document.createElement('div');
     selectionBox.className = 'selection_box';
@@ -315,14 +324,7 @@ function createStationBox(isRent) {
     const paymentAvailable=document.createElement('div');
     paymentAvailable.textContent='No';//hard corded
     
-
-    
-
-    
-    const selectionContainer = document.getElementById(isRent ? 'selection_container_rent' : 'selection_container_return');
-    selectionContainer.textContent = '';
-    selectionContainer.appendChild(Togglebutton);
-    selectionContainer.appendChild(SelectionWrapper);
+    const SelectionWrapper = document.getElementById(isRent ? 'selection_wrapper_rent' : 'selection_wrapper_return');
     SelectionWrapper.appendChild(selectionBox);
     selectionBox.appendChild(stationInfo);
     stationInfo.appendChild(stationName);
@@ -340,6 +342,7 @@ function createStationBox(isRent) {
     paymentSection.appendChild(paymentAvailable);
     
 }
+
 // Function to populate the selection container using the lastSearchJSON global variable
 function populateSelectionContainer() {
     var container = $('#selection_container_rent');

@@ -254,12 +254,12 @@ function createStationBox(isRent) {
     // let paymentAvailable = banking ? 'Yes' : 'No';
     const selectionToggle = document.createElement('button');
     selectionToggle.className='nearest_station';
-    selectionToggle.id  = isRent ? 'selection_wrapper_rent' : 'selection_wrapper_return';
+    selectionToggle.setAttribute('id', isRent ? 'nearest_station_rent' : 'nearest_station_return');
     selectionToggle.textContent='Nearest Stations ▲';
 
     const SelectionWrapper = document.createElement('div');
     SelectionWrapper.className='selection_wrapper';
-    SelectionWrapper.id = isRent ? 'selection_wrapper_rent' : 'selection_wrapper_return';
+    SelectionWrapper.setAttribute('id', isRent ? 'selection_wrapper_rent' : 'selection_wrapper_return');
     SelectionWrapper.style.display='block';
     selectionToggle.setAttribute('onclick','selectionToggle()');
 

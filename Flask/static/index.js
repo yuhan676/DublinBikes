@@ -275,8 +275,6 @@ function createStationBox(isRent,stationData) {
 
     const selectionBox = document.createElement('div');
     selectionBox.className = 'selection_box';
-    // Set a data attribute on the selection box to store the isRent status
-    selectionBox.setAttribute('data-is-rent', isRent);
 
     const stationInfo = document.createElement('div');
     stationInfo.className = 'station_info';
@@ -395,9 +393,13 @@ function selectionToggle(isRent) {
 // j-query listeer  that listens  for a click on the selection box
 $('selection_container_rent').on('mousedown','.selection_box',function(){
     var index = $(this).index();
-    var isRent = $(this).data('is-rent'); // Retrieve the data attribute
+    selectStation(index, true);
 
-    selectStation(index, isRent);
+});
+
+$('selection_container_return').on('mousedown','.selection_box',function(){
+    var index = $(this).index();
+    selectStation(index, false);
 
 });
 

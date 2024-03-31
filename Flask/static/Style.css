@@ -450,10 +450,14 @@
     display: none
   }
 
-  .selection_box.selected {
-    background-color: black;
+  .selection_box.selected.hover {
+    background-color: grey;
     /* color: white; testing styling */
 }
+.selection_box.selected{
+    background-color: grey;
+}
+
 .nearest_station{
     width:100%;
     padding: 5px;

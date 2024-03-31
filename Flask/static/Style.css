@@ -450,7 +450,7 @@
     display: none
   }
 
-  .selection_box.selected.hover {
+  .selection_box.selected:hover {
     background-color: grey;
     /* color: white; testing styling */
 }

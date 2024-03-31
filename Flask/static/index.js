@@ -389,16 +389,15 @@ function selectionToggle(isRent) {
     }
 }
 
-// j-query listeer  that listens  for a click on the selection
 // j-query listeer  that listens  for a click on the selection box
 $('selection_container_rent').on('mousedown','.selection_box',function(){
-    var index = $(this).index();
+    var index = $('#selection_container_rent .selection_box').index(this);
     selectStation(index, true);
 
 });
 
 $('selection_container_return').on('mousedown','.selection_box',function(){
-    var index = $(this).index();
+    var index = $('#selection_container_return .selection_box').index(this);
     selectStation(index, false);
 
 });

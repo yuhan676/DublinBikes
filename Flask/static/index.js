@@ -1,8 +1,203 @@
+// var usePreviousData = true; // Flag to toggle between previous and new dummy data for local testing
+
 // Global variable to store the last search results
 var lastSearchJSON = {};
 
 // Global variable to store the last weather search data
 var lastWeatherJSON = {};
+
+// // Previous search result - set 1
+// var dummyDataPrevious = [
+//     // Add 5 objects representing previous search stations
+//     {
+//         "address": "Clarendon Row",
+//         "banking": 0,
+//         "bonus": 0,
+//         "electrical_internal_battery_bikes": 0,
+//         "electrical_removable_battery_bikes": 2,
+//         "empty_stands_number": 25,
+//         "last_update": "2024-03-27T18:13:45.000000Z",
+//         "mechanical_bikes": 4,
+//         "name": "CLARENDON ROW",
+//         "number": 1,
+//         "position": {
+//             "lat": 53.340927,
+//             "lng": -6.262501
+//         },
+//         "status": "OPEN",
+//         "total_bikes": 6
+//     },
+//     {
+//         "address": "York Street West",
+//         "banking": 0,
+//         "bonus": 0,
+//         "electrical_internal_battery_bikes": 0,
+//         "electrical_removable_battery_bikes": 2,
+//         "empty_stands_number": 36,
+//         "last_update": "2024-03-27T18:14:15.000000Z",
+//         "mechanical_bikes": 2,
+//         "name": "YORK STREET WEST",
+//         "number": 51,
+//         "position": {
+//             "lat": 53.339334,
+//             "lng": -6.264699
+//         },
+//         "status": "OPEN",
+//         "total_bikes": 4
+//     },
+//     {
+//         "address": "York Street East",
+//         "banking": 0,
+//         "bonus": 0,
+//         "electrical_internal_battery_bikes": 0,
+//         "electrical_removable_battery_bikes": 1,
+//         "empty_stands_number": 30,
+//         "last_update": "2024-03-27T18:06:25.000000Z",
+//         "mechanical_bikes": 1,
+//         "name": "YORK STREET EAST",
+//         "number": 52,
+//         "position": {
+//             "lat": 53.338755,
+//             "lng": -6.262003
+//         },
+//         "status": "OPEN",
+//         "total_bikes": 2
+//     },
+//     {
+//         "address": "Exchequer Street",
+//         "banking": 0,
+//         "bonus": 0,
+//         "electrical_internal_battery_bikes": 0,
+//         "electrical_removable_battery_bikes": 8,
+//         "empty_stands_number": 6,
+//         "last_update": "2024-03-27T18:13:01.000000Z",
+//         "mechanical_bikes": 10,
+//         "name": "EXCHEQUER STREET",
+//         "number": 9,
+//         "position": {
+//             "lat": 53.343034,
+//             "lng": -6.263578
+//         },
+//         "status": "OPEN",
+//         "total_bikes": 18
+//     },
+//     {
+//         "address": "Molesworth Street",
+//         "banking": 0,
+//         "bonus": 0,
+//         "electrical_internal_battery_bikes": 0,
+//         "electrical_removable_battery_bikes": 0,
+//         "empty_stands_number": 18,
+//         "last_update": "2024-03-27T18:08:19.000000Z",
+//         "mechanical_bikes": 2,
+//         "name": "MOLESWORTH STREET",
+//         "number": 27,
+//         "position": {
+//             "lat": 53.341288,
+//             "lng": -6.258117
+//         },
+//         "status": "OPEN",
+//         "total_bikes": 1
+//     }
+// ];
+
+// // New search result - set 2
+// var dummyDataNew = [
+//     // Add 5 new objects representing new search stations
+//     {
+//         "address": "St. Stephen's Green East",
+//         "banking": 0,
+//         "bonus": 0,
+//         "electrical_internal_battery_bikes": 0,
+//         "electrical_removable_battery_bikes": 9,
+//         "empty_stands_number": 21,
+//         "last_update": "2024-03-30T20:25:07.000000Z",
+//         "mechanical_bikes": 10,
+//         "name": "ST. STEPHEN'S GREEN EAST",
+//         "number": 36,
+//         "position": {
+//             "lat": 53.337824,
+//             "lng": -6.256035
+//         },
+//         "status": "OPEN",
+//         "total_bikes": 19
+//     },
+//     {
+//         "address": "Fitzwilliam Square West",
+//         "banking": 0,
+//         "bonus": 0,
+//         "electrical_internal_battery_bikes": 0,
+//         "electrical_removable_battery_bikes": 0,
+//         "empty_stands_number": 30,
+//         "last_update": "2024-03-30T20:26:04.000000Z",
+//         "mechanical_bikes": 0,
+//         "name": "FITZWILLIAM SQUARE WEST",
+//         "number": 13,
+//         "position": {
+//             "lat": 53.336074,
+//             "lng": -6.252825
+//         },
+//         "status": "OPEN",
+//         "total_bikes": 0
+//     },
+//     {
+//         "address": "Newman House",
+//         "banking": 0,
+//         "bonus": 0,
+//         "electrical_internal_battery_bikes": 0,
+//         "electrical_removable_battery_bikes": 3,
+//         "empty_stands_number": 37,
+//         "last_update": "2024-03-30T20:26:28.000000Z",
+//         "mechanical_bikes": 0,
+//         "name": "NEWMAN HOUSE",
+//         "number": 53,
+//         "position": {
+//             "lat": 53.337132,
+//             "lng": -6.26059
+//         },
+//         "status": "OPEN",
+//         "total_bikes": 3
+//     },
+//     {
+//         "address": "Merrion Square West",
+//         "banking": 1,
+//         "bonus": 0,
+//         "electrical_internal_battery_bikes": 0,
+//         "electrical_removable_battery_bikes": 1,
+//         "empty_stands_number": 11,
+//         "last_update": "2024-03-30T20:28:54.000000Z",
+//         "mechanical_bikes": 8,
+//         "name": "MERRION SQUARE WEST",
+//         "number": 26,
+//         "position": {
+//             "lat": 53.339764,
+//             "lng": -6.251988
+//         },
+//         "status": "OPEN",
+//         "total_bikes": 9
+//     },
+//     {
+//         "address": "St. Stephen's Green South",
+//         "banking": 1,
+//         "bonus": 0,
+//         "electrical_internal_battery_bikes": 0,
+//         "electrical_removable_battery_bikes": 1,
+//         "empty_stands_number": 19,
+//         "last_update": "2024-03-30T20:25:49.000000Z",
+//         "mechanical_bikes": 10,
+//         "name": "ST. STEPHEN'S GREEN SOUTH",
+//         "number": 37,
+//         "position": {
+//             "lat": 53.337494,
+//             "lng": -6.26199
+//         },
+//         "status": "OPEN",
+//         "total_bikes": 11
+//     }   
+// ];
+
+// Global array to keep track of markers
+var allMarkers = [];
 
 // We use this for our state a lot, so keep track of the currently open tab here
 // Rent is open by default
@@ -118,9 +313,11 @@ function verifyAndSubmitQuery() {
             'date': JSON.stringify(dateSelected) // format: YYYY-MM-DDTHH:MM:SS.MMMZ
         },
         success: function(return_data) {
+            clearMarkers(); // Clear existing markers before adding new ones
+
             // Success! return_data should contain the five stations plus any other necessary info
             // Pass this to a function to display here, maybe don't add population code here to keep things clean
-
+            
             // Clear the global variable
             lastSearchJSON = {};
 
@@ -146,7 +343,11 @@ function verifyAndSubmitQuery() {
         
     },
         error: function(request, status, errorString) {
-            // This is the dummy data I used to test on my local machine
+            
+            // // Don't delete. This is for testing locally: Call clearMarkers to remove existing markers from the map
+            // clearMarkers();
+
+            // // For testing locally: This is dummy data of stations stored in lastSearchJSON 
             // lastSearchJSON = [
             //     {
             //         "address": "Clarendon Row",
@@ -237,9 +438,104 @@ function verifyAndSubmitQuery() {
             //         },
             //         "status": "OPEN",
             //         "total_bikes": 1
-            //     }
+            //     },
+            //     {
+            //         "address": "St. Stephen's Green East",
+            //         "banking": 0,
+            //         "bonus": 0,
+            //         "electrical_internal_battery_bikes": 0,
+            //         "electrical_removable_battery_bikes": 9,
+            //         "empty_stands_number": 21,
+            //         "last_update": "2024-03-30T20:25:07.000000Z",
+            //         "mechanical_bikes": 10,
+            //         "name": "ST. STEPHEN'S GREEN EAST",
+            //         "number": 36,
+            //         "position": {
+            //             "lat": 53.337824,
+            //             "lng": -6.256035
+            //         },
+            //         "status": "OPEN",
+            //         "total_bikes": 19
+            //     },
+            //     {
+            //         "address": "Fitzwilliam Square West",
+            //         "banking": 0,
+            //         "bonus": 0,
+            //         "electrical_internal_battery_bikes": 0,
+            //         "electrical_removable_battery_bikes": 0,
+            //         "empty_stands_number": 30,
+            //         "last_update": "2024-03-30T20:26:04.000000Z",
+            //         "mechanical_bikes": 0,
+            //         "name": "FITZWILLIAM SQUARE WEST",
+            //         "number": 13,
+            //         "position": {
+            //             "lat": 53.336074,
+            //             "lng": -6.252825
+            //         },
+            //         "status": "OPEN",
+            //         "total_bikes": 0
+            //     },
+            //     {
+            //         "address": "Newman House",
+            //         "banking": 0,
+            //         "bonus": 0,
+            //         "electrical_internal_battery_bikes": 0,
+            //         "electrical_removable_battery_bikes": 3,
+            //         "empty_stands_number": 37,
+            //         "last_update": "2024-03-30T20:26:28.000000Z",
+            //         "mechanical_bikes": 0,
+            //         "name": "NEWMAN HOUSE",
+            //         "number": 53,
+            //         "position": {
+            //             "lat": 53.337132,
+            //             "lng": -6.26059
+            //         },
+            //         "status": "OPEN",
+            //         "total_bikes": 3
+            //     },
+            //     {
+            //         "address": "Merrion Square West",
+            //         "banking": 1,
+            //         "bonus": 0,
+            //         "electrical_internal_battery_bikes": 0,
+            //         "electrical_removable_battery_bikes": 1,
+            //         "empty_stands_number": 11,
+            //         "last_update": "2024-03-30T20:28:54.000000Z",
+            //         "mechanical_bikes": 8,
+            //         "name": "MERRION SQUARE WEST",
+            //         "number": 26,
+            //         "position": {
+            //             "lat": 53.339764,
+            //             "lng": -6.251988
+            //         },
+            //         "status": "OPEN",
+            //         "total_bikes": 9
+            //     },
+            //     {
+            //         "address": "St. Stephen's Green South",
+            //         "banking": 1,
+            //         "bonus": 0,
+            //         "electrical_internal_battery_bikes": 0,
+            //         "electrical_removable_battery_bikes": 1,
+            //         "empty_stands_number": 19,
+            //         "last_update": "2024-03-30T20:25:49.000000Z",
+            //         "mechanical_bikes": 10,
+            //         "name": "ST. STEPHEN'S GREEN SOUTH",
+            //         "number": 37,
+            //         "position": {
+            //             "lat": 53.337494,
+            //             "lng": -6.26199
+            //         },
+            //         "status": "OPEN",
+            //         "total_bikes": 11
+            //     }            
             // ]
+            
+            // Toggle between previous and new search results
+            // lastSearchJSON = usePreviousData ? dummyDataPrevious : dummyDataNew;
+            // usePreviousData = !usePreviousData; // Flip the flag for the next click
             // updateMarkers()
+            
             if (request.status == 500)
             {
                 // 500 here is so we can show the user when they have entered an invalid station name
@@ -405,8 +701,20 @@ function selectStation(index, isRent) {
 
     // Additional logic for when a station is selected
     console.log('Station selected:', index, 'Is Rent:', isRent);
-}
 
+    // Stop any currently bouncing marker
+    allMarkers.forEach(marker => {
+    if (marker.getAnimation() !== null) {
+        marker.setAnimation(null);
+    }
+    });
+
+    // Start bounce animation for the selected station's marker
+    const selectedMarker = allMarkers[index];
+    if (selectedMarker) {
+    selectedMarker.setAnimation(google.maps.Animation.BOUNCE);
+    }
+}
 
 // Given a station name, update the content on the right pane;
 function populateRightPanel(stationName){

@@ -389,18 +389,7 @@ function selectionToggle(isRent) {
     }
 }
 
-// j-query listeer  that listens  for a click on the selection box
-$('selection_container_rent').on('mousedown','.selection_box',function(){
-    var index = $('#selection_container_rent .selection_box').index(this);
-    selectStation(index, true);
 
-});
-
-$('selection_container_return').on('mousedown','.selection_box',function(){
-    var index = $('#selection_container_return .selection_box').index(this);
-    selectStation(index, false);
-
-});
 
 // Function to handle the selection of a station box
 function selectStation(index, isRent) {
@@ -504,6 +493,15 @@ $(document).ready(function() {
     $('#close-popup').on('click', function() {
         $('#popup').hide(); // Hide the popup when the close button is clicked
     });
+
+    // j-query listener  that listens  for a click on the selection box
+    $('#selection_container_rent').on('mousedown','.selection_box',function(){
+    var index = $('#selection_container_rent .selection_box').index(this);
+    selectStation(index, true);});
+
+    $('#selection_container_return').on('mousedown','.selection_box',function(){
+    var index = $('#selection_container_return .selection_box').index(this);
+    selectStation(index, false);});
 });
 
 function adjustWeatherPanelPosition() {

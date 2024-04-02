@@ -1,3 +1,6 @@
+// Declare allMarkers as a global variable to track markers
+let allMarkers = []; 
+
 async function initMap() {
     // Initialize the Google Map with Dublin as the center
     const { Map } = await google.maps.importLibrary("maps");

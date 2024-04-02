@@ -1,3 +1,6 @@
+// Import the 'map' variable to 'index.js' to facilitate Marker activity
+import { map } from './map.js';
+
 // Global variable to store the last search results
 var lastSearchJSON = {};
 
@@ -390,7 +393,6 @@ function selectionToggle(isRent) {
 }
 
 
-
 // Function to handle the selection of a station box
 function selectStation(index, isRent) {
     // The container ID will depend on whether isRent is true or false
@@ -411,6 +413,12 @@ function selectStation(index, isRent) {
 
     // Call the populateRightPanel function with the selected station name
     populateRightPanel(stationName, isRent);
+
+    // Add marker for selected station
+    addMarker(map, lastSearchJson[index].position, index);
+
+    // update all markers
+    updateMarkers();
 }
 // Given a station name, update the content on the right pane;
 function populateRightPanel(stationName, isRent) {
@@ -451,6 +459,22 @@ function populateRightPanel(stationName, isRent) {
         rightPanelContainer.append(totalParkingLabel, timeUpdateLabelReturn, predictionPlaceholderReturn);
     }
     console.log('Station information appended to right panel container.');
+}
+async function addMarker(map, station, number) {
+    const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+    var position = new google.maps.LatLng(station.lat, station.lng);
+    const marker = new AdvancedMarkerElement({
+      map,
+      position: position,
+      title: number.toString()
+     });
+    map.panTo(position); // Optionally, center the map on the new marker
+}
+
+function updateMarkers() {
+    lastSearchJSON.forEach(item => {
+        addMarker(map, item.position, item.number)
+    })
 }
 // This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded
 // All JQuery event handler definitions should go in here

@@ -8,20 +8,3 @@ async function initMap() {
         mapId: "d002b4f3df859edb",
     });
 }
-async function addMarker(station, number) {
-    const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
-    var position = new google.maps.LatLng(station.lat, station.lng);
-    const marker = new AdvancedMarkerElement({
-      map,
-      position: position,
-      title: number.toString()
-     });
-    // Assuming map is a global variable referencing the map instance
-    map.panTo(position); // Optionally, center the map on the new marker
-}
-
-function updateMarkers() {
-    lastSearchJSON.forEach(item => {
-        addMarker(item.position, item.number)
-    })
-}

@@ -699,6 +699,7 @@ function selectStation(index, isRent) {
     // Additional logic for when a station is selected
     console.log('Station selected:', index, 'Is Rent:', isRent);
 
+<<<<<<< HEAD
     // Stop any currently bouncing marker
     allMarkers.forEach(marker => {
     if (marker.getAnimation() !== null) {
@@ -712,12 +713,13 @@ function selectStation(index, isRent) {
     selectedMarker.setAnimation(google.maps.Animation.BOUNCE);
     }
 }
+=======
     // Get the station name based on the index
     var stationName = lastSearchJSON[index].name;
 
     // Call the populateRightPanel function with the selected station name
     populateRightPanel(stationName, isRent);
-
+}
 // 
 function populateRightPanel(stationName, isRent) {
     // Find the station data based on the stationName
@@ -726,6 +728,7 @@ function populateRightPanel(stationName, isRent) {
         if (lastSearchJSON[i].name === stationName) {
             stationData = lastSearchJSON[i];
             break;
+>>>>>>> ef44eb877614f579d506564530da4267b600965d
         }
     }
     console.log('Station data found:', stationData);

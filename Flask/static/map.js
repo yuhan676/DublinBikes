@@ -43,7 +43,7 @@ function staggeredAddMarkers() {
     lastSearchJSON.forEach((item, index) => {
         setTimeout(() => {
             addMarker(map, item.position, item.number);
-        }, index * 500); // Adjust the delay as needed
+        }, index * 1000); // Adjust the delay as needed
     });
 }
 

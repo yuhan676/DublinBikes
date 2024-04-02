@@ -2,7 +2,6 @@ import unittest
 from unittest.mock import MagicMock
 from flask import jsonify
 from functions import connect_db, get_station_names
-from sqlalchemy.exc import SQLAlchemyError
 
 class TestConnection(unittest.TestCase):
     """

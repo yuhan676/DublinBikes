@@ -11,15 +11,22 @@ async function initMap() {
         mapId: "d002b4f3df859edb",
     });
 }
+
 async function addMarker(map, station, number) {
     const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
     var position = new google.maps.LatLng(station.lat, station.lng);
     const marker = new AdvancedMarkerElement({
-      map,
-      position: position,
-      title: number.toString()
-     });
+        map,
+        position: position,
+        title: number.toString()
+    });
     map.panTo(position); // Optionally, center the map on the new marker
+    
+    // Add the marker to the global array
+    addMarkerToGlobalArray(marker);
+
+    // Log the added marker
+    console.log('Marker added:', marker);
 }
 
 // Function to clear all markers from the map
@@ -35,18 +42,24 @@ function clearMarkers() {
     if (lastIndex >= 0) {
         lastSearchJSON.splice(lastIndex, 1);
     }
+
+    // Log that markers have been cleared
+    console.log('Markers cleared');
 }
+
 function updateMarkers() {
     lastSearchJSON.forEach(item => {
         addMarker(map, item.position, item.number)
     })
 }
+
 function addMarkerToGlobalArray(marker) {
     // Add the new marker to the global array
     allMarkers.push(marker);
     // Return the marker for further manipulation
     return marker;
 }
+
 function handleMarkerAnimations(index) {
     // Stop any currently bouncing marker
     allMarkers.forEach(marker => {
@@ -64,4 +77,5 @@ function handleMarkerAnimations(index) {
 
 // Attach function to the window object
 window.updateMarkers = updateMarkers;
-window.clearMarkers; 
+window.clearMarkers = clearMarkers; 
+

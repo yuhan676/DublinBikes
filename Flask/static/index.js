@@ -420,8 +420,20 @@ function selectStation(index, isRent) {
 }
 // Given a station name, update the content on the right pane;
 function populateRightPanel(stationName, isRent) {
+    // Moved this line to the beginning to ensure the container is defined before use
+    var rightPanelContainer = $('#rp_content'); 
+    console.log('Right panel container:', rightPanelContainer);
+
+    // Clear previous content
+    rightPanelContainer.empty();
+    console.log('Previous content cleared.');
+
     // Update the station name element with the new station name
-    $('#rp_station_name').text('Station Name: ' + stationName);
+    var stationNameDiv = $('<div>').addClass('rp_station_name');
+    var stationNameText = $('<p>').attr('id', 'rp_station_name').text('Station Name: ' + stationName);
+    stationNameDiv.append(stationNameText);
+    rightPanelContainer.append(stationNameDiv);
+
     // Find the station data based on the stationName
     var stationData;
     for (var i = 0; i < lastSearchJSON.length; i++) {

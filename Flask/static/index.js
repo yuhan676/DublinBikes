@@ -420,20 +420,11 @@ function selectStation(index, isRent) {
 }
 // Given a station name, update the content on the right pane;
 function populateRightPanel(stationName, isRent) {
-    // Moved this line to the beginning to ensure the container is defined before use
-    var rightPanelContainer = $('#rp_content'); 
-    console.log('Right panel container:', rightPanelContainer);
-
-    // Clear previous content
-    rightPanelContainer.empty();
-    console.log('Previous content cleared.');
-
     // Update the station name element with the new station name
-    var stationNameDiv = $('<div>').addClass('rp_station_name');
-    var stationNameText = $('<p>').attr('id', 'rp_station_name').text('Station Name: ' + stationName);
-    stationNameDiv.append(stationNameText);
-    rightPanelContainer.append(stationNameDiv);
+    $('#rp_station_name').text('Station Name: ' + stationName);
 
+    // Select the #right_panel element
+    var rightPanel = $('#right_panel');
     // Find the station data based on the stationName
     var stationData;
     for (var i = 0; i < lastSearchJSON.length; i++) {
@@ -442,14 +433,14 @@ function populateRightPanel(stationName, isRent) {
             break;
         }
     }
-    console.log('Station data found:', stationData);
+    // console.log('Station data found:', stationData);
 
     var rightPanelContainer = $('#rp_content');
-    console.log('Right panel container:', rightPanelContainer);
+    // console.log('Right panel container:', rightPanelContainer);
 
     // Clear previous content
     rightPanelContainer.empty();
-    console.log('Previous content cleared.');
+    // console.log('Previous content cleared.');
 
     // Create elements to display station information
     // var stationName = $('<div>').addClass('rp_station_name').text('Station Name: ' + stationName);
@@ -466,9 +457,9 @@ function populateRightPanel(stationName, isRent) {
     
     // Append the elements to the right panel container based on the section
     if (isRent) {
-        rightPanelContainer.append(stationName, totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabel, predictionPlaceholderRent);
+        rightPanel.find('#rp_content').append(totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabel, predictionPlaceholderRent);
     } else {
-        rightPanelContainer.append(stationName, totalParkingLabel, timeUpdateLabelReturn, predictionPlaceholderReturn);
+        rightPanel.find('#rp_content').append(totalParkingLabel, timeUpdateLabelReturn, predictionPlaceholderReturn);
     }
     console.log('Station information appended to right panel container.');
 }

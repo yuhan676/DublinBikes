@@ -48,6 +48,10 @@ function clearMarkers() {
 }
 
 function updateMarkers() {
+    // Clear existing markers before adding new ones
+    clearMarkers();
+
+    // Add markers for the new search result
     lastSearchJSON.forEach(item => {
         addMarker(map, item.position, item.number)
     })

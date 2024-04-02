@@ -392,6 +392,9 @@ function selectionToggle(isRent) {
 
 // Function to handle the selection of a station box
 function selectStation(index, isRent) {
+    // Clear marker when search is clicked again
+    clearMarkers();
+
     // The container ID will depend on whether isRent is true or false
     var containerId = isRent ? 'selection_container_rent' : 'selection_container_return';
     var $selectionWrapper = $('#' + containerId + ' .selection_wrapper');
@@ -411,8 +414,6 @@ function selectStation(index, isRent) {
     // update all markers
     updateMarkers();
 
-    // Clear marker when search is clicked again
-    clearMarkers();
 }
 // Given a station name, update the content on the right pane;
 function populateRightPanel(stationName, isRent) {

@@ -406,22 +406,44 @@ function selectStation(index, isRent) {
     // Additional logic for when a station is selected
     console.log('Station selected:', index, 'Is Rent:', isRent);
 }
-
-
 // Given a station name, update the content on the right pane;
-function populateRightPanel(stationName){
-    $.ajax({
-        url: "get_rp_info", // The end point in flask
-        type: "GET",
-        dataType: 'json',
-        data: {
-            'stationName': stationName
-        },
-        success: function(return_data) {
-            // Success! return_data should contain the five station's newest status 
-            // Pass this into a function to display here
+function populateRightPanel(stationName, isRent) {
+    // Find the station data based on the stationName
+    var stationData;
+    for (var i = 0; i < lastSearchJSON.length; i++) {
+        if (lastSearchJSON[i].name === stationName) {
+            stationData = lastSearchJSON[i];
+            break;
         }
-    })
+    }
+    console.log('Station data found:', stationData);
+
+    var rightPanelContainer = $('#rp_content');
+    console.log('Right panel container:', rightPanelContainer);
+
+    // Clear previous content
+    rightPanelContainer.empty();
+    console.log('Previous content cleared.');
+
+    // Create elements to display station information
+    var stationName = $('<p>').attr('id', 'rp_station_name').text('Station Name: ' + stationData.name);
+    var totalBikeLabel = $('<div>').addClass('rp_bike_total_label').text('Total Bike: ').append($('<p>').attr('id', 'available-bikes').text(stationData.total_bikes));
+    var mechanicalBikeLabel = $('<div>').addClass('rp_info_label').text('Mechanical Bikes: ').append($('<p>').attr('id', 'available_mechanical').text(stationData.mechanical_bikes));
+    var eBikeRemovableLabel = $('<div>').addClass('rp_info_label').text('E-Bike Removable Battery: ').append($('<p>').attr('id', 'available_e_removable').text(stationData.electrical_removable_battery_bikes));
+    var eBikeInternalLabel = $('<div>').addClass('rp_info_label').text('E-Bike Internal Battery: ').append($('<p>').attr('id', 'available_e_internal').text(stationData.electrical_internal_battery_bikes));
+    // Create time update element with a generic ID
+    var timeUpdateLabel = $('<div>').addClass('rp_info_label').text('Last Update: ').append($('<p>').attr('id', 'time-update').text(stationData.time_update));
+    // Create time update element with a specific ID for the "Return" section
+    var totalParkingLabel = $('<div>').addClass('rp_park_total_label').text('Total Parking: ').append($('<p>').attr('id', 'available-park').text(stationData.empty_stands_number));
+    var timeUpdateLabelReturn = $('<div>').addClass('rp_info_label').text('Last Update: ').append($('<p>').attr('id', 'time-update-return').text(stationData.time_update));
+
+    // Append the elements to the right panel container based on the section
+    if (isRent) {
+        rightPanelContainer.append(totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabel);
+    } else {
+        rightPanelContainer.append(totalParkingLabel, timeUpdateLabelReturn);
+    }
+    console.log('Station information appended to right panel container.');
 }
 // This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded
 // All JQuery event handler definitions should go in here

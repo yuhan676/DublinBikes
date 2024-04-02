@@ -1,5 +1,5 @@
 // Import the 'map' variable to 'index.js' to facilitate Marker activity
-import { map } from './map.js';
+// import { map } from './map.js';
 
 // Global variable to store the last search results
 var lastSearchJSON = {};

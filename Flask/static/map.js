@@ -16,19 +16,8 @@ async function addMarker(station, number) {
       position: position,
       title: number.toString()
      });
-    // Add the new marker to the global array
-    allMarkers.push(marker);
-    return marker; // Return the marker for manipulating marke's animation etc.
-
     // Assuming map is a global variable referencing the map instance
     map.panTo(position); // Optionally, center the map on the new marker
-}
-
-function clearMarkers() {
-    for (var i = 0; i < allMarkers.length; i++) {
-        allMarkers[i].setMap(null); // Removes the marker from the map
-    }
-    allMarkers = []; // Reset the array after clearing the markers
 }
 
 function updateMarkers() {

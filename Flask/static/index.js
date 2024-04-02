@@ -684,9 +684,6 @@ function selectionToggle(isRent) {
         console.error('One of the elements was not found in the DOM.');
     }
 }
-
-
-
 // Function to handle the selection of a station box
 function selectStation(index, isRent) {
     // The container ID will depend on whether isRent is true or false
@@ -702,6 +699,7 @@ function selectStation(index, isRent) {
     // Additional logic for when a station is selected
     console.log('Station selected:', index, 'Is Rent:', isRent);
 
+<<<<<<< HEAD
     // Stop any currently bouncing marker
     allMarkers.forEach(marker => {
     if (marker.getAnimation() !== null) {
@@ -715,21 +713,56 @@ function selectStation(index, isRent) {
     selectedMarker.setAnimation(google.maps.Animation.BOUNCE);
     }
 }
+=======
+    // Get the station name based on the index
+    var stationName = lastSearchJSON[index].name;
 
-// Given a station name, update the content on the right pane;
-function populateRightPanel(stationName){
-    $.ajax({
-        url: "get_rp_info", // The end point in flask
-        type: "GET",
-        dataType: 'json',
-        data: {
-            'stationName': stationName
-        },
-        success: function(return_data) {
-            // Success! return_data should contain the five station's newest status 
-            // Pass this into a function to display here
+    // Call the populateRightPanel function with the selected station name
+    populateRightPanel(stationName, isRent);
+}
+// 
+function populateRightPanel(stationName, isRent) {
+    // Find the station data based on the stationName
+    var stationData;
+    for (var i = 0; i < lastSearchJSON.length; i++) {
+        if (lastSearchJSON[i].name === stationName) {
+            stationData = lastSearchJSON[i];
+            break;
+>>>>>>> ef44eb877614f579d506564530da4267b600965d
         }
-    })
+    }
+    console.log('Station data found:', stationData);
+
+    var rightPanelContainer = $('#rp_content');
+    console.log('Right panel container:', rightPanelContainer);
+
+    // Clear previous content
+    rightPanelContainer.empty();
+    console.log('Previous content cleared.');
+
+    // Create elements to display station information
+    var stationName = $('<p>').attr('id', 'rp_station_name').text('Station Name: ' + stationData.name);
+    var totalBikeLabel = $('<div>').addClass('rp_bike_total_label').text('Total Bike: ').append($('<p>').attr('id', 'available-bikes').text(stationData.total_bikes));
+    var mechanicalBikeLabel = $('<div>').addClass('rp_info_label').text('Mechanical Bikes: ').append($('<p>').attr('id', 'available_mechanical').text(stationData.mechanical_bikes));
+    var eBikeRemovableLabel = $('<div>').addClass('rp_info_label').text('E-Bike Removable Battery: ').append($('<p>').attr('id', 'available_e_removable').text(stationData.electrical_removable_battery_bikes));
+    var eBikeInternalLabel = $('<div>').addClass('rp_info_label').text('E-Bike Internal Battery: ').append($('<p>').attr('id', 'available_e_internal').text(stationData.electrical_internal_battery_bikes));
+    var predictionPlaceholderRent = $('<div>').addClass('rp_prediction_rent').html('<p>Placeholder for bike availability prediction graph</p>');
+
+    // Create time update element with a generic ID
+    var timeUpdateLabel = $('<div>').addClass('rp_info_label').text('Last Update: ').append($('<p>').attr('id', 'time-update').text(stationData.time_update));
+    // Create time update element with a specific ID for the "Return" section
+    var totalParkingLabel = $('<div>').addClass('rp_park_total_label').text('Total Parking: ').append($('<p>').attr('id', 'available-park').text(stationData.empty_stands_number));
+    var timeUpdateLabelReturn = $('<div>').addClass('rp_info_label').text('Last Update: ').append($('<p>').attr('id', 'time-update-return').text(stationData.time_update));
+    var predictionPlaceholderReturn = $('<div>').addClass('rp_prediction_return').html('<p>Placeholder for park availability prediction graph</p>');
+
+    // Append the elements to the right panel container based on the section
+    if (isRent) {
+        rightPanelContainer.append(totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabel, predictionPlaceholderRent);
+    } else {
+        rightPanelContainer.append(totalParkingLabel, timeUpdateLabelReturn, predictionPlaceholderReturn);
+    }
+console.log('Station information appended to right panel container.');
+
 }
 // This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded
 // All JQuery event handler definitions should go in here

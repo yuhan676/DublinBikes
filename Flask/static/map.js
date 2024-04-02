@@ -22,11 +22,6 @@ async function addMarker(map, station, number) {
     map.panTo(position); // Optionally, center the map on the new marker
 }
 
-function updateMarkers() {
-    lastSearchJSON.forEach(item => {
-        addMarker(map, item.position, item.number)
-    })
-}
 // Function to clear all markers from the map
 function clearMarkers() {
     for (var i = 0; i < allMarkers.length; i++) {
@@ -40,6 +35,11 @@ function clearMarkers() {
     if (lastIndex >= 0) {
         lastSearchJSON.splice(lastIndex, 1);
     }
+}
+function updateMarkers() {
+    lastSearchJSON.forEach(item => {
+        addMarker(map, item.position, item.number)
+    })
 }
 function addMarkerToGlobalArray(marker) {
     // Add the new marker to the global array
@@ -64,4 +64,4 @@ function handleMarkerAnimations(index) {
 
 // Attach function to the window object
 window.updateMarkers = updateMarkers;
-window.clearMarkers();
+window.clearMarkers; 

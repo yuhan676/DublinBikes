@@ -414,6 +414,9 @@ function selectStation(index, isRent) {
     // update all markers
     updateMarkers(index);
 
+    // Call the populateRightPanel function with the selected station name
+    populateRightPanel(stationName, isRent);
+
 }
 // Given a station name, update the content on the right pane;
 function populateRightPanel(stationName, isRent) {

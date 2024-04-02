@@ -412,7 +412,7 @@ function selectStation(index, isRent) {
     var stationName = lastSearchJSON[index].name;
 
     // update all markers
-    updateMarkers();
+    updateMarkers(index);
 
 }
 // Given a station name, update the content on the right pane;

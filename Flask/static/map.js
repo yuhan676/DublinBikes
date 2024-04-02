@@ -8,3 +8,22 @@ async function initMap() {
         mapId: "d002b4f3df859edb",
     });
 }
+async function addMarker(map, station, number) {
+    const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+    var position = new google.maps.LatLng(station.lat, station.lng);
+    const marker = new AdvancedMarkerElement({
+      map,
+      position: position,
+      title: number.toString()
+     });
+    map.panTo(position); // Optionally, center the map on the new marker
+}
+
+function updateMarkers() {
+    lastSearchJSON.forEach(item => {
+        addMarker(map, item.position, item.number)
+    })
+}
+// Attach functions to the window object
+window.addMarker = addMarker;
+window.updateMarkers = updateMarkers;

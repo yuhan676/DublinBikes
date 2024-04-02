@@ -39,6 +39,14 @@ function clearMarkers() {
     console.log('Markers cleared');
 }
 
+function staggeredAddMarkers() {
+    lastSearchJSON.forEach((item, index) => {
+        setTimeout(() => {
+            addMarker(map, item.position, item.number);
+        }, index * 200); // Adjust the delay as needed
+    });
+}
+
 function updateMarkers() {
     // CLear existing markers before addig new ones.
     clearMarkers();

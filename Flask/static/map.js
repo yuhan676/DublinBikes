@@ -29,34 +29,22 @@ async function addMarker(map, station, number) {
     console.log('Marker added:', marker);
 }
 
-// Function to clear all markers from the map
 function clearMarkers() {
     for (var i = 0; i < allMarkers.length; i++) {
         allMarkers[i].setMap(null); // Removes the marker from the map
     }
     allMarkers = []; // Reset the array after clearing the markers
 
-    // Access the last index of lastSearchJSON
-    var lastIndex = lastSearchJSON.length - 1;
-    // If lastSearchJSON is not empty, remove the last item
-    if (lastIndex >= 0) {
-        lastSearchJSON.splice(lastIndex, 1);
-    }
-
     // Log that markers have been cleared
     console.log('Markers cleared');
 }
 
 function updateMarkers() {
-    // Clear existing markers before adding new ones
-    // clearMarkers();
-
     // Add markers for the new search result
     lastSearchJSON.forEach(item => {
         addMarker(map, item.position, item.number)
     })
 }
-
 function addMarkerToGlobalArray(marker) {
     // Add the new marker to the global array
     allMarkers.push(marker);

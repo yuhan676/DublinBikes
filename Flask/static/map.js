@@ -38,6 +38,27 @@ function clearMarkers() {
         lastSearchJSON.splice(lastIndex, 1);
     }
 }
+function addMarkerToGlobalArray(marker) {
+    // Add the new marker to the global array
+    allMarkers.push(marker);
+    // Return the marker for further manipulation
+    return marker;
+}
+function handleMarkerAnimations(index) {
+    // Stop any currently bouncing marker
+    allMarkers.forEach(marker => {
+        if (marker.getAnimation() !== null) {
+            marker.setAnimation(null);
+        }
+    });
+
+    // Start bounce animation for the selected station's marker
+    const selectedMarker = allMarkers[index];
+    if (selectedMarker) {
+        selectedMarker.setAnimation(google.maps.Animation.BOUNCE);
+    }
+}
+
 // Attach function to the window object
 window.updateMarkers = updateMarkers;
 window.clearMarkers();

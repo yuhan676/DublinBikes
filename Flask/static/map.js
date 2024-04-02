@@ -66,7 +66,17 @@ function handleMarkerAnimations(index) {
         selectedMarker.setAnimation(google.maps.Animation.BOUNCE);
     }
 }
-
+// Function to create a custom marker icon with a specified color
+function createMarkerIcon(color) {
+    return {
+        path: google.maps.SymbolPath.CIRCLE,
+        fillColor: color,
+        fillOpacity: 1,
+        strokeColor: '#000',
+        strokeWeight: 2,
+        scale: 8 // Adjust the size of the marker
+    };
+}
 // Attach function to the window object
 window.updateMarkers = updateMarkers;
 window.clearMarkers = clearMarkers; 

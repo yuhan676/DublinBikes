@@ -409,7 +409,7 @@ function selectStation(index, isRent) {
     var stationName = lastSearchJSON[index].name;
 
     // Add marker for selected station
-    addMarker(map, lastSearchJson[index].position, index);
+    //addMarker(map, lastSearchJson[index].position, index);
 
     // update all markers
     updateMarkers();

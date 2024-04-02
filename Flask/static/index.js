@@ -415,10 +415,10 @@ function selectStation(index, isRent) {
     populateRightPanel(stationName, isRent);
 
     // Add marker for selected station
-    addMarker(map, lastSearchJson[index].position, index);
+    // addMarker(map, lastSearchJson[index].position, index);
 
     // update all markers
-    updateMarkers();
+    // updateMarkers();
 }
 // Given a station name, update the content on the right pane;
 function populateRightPanel(stationName, isRent) {

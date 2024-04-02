@@ -420,6 +420,8 @@ function selectStation(index, isRent) {
 }
 // Given a station name, update the content on the right pane;
 function populateRightPanel(stationName, isRent) {
+    // Update the station name element with the new station name
+    $('#rp_station_name').text('Station Name: ' + stationName);
     // Find the station data based on the stationName
     var stationData;
     for (var i = 0; i < lastSearchJSON.length; i++) {
@@ -438,7 +440,6 @@ function populateRightPanel(stationName, isRent) {
     console.log('Previous content cleared.');
 
     // Create elements to display station information
-    var stationName = $('<p>').attr('id', 'rp_station_name').text('Station Name: ' + stationData.name);
     var totalBikeLabel = $('<div>').addClass('rp_bike_total_label').text('Total Bike: ').append($('<p>').attr('id', 'available-bikes').text(stationData.total_bikes));
     var mechanicalBikeLabel = $('<div>').addClass('rp_info_label').text('Mechanical Bikes: ').append($('<p>').attr('id', 'available_mechanical').text(stationData.mechanical_bikes));
     var eBikeRemovableLabel = $('<div>').addClass('rp_info_label').text('E-Bike Removable Battery: ').append($('<p>').attr('id', 'available_e_removable').text(stationData.electrical_removable_battery_bikes));

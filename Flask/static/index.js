@@ -408,11 +408,11 @@ function selectStation(index, isRent) {
     // Get the station name based on the index
     var stationName = lastSearchJSON[index].name;
 
-    // Add marker for selected station
-    //addMarker(map, lastSearchJson[index].position, index);
-
     // update all markers
     updateMarkers();
+
+    // Clear marker when search is clicked again
+    clearMarkers();
 }
 // Given a station name, update the content on the right pane;
 function populateRightPanel(stationName, isRent) {
@@ -581,6 +581,7 @@ function openTab(evt, tabName) {
         
     // Adjust the weather panel position
     adjustWeatherPanelPosition();
+
 }
 // Function to handle clicking on the tabs
 function weatherOpenTab(evt, tabContentId) {
@@ -643,7 +644,7 @@ function fetchCurrentWeatherData() {
 
             // Update HTML content with fetched weather data
             $('#weather-current-content').html(
-                "<img src='static/image/weather.png' alt='TEST'>" +
+                // "<img src='static/image/weather.png' alt='TEST'>" +
                 "<p style='margin-bottom: 5px;'><span style='font-size: 1.1em;'>Feels Like:</span> " + feelsLike + " °C</p>" +
                 "<p style='margin-bottom: 5px;'><span style='font-size: 1.1em;'>Min Temperature:</span> " + tempMin + " °C</p>" +
                 "<p style='margin-bottom: 5px;'><span style='font-size: 1.1em;'>Max Temperature:</span> " + tempMax + " °C</p>" +

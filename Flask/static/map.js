@@ -24,6 +24,20 @@ function updateMarkers() {
         addMarker(map, item.position, item.number)
     })
 }
-// Attach functions to the window object
-window.addMarker = addMarker;
+// Function to clear all markers from the map
+function clearMarkers() {
+    for (var i = 0; i < allMarkers.length; i++) {
+        allMarkers[i].setMap(null); // Removes the marker from the map
+    }
+    allMarkers = []; // Reset the array after clearing the markers
+
+    // Access the last index of lastSearchJSON
+    var lastIndex = lastSearchJSON.length - 1;
+    // If lastSearchJSON is not empty, remove the last item
+    if (lastIndex >= 0) {
+        lastSearchJSON.splice(lastIndex, 1);
+    }
+}
+// Attach function to the window object
 window.updateMarkers = updateMarkers;
+window.clearMarkers();

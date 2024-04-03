@@ -447,19 +447,14 @@ function populateRightPanel(stationName, isRent) {
     // Create time update element with a generic ID
     var timeUpdateLabel = $('<div>').addClass('rp_info_label').text('Last Update: ').append($('<p>').attr('id', 'time-update').text(stationData.time_update));
     // Create time update element with a generic ID
-    // Format time update as a timestamp
-    var timeUpdateDate = new Date(stationData.time_update); // Convert time_update to a Date object
-    var dayOfWeek = timeUpdateDate.toLocaleDateString(undefined, { weekday: 'long' }); // Get full name of the day of the week
-    var month = timeUpdateDate.toLocaleDateString(undefined, { month: 'long' }); // Get full name of the month
-    var day = timeUpdateDate.toLocaleDateString(undefined, { day: 'numeric' }); // Get the day of the month
-    var timezone = timeUpdateDate.toLocaleTimeString(undefined, { timeZone: 'Europe/Dublin', hour: '2-digit', minute: '2-digit', hour12: true }); // Get time in the specified timezone
 
-    // Concatenate the formatted parts to create the timestamp string
-    var timestamp = dayOfWeek + ", " + month + "  " + day + ", " + timezone;
+    // Format time update as a timestamp for the main section
+    var timeUpdateDate = new Date(stationData.last_update); // Convert last_update to a Date object
+    var timestamp = timeUpdateDate.toLocaleString(); // Convert date object to a localized string representation
 
-    // Set the formatted timestamp as the text content of the timeUpdateLabel
+    // Set the formatted timestamp as the text content of the timeUpdateLabel for the main section
     $('#time-update').text(timestamp);
-
+  
     // Create time update element with a specific ID for the "Return" section
     var totalParkingLabel = $('<div>').addClass('rp_park_total_label').text('Total Parking: ').append($('<p>').attr('id', 'available-park').text(stationData.empty_stands_number));
     var timeUpdateLabelReturn = $('<div>').addClass('rp_info_label').text('Last Update: ').append($('<p>').attr('id', 'time-update-return').text(stationData.time_update));    var predictionPlaceholderReturn = $('<div>').addClass('rp_prediction_return').html('<p>Placeholder for park availability prediction graph</p>');

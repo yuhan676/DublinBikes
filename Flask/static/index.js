@@ -477,9 +477,9 @@ function populateRightPanel(stationName, isRent) {
 
     // Add the appropriate HTML element for station status
     if (isOpen) {
-        rightPanelContainer.append(stationElementName, totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabel, predictionPlaceholderRent, $('<div>').addClass('rp_station_open').text('Open'));
+        rightPanelContainer.append(stationElementName, totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabel, predictionPlaceholderRent,);
     } else {
-        rightPanelContainer.append(stationElementName, totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabel, predictionPlaceholderRent, $('<div>').addClass('rp_station_close').text('Closed'));
+        rightPanelContainer.append(stationElementName, totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabel, predictionPlaceholderRent,);
     }
 
     console.log('Station information appended to right panel container.');

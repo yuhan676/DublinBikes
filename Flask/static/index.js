@@ -451,6 +451,8 @@ function populateRightPanel(stationName, isRent) {
     // Create elements to display station information
     // var openStation = $('div').addClass('rp_station_open').text('' + stationData.status);
     // var closedStation = $('div').addClass('rp_station_close').text('' + stationData.status);
+    // <div class="live_label">Live</div>, find out what that denotes
+    // <div class="predicted_label">Predicted</div>, find out what that is
     var stationElementName = $('<div>').addClass('rp_station_name').text('Station Name: ' + stationData.name);
     var totalBikeLabel = $('<div>').addClass('rp_bike_total_label').text('Total Bike: ').append($('<p>').attr('id', 'available-bikes').text(stationData.total_bikes));
     var mechanicalBikeLabel = $('<div>').addClass('rp_info_label').text('Mechanical Bikes: ').append($('<p>').attr('id', 'available_mechanical').text(stationData.mechanical_bikes));
@@ -461,40 +463,27 @@ function populateRightPanel(stationName, isRent) {
     // Create time update element with a generic ID
     var timeUpdateLabel = $('<div>').addClass('rp_info_label').text('Last Update: ');
 
-    // Parse the timestamp string into a Date object
-    var timeUpdateDate = new Date(stationData.time_update);
+    // Format time update as a timestamp for the main section
+    var timeUpdateDate = new Date(stationData.time_update); // Convert time_update to a Date object
+    var timestamp = timeUpdateDate.toLocaleString(); // Convert date object to a localized string representation
 
-    // Format the date and time components
-    var options = {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-        second: 'numeric',
-        timeZoneName: 'short'
-    };
-
-    // Convert the Date object to a localized string representation
-    var timestamp = timeUpdateDate.toLocaleString(undefined, options);
-
-    // Create a paragraph element to hold the formatted timestamp
+    // Set the formatted timestamp as the text content of the timeUpdateLabel for the main section
     var timeUpdateParagraph = $('<p>').attr('id', 'time-update').text(timestamp);
-
-    // Append the formatted timestamp to the timeUpdateLabel
     timeUpdateLabel.append(timeUpdateParagraph);
 
-    // Append the elements to the right panel container based on the section
-    if (isRent) {
-        rightPanelContainer.append(stationElementName, totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabel, predictionPlaceholderRent);
+    // Check if the station is open or closed based on the time of the last update
+    var hour = timeUpdateDate.getHours();
+    var isOpen = hour >= 9 && hour < 17; // Assuming the station is open from 9 AM to 5 PM
+
+    // Add the appropriate HTML element for station status
+    if (isOpen) {
+        rightPanelContainer.append(stationElementName, totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabel, predictionPlaceholderRent, $('<div>').addClass('rp_station_open').text('Open'));
     } else {
-        var totalParkingLabel = $('<div>').addClass('rp_park_total_label').text('Total Parking: ').append($('<p>').attr('id', 'available-park').text(stationData.empty_stands_number));
-        rightPanelContainer.append(stationElementName, totalParkingLabel, timeUpdateLabel, predictionPlaceholderRent);
+        rightPanelContainer.append(stationElementName, totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabel, predictionPlaceholderRent, $('<div>').addClass('rp_station_close').text('Closed'));
     }
+
     console.log('Station information appended to right panel container.');
 }
-
 
 
 // This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded

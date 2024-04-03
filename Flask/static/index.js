@@ -433,7 +433,7 @@ function populateRightPanel(stationName, isRent) {
     // console.log('Station data found:', stationData);
 
     // Create elements to display station information
-    var stationName = $('<div>').addClass('rp_station_name').text('Station Name: ' + stationName);
+    var stationNameElement = $('<div>').addClass('rp_station_name').text('Station Name: ' + stationName);
     var totalBikeLabel = $('<div>').addClass('rp_bike_total_label').text('Total Bike: ').append($('<p>').attr('id', 'available-bikes').text(stationData.total_bikes));
     var mechanicalBikeLabel = $('<div>').addClass('rp_info_label').text('Mechanical Bikes: ').append($('<p>').attr('id', 'available_mechanical').text(stationData.mechanical_bikes));
     var eBikeRemovableLabel = $('<div>').addClass('rp_info_label').text('E-Bike Removable Battery: ').append($('<p>').attr('id', 'available_e_removable').text(stationData.electrical_removable_battery_bikes));
@@ -448,9 +448,9 @@ function populateRightPanel(stationName, isRent) {
     
     // Append the elements to the right panel container based on the section
     if (isRent) {
-        rightPanel.find('#rp_content').append(stationName, totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabel, predictionPlaceholderRent);
+        rightPanel.find('#rp_content').append(stationNameElement, totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabel, predictionPlaceholderRent);
     } else {
-        rightPanel.find('#rp_content').append(stationName, totalParkingLabel, timeUpdateLabelReturn, predictionPlaceholderReturn);
+        rightPanel.find('#rp_content').append(stationNameElement, totalParkingLabel, timeUpdateLabelReturn, predictionPlaceholderReturn);
     }
     console.log('Station information appended to right panel container.');
 }

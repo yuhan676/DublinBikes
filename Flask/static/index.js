@@ -431,11 +431,9 @@ function populateRightPanel(stationName, isRent) {
     console.log('Station data found:', stationData);
 
     var rightPanelContainer = $('#rp_content');
-    console.log('Right panel container:', rightPanelContainer);
+    rightPanelContainer.addClass('right-panel');
 
-    // Clear previous content
-    rightPanelContainer.empty();
-    console.log('Previous content cleared.');
+    // console.log('Right panel container:', rightPanelContainer);
 
     // Create elements to display station information
     var stationName = $('<div>').addClass('rp_station_name').text('Station Name: ' + stationData.name);

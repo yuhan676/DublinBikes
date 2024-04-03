@@ -431,13 +431,11 @@ function populateRightPanel(stationName, isRent) {
     console.log('Station data found:', stationData);
 
     var rightPanelContainer = $('#rp_content');
-    rightPanelContainer.addClass('right-panel');
 
     // console.log('Right panel container:', rightPanelContainer);
 
     // Create elements to display station information
     var stationName = $('<div>').addClass('rp_station_name').text('Station Name: ' + stationData.name);
-    var totalBikeLabel = $('<div>').addClass('rp_bike_total_label').text('Total Bikes: ').append($('<p>').attr('id', 'available-bikes').text(stationData.total_bikes));
     var mechanicalBikeLabel = $('<div>').addClass('rp_info_label').text('Mechanical Bikes: ').append($('<p>').attr('id', 'available_mechanical').text(stationData.mechanical_bikes));
     var eBikeRemovableLabel = $('<div>').addClass('rp_info_label').text('E-Bike Removable Battery: ').append($('<p>').attr('id', 'available_e_removable').text(stationData.electrical_removable_battery_bikes));
     var eBikeInternalLabel = $('<div>').addClass('rp_info_label').text('E-Bike Internal Battery: ').append($('<p>').attr('id', 'available_e_internal').text(stationData.electrical_internal_battery_bikes));

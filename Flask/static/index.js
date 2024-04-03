@@ -471,10 +471,6 @@ function populateRightPanel(stationName, isRent) {
     var timeUpdateParagraph = $('<p>').attr('id', 'time-update').text(timestamp);
     timeUpdateLabel.append(timeUpdateParagraph);
 
-    // Check if the station is open or closed based on the time of the last update
-    var hour = timeUpdateDate.getHours();
-    var isOpen = hour >= 9 && hour < 17; // Assuming the station is open from 9 AM to 5 PM
-
     // Add the appropriate HTML element for station status
     if (isOpen) {
         rightPanelContainer.append(stationElementName, totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabel, predictionPlaceholderRent,);

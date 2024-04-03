@@ -1,0 +1,800 @@
+{
+    "CLARENDON ROW": [
+        1,
+        51,
+        52,
+        9,
+        27
+    ],
+    "BLESSINGTON STREET": [
+        2,
+        102,
+        79,
+        15,
+        12
+    ],
+    "BOLTON STREET": [
+        3,
+        101,
+        77,
+        31,
+        40
+    ],
+    "GREEK STREET": [
+        4,
+        29,
+        35,
+        101,
+        7
+    ],
+    "CHARLEMONT PLACE": [
+        5,
+        41,
+        34,
+        55,
+        11
+    ],
+    "CHRISTCHURCH PLACE": [
+        6,
+        10,
+        17,
+        7,
+        29
+    ],
+    "HIGH STREET": [
+        7,
+        72,
+        73,
+        6,
+        74
+    ],
+    "CUSTOM HOUSE QUAY": [
+        8,
+        99,
+        48,
+        16,
+        64
+    ],
+    "EXCHEQUER STREET": [
+        9,
+        14,
+        10,
+        1,
+        17
+    ],
+    "DAME STREET": [
+        10,
+        6,
+        14,
+        9,
+        29
+    ],
+    "EARLSFORT TERRACE": [
+        11,
+        55,
+        41,
+        53,
+        54
+    ],
+    "ECCLES STREET": [
+        12,
+        2,
+        79,
+        78,
+        110
+    ],
+    "FITZWILLIAM SQUARE WEST": [
+        13,
+        89,
+        36,
+        20,
+        113
+    ],
+    "FOWNES STREET UPPER": [
+        14,
+        9,
+        10,
+        29,
+        1
+    ],
+    "HARDWICKE STREET": [
+        15,
+        61,
+        30,
+        59,
+        2
+    ],
+    "GEORGES QUAY": [
+        16,
+        23,
+        22,
+        8,
+        32
+    ],
+    "GOLDEN LANE": [
+        17,
+        51,
+        6,
+        71,
+        1
+    ],
+    "GRANTHAM STREET": [
+        18,
+        54,
+        55,
+        34,
+        71
+    ],
+    "HERBERT PLACE": [
+        19,
+        47,
+        114,
+        20,
+        89
+    ],
+    "JAMES STREET EAST": [
+        20,
+        47,
+        113,
+        89,
+        19
+    ],
+    "LEINSTER STREET SOUTH": [
+        21,
+        98,
+        27,
+        26,
+        32
+    ],
+    "TOWNSEND STREET": [
+        22,
+        16,
+        23,
+        32,
+        21
+    ],
+    "CUSTOM HOUSE": [
+        23,
+        16,
+        22,
+        38,
+        45
+    ],
+    "CATHAL BRUGHA STREET": [
+        24,
+        31,
+        33,
+        45,
+        30
+    ],
+    "MERRION SQUARE EAST": [
+        25,
+        113,
+        57,
+        63,
+        20
+    ],
+    "MERRION SQUARE WEST": [
+        26,
+        113,
+        21,
+        36,
+        25
+    ],
+    "MOLESWORTH STREET": [
+        27,
+        98,
+        21,
+        1,
+        52
+    ],
+    "MOUNTJOY SQUARE WEST": [
+        28,
+        111,
+        59,
+        44,
+        61
+    ],
+    "ORMOND QUAY UPPER": [
+        29,
+        10,
+        40,
+        77,
+        6
+    ],
+    "PARNELL SQUARE NORTH": [
+        30,
+        15,
+        102,
+        31,
+        59
+    ],
+    "PARNELL STREET": [
+        31,
+        77,
+        40,
+        30,
+        3
+    ],
+    "PEARSE STREET": [
+        32,
+        64,
+        22,
+        21,
+        16
+    ],
+    "PRINCES STREET / O'CONNELL STREET": [
+        33,
+        24,
+        23,
+        31,
+        40
+    ],
+    "PORTOBELLO HARBOUR": [
+        34,
+        43,
+        5,
+        18,
+        55
+    ],
+    "SMITHFIELD": [
+        35,
+        42,
+        88,
+        50,
+        4
+    ],
+    "ST. STEPHEN'S GREEN EAST": [
+        36,
+        13,
+        53,
+        26,
+        37
+    ],
+    "ST. STEPHEN'S GREEN SOUTH": [
+        37,
+        53,
+        52,
+        54,
+        51
+    ],
+    "TALBOT STREET": [
+        38,
+        45,
+        23,
+        109,
+        16
+    ],
+    "WILTON TERRACE": [
+        39,
+        114,
+        89,
+        41,
+        13
+    ],
+    "JERVIS STREET": [
+        40,
+        77,
+        29,
+        31,
+        3
+    ],
+    "HARCOURT TERRACE": [
+        41,
+        11,
+        55,
+        5,
+        39
+    ],
+    "SMITHFIELD NORTH": [
+        42,
+        50,
+        35,
+        88,
+        101
+    ],
+    "PORTOBELLO ROAD": [
+        43,
+        34,
+        18,
+        5,
+        55
+    ],
+    "UPPER SHERRARD STREET": [
+        44,
+        60,
+        61,
+        28,
+        59
+    ],
+    "DEVERELL PLACE": [
+        45,
+        38,
+        23,
+        24,
+        33
+    ],
+    "HERBERT STREET": [
+        47,
+        19,
+        20,
+        114,
+        56
+    ],
+    "EXCISE WALK": [
+        48,
+        99,
+        62,
+        49,
+        8
+    ],
+    "GUILD STREET": [
+        49,
+        65,
+        48,
+        62,
+        99
+    ],
+    "GEORGES LANE": [
+        50,
+        42,
+        88,
+        35,
+        101
+    ],
+    "YORK STREET WEST": [
+        51,
+        52,
+        1,
+        17,
+        71
+    ],
+    "YORK STREET EAST": [
+        52,
+        37,
+        51,
+        53,
+        1
+    ],
+    "NEWMAN HOUSE": [
+        53,
+        37,
+        54,
+        52,
+        36
+    ],
+    "CLONMEL STREET": [
+        54,
+        37,
+        53,
+        18,
+        55
+    ],
+    "HATCH STREET": [
+        55,
+        11,
+        41,
+        54,
+        18
+    ],
+    "MOUNT STREET LOWER": [
+        56,
+        58,
+        57,
+        47,
+        25
+    ],
+    "GRATTAN STREET": [
+        57,
+        25,
+        58,
+        56,
+        63
+    ],
+    "SIR PATRICK DUN'S": [
+        58,
+        56,
+        57,
+        25,
+        69
+    ],
+    "DENMARK STREET GREAT": [
+        59,
+        61,
+        15,
+        28,
+        44
+    ],
+    "NORTH CIRCULAR ROAD": [
+        60,
+        44,
+        78,
+        61,
+        79
+    ],
+    "HARDWICKE PLACE": [
+        61,
+        15,
+        79,
+        59,
+        44
+    ],
+    "LIME STREET": [
+        62,
+        99,
+        48,
+        64,
+        49
+    ],
+    "FENIAN STREET": [
+        63,
+        25,
+        57,
+        113,
+        26
+    ],
+    "SANDWITH STREET": [
+        64,
+        99,
+        32,
+        62,
+        8
+    ],
+    "CONVENTION CENTRE": [
+        65,
+        49,
+        66,
+        62,
+        68
+    ],
+    "NEW CENTRAL BANK": [
+        66,
+        65,
+        67,
+        90,
+        68
+    ],
+    "THE POINT": [
+        67,
+        66,
+        90,
+        117,
+        65
+    ],
+    "HANOVER QUAY": [
+        68,
+        69,
+        90,
+        117,
+        66
+    ],
+    "GRAND CANAL DOCK": [
+        69,
+        68,
+        90,
+        58,
+        117
+    ],
+    "KEVIN STREET": [
+        71,
+        51,
+        17,
+        54,
+        37
+    ],
+    "JOHN STREET WEST": [
+        72,
+        7,
+        73,
+        74,
+        6
+    ],
+    "FRANCIS STREET": [
+        73,
+        7,
+        72,
+        6,
+        74
+    ],
+    "OLIVER BOND STREET": [
+        74,
+        72,
+        7,
+        73,
+        35
+    ],
+    "JAMES STREET": [
+        75,
+        76,
+        80,
+        74,
+        87
+    ],
+    "MARKET STREET SOUTH": [
+        76,
+        75,
+        80,
+        74,
+        87
+    ],
+    "WOLFE TONE STREET": [
+        77,
+        40,
+        31,
+        3,
+        29
+    ],
+    "MATER HOSPITAL": [
+        78,
+        79,
+        60,
+        44,
+        12
+    ],
+    "ECCLES STREET EAST": [
+        79,
+        61,
+        78,
+        2,
+        15
+    ],
+    "ST JAMES HOSPITAL (LUAS)": [
+        80,
+        82,
+        76,
+        95,
+        75
+    ],
+    "MOUNT BROWN": [
+        82,
+        95,
+        80,
+        84,
+        96
+    ],
+    "EMMET ROAD": [
+        83,
+        97,
+        96,
+        85,
+        84
+    ],
+    "BROOKFIELD ROAD": [
+        84,
+        85,
+        82,
+        96,
+        80
+    ],
+    "ROTHE ABBEY": [
+        85,
+        84,
+        96,
+        83,
+        97
+    ],
+    "PARKGATE STREET": [
+        86,
+        92,
+        100,
+        93,
+        94
+    ],
+    "COLLINS BARRACKS MUSEUM": [
+        87,
+        88,
+        86,
+        100,
+        35
+    ],
+    "BLACKHALL PLACE": [
+        88,
+        50,
+        42,
+        35,
+        87
+    ],
+    "FITZWILLIAM SQUARE EAST": [
+        89,
+        13,
+        20,
+        114,
+        39
+    ],
+    "BENSON STREET": [
+        90,
+        117,
+        68,
+        91,
+        66
+    ],
+    "SOUTH DOCK ROAD": [
+        91,
+        117,
+        90,
+        68,
+        69
+    ],
+    "HEUSTON BRIDGE (NORTH)": [
+        92,
+        86,
+        100,
+        93,
+        94
+    ],
+    "HEUSTON STATION (CENTRAL)": [
+        93,
+        94,
+        95,
+        92,
+        100
+    ],
+    "HEUSTON STATION (CAR PARK)": [
+        94,
+        93,
+        95,
+        92,
+        100
+    ],
+    "ROYAL HOSPITAL": [
+        95,
+        82,
+        93,
+        94,
+        80
+    ],
+    "KILMAINHAM LANE": [
+        96,
+        83,
+        97,
+        85,
+        84
+    ],
+    "KILMAINHAM GAOL": [
+        97,
+        83,
+        96,
+        85,
+        84
+    ],
+    "FREDERICK STREET SOUTH": [
+        98,
+        27,
+        21,
+        26,
+        1
+    ],
+    "CITY QUAY": [
+        99,
+        64,
+        48,
+        62,
+        8
+    ],
+    "HEUSTON BRIDGE (SOUTH)": [
+        100,
+        92,
+        86,
+        93,
+        94
+    ],
+    "KING STREET NORTH": [
+        101,
+        3,
+        42,
+        4,
+        50
+    ],
+    "WESTERN WAY": [
+        102,
+        116,
+        2,
+        30,
+        110
+    ],
+    "GRANGEGORMAN LOWER (SOUTH)": [
+        103,
+        104,
+        105,
+        110,
+        116
+    ],
+    "GRANGEGORMAN LOWER (CENTRAL)": [
+        104,
+        103,
+        105,
+        110,
+        116
+    ],
+    "GRANGEGORMAN LOWER (NORTH)": [
+        105,
+        104,
+        103,
+        110,
+        106
+    ],
+    "RATHDOWN ROAD": [
+        106,
+        107,
+        108,
+        105,
+        104
+    ],
+    "CHARLEVILLE ROAD": [
+        107,
+        106,
+        108,
+        105,
+        104
+    ],
+    "AVONDALE ROAD": [
+        108,
+        106,
+        110,
+        107,
+        105
+    ],
+    "BUCKINGHAM STREET LOWER": [
+        109,
+        115,
+        38,
+        45,
+        112
+    ],
+    "PHIBSBOROUGH ROAD": [
+        110,
+        116,
+        105,
+        102,
+        104
+    ],
+    "MOUNTJOY SQUARE EAST": [
+        111,
+        28,
+        112,
+        44,
+        59
+    ],
+    "NORTH CIRCULAR ROAD (O'CONNELL'S)": [
+        112,
+        111,
+        115,
+        28,
+        109
+    ],
+    "MERRION SQUARE SOUTH": [
+        113,
+        25,
+        20,
+        26,
+        63
+    ],
+    "WILTON TERRACE (PARK)": [
+        114,
+        19,
+        89,
+        47,
+        39
+    ],
+    "KILLARNEY STREET": [
+        115,
+        109,
+        112,
+        38,
+        111
+    ],
+    "BROADSTONE": [
+        116,
+        102,
+        110,
+        2,
+        104
+    ],
+    "HANOVER QUAY EAST": [
+        117,
+        90,
+        91,
+        67,
+        68
+    ]
+}

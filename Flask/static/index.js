@@ -438,6 +438,16 @@ function populateRightPanel(stationName, isRent) {
     rightPanelContainer.empty();
     console.log('Previous content cleared.');
 
+    // Parse the timestamp string into a Date object
+    var timeUpdateDate;
+    try {
+        // Data.time_update is in the format "YYYY-MM-DDTHH:MM:SS.000000Z"
+        timeUpdateDate = new Date(stationData.time_update);
+    } catch (error) {
+        console.error('Error parsing time update:', error);
+        return;
+    }
+
     // Create elements to display station information
     var stationElementName = $('<div>').addClass('rp_station_name').text('Station Name: ' + stationData.name);
     var totalBikeLabel = $('<div>').addClass('rp_bike_total_label').text('Total Bike: ').append($('<p>').attr('id', 'available-bikes').text(stationData.total_bikes));

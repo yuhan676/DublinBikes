@@ -415,10 +415,9 @@ function selectStation(index, isRent) {
     updateMarkers(index);
 
     // Call the populateRightPanel function with the selected station name
-    //populateRightPanel(stationName, isRent);
+    populateRightPanel(stationName, isRent);
 
 }
-/*
 // Given a station name, update the content on the right pane;
 function populateRightPanel(stationName, isRent) {
     // Find the station data based on the stationName
@@ -453,13 +452,12 @@ function populateRightPanel(stationName, isRent) {
     
     // Append the elements to the right panel container based on the section
     if (isRent) {
-        rightPanelContainer.append(stationName, totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabel, predictionPlaceholderRent);
+        rightPanelContainer.append(totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabel, predictionPlaceholderRent);
     } else {
-        rightPanelContainer.append(stationName, totalParkingLabel, timeUpdateLabelReturn, predictionPlaceholderReturn);
+        rightPanelContainer.append(totalParkingLabel, timeUpdateLabelReturn, predictionPlaceholderReturn);
     }
     console.log('Station information appended to right panel container.');
 }
-*/
 // This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded
 // All JQuery event handler definitions should go in here
 $(document).ready(function() {

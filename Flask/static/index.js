@@ -452,9 +452,9 @@ function populateRightPanel(stationName, isRent) {
     
     // Append the elements to the right panel container based on the section
     if (isRent) {
-        rightPanelContainer.append(totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabel, predictionPlaceholderRent);
+        rightPanelContainer.append(stationName, totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabel, predictionPlaceholderRent);
     } else {
-        rightPanelContainer.append(totalParkingLabel, timeUpdateLabelReturn, predictionPlaceholderReturn);
+        rightPanelContainer.append(stationName, totalParkingLabel, timeUpdateLabelReturn, predictionPlaceholderReturn);
     }
     console.log('Station information appended to right panel container.');
 }

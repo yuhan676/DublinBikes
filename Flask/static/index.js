@@ -457,8 +457,8 @@ function populateRightPanel(stationName, isRent) {
     // Concatenate the formatted parts to create the timestamp string
     var timestamp = dayOfWeek + ", " + month + "  " + day + ", " + timezone;
 
-// Set the formatted timestamp as the text content of the timeUpdateLabel
-$('#time-update').text(timestamp);
+    // Set the formatted timestamp as the text content of the timeUpdateLabel
+    $('#time-update').text(timestamp);
 
     // Create time update element with a specific ID for the "Return" section
     var totalParkingLabel = $('<div>').addClass('rp_park_total_label').text('Total Parking: ').append($('<p>').attr('id', 'available-park').text(stationData.empty_stands_number));

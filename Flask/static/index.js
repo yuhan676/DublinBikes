@@ -451,6 +451,12 @@ function populateRightPanel(stationName, isRent) {
     // Parse the timestamp string into a Date object
     var timeUpdateDate = new Date(stationData.time_update);
 
+    // Check if the parsed date is valid
+    if (isNaN(timeUpdateDate.getTime())) {
+        console.error('Invalid date format:', stationData.time_update);
+        return;
+    }
+
     // Format the date and time components
     var options = {
         weekday: 'long',

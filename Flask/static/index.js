@@ -418,6 +418,7 @@ function selectStation(index, isRent) {
     populateRightPanel(stationName, isRent);
 
 }
+
 // Given a station name, update the content on the right pane;
 function populateRightPanel(stationName, isRent) {
     // Find the station data based on the stationName
@@ -449,19 +450,7 @@ function populateRightPanel(stationName, isRent) {
     var timeUpdateLabel = $('<div>').addClass('rp_info_label').text('Last Update: ');
 
     // Parse the timestamp string into a Date object
-    var timeUpdateDate;
-    try {
-        timeUpdateDate = new Date(stationData.time_update);
-    } catch (error) {
-        console.error('Error parsing time update:', error);
-        return;
-    }
-
-    // Check if the parsed date is valid
-    if (isNaN(timeUpdateDate.getTime())) {
-        console.error('Invalid date format:', stationData.time_update);
-        return;
-    }
+    var timeUpdateDate = new Date(stationData.time_update);
 
     // Format the date and time components
     var options = {

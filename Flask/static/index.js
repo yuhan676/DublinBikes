@@ -454,14 +454,14 @@ function populateRightPanel(stationName, isRent) {
     // <div class="live_label">Live</div>, find out what that denotes
     // <div class="predicted_label">Predicted</div>, find out what that is
     var stationElementName = $('<div>').addClass('rp_station_name').text('Station Name: ' + stationData.name);
-    var totalBikeLabel = $('<div>').addClass('rp_bike_total_label').text('Total Bikes: ').append($('<p>').attr('id', 'available-bikes').text(stationData.total_bikes));
+    var totalBikeLabel = $('<div>').addClass('rp_bike_total_label').text('Total Bike: ').append($('<p>').attr('id', 'available-bikes').text(stationData.total_bikes));
     var mechanicalBikeLabel = $('<div>').addClass('rp_info_label').text('Mechanical Bikes: ').append($('<p>').attr('id', 'available_mechanical').text(stationData.mechanical_bikes));
     var eBikeRemovableLabel = $('<div>').addClass('rp_info_label').text('E-Bike Removable Battery: ').append($('<p>').attr('id', 'available_e_removable').text(stationData.electrical_removable_battery_bikes));
     var eBikeInternalLabel = $('<div>').addClass('rp_info_label').text('E-Bike Internal Battery: ').append($('<p>').attr('id', 'available_e_internal').text(stationData.electrical_internal_battery_bikes));
     var predictionPlaceholderRent = $('<div>').addClass('rp_prediction_rent').html('<p>Placeholder for bike availability prediction graph</p>');
     
     // Create time update element with a generic ID
-    var timeUpdateLabel = $('<div>').addClass('rp_info_label').text('Last Updated: ');
+    var timeUpdateLabel = $('<div>').addClass('rp_info_label').text('Last Update: ');
 
     // Format time update as a timestamp for the main section
     var timeUpdateDate = new Date(stationData.time_update); // Convert time_update to a Date object
@@ -470,6 +470,10 @@ function populateRightPanel(stationName, isRent) {
     // Set the formatted timestamp as the text content of the timeUpdateLabel for the main section
     var timeUpdateParagraph = $('<p>').attr('id', 'time-update').text(timestamp);
     timeUpdateLabel.append(timeUpdateParagraph);
+
+    // Check if the station is open or closed based on the time of the last update
+    var hour = timeUpdateDate.getHours();
+    var isOpen = hour >= 9 && hour < 17; // Assuming the station is open from 9 AM to 5 PM
 
     // Add the appropriate HTML element for station status
     if (isOpen) {

@@ -421,7 +421,7 @@ function selectStation(index, isRent) {
 // Given a station name, update the content on the right pane;
 function populateRightPanel(stationName, isRent) {
     // Select the right panel container
-    // var rightPanel = document.getElementById('rp_content');
+    var rightPanel = document.getElementById('rp_content');
     // Find the station data based on the stationName
     var stationData;
     for (var i = 0; i < lastSearchJSON.length; i++) {

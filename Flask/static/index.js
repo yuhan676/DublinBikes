@@ -418,7 +418,6 @@ function selectStation(index, isRent) {
     populateRightPanel(stationName, isRent);
 
 }
-
 // Given a station name, update the content on the right pane;
 function populateRightPanel(stationName, isRent) {
     // Find the station data based on the stationName
@@ -438,54 +437,27 @@ function populateRightPanel(stationName, isRent) {
     rightPanelContainer.empty();
     console.log('Previous content cleared.');
 
-    // Parse the timestamp string into a Date object
-    var timeUpdateDate;
-    try {
-        // Data.time_update is in the format "YYYY-MM-DDTHH:MM:SS.000000Z"
-        timeUpdateDate = new Date(stationData.time_update);
-    } catch (error) {
-        console.error('Error parsing time update:', error);
-        return;
-    }
-
     // Create elements to display station information
-    // var openStation = $('div').addClass('rp_station_open').text('' + stationData.status);
-    // var closedStation = $('div').addClass('rp_station_close').text('' + stationData.status);
-    // <div class="live_label">Live</div>, find out what that denotes
-    // <div class="predicted_label">Predicted</div>, find out what that is
-    var stationElementName = $('<div>').addClass('rp_station_name').text('Station Name: ' + stationData.name);
+    var stationName = $('<div>').addClass('rp_station_name').text('Station Name: ' + stationData.name);
     var totalBikeLabel = $('<div>').addClass('rp_bike_total_label').text('Total Bike: ').append($('<p>').attr('id', 'available-bikes').text(stationData.total_bikes));
     var mechanicalBikeLabel = $('<div>').addClass('rp_info_label').text('Mechanical Bikes: ').append($('<p>').attr('id', 'available_mechanical').text(stationData.mechanical_bikes));
     var eBikeRemovableLabel = $('<div>').addClass('rp_info_label').text('E-Bike Removable Battery: ').append($('<p>').attr('id', 'available_e_removable').text(stationData.electrical_removable_battery_bikes));
     var eBikeInternalLabel = $('<div>').addClass('rp_info_label').text('E-Bike Internal Battery: ').append($('<p>').attr('id', 'available_e_internal').text(stationData.electrical_internal_battery_bikes));
     var predictionPlaceholderRent = $('<div>').addClass('rp_prediction_rent').html('<p>Placeholder for bike availability prediction graph</p>');
-    
     // Create time update element with a generic ID
-    var timeUpdateLabel = $('<div>').addClass('rp_info_label').text('Last Update: ');
-
-    // Format time update as a timestamp for the main section
-    var timeUpdateDate = new Date(stationData.time_update); // Convert time_update to a Date object
-    var timestamp = timeUpdateDate.toLocaleString(); // Convert date object to a localized string representation
-
-    // Set the formatted timestamp as the text content of the timeUpdateLabel for the main section
-    var timeUpdateParagraph = $('<p>').attr('id', 'time-update').text(timestamp);
-    timeUpdateLabel.append(timeUpdateParagraph);
-
-    // Check if the station is open or closed based on the time of the last update
-    var hour = timeUpdateDate.getHours();
-    var isOpen = hour >= 9 && hour < 17; // Assuming the station is open from 9 AM to 5 PM
-
-    // Add the appropriate HTML element for station status
-    if (isOpen) {
-        rightPanelContainer.append(stationElementName, totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabel, predictionPlaceholderRent,);
+    var timeUpdateLabel = $('<div>').addClass('rp_info_label').text('Last Update: ').append($('<p>').attr('id', 'time-update').text(stationData.time_update));
+    // Create time update element with a specific ID for the "Return" section
+    var totalParkingLabel = $('<div>').addClass('rp_park_total_label').text('Total Parking: ').append($('<p>').attr('id', 'available-park').text(stationData.empty_stands_number));
+    var timeUpdateLabelReturn = $('<div>').addClass('rp_info_label').text('Last Update: ').append($('<p>').attr('id', 'time-update-return').text(stationData.time_update));    var predictionPlaceholderReturn = $('<div>').addClass('rp_prediction_return').html('<p>Placeholder for park availability prediction graph</p>');
+    
+    // Append the elements to the right panel container based on the section
+    if (isRent) {
+        rightPanelContainer.append(stationElementName, totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabel, predictionPlaceholderRent);
     } else {
-        rightPanelContainer.append(stationElementName, totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabel, predictionPlaceholderRent,);
+        rightPanelContainer.append(stationElementName, totalParkingLabel, timeUpdateLabelReturn, predictionPlaceholderReturn);
     }
-
     console.log('Station information appended to right panel container.');
 }
-
-
 // This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded
 // All JQuery event handler definitions should go in here
 $(document).ready(function() {

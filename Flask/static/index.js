@@ -444,20 +444,26 @@ function populateRightPanel(stationName, isRent) {
     var eBikeRemovableLabel = $('<div>').addClass('rp_info_label').text('E-Bike Removable Battery: ').append($('<p>').attr('id', 'available_e_removable').text(stationData.electrical_removable_battery_bikes));
     var eBikeInternalLabel = $('<div>').addClass('rp_info_label').text('E-Bike Internal Battery: ').append($('<p>').attr('id', 'available_e_internal').text(stationData.electrical_internal_battery_bikes));
     var predictionPlaceholderRent = $('<div>').addClass('rp_prediction_rent').html('<p>Placeholder for bike availability prediction graph</p>');
-    // Create time update element with a generic ID
-    var timeUpdateLabel = $('<div>').addClass('rp_info_label').text('Last Update: ').append($('<p>').attr('id', 'time-update').text(stationData.time_update));
-    // Create time update element with a specific ID for the "Return" section
     var totalParkingLabel = $('<div>').addClass('rp_park_total_label').text('Total Parking: ').append($('<p>').attr('id', 'available-park').text(stationData.empty_stands_number));
-    var timeUpdateLabelReturn = $('<div>').addClass('rp_info_label').text('Last Update: ').append($('<p>').attr('id', 'time-update-return').text(stationData.time_update));    var predictionPlaceholderReturn = $('<div>').addClass('rp_prediction_return').html('<p>Placeholder for park availability prediction graph</p>');
+    var predictionPlaceholderReturn = $('<div>').addClass('rp_prediction_return').html('<p>Placeholder for park availability prediction graph</p>');
+    
+    // Format time update as a timestamp
+    var timeUpdateDate = new Date(stationData.time_update); // Convert last_update to a Date object
+    var timestamp = timeUpdateDate.toLocaleString(); // Convert date object to a localized string representation
+
+    // Create time update elements for both rent and return sections
+    var timeUpdateLabelRent = $('<div>').addClass('rp_info_label').text('Last Update: ').append($('<p>').attr('id', 'time-update').text(timestamp));
+    var timeUpdateLabelReturn = $('<div>').addClass('rp_info_label').text('Last Update: ').append($('<p>').attr('id', 'time-update-return').text(timestamp));
     
     // Append the elements to the right panel container based on the section
     if (isRent) {
-        rightPanelContainer.append(stationElementName, totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabel, predictionPlaceholderRent);
+        rightPanelContainer.append(stationElementName, totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabelRent, predictionPlaceholderRent);
     } else {
         rightPanelContainer.append(stationElementName, totalParkingLabel, timeUpdateLabelReturn, predictionPlaceholderReturn);
     }
     console.log('Station information appended to right panel container.');
 }
+
 // This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded
 // All JQuery event handler definitions should go in here
 $(document).ready(function() {

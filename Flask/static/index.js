@@ -449,6 +449,8 @@ function populateRightPanel(stationName, isRent) {
     }
 
     // Create elements to display station information
+    var openStation = $('div').addClass('rp_station_open').text('' + stationData.status);
+    var closedStation = $('div').addClass('rp_station_close').text('' + stationData.status);
     var stationElementName = $('<div>').addClass('rp_station_name').text('Station Name: ' + stationData.name);
     var totalBikeLabel = $('<div>').addClass('rp_bike_total_label').text('Total Bike: ').append($('<p>').attr('id', 'available-bikes').text(stationData.total_bikes));
     var mechanicalBikeLabel = $('<div>').addClass('rp_info_label').text('Mechanical Bikes: ').append($('<p>').attr('id', 'available_mechanical').text(stationData.mechanical_bikes));
@@ -485,10 +487,10 @@ function populateRightPanel(stationName, isRent) {
 
     // Append the elements to the right panel container based on the section
     if (isRent) {
-        rightPanelContainer.append(stationElementName, totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabel, predictionPlaceholderRent);
+        rightPanelContainer.append(openStation, closedStation, stationElementName, totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabel, predictionPlaceholderRent);
     } else {
         var totalParkingLabel = $('<div>').addClass('rp_park_total_label').text('Total Parking: ').append($('<p>').attr('id', 'available-park').text(stationData.empty_stands_number));
-        rightPanelContainer.append(stationElementName, totalParkingLabel, timeUpdateLabel, predictionPlaceholderRent);
+        rightPanelContainer.append(openStation, closedStation, stationElementName, totalParkingLabel, timeUpdateLabel, predictionPlaceholderRent);
     }
     console.log('Station information appended to right panel container.');
 }

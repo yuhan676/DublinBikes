@@ -62,15 +62,18 @@
                 <input type="text" placeholder="Search for bike station to return" id="search_return" autocomplete="off">
                 <div class="suggestion_box" id="suggestion_box_return"> </div>
                 <div class="selection_container" id="selection_container_return"> </div>
-                </div>
-            </div>
-            <div class="search_btn_container">
-                <button id="search_btn" class="disabled">Search</button>
-                <div id="error_text"></div>
-                <!-- <input type="text" placeholder="Search for bike station to return" id="search_return" autocomplete="off">
-                <div class="suggestion_box" id="suggestion_box_return"></div> -->
             </div>
         </div>
+        <div class="closestStation_btn_container">
+            <button id="closestStation_btn">Find Closest Station</button>
+        </div>
+        <div class="search_btn_container">
+            <button id="search_btn" class="disabled">Search</button>
+            <div id="error_text"></div>
+            <!-- <input type="text" placeholder="Search for bike station to return" id="search_return" autocomplete="off">
+            <div class="suggestion_box" id="suggestion_box_return"></div> -->
+        </div>
+        
     </div>    
 
 
@@ -84,7 +87,6 @@
     
     <!-- class flag set by jquery to change panel content -->
     <div id="right_panel" class="rp_live rp_closed rp_rent">
-        <div class="rp_tab_container">
             <div class="rp_tab_rent" id="rp_tab_rent">Rent</div>
             <div class="rp_tab_return" id="rp_tab_return">Return</div>
         </div>

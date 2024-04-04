@@ -417,8 +417,15 @@ function selectStation(index, isRent) {
 
     // Call the generatePrefictionGraphs function with the selected station name
     // generatePredictionGraphs(stationName, isRent);
+    // Load the Visualization API and the corechart package.
+    google.charts.load('current', {'packages':['corechart']});
 
-}
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.charts.setOnLoadCallback(function() {
+        // Call generatePredictionGraphs with stationName
+        generatePredictionGraphs(stationName);
+        });
+    }
 function populateRightPanel(stationName, isRent) {
     try {
         // Find the station data based on the stationName
@@ -497,12 +504,6 @@ function populateRightPanel(stationName, isRent) {
         // Handle the error, e.g., display a message to the user or gracefully recover
     }
 }
-
-// Load the Visualization API and the corechart package.
-google.charts.load('current', {'packages':['corechart']});
-
-// Set a callback to run when the Google Visualization API is loaded.
-google.charts.setOnLoadCallback(generatePredictionGraphs(stationName));
 
 // Test function to generate prediction graphs for a station
 function generatePredictionGraphs(stationName) {

@@ -803,60 +803,63 @@ function weatherOpenTab(evt, tabContentId) {
         // Handle the error, e.g., display a message to the user or gracefully recover
     }
 }
-// Function to fetch current weather data using AJAX
 function fetchCurrentWeatherData() {
-    $.ajax({
-        url: "/weather_data",
-        type: "GET",
-        dataType: "json", // Specify that the expected response is JSON
-        success: function(response) {
-            // Store the fetched weather data in the global variable
-            lastWeatherJSON = response;
+    try {
+        $.ajax({
+            url: "/weather_data",
+            type: "GET",
+            dataType: "json", // Specify that the expected response is JSON
+            success: function(response) {
+                // Store the fetched weather data in the global variable
+                lastWeatherJSON = response;
 
-            // Extract weather data from the response
-            var weatherData = response;
+                // Extract weather data from the response
+                var weatherData = response;
 
-            // Extracting individual weather data fields
-            // Convert time update to a Date object
-            var timeupdate = new Date(weatherData[0].time_update); 
-            var feelsLike = kelvinToCelsius(weatherData[0].feels_like);
-            var tempMin = kelvinToCelsius(weatherData[0].temperature_min);
-            var tempMax = kelvinToCelsius(weatherData[0].temperature_max);
-            var weatherDescription = weatherData[0].weather_description;
-            var windSpeed = mpsToKph(weatherData[0].wind_speed);
-            var windGust = mpsToKph(weatherData[0].wind_gust);
+                // Extracting individual weather data fields
+                // Convert time update to a Date object
+                var timeupdate = new Date(weatherData[0].time_update);
+                var feelsLike = kelvinToCelsius(weatherData[0].feels_like);
+                var tempMin = kelvinToCelsius(weatherData[0].temperature_min);
+                var tempMax = kelvinToCelsius(weatherData[0].temperature_max);
+                var weatherDescription = weatherData[0].weather_description;
+                var windSpeed = mpsToKph(weatherData[0].wind_speed);
+                var windGust = mpsToKph(weatherData[0].wind_gust);
 
-            // Format time update as a timestamp
-            var dayOfWeek = timeupdate.toLocaleDateString(undefined, { weekday: 'long' });
-            var month = timeupdate.toLocaleDateString(undefined, { month: 'long' });
-            var day = timeupdate.toLocaleDateString(undefined, { day: 'numeric' });
-            var timezone = timeupdate.toLocaleTimeString(undefined, { timeZone: 'Europe/Dublin', hour: '2-digit', minute: '2-digit', hour12: true });
-            
-            var timestamp = dayOfWeek + ", " + month + "  " + day + ", " + timezone;
+                // Format time update as a timestamp
+                var dayOfWeek = timeupdate.toLocaleDateString(undefined, { weekday: 'long' });
+                var month = timeupdate.toLocaleDateString(undefined, { month: 'long' });
+                var day = timeupdate.toLocaleDateString(undefined, { day: 'numeric' });
+                var timezone = timeupdate.toLocaleTimeString(undefined, { timeZone: 'Europe/Dublin', hour: '2-digit', minute: '2-digit', hour12: true });
 
-            // Update HTML content with fetched weather data
-            $('#weather-current-content').html(
-                // "<img src='static/image/weather.png' alt='TEST'>" +
-                "<p style='margin-bottom: 5px;'><span style='font-size: 1.1em;'>Feels Like:</span> " + feelsLike + " °C</p>" +
-                "<p style='margin-bottom: 5px;'><span style='font-size: 1.1em;'>Min Temperature:</span> " + tempMin + " °C</p>" +
-                "<p style='margin-bottom: 5px;'><span style='font-size: 1.1em;'>Max Temperature:</span> " + tempMax + " °C</p>" +
-                "<p style='margin-bottom: 5px;'><span style='font-size: 1.1em;'>Description:</span> " + weatherDescription + "</p>" +
-                "<p style='margin-bottom: 5px;'><span style='font-size: 1.1em;'>Wind Speed:</span> " + windSpeed + " km/h</p>" +
-                "<p style='margin-bottom: 5px;'><span style='font-size: 1.1em;'>Wind Gust:</span> " + windGust + " km/h</p>" + 
-                "<p style='margin-bottom: 5px;'><strong>Last Updated:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + timestamp + "</span></p>"
-            );
+                var timestamp = dayOfWeek + ", " + month + "  " + day + ", " + timezone;
 
-            // Adjust the margin dynamically after content has been populated
-            $('#weather-current-content').css('margin-top', '10px');
-        },
-        error: function(xhr, status, error) {
-            // Handle AJAX error
-            console.error(xhr.responseText);
-            $('#weather-current-content').html('Error fetching weather data');
-        }
-    });
+                // Update HTML content with fetched weather data
+                $('#weather-current-content').html(
+                    // "<img src='static/image/weather.png' alt='TEST'>" +
+                    "<p style='margin-bottom: 5px;'><span style='font-size: 1.1em;'>Feels Like:</span> " + feelsLike + " °C</p>" +
+                    "<p style='margin-bottom: 5px;'><span style='font-size: 1.1em;'>Min Temperature:</span> " + tempMin + " °C</p>" +
+                    "<p style='margin-bottom: 5px;'><span style='font-size: 1.1em;'>Max Temperature:</span> " + tempMax + " °C</p>" +
+                    "<p style='margin-bottom: 5px;'><span style='font-size: 1.1em;'>Description:</span> " + weatherDescription + "</p>" +
+                    "<p style='margin-bottom: 5px;'><span style='font-size: 1.1em;'>Wind Speed:</span> " + windSpeed + " km/h</p>" +
+                    "<p style='margin-bottom: 5px;'><span style='font-size: 1.1em;'>Wind Gust:</span> " + windGust + " km/h</p>" +
+                    "<p style='margin-bottom: 5px;'><strong>Last Updated:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + timestamp + "</span></p>"
+                );
+
+                // Adjust the margin dynamically after content has been populated
+                $('#weather-current-content').css('margin-top', '10px');
+            },
+            error: function(_, _, error) {
+                // Handle AJAX error
+                console.error("An error occurred in fetchCurrentWeatherData:", error);
+                $('#weather-current-content').html('Error fetching weather data');
+            }
+        });
+    } catch (error) {
+        console.error("An error occurred in fetchCurrentWeatherData:", error);
+        // Handle the error, e.g., display a message to the user or gracefully recover
+    }
 }
-
 // Function to fetch forecast data using AJAX
 function fetchForecastData() {
     $.ajax({
@@ -887,7 +890,7 @@ function fetchForecastData() {
             
             var timestamp = dayOfWeek + ", " + month + "  " + day + ", " + timezone;
 
-            // will continue working with this code
+            // Handle undefined rain
             if (typeof rain === "undefined") {
                 console.log("Rain is undefined");
                 $('#rain').hide();
@@ -897,7 +900,7 @@ function fetchForecastData() {
                 $('#rain').show();
             }            
 
-            // hide max temperature if it is NaN
+            // Hide max temperature if it is NaN
             if (tempMax === "NaN °C") {
                 $('#max-temp').hide();
             } else {
@@ -917,9 +920,9 @@ function fetchForecastData() {
             // Adjust the margin dynamically after content has been populated
             $('#weather-forecast-content').css('margin-top', '10px');
         },
-        error: function(xhr, status, error) {
+        error: function(_, _, error) {
             // Handle AJAX error
-            console.error(xhr.responseText);
+            console.error("An error occurred in fetchForecastData:", error);
             $('#weather-forecast-content').html('Error fetching weather data');
         }
     });
@@ -954,25 +957,30 @@ function openPopup() {
         .catch(error => console.error('Error fetching extreme weather data:', error));
 }
 
-// Function to display the popup
 function displayWeatherPopup(weatherData) {
-    const weatherInfo = weatherData.list[0];
-    const windSpeed = weatherInfo.wind.speed;
-    const rainProbability = weatherInfo.rain["3"];
-    const minTemperature = weatherInfo.main.temp_min;
-    const maxTemperature = weatherInfo.main.temp_max;
+    try {
+        const weatherInfo = weatherData.list[0];
+        const windSpeed = weatherInfo.wind.speed;
+        const rainProbability = weatherInfo.rain["3"];
+        const minTemperature = weatherInfo.main.temp_min;
+        const maxTemperature = weatherInfo.main.temp_max;
 
-    // Format the weather information for display
-    const weatherDisplay = `
-        <div>Wind Speed: ${windSpeed} m/s</div>
-        <div>Rainfall exceeding 50mm within a span of 6 hours: ${rainProbability}%</div>
-        <div>Minimum Temperature: ${minTemperature}°C</div>
-        <div>Maximum Temperature: ${maxTemperature}°C</div>
-    `;
-            
-    // Display the formatted weather information in the popup
-    $('#extreme-weather-content').html(weatherDisplay); // Using jQuery to set HTML content
-    $('#popup').show(); // Using jQuery to show the popup
+        // Format the weather information for display
+        const weatherDisplay = `
+            <div>Wind Speed: ${windSpeed} m/s</div>
+            <div>Rainfall exceeding 50mm within a span of 6 hours: ${rainProbability}%</div>
+            <div>Minimum Temperature: ${minTemperature}°C</div>
+            <div>Maximum Temperature: ${maxTemperature}°C</div>
+        `;
+                
+        // Display the formatted weather information in the popup
+        $('#extreme-weather-content').html(weatherDisplay); // Using jQuery to set HTML content
+        $('#popup').show(); // Using jQuery to show the popup
+    } catch (error) {
+        console.error("An error occurred in displayWeatherPopup:", error);
+        $('#extreme-weather-content').html('Error displaying weather data');
+        $('#popup').hide(); // Hide the popup in case of error
+    }
 }
 
 // Function to open the popup when the 'p' key is pressed

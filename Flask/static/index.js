@@ -415,6 +415,9 @@ function selectStation(index, isRent) {
     // Call the populateRightPanel function with the selected station name
     populateRightPanel(stationName, isRent);
 
+    // Call the generatePrefictionGraphs function with the selected station name
+    generatePredictionGraphs(stationName);
+
 }
 function populateRightPanel(stationName, isRent) {
     try {
@@ -496,136 +499,40 @@ function populateRightPanel(stationName, isRent) {
         // Handle the error, e.g., display a message to the user or gracefully recover
     }
 }
-/*
-
-function generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLabel, stationElementName) {
-    try {
-        // Check if necessary libraries are loaded
-        if (typeof Chart !== 'function') {
-            throw new Error("Chart library is not loaded.");
-        }
-
-        // Initialize variables for daily predictions
-        var dailyBikeCount = 0;
-        var dailyParkingCount = 0;
-
-        // Initialize variables for weekly predictions
-        var weeklyBikeCount = 0;
-        var weeklyParkingCount = 0;
-
-        // Assuming formatedTime is a Date object
-
-        // Get the day of the week (0 for Sunday, 1 for Monday, ..., 6 for Saturday)
-        var dayOfWeek = timeUpdateDate.getDay();
-
-        // Get the current hour (0-23)
-        var currentHour = timeUpdateDate.getHours();
-
-        // Logic for daily predictions
-        // If it's the beginning of a new day, reset daily counts
-        if (currentHour === 0) {
-            dailyBikeCount = totalBikeLabel;
-            dailyParkingCount = totalParkingLabel;
-        }
-
-        // Logic for weekly predictions
-        // If it's Sunday (dayOfWeek === 0) and the beginning of the day (currentHour === 0), reset weekly counts
-        if (dayOfWeek === 0 && currentHour === 0) {
-            weeklyBikeCount = totalBikeLabel;
-            weeklyParkingCount = totalParkingLabel;
-        }
-
-        // Update the bike prediction chart canvas element inside the rp_prediction_rent div
-        var bikeCanvas = document.getElementById('bikePredictionChart');
-        if (!bikeCanvas) {
-            throw new Error("Bike prediction chart canvas element not found.");
-        }
-        var bikeChart = new Chart(bikeCanvas.getContext('2d'), {
-            type: 'line',
-            data: {
-                labels: ['Today', 'This Week'],
-                datasets: [{
-                    label: 'Bike Prediction',
-                    data: [dailyBikeCount, weeklyBikeCount],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)', // Red
-                        'rgba(54, 162, 235, 0.2)'   // Blue
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                },
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Bike Prediction for ' + stationElementName
-                    }
-                }
-            }
-        });
-
-        // Update the parking prediction chart canvas element inside the rp_prediction_return div
-        var parkingCanvas = document.getElementById('parkPredictionChart');
-        if (!parkingCanvas) {
-            throw new Error("Parking prediction chart canvas element not found.");
-        }
-        var parkingChart = new Chart(parkingCanvas.getContext('2d'), {
-            type: 'line',
-            data: {
-                labels: ['Today', 'This Week'],
-                datasets: [{
-                    label: 'Parking Prediction',
-                    data: [dailyParkingCount, weeklyParkingCount],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)', // Red
-                        'rgba(54, 162, 235, 0.2)'   // Blue
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                },
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Parking Prediction for ' + stationElementName
-                    }
-                }
-            }
-        });
-        return { bikeChart: bikeChart, parkingChart: parkingChart };
-    } catch (error) {
-        console.error("An error occurred in generatePredictionGraphs:", error);
-        // Handle the error, e.g., display a message to the user or gracefully recover
-    }
-}
-*/
 // Load the Visualization API and the corechart package.
 google.charts.load('current', {'packages':['corechart']});
 
 // Set a callback to run when the Google Visualization API is loaded.
 google.charts.setOnLoadCallback(generatePredictionGraphs);
 
-// function to create prediction graphs for predicting station and bike availability
-function generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLabel, stationElementName) {
+// Function to create prediction graphs for predicting station and bike availability
+function generatePredictionGraphs(stationName) {
     try {
+        // Find the station data based on the stationName
+        var stationData;
+        if (lastSearchJSON && lastSearchJSON.length > 0) {
+            for (var i = 0; i < lastSearchJSON.length; i++) {
+                if (lastSearchJSON[i].name === stationName) {
+                    stationData = lastSearchJSON[i];
+                    break;
+                }
+            }
+        }
+        
+        if (!stationData) {
+            throw new Error("Station data not found.");
+        }
+
+        console.log('Station data found:', stationData);
+
+        // Parse the timestamp string into a Date object
+        var timeUpdateDate = new Date(stationData.last_update);
+
+        // Check if last_update is a valid date
+        if (isNaN(timeUpdateDate.getTime())) {
+            throw new Error("Invalid last update date.");
+        }
+
         // Initialize variables for daily predictions
         var dailyBikeCount = 0;
         var dailyParkingCount = 0;
@@ -645,15 +552,15 @@ function generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLa
         // Logic for daily predictions
         // If it's the beginning of a new day, reset daily counts
         if (currentHour === 0) {
-            dailyBikeCount = totalBikeLabel;
-            dailyParkingCount = totalParkingLabel;
+            dailyBikeCount = stationData.total_bikes;
+            dailyParkingCount = stationData.empty_stands_number;
         }
 
         // Logic for weekly predictions
         // If it's Sunday (dayOfWeek === 0) and the beginning of the day (currentHour === 0), reset weekly counts
         if (dayOfWeek === 0 && currentHour === 0) {
-            weeklyBikeCount = totalBikeLabel;
-            weeklyParkingCount = totalParkingLabel;
+            weeklyBikeCount = stationData.total_bikes;
+            weeklyParkingCount = stationData.empty_stands_number;
         }
 
         // Create and populate the data table for bike prediction
@@ -672,7 +579,7 @@ function generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLa
 
         // Set options for both charts
         var options = {
-            title: 'Bike Prediction for ' + stationElementName,
+            title: 'Bike Prediction for ' + stationName,
             curveType: 'function',
             legend: { position: 'bottom' }
         };
@@ -682,7 +589,7 @@ function generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLa
         bikeChart.draw(bikeData, options);
 
         // Set options for parking prediction chart
-        options.title = 'Parking Prediction for ' + stationElementName;
+        options.title = 'Parking Prediction for ' + stationName;
 
         // Instantiate and draw the parking prediction chart
         var parkingChart = new google.visualization.LineChart(document.getElementById('parkPredictionChart'));

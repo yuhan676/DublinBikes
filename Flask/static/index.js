@@ -658,10 +658,10 @@ function generatePredictionGraphs(stationName) {
 
         // Find the station data based on the stationName
         var stationData;
-        if (SearchJSON && SearchJSON.length > 0) {
-            for (var i = 0; i < SearchJSON.length; i++) {
-                if (SearchJSON[i].name === stationName) {
-                    stationData = SearchJSON[i];
+        if (lastSearchJSON && lastSearchJSON.length > 0) {
+            for (var i = 0; i < lastSearchJSON.length; i++) {
+                if (lastSearchJSON[i].name === stationName) {
+                    stationData = lastSearchJSON[i];
                     break;
                 }
             }

@@ -624,7 +624,7 @@ google.charts.load('current', {'packages':['corechart']});
 // Set a callback to run when the Google Visualization API is loaded.
 google.charts.setOnLoadCallback(function() {
     // Call your function here
-    generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLabel, stationElementName);
+    generatePredictionGraphs();
 });
 
 // function to create prediction graphs for predicting station and bike availability

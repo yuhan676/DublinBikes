@@ -481,19 +481,6 @@ function selectStation(index, isRent) {
     populateRightPanel(stationName, isRent);
 }  
 
-    // var containerId = 'rp_prediction_rent';
-
-    // Check if the container element exists
-    // var containerElement = document.getElementById(containerId);
-
-    //if (containerElement) {
-        // Call the function to generate prediction graphs
-        // generatePredictionGraphs(stationName);
-    // } else {
-        //console.error("Container element '" + containerId + "' not found.");
-    // }
-        // Set a callback to run when the Google Visualization API is loaded
-
 // Right hand Panel function to populate station and bike data
 function populateRightPanel(stationName, isRent) {
     try {
@@ -532,7 +519,7 @@ function populateRightPanel(stationName, isRent) {
         var eBikeRemovableLabel = $('<div>').addClass('rp_info_label').text('E-Bike Removable Battery: ').append($('<p>').attr('id', 'available_e_removable').text(stationData.electrical_removable_battery_bikes));
         var eBikeInternalLabel = $('<div>').addClass('rp_info_label').text('E-Bike Internal Battery: ').append($('<p>').attr('id', 'available_e_internal').text(stationData.electrical_internal_battery_bikes));
         // var predictionPlaceholderRent = $('<div>').addClass('rp_prediction_rent').html('<p>prediction place holder for a graph</p>');
-        var totalParkingLabel = $('<div>').addClass('rp_park_total_label').text('Total Parking: ').append($('<p>').attr('id', 'available-park').text(stationData.empty_stands_number));
+        // var totalParkingLabel = $('<div>').addClass('rp_park_total_label').text('Total Parking: ').append($('<p>').attr('id', 'available-park').text(stationData.empty_stands_number));
         // var predictionPlaceholderReturn = $('<div>').addClass('rp_prediction_return').html('<p>Placeholder for park availability prediction graph</p>');
 
         // Parse the timestamp string into a Date object
@@ -562,9 +549,9 @@ function populateRightPanel(stationName, isRent) {
 
         // Append the elements to the right panel container based on the section
         if (isRent) {
-            rightPanelContainer.append(stationElementName, totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabelRent);
+            rightPanelContainer.append(stationElementName, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabelRent);
         } else {
-            rightPanelContainer.append(stationElementName, totalParkingLabel, timeUpdateLabelReturn);
+            rightPanelContainer.append(stationElementName, timeUpdateLabelReturn);
         }
         console.log('Station information appended to right panel container.');
 

@@ -311,15 +311,15 @@
 .rp_prediction_rent, .rp_prediction_return
 {
     height: 100px;
-    background-color: red;
     display:none;
 }
 
-/* Testing use: override the background  color of rp_prediction_return so we can see the difference */
+/* Testing use: override the background  color of rp_prediction_return so we can see the difference 
 .rp_prediction_return
 {
-    background-color: green;
+    
 }
+*/
 
 /* display rp_prediction_rent when id 'right_panel's class flag is set to .rp_rent */
 .rp_rent .rp_prediction_rent

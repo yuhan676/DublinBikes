@@ -463,11 +463,11 @@ function populateRightPanel(stationName, isRent) {
     };
 
     // Format the date string using the specified options
-    var formattedTime = timeUpdateDate.toLocaleString(undefined, options);
+    var formatedTime = timeUpdateDate.toLocaleString(undefined, options);
 
     // Create the HTML structure for displaying the formatted timestamp
-    var timeUpdateLabelRent = $('<div>').addClass('rp_info_label').html("<p style='margin-bottom: 5px;'><strong>Last Updated:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + formattedTime + "</span></p>");
-    var timeUpdateLabelReturn = $('<div>').addClass('rp_info_label').html("<p style='margin-bottom: 5px;'><strong>Last Updated:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + formattedTime + "</span></p>");
+    var timeUpdateLabelRent = $('<div>').addClass('rp_info_label').html("<p style='margin-bottom: 5px;'><strong>Last Updated:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + formatedTime + "</span></p>");
+    var timeUpdateLabelReturn = $('<div>').addClass('rp_info_label').html("<p style='margin-bottom: 5px;'><strong>Last Updated:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + formatedTime + "</span></p>");
 
     // Append the elements to the right panel container based on the section
     if (isRent) {
@@ -476,8 +476,84 @@ function populateRightPanel(stationName, isRent) {
         rightPanelContainer.append(stationElementName, totalParkingLabel, timeUpdateLabelReturn, predictionPlaceholderReturn);
     }
     console.log('Station information appended to right panel container.');
+        
+    // Call a function to generate the prediction graphs
+    generatePredictionGraphs(stationData);
 }
+// Function to generate and populate prediction graphs
+function generatePredictionGraphs(stationData) {
+    // Aggregate data for daily predictions
+    var dailyPredictions = []; // Array to store daily predictions
+    var weeklyPredictions = []; // Array to store weekly predictions
+    
+    // Loop through stationData to aggregate data
+    var dailyCount = 0;
+    var weeklyCount = 0;
+    for (var i = 0; i < stationData.length; i++) {
+        // Parse the timestamp string into a Date object
+        var timestamp = new Date(stationData[i].last_update);
+        
+        // Aggregate data for daily predictions
+        dailyCount += stationData[i].total_bikes;
+        if (timestamp.getHours() == 0 && timestamp.getMinutes() == 0) {
+            dailyPredictions.push(dailyCount);
+            dailyCount = 0;
+        }
 
+        // Aggregate data for weekly predictions
+        if (timestamp.getDay() == 0 && timestamp.getHours() == 0 && timestamp.getMinutes() == 0) {
+            weeklyPredictions.push(weeklyCount);
+            weeklyCount = 0;
+        }
+        weeklyCount += stationData[i].total_bikes;
+    }
+
+    // Chart.js configuration for daily predictions
+    var ctxDaily = document.getElementById('predictionChartDaily').getContext('2d');
+    var dailyChart = new Chart(ctxDaily, {
+        type: 'line',
+        data: {
+            labels: Array.from(Array(dailyPredictions.length).keys()).map(i => `Day ${i + 1}`),
+            datasets: [{
+                label: 'Daily Prediction',
+                data: dailyPredictions,
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Chart.js configuration for weekly predictions
+    var ctxWeekly = document.getElementById('predictionChartWeekly').getContext('2d');
+    var weeklyChart = new Chart(ctxWeekly, {
+        type: 'line',
+        data: {
+            labels: Array.from(Array(weeklyPredictions.length).keys()).map(i => `Week ${i + 1}`),
+            datasets: [{
+                label: 'Weekly Prediction',
+                data: weeklyPredictions,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
 // This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded
 // All JQuery event handler definitions should go in here
 $(document).ready(function() {

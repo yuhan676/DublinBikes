@@ -586,7 +586,6 @@ function generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLa
     return { bikeChart: bikeChart, parkingChart: parkingChart };
 }
 
-
 // This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded
 // All JQuery event handler definitions should go in here
 $(document).ready(function() {

@@ -342,7 +342,6 @@ function createStationBox(isRent,stationData) {
     paymentSection.appendChild(paymentAvailable);
     
 }
-
 // Function to populate the selection container with station boxes using the lastSearchJSON global variable
 function populateStationBoxes(isRent) {
     // Get the appropriate wrapper based on the isRent flag

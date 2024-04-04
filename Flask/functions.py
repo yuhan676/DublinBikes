@@ -45,11 +45,11 @@ def write_json_to_file(data, file_name='data.json'):
         with open(file_name, 'w') as file:
             file.write(data)
 
-def get_db():
-    db = getattr(g, '_database', None)
-    if db is None:
-        db = g._database = connect_to_database(host, username, password, port)
-    return db
+#def get_db():
+#    db = getattr(g, '_database', None)
+ #   if db is None:
+#        db = g._database = connect_to_database(host, username, password, port)
+#    return db
 
 def get_station_names(engine):
         try:

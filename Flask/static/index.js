@@ -423,7 +423,6 @@ function selectionToggle(isRent) {
         console.error('One of the elements was not found in the DOM.');
     }
 }
-
 // Function to handle the selection of a station box
 function selectStation(index, isRent) {
     // Clear marker when search is clicked again
@@ -445,7 +444,10 @@ function selectStation(index, isRent) {
     // Get the station name based on the index
     var stationName = lastSearchJSON[index].name;
 
-    // Set a callback to run when the Google Visualization API is loaded
+    // Load the Google Charts library and set a callback
+    google.charts.load('current', {'packages':['corechart']});
+
+    // Set a callback to run when the Google Charts library is loaded
     google.charts.setOnLoadCallback(function() {
         // Create and populate the data table for prediction
         var data = google.visualization.arrayToDataTable([
@@ -472,6 +474,7 @@ function selectStation(index, isRent) {
         populateRightPanel(stationName, isRent);
     });
 }
+
 
     // var containerId = 'rp_prediction_rent';
 

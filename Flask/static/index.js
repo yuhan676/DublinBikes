@@ -618,6 +618,9 @@ function generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLa
     }
 }
 */
+// Load the Google Charts library
+google.charts.load('current', {'packages':['corechart']});
+
 // Set a callback to run when the Google Visualization API is loaded.
 google.charts.setOnLoadCallback(function() {
     // Call your function here

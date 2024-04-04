@@ -514,7 +514,7 @@ function generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLa
     }
 
     // Update the bike prediction chart canvas element inside the rp_prediction_rent div
-    var bikeCanvas = document.getElementById('canvas');
+    var bikeCanvas = document.getElementById('bikePredictionChart');
     var bikeChart = new Chart(bikeCanvas.getContext('2d'), {
         type: 'line',
         data: {
@@ -549,7 +549,7 @@ function generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLa
     });
 
     // Update the parking prediction chart canvas element inside the rp_prediction_return div
-    var parkingCanvas = document.getElementById('canvas');
+    var parkingCanvas = document.getElementById('parkPredictionChart');
     var parkingChart = new Chart(parkingCanvas.getContext('2d'), {
         type: 'line',
         data: {

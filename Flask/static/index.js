@@ -416,7 +416,7 @@ function selectStation(index, isRent) {
     populateRightPanel(stationName, isRent);
 
     // Call the generatePrefictionGraphs function with the selected station name
-    generatePredictionGraphs(stationName, isRent);
+    // generatePredictionGraphs(stationName, isRent);
 
 }
 function populateRightPanel(stationName, isRent) {

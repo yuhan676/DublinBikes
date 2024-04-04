@@ -312,14 +312,13 @@
 {
     height: 100px;
     display:none;
-}
+    margin-top: 20px; 
+    padding: 10px;
+    background-color: #f2f2f2; /* Set the background color */
+    border-radius: 5px; /* Add rounded corners */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Add a shadow effect */
 
-/* Testing use: override the background  color of rp_prediction_return so we can see the difference 
-.rp_prediction_return
-{
-    
 }
-*/
 
 /* display rp_prediction_rent when id 'right_panel's class flag is set to .rp_rent */
 .rp_rent .rp_prediction_rent
@@ -331,6 +330,13 @@
 .rp_return .rp_prediction_return
 {
     display:block;
+}
+/* Styles for the canvas element inside the prediction graph containers */
+canvas {
+    width: 100%; /* Make the canvas fill its container */
+    height: auto; /* Allow the canvas to adjust its height automatically */
+    border: 1px solid #ddd; /* Add a border for better visibility */
+    border-radius: 5px; /* Add rounded corners */
 }
 
 /* Tab container styling */

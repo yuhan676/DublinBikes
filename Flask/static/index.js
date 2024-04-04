@@ -445,9 +445,9 @@ function selectStation(index, isRent) {
     var stationName = lastSearchJSON[index].name;
 
     // Check if the container element exists
-    var containerElement = document.getElementById('bikePredictionChart');
+    var containerElement = document.getElementById('rp_prediction_rent');
     if (!containerElement) {
-        console.error("Container element 'bikePredictionChart' not found.");
+        console.error("Container element 'rp_prediction_rent' not found.");
         return;
     }
 

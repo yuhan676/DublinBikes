@@ -423,8 +423,8 @@ function selectionToggle(isRent) {
         console.error('One of the elements was not found in the DOM.');
     }
 }
-
-// Function to handle the selection of a station box
+/*
+// Test Function to handle the selection of a station box
 function selectStation(index, isRent) {
     // Clear marker when search is clicked again
     clearMarkers();
@@ -487,8 +487,8 @@ function selectStation(index, isRent) {
     //update all markers
     updateMarkers(index);
 }
+*/
 
-/*
 // Function to handle the selection of a station box
 function selectStation(index, isRent) {
     // Clear marker when search is clicked again
@@ -530,7 +530,6 @@ function selectStation(index, isRent) {
     }
 } 
 
-*/
 // Right hand Panel function to populate station and bike data
 function populateRightPanel(stationName, isRent) {
     try {

@@ -34,7 +34,8 @@
             initTimeAndDate();
             openTab(null, 'rent'); // Open the 'Rent' tab by default
             adjustWeatherPanelPosition(); // Adjust the weather panel position on load
-            generatePredictionGraphs(); // call function during window.onload to load canvas 
+            generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLabel, stationElementName) 
+            // call function during window.onload to load canvas 
     
             // Accessing bikePredictionChart canvas
             var bikeCanvas = document.getElementById('bikePredictionChart');

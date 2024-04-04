@@ -585,20 +585,19 @@ function generatePredictionGraphs(stationName, isRent) {
         var chartData = isRent ? bikeData : parkingData;
 
         // Reference the container div by its class name
-        // var containerClassName = isRent ? 'rp_prediction_rent' : 'rp_prediction_return';
-        var containerElements = Array.from(document.getElementById('rp_prediction_rent')).concat(Array.from(document.getElementsById('rp_prediction_return')));
+        var containerElements = Array.from(document.getElementsByClassName('rp_prediction_rent')).concat(Array.from(document.getElementsByClassName('rp_prediction_return')));
 
         // Check if the container element exists
         if (containerElements.length === 0) {
             throw new Error("Container is not defined for station: " + stationName);
-        
         }
 
-        // var containerElement = containerElements[0];
+        // Loop through container elements and draw chart in each
+        containerElements.forEach(function(containerElement) {
+            var chart = new google.visualization.LineChart(containerElement);
+            chart.draw(chartData, options);
+        });
 
-        var chart = new google.visualization.LineChart(getElementById('parkPredictionChart'));
-        chart.draw(chartData, options);
-        
         // return chartElementId;
 
     } catch (error) {

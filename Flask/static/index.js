@@ -631,10 +631,10 @@ function generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLa
         // Assuming formatedTime is a Date object
 
         // Get the day of the week (0 for Sunday, 1 for Monday, ..., 6 for Saturday)
-        // var dayOfWeek = timeUpdateDate.getDay();
+        var dayOfWeek = timeUpdateDate.getDay();
 
         // Get the current hour (0-23)
-        // var currentHour = timeUpdateDate.getHours();
+        var currentHour = timeUpdateDate.getHours();
 
         // Logic for daily predictions
         // If it's the beginning of a new day, reset daily counts
@@ -689,13 +689,13 @@ function generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLa
     }
 }
 // Load the Google Charts library
-google.charts.load('current', {'packages':['corechart']});
+// google.charts.load('current', {'packages':['corechart']});
 
 // Set a callback to run when the Google Visualization API is loaded.
-google.charts.setOnLoadCallback(function(timeUpdateDate, totalBikeLabel, totalParkingLabel, stationElementName) {
+// google.charts.setOnLoadCallback(function(timeUpdateDate, totalBikeLabel, totalParkingLabel, stationElementName) {
     // Call your function here
-    generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLabel, stationElementName);
-});
+    //generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLabel, stationElementName);
+// });
 // This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded
 // All JQuery event handler definitions should go in here
 $(document).ready(function() {

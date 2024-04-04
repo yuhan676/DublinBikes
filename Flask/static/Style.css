@@ -333,7 +333,7 @@
 }
 /* Styles for the canvas element inside the prediction graph containers */
 canvas {
-    width: 25%; /* Make the canvas fill its container */
+    width: 75%; /* Make the canvas fill its container */
     height: auto; /* Allow the canvas to adjust its height automatically */
     border: 1px solid #ddd; /* Add a border for better visibility */
     /* border-radius: 5px; /* Add rounded corners */

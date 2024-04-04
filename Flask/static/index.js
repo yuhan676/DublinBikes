@@ -599,7 +599,7 @@ function generatePredictionGraphs(stationName, isRent) {
         var chart = new google.visualization.LineChart(containerElement);
         chart.draw(chartData, options);
         
-        return chart;
+        return chartElementId;
 
     } catch (error) {
         console.error("An error occurred in generatePredictionGraphs:", error);

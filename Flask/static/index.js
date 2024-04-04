@@ -503,10 +503,9 @@ function populateRightPanel(stationName, isRent) {
         // Handle the error, e.g., display a message to the user or gracefully recover
     }
 }
+// Function to create prediction graphs for predicting station and bike availability
 function generatePredictionGraphs(stationName, isRent) {
     try {
-        console.log('Generating prediction graphs for station:', stationName, 'IsRent:', isRent);
-
         // Find the station data based on the stationName
         var stationData;
         if (lastSearchJSON && lastSearchJSON.length > 0) {
@@ -546,8 +545,6 @@ function generatePredictionGraphs(stationName, isRent) {
         // Get the current hour (0-23)
         var currentHour = timeUpdateDate.getHours();
 
-        console.log('Day of week:', dayOfWeek, 'Current hour:', currentHour);
-
         // Logic for daily predictions
         // If it's the beginning of a new day, reset daily counts
         if (currentHour === 0) {
@@ -561,9 +558,6 @@ function generatePredictionGraphs(stationName, isRent) {
             weeklyBikeCount = stationData.total_bikes;
             weeklyParkingCount = stationData.empty_stands_number;
         }
-
-        console.log('Daily bike count:', dailyBikeCount, 'Daily parking count:', dailyParkingCount);
-        console.log('Weekly bike count:', weeklyBikeCount, 'Weekly parking count:', weeklyParkingCount);
 
         // Create and populate the data table for bike prediction
         var bikeData = google.visualization.arrayToDataTable([
@@ -588,27 +582,24 @@ function generatePredictionGraphs(stationName, isRent) {
 
         // Instantiate and draw the prediction chart based on the tab (rent or return)
         var chartElementId = isRent ? 'bikePredictionChart' : 'parkPredictionChart';
-        console.log('Chart element ID:', chartElementId);
-
         var chartData = isRent ? bikeData : parkingData;
-        var chartElement = document.getElementById(chartElementId);
-        console.log('Chart element:', chartElement);
-
-        if (!chartElement) {
+        
+        // Modify here to include the container divs
+        var containerId = isRent ? 'rp_prediction_rent' : 'rp_prediction_return';
+        var containerElement = document.getElementById(containerId);
+        if (!containerElement) {
             throw new Error("Container is not defined for station: " + stationName);
         }
-
-        var chart = new google.visualization.LineChart(chartElement);
+        
+        var chart = new google.visualization.LineChart(containerElement);
         chart.draw(chartData, options);
-
-        console.log('Chart drawn successfully for station:', stationName);
 
         return chart;
     } catch (error) {
         console.error("An error occurred in generatePredictionGraphs:", error);
         // Handle the error, e.g., display a message to the user or gracefully recover
     }
-}
+}     
 /*
 // Test function to generate prediction graphs for a station
 function generatePredictionGraphs(stationName) {

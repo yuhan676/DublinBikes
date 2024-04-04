@@ -665,15 +665,31 @@ $(document).ready(function() {
     var index = $('#selection_container_return .selection_box').index(this);
     selectStation(index, false);});
 
-    $(window).on('load', function() {
-        var bikeCanvas = $('#bikePredictionChart')[0];
-        var parkingCanvas = $('#parkPredictionChart')[0];
-        // You can perform further operations with these canvas elements here if needed
-    return bikeCanvas, parkingCanvas
+    $(window).on("load", function() {
+        // This function will be executed when the window is fully loaded
+        
+        // Select the canvas elements
+        var bikeCanvas = $("#bikePredictionChart");
+        var parkCanvas = $("#parkPredictionChart");
+      
+        // Attach event listener to the bike canvas element
+        bikeCanvas.on("load", function() {
+            // This function will be executed when the bike canvas is loaded
+            // Perform actions related to the bike canvas element here
+            console.log("Bike prediction chart canvas is loaded.");
+        });
+      
+        // Attach event listener to the park canvas element
+        parkCanvas.on("load", function() {
+            // This function will be executed when the park canvas is loaded
+            // Perform actions related to the park canvas element here
+            console.log("Park prediction chart canvas is loaded.");
+        });
+
+    
     });
     
 });
-
 
 function adjustWeatherPanelPosition() {
     // Adjust the weather panel position based on the height of the left panel

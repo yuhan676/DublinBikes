@@ -617,6 +617,12 @@ function generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLa
     }
 }
 */
+// Load the Visualization API and the corechart package.
+google.charts.load('current', {'packages':['corechart']});
+
+// Set a callback to run when the Google Visualization API is loaded.
+google.charts.setOnLoadCallback(generatePredictionGraphs);
+
 // function to create prediction graphs for predicting station and bike availability
 function generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLabel, stationElementName) {
     try {
@@ -688,14 +694,6 @@ function generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLa
         // Handle the error, e.g., display a message to the user or gracefully recover
     }
 }
-// Load the Google Charts library
-// google.charts.load('current', {'packages':['corechart']});
-
-// Set a callback to run when the Google Visualization API is loaded.
-// google.charts.setOnLoadCallback(function(timeUpdateDate, totalBikeLabel, totalParkingLabel, stationElementName) {
-    // Call your function here
-    //generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLabel, stationElementName);
-// });
 // This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded
 // All JQuery event handler definitions should go in here
 $(document).ready(function() {

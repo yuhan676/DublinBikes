@@ -660,7 +660,7 @@ function generatePredictionGraphs(stationName) {
         console.log('Generating prediction graphs for:', stationName);
 
         // Check if the DOM element is loaded
-        console.log('DOM element loaded:', document.getElementById('bikePredictionChart'));
+        console.log('DOM element loaded:', document.getElementById('rp_prediction_rent'));
 
         // Find the station data based on the stationName
         var stationData;

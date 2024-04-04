@@ -68,9 +68,25 @@ def fetch_five_day_prediction():
 
         # If row exists, convert it to a dictionary
         if row:
-            weather_data = [dict(row)]
+            weather_data = dict(row)
+            
+            # Handle undefined or NaN values for specific keys
+            if 'temp_min' in weather_data and weather_data['temp_min'] is not None:
+                weather_data['temp_min'] = f"{weather_data['temp_min']} °C"
+            else:
+                weather_data['temp_min'] = "Undefined"
+
+            if 'temp_max' in weather_data and weather_data['temp_max'] is not None:
+                weather_data['temp_max'] = f"{weather_data['temp_max']} °C"
+            else:
+                weather_data['temp_max'] = "NaN °C"
+
+            if 'rain_3h' in weather_data and weather_data['rain_3h'] is not None:
+                weather_data['rain_3h'] = f"{weather_data['rain_3h']} mm"
+            else:
+                weather_data['rain_3h'] = "Undefined"
         else:
-            weather_data = []
+            weather_data = {}
 
         connection.close()
         return jsonify(weather_data)
@@ -78,7 +94,6 @@ def fetch_five_day_prediction():
     except Exception as e:
         traceback.print_exc()
         app.logger.error('Error fetching weather data:', e)
-        traceback.print_exc()
         return jsonify(error=str(e)), 500
 
 @app.route('/fetch_extreme_weather', methods=['GET'])

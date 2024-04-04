@@ -499,10 +499,10 @@ function populateRightPanel(stationName, isRent) {
 }
 
 // Load the Visualization API and the corechart package.
-google.charts.load('current', {'packages':['corechart']});
+// google.charts.load('current', {'packages':['corechart']});
 
 // Set a callback to run when the Google Visualization API is loaded.
-google.charts.setOnLoadCallback(generatePredictionGraphs);
+// google.charts.setOnLoadCallback(generatePredictionGraphs);
 
 // Test function to generate prediction graphs for a station
 function generatePredictionGraphs(stationName) {
@@ -531,9 +531,6 @@ function generatePredictionGraphs(stationName) {
         // Handle the error, e.g., display a message to the user or gracefully recover
     }
 }
-
-// Call the function with a sample station name
-// generatePredictionGraphs(stationName);
 
 // This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded
 // All JQuery event handler definitions should go in here

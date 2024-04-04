@@ -478,34 +478,29 @@ function populateRightPanel(stationName, isRent) {
     console.log('Station information appended to right panel container.');
         
     // Call a function to generate the prediction graphs
-    generatePredictionGraphs(stationData);
+    generatePredictionGraphs(stationData, formatedTime);
 }
 // Function to generate and populate prediction graphs
-function generatePredictionGraphs(stationData) {
+function generatePredictionGraphs(stationData, formatedTime) {
     // Aggregate data for daily predictions
-    var dailyPredictions = []; // Array to store daily predictions
-    var weeklyPredictions = []; // Array to store weekly predictions
+    var dailyBikeCount = 0;
+    var dailyParkingCount = 0;
+    var weeklyBikeCount = 0;
+    var weeklyParkingCount = 0;
     
     // Loop through stationData to aggregate data
-    var dailyCount = 0;
-    var weeklyCount = 0;
     for (var i = 0; i < stationData.length; i++) {
-        // Parse the timestamp string into a Date object
-        var timestamp = new Date(stationData[i].last_update);
+        // Filter data for daily predictions
+        if (isSameDay(stationData[i].last_update, formatedTime)) {
+            dailyBikeCount += stationData[i].total_bikes;
+            dailyParkingCount += stationData[i].empty_stands_number;
+        }
         
-        // Aggregate data for daily predictions
-        dailyCount += stationData[i].total_bikes;
-        if (timestamp.getHours() == 0 && timestamp.getMinutes() == 0) {
-            dailyPredictions.push(dailyCount);
-            dailyCount = 0;
+        // Filter data for weekly predictions
+        if (isSameWeek(stationData[i].last_update, formatedTime)) {
+            weeklyBikeCount += stationData[i].total_bikes;
+            weeklyParkingCount += stationData[i].empty_stands_number;
         }
-
-        // Aggregate data for weekly predictions
-        if (timestamp.getDay() == 0 && timestamp.getHours() == 0 && timestamp.getMinutes() == 0) {
-            weeklyPredictions.push(weeklyCount);
-            weeklyCount = 0;
-        }
-        weeklyCount += stationData[i].total_bikes;
     }
 
     // Chart.js configuration for daily predictions
@@ -513,12 +508,19 @@ function generatePredictionGraphs(stationData) {
     var dailyChart = new Chart(ctxDaily, {
         type: 'line',
         data: {
-            labels: Array.from(Array(dailyPredictions.length).keys()).map(i => `Day ${i + 1}`),
+            labels: ['Today'],
             datasets: [{
-                label: 'Daily Prediction',
-                data: dailyPredictions,
+                label: 'Daily Bike Prediction',
+                data: [dailyBikeCount],
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                 borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            },
+            {
+                label: 'Daily Parking Prediction',
+                data: [dailyParkingCount],
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
                 borderWidth: 1
             }]
         },
@@ -536,10 +538,17 @@ function generatePredictionGraphs(stationData) {
     var weeklyChart = new Chart(ctxWeekly, {
         type: 'line',
         data: {
-            labels: Array.from(Array(weeklyPredictions.length).keys()).map(i => `Week ${i + 1}`),
+            labels: ['This Week'],
             datasets: [{
-                label: 'Weekly Prediction',
-                data: weeklyPredictions,
+                label: 'Weekly Bike Prediction',
+                data: [weeklyBikeCount],
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            },
+            {
+                label: 'Weekly Parking Prediction',
+                data: [weeklyParkingCount],
                 backgroundColor: 'rgba(54, 162, 235, 0.2)',
                 borderColor: 'rgba(54, 162, 235, 1)',
                 borderWidth: 1
@@ -554,6 +563,7 @@ function generatePredictionGraphs(stationData) {
         }
     });
 }
+
 // This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded
 // All JQuery event handler definitions should go in here
 $(document).ready(function() {

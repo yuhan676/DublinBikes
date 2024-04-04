@@ -388,15 +388,6 @@ function selectionToggle(isRent) {
     }
 }
 
-// Load the Google Charts library
-google.charts.load('current', {'packages':['corechart']});
-
-// Set a callback to run when the Google Visualization API is loaded.
-google.charts.setOnLoadCallback(function() {
-    // Call your function here
-    generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLabel, stationElementName);
-});
-
 // Function to handle the selection of a station box
 function selectStation(index, isRent) {
     // Clear marker when search is clicked again
@@ -626,6 +617,14 @@ function generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLa
     }
 }
 */
+// Load the Google Charts library
+google.charts.load('current', {'packages':['corechart']});
+
+// Set a callback to run when the Google Visualization API is loaded.
+google.charts.setOnLoadCallback(function() {
+    // Call your function here
+    generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLabel, stationElementName);
+});
 
 // function to create prediction graphs for predicting station and bike availability
 function generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLabel, stationElementName) {

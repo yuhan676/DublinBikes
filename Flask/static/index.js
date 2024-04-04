@@ -475,7 +475,7 @@ function selectStation(index, isRent) {
         chart.draw(data, options);
     });
     //update all markers
-    // updateMarkers(index);
+    updateMarkers(index);
 
     // Call the populateRigthPanel function with selected station name
     // populateRightPanel(stationName, isRent);

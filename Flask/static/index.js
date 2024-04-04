@@ -451,14 +451,18 @@ function selectStation(index, isRent) {
     // Call the populateRightPanel function with the selected station name
     populateRightPanel(stationName, isRent);
 
-    // Load the Visualization API and the corechart package.
-    google.charts.load('current', {'packages':['corechart']});
+    // Assuming your event handler creates a container element with ID 'bikePredictionChart'
+    var containerId = 'bikePredictionChart';
 
-    // Set a callback to run when the Google Visualization API is loaded.
-    google.charts.setOnLoadCallback(function() {
-        // Call generatePredictionGraphs with stationName
+    // Check if the container element exists
+    var containerElement = document.getElementById(containerId);
+
+    if (containerElement) {
+        // Call the function to generate prediction graphs
         generatePredictionGraphs(stationName);
-    });
+    } else {
+        console.error("Container element '" + containerId + "' not found.");
+    }
 }
 // Right hand Panel function to populate station and bike data
 function populateRightPanel(stationName, isRent) {
@@ -650,20 +654,6 @@ function generatePredictionGraphs(stationName, isRent) {
     }
 }
 */
-
-// Function to check if the DOM element is loaded and call generatePredictionGraphs
-function activateGeneratePredictionGraphs() {
-    // Check if the DOM element is loaded
-    var bikePredictionChart = document.getElementById('bikePredictionChart');
-    if (bikePredictionChart) {
-        // If the DOM element is loaded, call generatePredictionGraphs
-        generatePredictionGraphs('YourStationName');
-    } else {
-        // If the DOM element is not loaded, log a message and try again after a delay
-        console.log("DOM element 'bikePredictionChart' not found. Retrying in 100 milliseconds...");
-        setTimeout(activateGeneratePredictionGraphs, 100); // Retry after 100 milliseconds
-    }
-}
 // function to generate weekly and daily station and bike prediction
 function generatePredictionGraphs(stationName) {
     try {
@@ -795,16 +785,6 @@ $(document).ready(function() {
     $('#selection_container_return').on('mousedown','.selection_box',function(){
     var index = $('#selection_container_return .selection_box').index(this);
     selectStation(index, false);});
-
-    // Load the Visualization API and the corechart package.
-    // google.charts.load('current', {'packages':['corechart']});
-
-    // Set a callback to run when the Google Visualization API is loaded.
-    //google.charts.setOnLoadCallback(function() {
-        // This function will be executed once the API is loaded
-        // Call your function to generate prediction graphs here
-       // generatePredictionGraphs(stationName);
-    //});
 });
 
 

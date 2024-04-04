@@ -6,6 +6,9 @@ import traceback
 from json.decoder import JSONDecodeError
 import pandas as pd
 from haversine import haversine
+import ssl
+context = ssl.SSLContext()
+context.load_cert_chain('cert.pem', 'key.pem')
 
 app = Flask(__name__, static_url_path='')
 app.config.from_object('config')
@@ -291,4 +294,4 @@ def search():
         return jsonify(error="An unexpected error occurred."), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, host="0.0.0.0", port=808,ssl_context=("cert.pem", "key.pem"))
+    app.run(debug=True, host="0.0.0.0", port=808,ssl_context=(context))

@@ -465,9 +465,9 @@ function populateRightPanel(stationName, isRent) {
     // Format the date string using the specified options
     var formattedTime = timeUpdateDate.toLocaleString(undefined, options);
 
-    // Create time update elements for both rent and return sections
-    var timeUpdateLabelRent = $('<div>').addClass('rp_info_label').text('Last Updated: ').append($('<p>').attr('id', 'time-update').text(formattedTime));
-    var timeUpdateLabelReturn = $('<div>').addClass('rp_info_label').text('Last Updated: ').append($('<p>').attr('id', 'time-update-return').text(formattedTime));
+    // Create the HTML structure for displaying the formatted timestamp
+    var timeUpdateLabelRent = $('<div>').addClass('rp_info_label').html("<p style='margin-bottom: 5px;'><strong>Last Updated:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + formattedTime + "</span></p>");
+    var timeUpdateLabelReturn = $('<div>').addClass('rp_info_label').html("<p style='margin-bottom: 5px;'><strong>Last Updated:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + formattedTime + "</span></p>");
 
     // Append the elements to the right panel container based on the section
     if (isRent) {

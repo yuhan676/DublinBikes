@@ -583,18 +583,24 @@ function generatePredictionGraphs(stationName, isRent) {
         // Instantiate and draw the prediction chart based on the tab (rent or return)
         var chartElementId = isRent ? 'bikePredictionChart' : 'parkPredictionChart';
         var chartData = isRent ? bikeData : parkingData;
-        
-        // Reference the container div by its ID
-        var containerId = isRent ? 'rp_prediction_rent' : 'rp_prediction_return';
-        var containerElement = document.getElementById(containerId);
-        if (!containerElement) {
+
+        // Reference the container div by its class name
+        var containerClassName = isRent ? 'rp_prediction_rent' : 'rp_prediction_return';
+        var containerElements = document.getElementsByClassName(containerClassName);
+
+        // Check if the container element exists
+        if (containerElements.length === 0) {
             throw new Error("Container is not defined for station: " + stationName);
-        }
         
+        }
+
+        var containerElement = containerElements[0];
+
         var chart = new google.visualization.LineChart(containerElement);
         chart.draw(chartData, options);
-
+        
         return chart;
+
     } catch (error) {
         console.error("An error occurred in generatePredictionGraphs:", error);
         // Handle the error, e.g., display a message to the user or gracefully recover

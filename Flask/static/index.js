@@ -423,6 +423,7 @@ function selectionToggle(isRent) {
         console.error('One of the elements was not found in the DOM.');
     }
 }
+/*
 // Function to handle the selection of a station box
 function selectStation(index, isRent) {
     // Clear marker when search is clicked again
@@ -482,6 +483,48 @@ function selectStation(index, isRent) {
     updateMarkers(index);
 
 }  
+*/
+// Function to handle the selection of a station box
+function selectStation(index, isRent) {
+    // Clear marker when search is clicked again
+    clearMarkers();
+
+    // The container ID will depend on whether isRent is true or false
+    var containerId = isRent ? 'selection_container_rent' : 'selection_container_return';
+    var $selectionWrapper = $('#' + containerId + ' .selection_wrapper');
+
+    // Remove the 'selected' class from all selection boxes
+    $selectionWrapper.find('.selection_box').removeClass('selected');
+
+    // Add the 'selected' class to the clicked selection box
+    $selectionWrapper.find('.selection_box').eq(index).addClass('selected');
+
+    // Additional logic for when a station is selected
+    console.log('Station selected:', index, 'Is Rent:', isRent);
+
+    // Get the station name based on the index
+    var stationName = lastSearchJSON[index].name;
+
+    // update all markers
+    updateMarkers(index);
+
+    // Call the populateRightPanel function with the selected station name
+    populateRightPanel(stationName, isRent);
+
+    // Assuming your event handler creates a container element with ID 'bikePredictionChart'
+    var containerId = 'rp_prediction_rent';
+
+    // Check if the container element exists
+    var containerElement = document.getElementById(containerId);
+
+    if (containerElement) {
+        // Call the function to generate prediction graphs
+        generatePredictionGraphs(stationName);
+    } else {
+        console.error("Container element '" + containerId + "' not found.");
+    }
+} 
+
 
 // Right hand Panel function to populate station and bike data
 function populateRightPanel(stationName, isRent) {

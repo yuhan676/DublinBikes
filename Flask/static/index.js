@@ -492,8 +492,6 @@ function populateRightPanel(stationName, isRent) {
         }
         console.log('Station information appended to right panel container.');
 
-        // Call a function to generate the prediction graphs
-        generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLabel, stationElementName);
     } catch (error) {
         console.error("An error occurred in populateRightPanel:", error);
         // Handle the error, e.g., display a message to the user or gracefully recover

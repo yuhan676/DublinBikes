@@ -533,7 +533,7 @@ function generatePredictionGraphs(stationName) {
 }
 
 // Call the function with a sample station name
-generatePredictionGraphs(stationName);
+// generatePredictionGraphs(stationName);
 
 // This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded
 // All JQuery event handler definitions should go in here

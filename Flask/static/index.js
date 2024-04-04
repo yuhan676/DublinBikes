@@ -631,10 +631,10 @@ function generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLa
         // Assuming formatedTime is a Date object
 
         // Get the day of the week (0 for Sunday, 1 for Monday, ..., 6 for Saturday)
-        var dayOfWeek = timeUpdateDate.getDay();
+        // var dayOfWeek = timeUpdateDate.getDay();
 
         // Get the current hour (0-23)
-        var currentHour = timeUpdateDate.getHours();
+        // var currentHour = timeUpdateDate.getHours();
 
         // Logic for daily predictions
         // If it's the beginning of a new day, reset daily counts

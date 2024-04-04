@@ -443,9 +443,9 @@ function populateRightPanel(stationName, isRent) {
     var mechanicalBikeLabel = $('<div>').addClass('rp_info_label').text('Mechanical Bikes: ').append($('<p>').attr('id', 'available_mechanical').text(stationData.mechanical_bikes));
     var eBikeRemovableLabel = $('<div>').addClass('rp_info_label').text('E-Bike Removable Battery: ').append($('<p>').attr('id', 'available_e_removable').text(stationData.electrical_removable_battery_bikes));
     var eBikeInternalLabel = $('<div>').addClass('rp_info_label').text('E-Bike Internal Battery: ').append($('<p>').attr('id', 'available_e_internal').text(stationData.electrical_internal_battery_bikes));
-    var predictionPlaceholderRent = $('<div>').addClass('rp_prediction_rent').html('<p>Placeholder for bike availability prediction graph</p>');
+    // var predictionPlaceholderRent = $('<div>').addClass('rp_prediction_rent').html('<p>prediction place holder for a graph</p>');
     var totalParkingLabel = $('<div>').addClass('rp_park_total_label').text('Total Parking: ').append($('<p>').attr('id', 'available-park').text(stationData.empty_stands_number));
-    var predictionPlaceholderReturn = $('<div>').addClass('rp_prediction_return').html('<p>Placeholder for park availability prediction graph</p>');
+    // var predictionPlaceholderReturn = $('<div>').addClass('rp_prediction_return').html('<p>Placeholder for park availability prediction graph</p>');
 
     // Weather timestamp format using for consistent format "<p style='margin-bottom: 5px;'><strong>Last Updated:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + timestamp + "</span></p>"
 
@@ -471,56 +471,67 @@ function populateRightPanel(stationName, isRent) {
 
     // Append the elements to the right panel container based on the section
     if (isRent) {
-        rightPanelContainer.append(stationElementName, totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabelRent, predictionPlaceholderRent);
+        rightPanelContainer.append(stationElementName, totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabelRent);
     } else {
-        rightPanelContainer.append(stationElementName, totalParkingLabel, timeUpdateLabelReturn, predictionPlaceholderReturn);
+        rightPanelContainer.append(stationElementName, totalParkingLabel, timeUpdateLabelReturn);
     }
     console.log('Station information appended to right panel container.');
         
     // Call a function to generate the prediction graphs
-    generatePredictionGraphs(stationData, formatedTime);
+    generatePredictionGraphs(formatedTime, totalBikeLabel, totalParkingLabel, stationElementName);
 }
 // Function to generate and populate prediction graphs
-function generatePredictionGraphs(stationData, formatedTime) {
-    // Aggregate data for daily predictions
+function generatePredictionGraphs(formatedTime, totalBikeLabel, totalParkingLabel, stationElementName) {
+    // Initialize variables for daily predictions
     var dailyBikeCount = 0;
     var dailyParkingCount = 0;
+    
+    // Initialize variables for weekly predictions
     var weeklyBikeCount = 0;
     var weeklyParkingCount = 0;
-    
-    // Loop through stationData to aggregate data
-    for (var i = 0; i < stationData.length; i++) {
-        // Filter data for daily predictions
-        if (isSameDay(stationData[i].last_update, formatedTime)) {
-            dailyBikeCount += stationData[i].total_bikes;
-            dailyParkingCount += stationData[i].empty_stands_number;
-        }
-        
-        // Filter data for weekly predictions
-        if (isSameWeek(stationData[i].last_update, formatedTime)) {
-            weeklyBikeCount += stationData[i].total_bikes;
-            weeklyParkingCount += stationData[i].empty_stands_number;
-        }
+
+    // Assuming formatedTime is a Date object
+
+    // Get the day of the week (0 for Sunday, 1 for Monday, ..., 6 for Saturday)
+    var dayOfWeek = formatedTime.getDay();
+
+    // Get the current day of the month
+    // var dayOfMonth = formatedTime.getDate();
+
+    // Get the current hour (0-23)
+    var currentHour = formatedTime.getHours();
+
+    // Logic for daily predictions
+    // If it's the beginning of a new day, reset daily counts
+    if (currentHour === 0) {
+        dailyBikeCount = totalBikeLabel;
+        dailyParkingCount = totalParkingLabel;
     }
 
-    // Chart.js configuration for daily predictions
-    var ctxDaily = document.getElementById('predictionChartDaily').getContext('2d');
-    var dailyChart = new Chart(ctxDaily, {
+    // Logic for weekly predictions
+    // If it's Sunday (dayOfWeek === 0) and the beginning of the day (currentHour === 0), reset weekly counts
+    if (dayOfWeek === 0 && currentHour === 0) {
+        weeklyBikeCount = totalBikeLabel;
+        weeklyParkingCount = totalParkingLabel;
+    }
+
+    // Update the bike prediction chart canvas element inside the rp_prediction_rent div
+    var bikeCanvas = document.getElementById('bikePredictionChart');
+    var bikeChart = new Chart(bikeCanvas.getContext('2d'), {
         type: 'line',
         data: {
-            labels: ['Today'],
+            labels: ['Today', 'This Week'],
             datasets: [{
-                label: 'Daily Bike Prediction',
-                data: [dailyBikeCount],
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                borderColor: 'rgba(255, 99, 132, 1)',
-                borderWidth: 1
-            },
-            {
-                label: 'Daily Parking Prediction',
-                data: [dailyParkingCount],
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 1)',
+                label: 'Bike Prediction',
+                data: [dailyBikeCount, weeklyBikeCount],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)', // Red
+                    'rgba(54, 162, 235, 0.2)'   // Blue
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)'
+                ],
                 borderWidth: 1
             }]
         },
@@ -529,28 +540,33 @@ function generatePredictionGraphs(stationData, formatedTime) {
                 y: {
                     beginAtZero: true
                 }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Bike Prediction for ' + stationElementName
+                }
             }
         }
     });
 
-    // Chart.js configuration for weekly predictions
-    var ctxWeekly = document.getElementById('predictionChartWeekly').getContext('2d');
-    var weeklyChart = new Chart(ctxWeekly, {
+    // Update the parking prediction chart canvas element inside the rp_prediction_return div
+    var parkingCanvas = document.getElementById('parkPredictionChart');
+    var parkingChart = new Chart(parkingCanvas.getContext('2d'), {
         type: 'line',
         data: {
-            labels: ['This Week'],
+            labels: ['Today', 'This Week'],
             datasets: [{
-                label: 'Weekly Bike Prediction',
-                data: [weeklyBikeCount],
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                borderColor: 'rgba(255, 99, 132, 1)',
-                borderWidth: 1
-            },
-            {
-                label: 'Weekly Parking Prediction',
-                data: [weeklyParkingCount],
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 1)',
+                label: 'Parking Prediction',
+                data: [dailyParkingCount, weeklyParkingCount],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)', // Red
+                    'rgba(54, 162, 235, 0.2)'   // Blue
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)'
+                ],
                 borderWidth: 1
             }]
         },
@@ -558,6 +574,12 @@ function generatePredictionGraphs(stationData, formatedTime) {
             scales: {
                 y: {
                     beginAtZero: true
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Parking Prediction for ' + stationElementName
                 }
             }
         }

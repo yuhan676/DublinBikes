@@ -291,4 +291,4 @@ def search():
         return jsonify(error="An unexpected error occurred."), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, host="0.0.0.0", port=8080)
+    app.run(debug=True, host="0.0.0.0", port=808,ssl_context=("cert.pem", "key.pem"))

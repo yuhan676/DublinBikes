@@ -441,11 +441,11 @@ function selectStation(index, isRent) {
     // Additional logic for when a station is selected
     console.log('Station selected:', index, 'Is Rent:', isRent);
 
-    // Get the station name based on the index
-    var stationName = lastSearchJSON[index].name;
-
     // Load the Google Charts library and set a callback
     google.charts.load('current', {'packages':['corechart']});
+
+    // Get the station name based on the index
+    var stationName = lastSearchJSON[index].name;
 
     // Set a callback to run when the Google Charts library is loaded
     google.charts.setOnLoadCallback(function() {

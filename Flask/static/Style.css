@@ -336,7 +336,7 @@ canvas {
     width: 75%; /* Make the canvas fill its container */
     height: auto; /* Allow the canvas to adjust its height automatically */
     border: 1px solid #ddd; /* Add a border for better visibility */
-    /* border-radius: 5px; /* Add rounded corners */
+    border-radius: 5px; /* Add rounded corners */
 }
 
 /* Tab container styling */

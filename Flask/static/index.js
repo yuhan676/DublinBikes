@@ -665,6 +665,21 @@ $(document).ready(function() {
     $('#selection_container_return').on('mousedown','.selection_box',function(){
     var index = $('#selection_container_return .selection_box').index(this);
     selectStation(index, false);});
+
+    $(window).on('load', function() {
+        // Update the parking prediction chart canvas element inside the rp_prediction_return div
+        var parkingCanvas = $('#parkPredictionChart')[0]; // Get the parking canvas element
+        var parkingCtx = parkingCanvas.getContext('2d');
+        var parkingChart = new Chart(parkingCtx, {
+        });
+    
+        // Update the bike prediction chart canvas element inside the rp_prediction_rent div
+        var bikeCanvas = $('#bikePredictionChart')[0]; // Get the bike canvas element
+        var bikeCtx = bikeCanvas.getContext('2d');
+        var bikeChart = new Chart(bikeCtx, {
+        });
+    });
+    
 });
 
 function adjustWeatherPanelPosition() {

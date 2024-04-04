@@ -504,7 +504,7 @@ google.charts.load('current', {'packages':['corechart']});
 
 // Set a callback to run when the Google Visualization API is loaded.
 google.charts.setOnLoadCallback(generatePredictionGraphs);
-
+/*
 // Function to create prediction graphs for predicting station and bike availability
 function generatePredictionGraphs(stationName, isRent) {
     try {
@@ -593,7 +593,46 @@ function generatePredictionGraphs(stationName, isRent) {
         console.error("An error occurred in generatePredictionGraphs:", error);
         // Handle the error, e.g., display a message to the user or gracefully recover
     }
+}*/
+// Sample global variable containing station data
+var lastSearchJSONtest = [
+    { name: "Station1", total_bikes: 10, empty_stands_number: 5 },
+    { name: "Station2", total_bikes: 8, empty_stands_number: 2 },
+    { name: "Station3", total_bikes: 15, empty_stands_number: 10 }
+];
+
+// Function to generate prediction graphs for a station
+function generatePredictionGraphs(stationName) {
+    try {
+        console.log('Generating prediction graphs for:', stationName);
+
+        // Find the station data based on the stationName
+        var stationData;
+        if (lastSearchJSONtest && lastSearchJSONtest.length > 0) {
+            for (var i = 0; i < lastSearchJSONtest.length; i++) {
+                if (lastSearchJSON[i].name === stationName) {
+                    stationData = lastSearchJSONtest[i];
+                    break;
+                }
+            }
+        }
+        
+        if (!stationData) {
+            throw new Error("Station data not found for station: " + stationName);
+        }
+
+        console.log('Station data found:', stationData);
+
+        // Rest of the function...
+    } catch (error) {
+        console.error("An error occurred in generatePredictionGraphs:", error);
+        // Handle the error, e.g., display a message to the user or gracefully recover
+    }
 }
+
+// Call the function with a sample station name
+generatePredictionGraphs("Station2");
+
 // This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded
 // All JQuery event handler definitions should go in here
 $(document).ready(function() {

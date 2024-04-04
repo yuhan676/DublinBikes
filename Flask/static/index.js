@@ -454,9 +454,28 @@ function populateRightPanel(stationName, isRent) {
     // Weather timestamp format using for consistent format "<p style='margin-bottom: 5px;'><strong>Last Updated:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + timestamp + "</span></p>"
 
     // Create time update elements for both rent and return sections
-    var timeUpdateLabelRent = $('<div>').addClass('rp_info_label').text('Last Update: ').append($('<p>').attr('id', 'time-update').text(stationData.last_update));
-    var timeUpdateLabelReturn = $('<div>').addClass('rp_info_label').text('Last Update: ').append($('<p>').attr('id', 'time-update-return').text(stationData.last_update));
-    
+    // var timeUpdateLabelRent = $('<div>').addClass('rp_info_label').text('Last Updated: ').append($('<p>').attr('id', 'time-update').text(stationData.last_update));
+    // var timeUpdateLabelReturn = $('<div>').addClass('rp_info_label').text('Last Updated: ').append($('<p>').attr('id', 'time-update-return').text(stationData.last_update));
+    // Parse the timestamp string into a Date object
+    var timeUpdateDate = new Date(stationData.last_update);
+
+    // Format the date and time components
+    var options = {
+        weekday: 'long', 
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        timeZoneName: 'short'
+    };
+
+    // Format the date string using the specified options
+    var formattedTime = timeUpdateDate.toLocaleString(undefined, options);
+
+    // Create time update elements for both rent and return sections
+    var timeUpdateLabelRent = $('<div>').addClass('rp_info_label').text('Last Updated: ').append($('<p>').attr('id', 'time-update').text(formattedTime));
+    var timeUpdateLabelReturn = $('<div>').addClass('rp_info_label').text('Last Updated: ').append($('<p>').attr('id', 'time-update-return').text(formattedTime));
+
     // Append the elements to the right panel container based on the section
     if (isRent) {
         rightPanelContainer.append(stationElementName, totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabelRent, predictionPlaceholderRent);

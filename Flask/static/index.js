@@ -473,12 +473,14 @@ function selectStation(index, isRent) {
         // Instantiate and draw the prediction chart
         var chart = new google.visualization.LineChart(containerElement);
         chart.draw(data, options);
+
+        
+        // Call the populateRigthPanel function with selected station name after drawing the chart
+        populateRightPanel(stationName, isRent);
     });
     //update all markers
     updateMarkers(index);
 
-    // Call the populateRigthPanel function with selected station name
-    populateRightPanel(stationName, isRent);
 }  
 
 // Right hand Panel function to populate station and bike data

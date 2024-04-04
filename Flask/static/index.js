@@ -474,6 +474,11 @@ function selectStation(index, isRent) {
         var chart = new google.visualization.LineChart(containerElement);
         chart.draw(data, options);
     });
+    //update all markers
+    updateMarkers(index);
+
+    // Call the populateRigthPanel function with selected station name
+    populateRightPanel(stationName, isRent);
 }  
 
     // var containerId = 'rp_prediction_rent';

@@ -585,8 +585,8 @@ function generatePredictionGraphs(stationName, isRent) {
         var chartData = isRent ? bikeData : parkingData;
 
         // Reference the container div by its class name
-        var containerClassName = isRent ? 'rp_prediction_rent' : 'rp_prediction_return';
-        var containerElements = document.getElementsByClassName(containerClassName);
+        // var containerClassName = isRent ? 'rp_prediction_rent' : 'rp_prediction_return';
+        var containerElements = document.getElementsByClassName('rp_prediction_rent', 'rp_prediction_return');
 
         // Check if the container element exists
         if (containerElements.length === 0) {

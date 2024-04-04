@@ -451,6 +451,9 @@ function selectStation(index, isRent) {
         return;
     }
 
+    // Load Google Charts library if not already loaded
+    google.charts.load('current', { packages: ['corechart'] });
+
     // Set a callback to run when the Google Visualization API is loaded
     google.charts.setOnLoadCallback(function() {
         // Create and populate the data table for prediction
@@ -459,7 +462,7 @@ function selectStation(index, isRent) {
             ['Total Bikes', 10], // Example data, replace with actual values
             ['Empty Stands', 5]  // Example data, replace with actual values
         ]);
-        
+
         // Set options for the chart
         var options = {
             title: 'Prediction Graph for ' + stationName,
@@ -471,13 +474,7 @@ function selectStation(index, isRent) {
         var chart = new google.visualization.LineChart(containerElement);
         chart.draw(data, options);
     });
-
-    // Update all markers
-    updateMarkers(index);
-
-    // Call the populateRightPanel function with the selected station name
-    populateRightPanel(stationName, isRent);
-}
+}  
 
     // var containerId = 'rp_prediction_rent';
 

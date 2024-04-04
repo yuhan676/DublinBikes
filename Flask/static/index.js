@@ -582,7 +582,7 @@ function generatePredictionGraphs(stationName, isRent) {
 
         // Instantiate and draw the prediction chart based on the tab (rent or return)
         //var chartElementId = isRent ? 'bikePredictionChart' : 'parkPredictionChart';
-        var chartData = isRent ? bikeData : parkingData;
+        // var chartData = isRent ? bikeData : parkingData;
 
         // Reference the container div by its class name
         // var containerClassName = isRent ? 'rp_prediction_rent' : 'rp_prediction_return';
@@ -596,8 +596,8 @@ function generatePredictionGraphs(stationName, isRent) {
 
         // var containerElement = containerElements[0];
 
-        var chart = new google.visualization.LineChart(containerElements);
-        chart.draw(chartData, options);
+        var chart = new google.visualization.PieChart(containerElements);
+        chart.draw(options);
         
         // return chartElementId;
 

@@ -618,6 +618,13 @@ function generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLa
     }
 }
 */
+// Set a callback to run when the Google Visualization API is loaded.
+google.charts.setOnLoadCallback(function() {
+    // Call your function here
+    generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLabel, stationElementName);
+});
+
+// function to create prediction graphs for predicting station and bike availability
 function generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLabel, stationElementName) {
     try {
         // Initialize variables for daily predictions

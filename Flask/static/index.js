@@ -666,20 +666,13 @@ $(document).ready(function() {
     selectStation(index, false);});
 
     $(window).on('load', function() {
-        // Update the parking prediction chart canvas element inside the rp_prediction_return div
-        var parkingCanvas = $('#parkPredictionChart')[0]; // Get the parking canvas element
-        var parkingCtx = parkingCanvas.getContext('2d');
-        var parkingChart = new Chart(parkingCtx, {
-        });
-    
-        // Update the bike prediction chart canvas element inside the rp_prediction_rent div
-        var bikeCanvas = $('#bikePredictionChart')[0]; // Get the bike canvas element
-        var bikeCtx = bikeCanvas.getContext('2d');
-        var bikeChart = new Chart(bikeCtx, {
-        });
+        var bikeCanvas = $('#bikePredictionChart')[0];
+        var parkCanvas = $('#parkPredictionChart')[0];
+        // You can perform further operations with these canvas elements here if needed
     });
     
 });
+
 
 function adjustWeatherPanelPosition() {
     // Adjust the weather panel position based on the height of the left panel

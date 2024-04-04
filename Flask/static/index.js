@@ -448,7 +448,7 @@ function populateRightPanel(stationName, isRent) {
     var predictionPlaceholderReturn = $('<div>').addClass('rp_prediction_return').html('<p>Placeholder for park availability prediction graph</p>');
     
     // Format time update as a timestamp
-    var timeUpdateDate = new Date(stationData[0].last_update); // Convert last_update to a Date object
+    var timeUpdateDate = new Date(stationData[0].lastupdate); // Convert last_update to a Date object
     var timestamp = timeUpdateDate.toLocaleString(); // Convert date object to a localized string representation
 
     // Weather imestamp format using for consistent format "<p style='margin-bottom: 5px;'><strong>Last Updated:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + timestamp + "</span></p>"

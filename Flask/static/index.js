@@ -781,14 +781,15 @@ $(document).ready(function() {
     selectStation(index, false);});
 
     // Load the Visualization API and the corechart package.
-    //google.charts.load('current', {'packages':['corechart']});
+    google.charts.load('current', {'packages':['corechart']});
 
     // Set a callback to run when the Google Visualization API is loaded.
-    //google.charts.setOnLoadCallback(function() {
+    google.charts.setOnLoadCallback(function() {
         // This function will be executed once the API is loaded
         // Call your function to generate prediction graphs here
-        //generatePredictionGraphs(stationName);
+        generatePredictionGraphs(stationName);
     });
+});
 
 
 function adjustWeatherPanelPosition() {

@@ -446,16 +446,9 @@ function populateRightPanel(stationName, isRent) {
     var predictionPlaceholderRent = $('<div>').addClass('rp_prediction_rent').html('<p>Placeholder for bike availability prediction graph</p>');
     var totalParkingLabel = $('<div>').addClass('rp_park_total_label').text('Total Parking: ').append($('<p>').attr('id', 'available-park').text(stationData.empty_stands_number));
     var predictionPlaceholderReturn = $('<div>').addClass('rp_prediction_return').html('<p>Placeholder for park availability prediction graph</p>');
-    
-    // Format time update as a timestamp
-    // var timeUpdateDate = new Date(stationData[0].last_update); // Convert last_update to a Date object
-    // var timestamp = timeUpdateDate.toLocaleString(); // Convert date object to a localized string representation
 
     // Weather timestamp format using for consistent format "<p style='margin-bottom: 5px;'><strong>Last Updated:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + timestamp + "</span></p>"
 
-    // Create time update elements for both rent and return sections
-    // var timeUpdateLabelRent = $('<div>').addClass('rp_info_label').text('Last Updated: ').append($('<p>').attr('id', 'time-update').text(stationData.last_update));
-    // var timeUpdateLabelReturn = $('<div>').addClass('rp_info_label').text('Last Updated: ').append($('<p>').attr('id', 'time-update-return').text(stationData.last_update));
     // Parse the timestamp string into a Date object
     var timeUpdateDate = new Date(stationData.last_update);
 
@@ -466,7 +459,7 @@ function populateRightPanel(stationName, isRent) {
         day: 'numeric',
         hour: 'numeric',
         minute: 'numeric',
-        timeZoneName: 'short'
+        timeZone: 'Europe/Dublin'
     };
 
     // Format the date string using the specified options

@@ -452,7 +452,7 @@ function selectStation(index, isRent) {
     populateRightPanel(stationName, isRent);
 
     // Assuming your event handler creates a container element with ID 'bikePredictionChart'
-    var containerId = 'bikePredictionChart';
+    var containerId = 'rp_prediction_rent';
 
     // Check if the container element exists
     var containerElement = document.getElementById(containerId);

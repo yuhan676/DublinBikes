@@ -581,10 +581,10 @@ function generatePredictionGraphs(stationName, isRent) {
         };
 
         // Instantiate and draw the prediction chart based on the tab (rent or return)
-        // var chartElementId = isRent ? 'bikePredictionChart' : 'parkPredictionChart';
+        var chartElementId = isRent ? 'bikePredictionChart' : 'parkPredictionChart';
         var chartData = isRent ? bikeData : parkingData;
         
-        // Modify here to include the container divs
+        // Reference the container div by its ID
         var containerId = isRent ? 'rp_prediction_rent' : 'rp_prediction_return';
         var containerElement = document.getElementById(containerId);
         if (!containerElement) {
@@ -599,7 +599,7 @@ function generatePredictionGraphs(stationName, isRent) {
         console.error("An error occurred in generatePredictionGraphs:", error);
         // Handle the error, e.g., display a message to the user or gracefully recover
     }
-}     
+}
 /*
 // Test function to generate prediction graphs for a station
 function generatePredictionGraphs(stationName) {

@@ -34,6 +34,10 @@
             initTimeAndDate();
             openTab(null, 'rent'); // Open the 'Rent' tab by default
             adjustWeatherPanelPosition(); // Adjust the weather panel position on load
+            var myCanvas = document.getElementById('canvas'); // initialise canvas before js script loads
+            var ctx = myCanvas.getContext('2d');
+            ctx.fillStyle = 'green';
+            ctx.fillRect(10, 10, 100, 50);
         };
     </script>
 </head>

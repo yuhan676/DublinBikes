@@ -447,8 +447,6 @@ function populateRightPanel(stationName, isRent) {
     var totalParkingLabel = $('<div>').addClass('rp_park_total_label').text('Total Parking: ').append($('<p>').attr('id', 'available-park').text(stationData.empty_stands_number));
     // var predictionPlaceholderReturn = $('<div>').addClass('rp_prediction_return').html('<p>Placeholder for park availability prediction graph</p>');
 
-    // Weather timestamp format using for consistent format "<p style='margin-bottom: 5px;'><strong>Last Updated:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + timestamp + "</span></p>"
-
     // Parse the timestamp string into a Date object
     var timeUpdateDate = new Date(stationData.last_update);
 
@@ -478,10 +476,10 @@ function populateRightPanel(stationName, isRent) {
     console.log('Station information appended to right panel container.');
         
     // Call a function to generate the prediction graphs
-    generatePredictionGraphs(formatedTime, totalBikeLabel, totalParkingLabel, stationElementName);
+    generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLabel, stationElementName);
 }
 // Function to generate and populate prediction graphs
-function generatePredictionGraphs(formatedTime, totalBikeLabel, totalParkingLabel, stationElementName) {
+function generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLabel, stationElementName) {
     // Initialize variables for daily predictions
     var dailyBikeCount = 0;
     var dailyParkingCount = 0;
@@ -493,13 +491,13 @@ function generatePredictionGraphs(formatedTime, totalBikeLabel, totalParkingLabe
     // Assuming formatedTime is a Date object
 
     // Get the day of the week (0 for Sunday, 1 for Monday, ..., 6 for Saturday)
-    var dayOfWeek = formatedTime.getDay();
+    var dayOfWeek = timeUpdateDate.getDay();
 
     // Get the current day of the month
     // var dayOfMonth = formatedTime.getDate();
 
     // Get the current hour (0-23)
-    var currentHour = formatedTime.getHours();
+    var currentHour = timeUpdateDate.getHours();
 
     // Logic for daily predictions
     // If it's the beginning of a new day, reset daily counts
@@ -584,6 +582,7 @@ function generatePredictionGraphs(formatedTime, totalBikeLabel, totalParkingLabe
             }
         }
     });
+    return { bikeChart: bikeChart, parkingChart: parkingChart };
 }
 
 // This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded

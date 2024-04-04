@@ -497,101 +497,12 @@ function populateRightPanel(stationName, isRent) {
         // Handle the error, e.g., display a message to the user or gracefully recover
     }
 }
+/*
 // Load the Visualization API and the corechart package.
 google.charts.load('current', {'packages':['corechart']});
 
 // Set a callback to run when the Google Visualization API is loaded.
 google.charts.setOnLoadCallback(generatePredictionGraphs);
-/*
-// Function to create prediction graphs for predicting station and bike availability
-function generatePredictionGraphs(stationName, isRent) {
-    try {
-        // Find the station data based on the stationName
-        var stationData;
-        if (lastSearchJSON && lastSearchJSON.length > 0) {
-            for (var i = 0; i < lastSearchJSON.length; i++) {
-                if (lastSearchJSON[i].name === stationName) {
-                    stationData = lastSearchJSON[i];
-                    break;
-                }
-            }
-        }
-        
-        if (!stationData) {
-            throw new Error("Station data not found.");
-        }
-
-        console.log('Station data found:', stationData);
-
-        // Parse the timestamp string into a Date object
-        var timeUpdateDate = new Date(stationData.last_update);
-
-        // Check if last_update is a valid date
-        if (isNaN(timeUpdateDate.getTime())) {
-            throw new Error("Invalid last update date.");
-        }
-
-        // Initialize variables for daily predictions
-        var dailyBikeCount = 0;
-        var dailyParkingCount = 0;
-
-        // Initialize variables for weekly predictions
-        var weeklyBikeCount = 0;
-        var weeklyParkingCount = 0;
-
-        // Get the day of the week (0 for Sunday, 1 for Monday, ..., 6 for Saturday)
-        var dayOfWeek = timeUpdateDate.getDay();
-
-        // Get the current hour (0-23)
-        var currentHour = timeUpdateDate.getHours();
-
-        // Logic for daily predictions
-        // If it's the beginning of a new day, reset daily counts
-        if (currentHour === 0) {
-            dailyBikeCount = stationData.total_bikes;
-            dailyParkingCount = stationData.empty_stands_number;
-        }
-
-        // Logic for weekly predictions
-        // If it's Sunday (dayOfWeek === 0) and the beginning of the day (currentHour === 0), reset weekly counts
-        if (dayOfWeek === 0 && currentHour === 0) {
-            weeklyBikeCount = stationData.total_bikes;
-            weeklyParkingCount = stationData.empty_stands_number;
-        }
-
-        // Create and populate the data table for bike prediction
-        var bikeData = google.visualization.arrayToDataTable([
-            ['Category', 'Count'],
-            ['Today', dailyBikeCount],
-            ['This Week', weeklyBikeCount]
-        ]);
-
-        // Create and populate the data table for parking prediction
-        var parkingData = google.visualization.arrayToDataTable([
-            ['Category', 'Count'],
-            ['Today', dailyParkingCount],
-            ['This Week', weeklyParkingCount]
-        ]);
-
-        // Set options for both charts
-        var options = {
-            title: isRent ? 'Bike Prediction for ' + stationName : 'Parking Prediction for ' + stationName,
-            curveType: 'function',
-            legend: { position: 'bottom' }
-        };
-
-        // Instantiate and draw the prediction chart based on the tab (rent or return)
-        var chartElementId = isRent ? 'bikePredictionChart' : 'parkPredictionChart';
-        var chartData = isRent ? bikeData : parkingData;
-        var chart = new google.visualization.LineChart(document.getElementById(chartElementId));
-        chart.draw(chartData, options);
-
-        return chart;
-    } catch (error) {
-        console.error("An error occurred in generatePredictionGraphs:", error);
-        // Handle the error, e.g., display a message to the user or gracefully recover
-    }
-}*/
 
 // Test function to generate prediction graphs for a station
 function generatePredictionGraphs(stationName) {
@@ -623,7 +534,7 @@ function generatePredictionGraphs(stationName) {
 
 // Call the function with a sample station name
 generatePredictionGraphs(stationName);
-
+*/
 // This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded
 // All JQuery event handler definitions should go in here
 $(document).ready(function() {

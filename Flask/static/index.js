@@ -416,7 +416,7 @@ function selectStation(index, isRent) {
     populateRightPanel(stationName, isRent);
 
     // Call the generatePrefictionGraphs function with the selected station name
-    generatePredictionGraphs(stationName);
+    generatePredictionGraphs(stationName, isRent);
 
 }
 function populateRightPanel(stationName, isRent) {
@@ -506,7 +506,7 @@ google.charts.load('current', {'packages':['corechart']});
 google.charts.setOnLoadCallback(generatePredictionGraphs);
 
 // Function to create prediction graphs for predicting station and bike availability
-function generatePredictionGraphs(stationName) {
+function generatePredictionGraphs(stationName, isRent) {
     try {
         // Find the station data based on the stationName
         var stationData;
@@ -540,8 +540,6 @@ function generatePredictionGraphs(stationName) {
         // Initialize variables for weekly predictions
         var weeklyBikeCount = 0;
         var weeklyParkingCount = 0;
-
-        // Assuming formatedTime is a Date object
 
         // Get the day of the week (0 for Sunday, 1 for Monday, ..., 6 for Saturday)
         var dayOfWeek = timeUpdateDate.getDay();
@@ -579,23 +577,18 @@ function generatePredictionGraphs(stationName) {
 
         // Set options for both charts
         var options = {
-            title: 'Bike Prediction for ' + stationName,
+            title: isRent ? 'Bike Prediction for ' + stationName : 'Parking Prediction for ' + stationName,
             curveType: 'function',
             legend: { position: 'bottom' }
         };
 
-        // Instantiate and draw the bike prediction chart
-        var bikeChart = new google.visualization.LineChart(document.getElementById('bikePredictionChart'));
-        bikeChart.draw(bikeData, options);
+        // Instantiate and draw the prediction chart based on the tab (rent or return)
+        var chartElementId = isRent ? 'bikePredictionChart' : 'parkPredictionChart';
+        var chartData = isRent ? bikeData : parkingData;
+        var chart = new google.visualization.LineChart(document.getElementById(chartElementId));
+        chart.draw(chartData, options);
 
-        // Set options for parking prediction chart
-        options.title = 'Parking Prediction for ' + stationName;
-
-        // Instantiate and draw the parking prediction chart
-        var parkingChart = new google.visualization.LineChart(document.getElementById('parkPredictionChart'));
-        parkingChart.draw(parkingData, options);
-
-        return { bikeChart: bikeChart, parkingChart: parkingChart };
+        return chart;
     } catch (error) {
         console.error("An error occurred in generatePredictionGraphs:", error);
         // Handle the error, e.g., display a message to the user or gracefully recover

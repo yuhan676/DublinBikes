@@ -448,14 +448,14 @@ function populateRightPanel(stationName, isRent) {
     var predictionPlaceholderReturn = $('<div>').addClass('rp_prediction_return').html('<p>Placeholder for park availability prediction graph</p>');
     
     // Format time update as a timestamp
-    var timeUpdateDate = new Date(stationData[0].time_update); // Convert last_update to a Date object
-    var timestamp = timeUpdateDate.toLocaleString(); // Convert date object to a localized string representation
+    // var timeUpdateDate = new Date(stationData[0].last_update); // Convert last_update to a Date object
+    // var timestamp = timeUpdateDate.toLocaleString(); // Convert date object to a localized string representation
 
-    // Weather imestamp format using for consistent format "<p style='margin-bottom: 5px;'><strong>Last Updated:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + timestamp + "</span></p>"
+    // Weather timestamp format using for consistent format "<p style='margin-bottom: 5px;'><strong>Last Updated:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + timestamp + "</span></p>"
 
     // Create time update elements for both rent and return sections
-    var timeUpdateLabelRent = $('<div>').addClass('rp_info_label').text('Last Update: ').append($('<p>').attr('id', 'time-update').text(timestamp));
-    var timeUpdateLabelReturn = $('<div>').addClass('rp_info_label').text('Last Update: ').append($('<p>').attr('id', 'time-update-return').text(timestamp));
+    var timeUpdateLabelRent = $('<div>').addClass('rp_info_label').text('Last Update: ').append($('<p>').attr('id', 'time-update').text(stationData.last_update));
+    var timeUpdateLabelReturn = $('<div>').addClass('rp_info_label').text('Last Update: ').append($('<p>').attr('id', 'time-update-return').text(stationData.last_update));
     
     // Append the elements to the right panel container based on the section
     if (isRent) {

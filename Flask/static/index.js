@@ -751,13 +751,6 @@ function weatherOpenTab(evt, tabContentId) {
     document.getElementById(tabContentId).style.display = 'block';
     evt.currentTarget.classList.add('active');
 }
-
-// Set the "Current" tab as active on page load
-window.onload = function() {
-    // Call weatherOpenTab function with 'weather-current-content' tabContentId to make it active on page load
-    weatherOpenTab({ currentTarget: document.querySelector('.weather-tablinks.active') }, 'weather-current-content');
-};
-
 // Function to fetch current weather data using AJAX
 function fetchCurrentWeatherData() {
     $.ajax({

@@ -34,6 +34,8 @@
             initTimeAndDate();
             openTab(null, 'rent'); // Open the 'Rent' tab by default
             adjustWeatherPanelPosition(); // Adjust the weather panel position on load
+            // Call weatherOpenTab function with 'weather-current-content' tabContentId to make it active on page load
+            weatherOpenTab({ currentTarget: document.querySelector('.weather-tablinks.active') }, 'weather-current-content');
             // generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLabel, stationElementName) 
             // call function during window.onload to load canvas 
     

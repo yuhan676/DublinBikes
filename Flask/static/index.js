@@ -650,11 +650,13 @@ function generatePredictionGraphs(stationName, isRent) {
     }
 }
 */
-
-// Test function to generate prediction graphs for a station
+// function to generate weekly and daily station and bike prediction
 function generatePredictionGraphs(stationName) {
     try {
         console.log('Generating prediction graphs for:', stationName);
+
+        // Check if the DOM element is loaded
+        console.log('DOM element loaded:', document.getElementById('bikePredictionChart'));
 
         // Find the station data based on the stationName
         var stationData;

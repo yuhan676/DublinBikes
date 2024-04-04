@@ -478,7 +478,7 @@ function selectStation(index, isRent) {
     updateMarkers(index);
 
     // Call the populateRigthPanel function with selected station name
-    // populateRightPanel(stationName, isRent);
+    populateRightPanel(stationName, isRent);
 }  
 
     // var containerId = 'rp_prediction_rent';

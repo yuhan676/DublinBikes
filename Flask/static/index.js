@@ -423,7 +423,7 @@ function selectionToggle(isRent) {
         console.error('One of the elements was not found in the DOM.');
     }
 }
-/*
+
 // Function to handle the selection of a station box
 function selectStation(index, isRent) {
     // Clear marker when search is clicked again
@@ -475,15 +475,20 @@ function selectStation(index, isRent) {
         var chart = new google.visualization.LineChart(containerElement);
         chart.draw(data, options);
 
-        
-        // Call the populateRigthPanel function with selected station name after drawing the chart
-        populateRightPanel(stationName, isRent);
+        // Check if the container element exists before calling populateRightPanel
+        if (document.getElementById('rp_prediction_rent')) {
+            // Call the populateRigthPanel function with selected station name after drawing the chart
+            populateRightPanel(stationName, isRent);
+        } else {
+            console.error("Container element 'rp_prediction_rent' not found.");
+        }
     });
+
     //update all markers
     updateMarkers(index);
+}
 
-}  
-*/
+/*
 // Function to handle the selection of a station box
 function selectStation(index, isRent) {
     // Clear marker when search is clicked again
@@ -525,7 +530,7 @@ function selectStation(index, isRent) {
     }
 } 
 
-
+*/
 // Right hand Panel function to populate station and bike data
 function populateRightPanel(stationName, isRent) {
     try {

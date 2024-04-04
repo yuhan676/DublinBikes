@@ -890,23 +890,6 @@ function fetchForecastData() {
             
             var timestamp = dayOfWeek + ", " + month + "  " + day + ", " + timezone;
 
-            // Handle undefined rain
-            if (typeof rain === "undefined") {
-                console.log("Rain is undefined");
-                $('#rain').hide();
-            } else {
-                console.log("Rain is defined");
-                $('#rain').text(rain);
-                $('#rain').show();
-            }            
-
-            // Hide max temperature if it is NaN
-            if (tempMax === "NaN °C") {
-                $('#max-temp').hide();
-            } else {
-                $('#max-temp').text(tempMax);
-                $('#max-temp').show();
-            }
             // Update HTML content with fetched weather data
             $('#weather-forecast-content').html(
                 "<p style='margin-bottom: 5px;'><span style='font-size: 1.1em;'>Min Temperature:</span> " + tempMin + " °C</p>" +

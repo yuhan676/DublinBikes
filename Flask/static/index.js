@@ -594,24 +594,18 @@ function generatePredictionGraphs(stationName, isRent) {
         // Handle the error, e.g., display a message to the user or gracefully recover
     }
 }*/
-// Sample global variable containing station data
-var lastSearchJSONtest = [
-    { name: "Station1", total_bikes: 10, empty_stands_number: 5 },
-    { name: "Station2", total_bikes: 8, empty_stands_number: 2 },
-    { name: "Station3", total_bikes: 15, empty_stands_number: 10 }
-];
 
-// Function to generate prediction graphs for a station
+// Test function to generate prediction graphs for a station
 function generatePredictionGraphs(stationName) {
     try {
         console.log('Generating prediction graphs for:', stationName);
 
         // Find the station data based on the stationName
         var stationData;
-        if (lastSearchJSONtest && lastSearchJSONtest.length > 0) {
-            for (var i = 0; i < lastSearchJSONtest.length; i++) {
+        if (lastSearchJSON && lastSearchJSON.length > 0) {
+            for (var i = 0; i < lastSearchJSON.length; i++) {
                 if (lastSearchJSON[i].name === stationName) {
-                    stationData = lastSearchJSONtest[i];
+                    stationData = lastSearchJSON[i];
                     break;
                 }
             }
@@ -623,7 +617,6 @@ function generatePredictionGraphs(stationName) {
 
         console.log('Station data found:', stationData);
 
-        // Rest of the function...
     } catch (error) {
         console.error("An error occurred in generatePredictionGraphs:", error);
         // Handle the error, e.g., display a message to the user or gracefully recover
@@ -631,7 +624,7 @@ function generatePredictionGraphs(stationName) {
 }
 
 // Call the function with a sample station name
-generatePredictionGraphs("Station2");
+generatePredictionGraphs(stationName);
 
 // This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded
 // All JQuery event handler definitions should go in here

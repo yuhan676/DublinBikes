@@ -581,7 +581,7 @@ function generatePredictionGraphs(stationName, isRent) {
         };
 
         // Instantiate and draw the prediction chart based on the tab (rent or return)
-        var chartElementId = isRent ? 'bikePredictionChart' : 'parkPredictionChart';
+        // var chartElementId = isRent ? 'bikePredictionChart' : 'parkPredictionChart';
         var chartData = isRent ? bikeData : parkingData;
         
         // Modify here to include the container divs

@@ -667,8 +667,9 @@ $(document).ready(function() {
 
     $(window).on('load', function() {
         var bikeCanvas = $('#bikePredictionChart')[0];
-        var parkCanvas = $('#parkPredictionChart')[0];
+        var parkingCanvas = $('#parkPredictionChart')[0];
         // You can perform further operations with these canvas elements here if needed
+    return bikeCanvas, parkingCanvas
     });
     
 });

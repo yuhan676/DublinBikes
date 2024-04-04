@@ -694,7 +694,7 @@ function generatePredictionGraphs(stationName) {
         };
 
         // Instantiate and draw the prediction chart
-        var chart = new google.visualization.LineChart(document.getElementById('bikePredictionChart'));
+        var chart = new google.visualization.LineChart(document.getElementById('rp_prediction_rent'));
         chart.draw(data, options);
 
     } catch (error) {

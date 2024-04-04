@@ -71,6 +71,42 @@ function updateSearchBtn() {
     }
 }
 
+// Function to find the geolocation of user
+function findUserLocation() {
+    // Check if the Geolocation API is supported
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        const userLocation = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        findClosestStation(userLocation);
+      }, function(error) {
+        console.error("Error Code = " + error.code + " - " + error.message);
+        // Handle location errors (user denying permission, etc) here
+      });
+    } else {
+      console.error("Geolocation is not supported by this browser.");
+    }
+  }
+
+  // Function called by findUerLocation to send the query to the flask endpoint
+  function findClosestStation(userLocation) {
+    $.ajax({
+      url: '/closest_station',
+      data: {
+        lat: userLocation.lat,
+        lng: userLocation.lng
+      },
+      success: function(data) {
+        $('#search_rent').val(data.closest_station);
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.error('AJAX request failed: ', textStatus, errorThrown);
+      }
+    });
+  }
+
 // Do some input validity checking and submit the search
 function verifyAndSubmitQuery() {
     // Clear the error text
@@ -673,6 +709,9 @@ $(document).ready(function() {
         fetchStationSuggestions('suggestion_box_return', $(this))
         updateSearchBtn();
     });
+
+    // Add event listener to find closest station button
+    document.getElementById('closestStation_btn').addEventListener('click', findUserLocation);
 
     // set selected station when clicking suggestion
     $('#suggestion_box_rent').on('mousedown', '.suggestion_div', function() {

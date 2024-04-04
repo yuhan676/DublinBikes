@@ -4,6 +4,11 @@ from functions import connect_db, get_station_names, fetch_weather_data_database
 import json
 import traceback 
 from json.decoder import JSONDecodeError
+import pandas as pd
+from haversine import haversine
+import ssl
+context = ssl.SSLContext()
+context.load_cert_chain('cert.pem', 'key.pem')
 
 app = Flask(__name__, static_url_path='')
 app.config.from_object('config')
@@ -162,6 +167,28 @@ def fetch_extreme_weather():
         print("Error loading weather data:", e)
         traceback.print_exc()
         return jsonify(False)  # Unable to load weather data, assume no extreme weather
+
+# Read the static station data downloaded from JCDecaux, compute the closest station and return the station name
+STATIONS_CSV = 'Static_dublin.csv'
+
+@app.route('/closest_station', methods=['GET'])
+def closest_station():
+    user_lat = request.args.get('lat', type=float)
+    user_lng = request.args.get('lng', type=float)
+
+    # Load the station data
+    stations = pd.read_csv(STATIONS_CSV)
+
+    # Find the closest station
+    min_distance = float('inf')
+    closest_station = None
+    for _, station in stations.iterrows():
+        distance = haversine((user_lat, user_lng), (station['Latitude'], station['Longitude']))
+        if distance < min_distance:
+            min_distance = distance
+            closest_station = station['Name']
+
+    return jsonify(closest_station=closest_station)
 
 # provide suggestion for station names based on user's input of station name
 @app.route('/suggest_stations')

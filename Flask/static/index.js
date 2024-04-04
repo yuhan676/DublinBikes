@@ -650,6 +650,20 @@ function generatePredictionGraphs(stationName, isRent) {
     }
 }
 */
+
+// Function to check if the DOM element is loaded and call generatePredictionGraphs
+function activateGeneratePredictionGraphs() {
+    // Check if the DOM element is loaded
+    var bikePredictionChart = document.getElementById('bikePredictionChart');
+    if (bikePredictionChart) {
+        // If the DOM element is loaded, call generatePredictionGraphs
+        generatePredictionGraphs('YourStationName');
+    } else {
+        // If the DOM element is not loaded, log a message and try again after a delay
+        console.log("DOM element 'bikePredictionChart' not found. Retrying in 100 milliseconds...");
+        setTimeout(activateGeneratePredictionGraphs, 100); // Retry after 100 milliseconds
+    }
+}
 // function to generate weekly and daily station and bike prediction
 function generatePredictionGraphs(stationName) {
     try {

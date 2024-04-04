@@ -451,19 +451,57 @@ function selectStation(index, isRent) {
     // Call the populateRightPanel function with the selected station name
     populateRightPanel(stationName, isRent);
 
-    // Assuming your event handler creates a container element with ID 'bikePredictionChart'
+    // Assuming your event handler creates a container element with ID 'rp_prediction_rent'
     var containerId = 'rp_prediction_rent';
 
     // Check if the container element exists
     var containerElement = document.getElementById(containerId);
 
     if (containerElement) {
-        // Call the function to generate prediction graphs
-        generatePredictionGraphs(stationName);
+        // Find the station data based on the stationName
+        var stationData;
+        if (lastSearchJSON && lastSearchJSON.length > 0) {
+            for (var i = 0; i < lastSearchJSON.length; i++) {
+                if (lastSearchJSON[i].name === stationName) {
+                    stationData = lastSearchJSON[i];
+                    break;
+                }
+            }
+        }
+
+        if (stationData) {
+            try {
+                console.log('Generating prediction graphs for:', stationName);
+
+                // Create and populate the data table for prediction
+                var data = google.visualization.arrayToDataTable([
+                    ['Category', 'Count'],
+                    ['Total Bikes', stationData.total_bikes],
+                    ['Empty Stands', stationData.empty_stands_number]
+                ]);
+
+                // Set options for the chart
+                var options = {
+                    title: 'Prediction Graph for ' + stationName,
+                    curveType: 'function',
+                    legend: { position: 'bottom' }
+                };
+
+                // Instantiate and draw the prediction chart
+                var chart = new google.visualization.LineChart(containerElement);
+                chart.draw(data, options);
+
+            } catch (error) {
+                console.error("An error occurred in generatePredictionGraphs:", error);
+                // Handle the error, e.g., display a message to the user or gracefully recover
+            }
+        } else {
+            console.error("Station data not found for station: " + stationName);
+        }
     } else {
         console.error("Container element '" + containerId + "' not found.");
     }
-}
+} 
 // Right hand Panel function to populate station and bike data
 function populateRightPanel(stationName, isRent) {
     try {
@@ -654,6 +692,7 @@ function generatePredictionGraphs(stationName, isRent) {
     }
 }
 */
+/*
 // function to generate weekly and daily station and bike prediction
 function generatePredictionGraphs(stationName) {
     try {
@@ -702,6 +741,7 @@ function generatePredictionGraphs(stationName) {
         // Handle the error, e.g., display a message to the user or gracefully recover
     }
 }
+*/
 
 // This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded
 // All JQuery event handler definitions should go in here

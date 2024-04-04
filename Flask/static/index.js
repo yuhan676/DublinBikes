@@ -596,7 +596,7 @@ function generatePredictionGraphs(stationName, isRent) {
 
         // var containerElement = containerElements[0];
 
-        var chart = new google.visualization.PieChart(containerElements);
+        var chart = new google.visualization.LineChart(getElementById('parkPredictionChart'));
         chart.draw(options);
         
         // return chartElementId;

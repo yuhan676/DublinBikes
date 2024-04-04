@@ -445,31 +445,34 @@ function selectStation(index, isRent) {
     // Get the station name based on the index
     var stationName = lastSearchJSON[index].name;
 
-    // Create and populate the data table for prediction
-    var data = google.visualization.arrayToDataTable([
-        ['Category', 'Count'],
-        ['Total Bikes', 10], // Example data, replace with actual values
-        ['Empty Stands', 5]  // Example data, replace with actual values
-    ]);
-    
-    // Set options for the chart
-    var options = {
-        title: 'Prediction Graph for ' + stationName,
-        curveType: 'function',
-        legend: { position: 'bottom' }
-    };
-    // Instantiate and draw the prediction chart
+    // Set a callback to run when the Google Visualization API is loaded
+    google.charts.setOnLoadCallback(function() {
+        // Create and populate the data table for prediction
+        var data = google.visualization.arrayToDataTable([
+            ['Category', 'Count'],
+            ['Total Bikes', 10], // Example data, replace with actual values
+            ['Empty Stands', 5]  // Example data, replace with actual values
+        ]);
         
-    var chart = new google.visualization.LineChart(document.getElementById('bikePredictionChart'));
-    chart.draw(data, options);
+        // Set options for the chart
+        var options = {
+            title: 'Prediction Graph for ' + stationName,
+            curveType: 'function',
+            legend: { position: 'bottom' }
+        };
 
-    // update all markers
-    updateMarkers(index);
+        // Instantiate and draw the prediction chart
+        var chart = new google.visualization.LineChart(document.getElementById('bikePredictionChart'));
+        chart.draw(data, options);
 
-    // Call the populateRightPanel function with the selected station name
-    populateRightPanel(stationName, isRent);
+        // update all markers
+        updateMarkers(index);
 
-    // 
+        // Call the populateRightPanel function with the selected station name
+        populateRightPanel(stationName, isRent);
+    });
+}
+
     // var containerId = 'rp_prediction_rent';
 
     // Check if the container element exists
@@ -481,12 +484,8 @@ function selectStation(index, isRent) {
     // } else {
         //console.error("Container element '" + containerId + "' not found.");
     // }
-}
-// Load the Visualization API and the corechart package.
-google.charts.load('current', {'packages':['corechart']});
+        // Set a callback to run when the Google Visualization API is loaded
 
-// Set a callback to run when the Google Visualization API is loaded.
-google.charts.setOnLoadCallback(selectStation(index, isRent));
 // Right hand Panel function to populate station and bike data
 function populateRightPanel(stationName, isRent) {
     try {

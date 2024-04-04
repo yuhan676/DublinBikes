@@ -482,6 +482,11 @@ function selectStation(index, isRent) {
         //console.error("Container element '" + containerId + "' not found.");
     // }
 }
+// Load the Visualization API and the corechart package.
+google.charts.load('current', {'packages':['corechart']});
+
+// Set a callback to run when the Google Visualization API is loaded.
+google.charts.setOnLoadCallback(selectStation(index, isRent));
 // Right hand Panel function to populate station and bike data
 function populateRightPanel(stationName, isRent) {
     try {

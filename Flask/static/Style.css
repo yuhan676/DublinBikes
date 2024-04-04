@@ -331,13 +331,20 @@
 {
     display:block;
 }
-/* Styles for the canvas element inside the prediction graph containers */
-canvas {
-    width: 75%; /* Make the canvas fill its container */
-    height: auto; /* Allow the canvas to adjust its height automatically */
+.rp_prediction_rent,
+.rp_prediction_return {
+    width: 75%; /* Adjust width as needed */
+    height: auto; /* Allow the height to adjust automatically */
     border: 1px solid #ddd; /* Add a border for better visibility */
     border-radius: 5px; /* Add rounded corners */
+    margin-bottom: 20px; /* Add some bottom margin for spacing */
+    padding: 10px; /* Add padding for spacing inside the container */
 }
+
+/* Optional: Add additional styles for specific elements inside the containers 
+.rp_prediction_rent #bikePredictionChart,
+.rp_prediction_return #parkPredictionChart {
+     Add styles for the chart elements if needed */
 
 /* Tab container styling */
 .tab {

@@ -6,6 +6,8 @@
     <title>Bike Rental App</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="Style.css">
+    <!-- Include Google Charts library -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <!-- script for static images -->
     <script type="text/javascript">
         // Define a global variable for the base static URL
@@ -127,17 +129,15 @@
                 <div class="rp_info_label">Last Updated: <p id="time-update-return">time</p></div>
             </div>
             <div class="rp_prediction_rent">
-                <!-- Bike availability prediciton-->
-                <canvas id="bikePredictionChart" width="400" height="200"></canvas> 
-                <!--<p>Placeholder for bike availability prediction graph </p>-->
-
+                <!-- Bike availability prediction -->
+                <div id="bikePredictionChart"></div> 
+                <!-- <p>Placeholder for bike availability prediction graph</p> -->
             </div>
             <div class="rp_prediction_return">
-                <canvas id="parkPredictionChart" width="400" height="200"></canvas>
-                <!--<p>Placeholder for park availability prediction graph </p>-->
-            </div>
-            <!-- Chart.js library -->
-            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <!-- Park availability prediction -->
+                <div id="parkPredictionChart"></div>
+                <!-- <p>Placeholder for park availability prediction graph</p> -->
+            </div>            
         </div>
     </div>
     <!-- Severe Weather Popup -->

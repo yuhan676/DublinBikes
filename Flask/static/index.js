@@ -497,6 +497,7 @@ function populateRightPanel(stationName, isRent) {
         // Handle the error, e.g., display a message to the user or gracefully recover
     }
 }
+/*
 
 function generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLabel, stationElementName) {
     try {
@@ -616,7 +617,77 @@ function generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLa
         // Handle the error, e.g., display a message to the user or gracefully recover
     }
 }
+*/
+function generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLabel, stationElementName) {
+    try {
+        // Initialize variables for daily predictions
+        var dailyBikeCount = 0;
+        var dailyParkingCount = 0;
 
+        // Initialize variables for weekly predictions
+        var weeklyBikeCount = 0;
+        var weeklyParkingCount = 0;
+
+        // Assuming formatedTime is a Date object
+
+        // Get the day of the week (0 for Sunday, 1 for Monday, ..., 6 for Saturday)
+        var dayOfWeek = timeUpdateDate.getDay();
+
+        // Get the current hour (0-23)
+        var currentHour = timeUpdateDate.getHours();
+
+        // Logic for daily predictions
+        // If it's the beginning of a new day, reset daily counts
+        if (currentHour === 0) {
+            dailyBikeCount = totalBikeLabel;
+            dailyParkingCount = totalParkingLabel;
+        }
+
+        // Logic for weekly predictions
+        // If it's Sunday (dayOfWeek === 0) and the beginning of the day (currentHour === 0), reset weekly counts
+        if (dayOfWeek === 0 && currentHour === 0) {
+            weeklyBikeCount = totalBikeLabel;
+            weeklyParkingCount = totalParkingLabel;
+        }
+
+        // Create and populate the data table for bike prediction
+        var bikeData = google.visualization.arrayToDataTable([
+            ['Category', 'Count'],
+            ['Today', dailyBikeCount],
+            ['This Week', weeklyBikeCount]
+        ]);
+
+        // Create and populate the data table for parking prediction
+        var parkingData = google.visualization.arrayToDataTable([
+            ['Category', 'Count'],
+            ['Today', dailyParkingCount],
+            ['This Week', weeklyParkingCount]
+        ]);
+
+        // Set options for both charts
+        var options = {
+            title: 'Bike Prediction for ' + stationElementName,
+            curveType: 'function',
+            legend: { position: 'bottom' }
+        };
+
+        // Instantiate and draw the bike prediction chart
+        var bikeChart = new google.visualization.LineChart(document.getElementById('bikePredictionChart'));
+        bikeChart.draw(bikeData, options);
+
+        // Set options for parking prediction chart
+        options.title = 'Parking Prediction for ' + stationElementName;
+
+        // Instantiate and draw the parking prediction chart
+        var parkingChart = new google.visualization.LineChart(document.getElementById('parkPredictionChart'));
+        parkingChart.draw(parkingData, options);
+
+        return { bikeChart: bikeChart, parkingChart: parkingChart };
+    } catch (error) {
+        console.error("An error occurred in generatePredictionGraphs:", error);
+        // Handle the error, e.g., display a message to the user or gracefully recover
+    }
+}
 // This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded
 // All JQuery event handler definitions should go in here
 $(document).ready(function() {

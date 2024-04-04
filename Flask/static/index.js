@@ -452,13 +452,13 @@ function selectStation(index, isRent) {
     populateRightPanel(stationName, isRent);
 
     // Load the Visualization API and the corechart package.
-    google.charts.load('current', {'packages':['corechart']});
+    // google.charts.load('current', {'packages':['corechart']});
 
     // Set a callback to run when the Google Visualization API is loaded.
-    google.charts.setOnLoadCallback(function() {
+    // google.charts.setOnLoadCallback(function() {
         // Call generatePredictionGraphs with stationName
-        generatePredictionGraphs(stationName);
-        });
+    generatePredictionGraphs(stationName);
+        //});
     }
 // Right hand Panel function to populate station and bike data
 function populateRightPanel(stationName, isRent) {
@@ -784,11 +784,12 @@ $(document).ready(function() {
     google.charts.load('current', {'packages':['corechart']});
 
     // Set a callback to run when the Google Visualization API is loaded.
-    // google.charts.setOnLoadCallback(function() {
+    google.charts.setOnLoadCallback(function() {
         // This function will be executed once the API is loaded
         // Call your function to generate prediction graphs here
-        // generatePredictionGraphs(stationName);
+        generatePredictionGraphs(stationName);
     });
+});
 
 
 function adjustWeatherPanelPosition() {

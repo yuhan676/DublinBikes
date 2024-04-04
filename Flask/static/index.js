@@ -621,7 +621,7 @@ function generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLa
 google.charts.load('current', {'packages':['corechart']});
 
 // Set a callback to run when the Google Visualization API is loaded.
-google.charts.setOnLoadCallback(function() {
+google.charts.setOnLoadCallback(function(timeUpdateDate, totalBikeLabel, totalParkingLabel, stationElementName) {
     // Call your function here
     generatePredictionGraphs(timeUpdateDate, totalBikeLabel, totalParkingLabel, stationElementName);
 });

@@ -581,12 +581,12 @@ function generatePredictionGraphs(stationName, isRent) {
         };
 
         // Instantiate and draw the prediction chart based on the tab (rent or return)
-        //var chartElementId = isRent ? 'bikePredictionChart' : 'parkPredictionChart';
-        // var chartData = isRent ? bikeData : parkingData;
+        var chartElementId = isRent ? 'bikePredictionChart' : 'parkPredictionChart';
+        var chartData = isRent ? bikeData : parkingData;
 
         // Reference the container div by its class name
         // var containerClassName = isRent ? 'rp_prediction_rent' : 'rp_prediction_return';
-        var containerElements = Array.from(document.getElementsByClassName('rp_prediction_rent')).concat(Array.from(document.getElementsByClassName('rp_prediction_return')));
+        var containerElements = Array.from(document.getElementById('rp_prediction_rent')).concat(Array.from(document.getElementsById('rp_prediction_return')));
 
         // Check if the container element exists
         if (containerElements.length === 0) {
@@ -597,7 +597,7 @@ function generatePredictionGraphs(stationName, isRent) {
         // var containerElement = containerElements[0];
 
         var chart = new google.visualization.LineChart(getElementById('parkPredictionChart'));
-        chart.draw(options);
+        chart.draw(chartData, options);
         
         // return chartElementId;
 

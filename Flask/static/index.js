@@ -421,7 +421,7 @@ function selectStation(index, isRent) {
     // Set a callback to run when the Google Visualization API is loaded.
     google.charts.setOnLoadCallback(function() {
         // Call generatePredictionGraphs with stationName
-        generatePredictionGraphs(stationName, isRent);
+        generatePredictionGraphs(stationName);
         });
     }
 // Right hand Panel function to populate station and bike data
@@ -503,6 +503,7 @@ function populateRightPanel(stationName, isRent) {
         // Handle the error, e.g., display a message to the user or gracefully recover
     }
 }
+/*
 // Function to create prediction graphs for predicting station and bike availability
 function generatePredictionGraphs(stationName, isRent) {
     try {
@@ -522,6 +523,10 @@ function generatePredictionGraphs(stationName, isRent) {
         }
 
         console.log('Station data found:', stationData);
+
+        // Clear previous content
+        generatePredictionGraphs.empty();
+        console.log('Previous content cleared.');
 
         // Parse the timestamp string into a Date object
         var timeUpdateDate = new Date(stationData.last_update);
@@ -597,7 +602,7 @@ function generatePredictionGraphs(stationName, isRent) {
 
         // Loop through container elements and draw chart in each
         containerElements.forEach(function(containerElement) {
-            var chart = new google.visualization.LineChart(containerElement);
+            var chart = new google.visualization.LineChart(document.getElementById('bikePredictionChart'));
             chart.draw(chartData, options);
         });
 
@@ -608,7 +613,8 @@ function generatePredictionGraphs(stationName, isRent) {
         // Handle the error, e.g., display a message to the user or gracefully recover
     }
 }
-/*
+*/
+
 // Test function to generate prediction graphs for a station
 function generatePredictionGraphs(stationName) {
     try {
@@ -616,27 +622,44 @@ function generatePredictionGraphs(stationName) {
 
         // Find the station data based on the stationName
         var stationData;
-        if (lastSearchJSON && lastSearchJSON.length > 0) {
-            for (var i = 0; i < lastSearchJSON.length; i++) {
-                if (lastSearchJSON[i].name === stationName) {
-                    stationData = lastSearchJSON[i];
+        if (SearchJSON && SearchJSON.length > 0) {
+            for (var i = 0; i < SearchJSON.length; i++) {
+                if (SearchJSON[i].name === stationName) {
+                    stationData = SearchJSON[i];
                     break;
                 }
             }
         }
-        
+
         if (!stationData) {
             throw new Error("Station data not found for station: " + stationName);
         }
 
         console.log('Station data found:', stationData);
 
+        // Create and populate the data table for prediction
+        var data = google.visualization.arrayToDataTable([
+            ['Category', 'Count'],
+            ['Total Bikes', stationData.total_bikes],
+            ['Empty Stands', stationData.empty_stands_number]
+        ]);
+
+        // Set options for the chart
+        var options = {
+            title: 'Prediction Graph for ' + stationName,
+            curveType: 'function',
+            legend: { position: 'bottom' }
+        };
+
+        // Instantiate and draw the prediction chart
+        var chart = new google.visualization.LineChart(document.getElementById('bikePredictionChart'));
+        chart.draw(data, options);
+
     } catch (error) {
         console.error("An error occurred in generatePredictionGraphs:", error);
         // Handle the error, e.g., display a message to the user or gracefully recover
     }
 }
-*/
 
 // This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded
 // All JQuery event handler definitions should go in here
@@ -718,27 +741,16 @@ $(document).ready(function() {
     var index = $('#selection_container_return .selection_box').index(this);
     selectStation(index, false);});
 
-    $(window).on("load", function() {
-        // This function will be executed when the window is fully loaded
-        
-        // Select the canvas elements
-        var bikeCanvas = $("#bikePredictionChart");
-        var parkCanvas = $("#parkPredictionChart");
-      
-        // Attach event listener to the bike canvas element
-        bikeCanvas.on("load", function() {
-            // This function will be executed when the bike canvas is loaded
-            console.log("Bike prediction chart canvas is loaded.");
-        });
-      
-        // Attach event listener to the park canvas element
-        parkCanvas.on("load", function() {
-            // This function will be executed when the park canvas is loaded
-            console.log("Park prediction chart canvas is loaded.");
-        });
-    
+    // Load the Visualization API and the corechart package.
+    google.charts.load('current', {'packages':['corechart']});
+
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.charts.setOnLoadCallback(function() {
+        // This function will be executed once the API is loaded
+        // Call your function to generate prediction graphs here
+        generatePredictionGraphs(stationName);
     });
-    
+
 });
 
 function adjustWeatherPanelPosition() {

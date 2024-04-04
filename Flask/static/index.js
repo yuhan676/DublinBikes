@@ -441,13 +441,17 @@ function selectStation(index, isRent) {
     // Additional logic for when a station is selected
     console.log('Station selected:', index, 'Is Rent:', isRent);
 
-    // Load the Google Charts library and set a callback
-    google.charts.load('current', {'packages':['corechart']});
-
     // Get the station name based on the index
     var stationName = lastSearchJSON[index].name;
 
-    // Set a callback to run when the Google Charts library is loaded
+    // Check if the container element exists
+    var containerElement = document.getElementById('bikePredictionChart');
+    if (!containerElement) {
+        console.error("Container element 'bikePredictionChart' not found.");
+        return;
+    }
+
+    // Set a callback to run when the Google Visualization API is loaded
     google.charts.setOnLoadCallback(function() {
         // Create and populate the data table for prediction
         var data = google.visualization.arrayToDataTable([
@@ -464,17 +468,16 @@ function selectStation(index, isRent) {
         };
 
         // Instantiate and draw the prediction chart
-        var chart = new google.visualization.LineChart(document.getElementById('bikePredictionChart'));
+        var chart = new google.visualization.LineChart(containerElement);
         chart.draw(data, options);
-
-        // update all markers
-        updateMarkers(index);
-
-        // Call the populateRightPanel function with the selected station name
-        populateRightPanel(stationName, isRent);
     });
-}
 
+    // Update all markers
+    updateMarkers(index);
+
+    // Call the populateRightPanel function with the selected station name
+    populateRightPanel(stationName, isRent);
+}
 
     // var containerId = 'rp_prediction_rent';
 

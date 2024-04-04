@@ -579,9 +579,9 @@ function generatePredictionGraphs(stationName, isRent) {
             curveType: 'function',
             legend: { position: 'bottom' }
         };
-        // Log the container element to check if it exists
-        console.log(document.getElementById('bikePredictionChart'));
-        console.log(document.getElementById('rp_prediction_rent'));
+        // Log messages to check if the container elements exist
+        console.log("Checking if 'bikePredictionChart' container exists:", document.getElementById('bikePredictionChart'));
+        console.log("Checking if 'rp_prediction_rent' container exists:", document.getElementById('rp_prediction_rent'));
 
         // Instantiate and draw the prediction chart based on the tab (rent or return)
         var chartElementId = isRent ? 'bikePredictionChart' : 'parkPredictionChart';

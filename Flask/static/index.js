@@ -423,7 +423,6 @@ function selectionToggle(isRent) {
         console.error('One of the elements was not found in the DOM.');
     }
 }
-
 // Function to handle the selection of a station box
 function selectStation(index, isRent) {
     // Clear marker when search is clicked again
@@ -445,21 +444,22 @@ function selectStation(index, isRent) {
     // Get the station name based on the index
     var stationName = lastSearchJSON[index].name;
 
-    //populateRightPanel(StationName, isRent);
-
     // Load Google Charts library if not already loaded
     google.charts.load('current', { packages: ['corechart'] });
 
     // Set a callback to run when the Google Visualization API is loaded
     google.charts.setOnLoadCallback(function() {
-        // Call the function to generate prediction graphs
-        generatePredictionGraphs(stationName, isRent);
+        // Call the function to generate prediction graphs and get the data
+        var data = generatePredictionGraphs(stationName, isRent);
+
+        // Drawing logic
+        var chart = new google.visualization.LineChart(document.getElementById('bikePredictionChart'));
+        chart.draw(data.chartData, options);
     });
 
-    //update all markers
+    // Update all markers
     updateMarkers(index);
 }
-
 
 /*
 // Function to handle the selection of a station box
@@ -583,9 +583,8 @@ function populateRightPanel(stationName, isRent) {
         // Handle the error, e.g., display a message to the user or gracefully recover
     }
 }
-
 // Function to create prediction graphs for predicting station and bike availability
-function generatePredictionGraphs(stationName, isRent) {
+function generatePredictionGraphs(stationName) {
     try {
         // Find the station data based on the stationName
         var stationData;
@@ -654,38 +653,15 @@ function generatePredictionGraphs(stationName, isRent) {
             ['This Week', weeklyParkingCount]
         ]);
 
-        // Set options for both charts
-        var options = {
-            title: isRent ? 'Bike Prediction for ' + stationName : 'Parking Prediction for ' + stationName,
-            curveType: 'function',
-            legend: { position: 'bottom' }
-        };
-
-        // Log messages to check if the container elements exist
-        console.log("Checking if 'bikePredictionChart' container exists:", document.getElementById('bikePredictionChart'));
-        console.log("Checking if 'rp_prediction_rent' container exists:", document.getElementById('rp_prediction_rent'));
-
-        // Reference the container div by its class name
-        var containerElements = Array.from(document.getElementsByClassName('rp_prediction_rent')).concat(Array.from(document.getElementsByClassName('rp_prediction_return')));
-
-        // Check if the container element exists
-        if (containerElements.length === 0) {
-            throw new Error("Container is not defined for station: " + stationName);
-        }
-
-        // Loop through container elements and draw chart in each
-        containerElements.forEach(function(containerElement) {
-            var chart = new google.visualization.LineChart(containerElement);
-            var chartData = isRent ? bikeData : parkingData;
-            chart.draw(chartData, options);
-        });
+        // Return the data
+        return { bikeData: bikeData, parkingData: parkingData };
 
     } catch (error) {
         console.error("An error occurred in generatePredictionGraphs:", error);
         // Handle the error, e.g., display a message to the user or gracefully recover
+        return { bikeData: null, parkingData: null }; // Return null data in case of error
     }
-}
-
+}      
         
 // This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded
 // All JQuery event handler definitions should go in here

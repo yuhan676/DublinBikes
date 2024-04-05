@@ -424,7 +424,7 @@ function selectionToggle(isRent) {
     }
 }
 
-// Test Function to handle the selection of a station box
+// Function to handle the selection of a station box
 function selectStation(index, isRent) {
     // Clear marker when search is clicked again
     clearMarkers();
@@ -478,7 +478,7 @@ function selectStation(index, isRent) {
         // Check if the container element exists before calling populateRightPanel
         if (document.getElementById('rp_prediction_rent')) {
             // Call the populateRigthPanel function with selected station name after drawing the chart
-            populateRightPanel(stationName, isRent);
+            // populateRightPanel(stationName, isRent);
         } else {
             console.error("Container element 'rp_prediction_rent' not found.");
         }
@@ -487,6 +487,7 @@ function selectStation(index, isRent) {
     //update all markers
     updateMarkers(index);
 }
+
 
 /*
 // Function to handle the selection of a station box
@@ -530,6 +531,7 @@ function selectStation(index, isRent) {
     }
 } 
 */
+
 // Right hand Panel function to populate station and bike data
 function populateRightPanel(stationName, isRent) {
     try {
@@ -713,56 +715,6 @@ function generatePredictionGraphs(stationName, isRent) {
         });
 
         // return chartElementId;
-
-    } catch (error) {
-        console.error("An error occurred in generatePredictionGraphs:", error);
-        // Handle the error, e.g., display a message to the user or gracefully recover
-    }
-}
-*/
-/*
-// function to generate weekly and daily station and bike prediction
-function generatePredictionGraphs(stationName) {
-    try {
-        console.log('Generating prediction graphs for:', stationName);
-
-        // Check if the DOM element is loaded
-        console.log('DOM element loaded:', document.getElementById('rp_prediction_rent'));
-
-        // Find the station data based on the stationName
-        var stationData;
-        if (lastSearchJSON && lastSearchJSON.length > 0) {
-            for (var i = 0; i < lastSearchJSON.length; i++) {
-                if (lastSearchJSON[i].name === stationName) {
-                    stationData = lastSearchJSON[i];
-                    break;
-                }
-            }
-        }
-
-        if (!stationData) {
-            throw new Error("Station data not found for station: " + stationName);
-        }
-
-        console.log('Station data found:', stationData);
-
-        // Create and populate the data table for prediction
-        var data = google.visualization.arrayToDataTable([
-            ['Category', 'Count'],
-            ['Total Bikes', stationData.total_bikes],
-            ['Empty Stands', stationData.empty_stands_number]
-        ]);
-
-        // Set options for the chart
-        var options = {
-            title: 'Prediction Graph for ' + stationName,
-            curveType: 'function',
-            legend: { position: 'bottom' }
-        };
-
-        // Instantiate and draw the prediction chart
-        var chart = new google.visualization.LineChart(document.getElementById('rp_prediction_rent'));
-        chart.draw(data, options);
 
     } catch (error) {
         console.error("An error occurred in generatePredictionGraphs:", error);

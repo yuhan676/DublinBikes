@@ -449,17 +449,30 @@ function selectStation(index, isRent) {
 
     // Set a callback to run when the Google Visualization API is loaded
     google.charts.setOnLoadCallback(function() {
-        // Call the function to generate prediction graphs and get the data
-        var data = generatePredictionGraphs(stationName, isRent);
+        // Call the function to generate prediction graphs
+        var bikeData, parkingData;
+        generatePredictionGraphs(stationName, function(predictionData) {
+            bikeData = predictionData.bikeData;
+            parkingData = predictionData.parkingData;
 
-        // Drawing logic
-        var chart = new google.visualization.LineChart(document.getElementById('bikePredictionChart'));
-        chart.draw(data.chartData, options);
+            // Define options for the chart
+            var options = {
+                title: isRent ? 'Bike Prediction for ' + stationName : 'Parking Prediction for ' + stationName,
+                curveType: 'function',
+                legend: { position: 'bottom' }
+            };
+
+            // Drawing logic
+            var chart = new google.visualization.LineChart(document.getElementById('bikePredictionChart'));
+            var chartData = isRent ? bikeData : parkingData;
+            chart.draw(chartData, options);
+        });
     });
 
     // Update all markers
     updateMarkers(index);
 }
+
 
 /*
 // Function to handle the selection of a station box

@@ -569,7 +569,7 @@ function selectStation(index, isRent) {
     // Call the populateRightPanel function with the selected station name
     populateRightPanel(stationName, isRent);
 } 
-// function to populate right hand pane
+// Function to populate the right-hand pane
 function populateRightPanel(stationName, isRent) {
     try {
         // Find the station data based on the stationName
@@ -627,11 +627,11 @@ function populateRightPanel(stationName, isRent) {
         };
 
         // Format the date string using the specified options
-        var formatedTime = timeUpdateDate.toLocaleString(undefined, options);
+        var formattedTime = timeUpdateDate.toLocaleString(undefined, options);
 
         // Create the HTML structure for displaying the formatted timestamp
-        var timeUpdateLabelRent = $('<div>').addClass('rp_info_label').html("<p style='margin-bottom: 5px;'><strong>Last Updated:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + formatedTime + "</span></p>");
-        var timeUpdateLabelReturn = $('<div>').addClass('rp_info_label').html("<p style='margin-bottom: 5px;'><strong>Last Updated:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + formatedTime + "</span></p>");
+        var timeUpdateLabelRent = $('<div>').addClass('rp_info_label').html("<p style='margin-bottom: 5px;'><strong>Last Updated:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + formattedTime + "</span></p>");
+        var timeUpdateLabelReturn = $('<div>').addClass('rp_info_label').html("<p style='margin-bottom: 5px;'><strong>Last Updated:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + formattedTime + "</span></p>");
 
         // Append the elements to the right panel container based on the section
         if (isRent) {
@@ -639,6 +639,7 @@ function populateRightPanel(stationName, isRent) {
         } else {
             rightPanelContainer.append(stationElementName, totalParkingLabel, totalBikeLabel, timeUpdateLabelReturn);
         }
+
         console.log('Station information appended to right panel container.');
 
         // Load Google Charts library and draw graphs when loaded
@@ -650,6 +651,9 @@ function populateRightPanel(stationName, isRent) {
                 ['Today', stationData.total_bikes],
                 ['This Week', stationData.total_bikes] // Assuming the same value for simplicity
             ]);
+
+            var bikeChartContainer = $('<div>').addClass('rp_prediction_rent').append($('<div>').attr('id', 'bikePredictionChart'));
+            rightPanelContainer.append(bikeChartContainer);
 
             var bikeChart = new google.visualization.ColumnChart(document.getElementById('bikePredictionChart'));
             bikeChart.draw(bikeData, {
@@ -664,6 +668,9 @@ function populateRightPanel(stationName, isRent) {
                 ['This Week', stationData.empty_stands_number] // Assuming the same value for simplicity
             ]);
 
+            var parkingChartContainer = $('<div>').addClass('rp_prediction_return').append($('<div>').attr('id', 'parkPredictionChart'));
+            rightPanelContainer.append(parkingChartContainer);
+
             var parkingChart = new google.visualization.ColumnChart(document.getElementById('parkPredictionChart'));
             parkingChart.draw(parkingData, {
                 title: 'Parking Availability Prediction',
@@ -676,6 +683,7 @@ function populateRightPanel(stationName, isRent) {
         // Handle the error, e.g., display a message to the user or gracefully recover
     }
 }
+
 /*
 // Right hand Panel function to populate station and bike data
 function populateRightPanel(stationName, isRent) {

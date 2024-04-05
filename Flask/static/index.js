@@ -651,7 +651,7 @@ function populateRightPanel(stationName, isRent) {
                 ['This Week', stationData.total_bikes] // Assuming the same value for simplicity
             ]);
 
-            var bikeChart = new google.visualization.ColumnChart(document.getElementById('bike_prediction_chart'));
+            var bikeChart = new google.visualization.ColumnChart(document.getElementById('bikePredictionChart'));
             bikeChart.draw(bikeData, {
                 title: 'Bike Availability Prediction',
                 legend: { position: 'none' }
@@ -664,7 +664,7 @@ function populateRightPanel(stationName, isRent) {
                 ['This Week', stationData.empty_stands_number] // Assuming the same value for simplicity
             ]);
 
-            var parkingChart = new google.visualization.ColumnChart(document.getElementById('parking_prediction_chart'));
+            var parkingChart = new google.visualization.ColumnChart(document.getElementById('parkPredictionChart'));
             parkingChart.draw(parkingData, {
                 title: 'Parking Availability Prediction',
                 legend: { position: 'none' }

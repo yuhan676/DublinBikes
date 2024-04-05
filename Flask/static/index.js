@@ -423,58 +423,124 @@ function selectionToggle(isRent) {
         console.error('One of the elements was not found in the DOM.');
     }
 }
-/*
 // Function to handle the selection of a station box
 function selectStation(index, isRent) {
-    // Clear marker when search is clicked again
-    clearMarkers();
+    try {
+        // Clear marker when search is clicked again
+        clearMarkers();
 
-    // The container ID will depend on whether isRent is true or false
-    var containerId = isRent ? 'selection_container_rent' : 'selection_container_return';
-    var $selectionWrapper = $('#' + containerId + ' .selection_wrapper');
+        // The container ID will depend on whether isRent is true or false
+        var containerId = isRent ? 'selection_container_rent' : 'selection_container_return';
+        var $selectionWrapper = $('#' + containerId + ' .selection_wrapper');
 
-    // Remove the 'selected' class from all selection boxes
-    $selectionWrapper.find('.selection_box').removeClass('selected');
+        // Remove the 'selected' class from all selection boxes
+        $selectionWrapper.find('.selection_box').removeClass('selected');
 
-    // Add the 'selected' class to the clicked selection box
-    $selectionWrapper.find('.selection_box').eq(index).addClass('selected');
+        // Add the 'selected' class to the clicked selection box
+        $selectionWrapper.find('.selection_box').eq(index).addClass('selected');
 
-    // Additional logic for when a station is selected
-    console.log('Station selected:', index, 'Is Rent:', isRent);
+        // Additional logic for when a station is selected
+        console.log('Station selected:', index, 'Is Rent:', isRent);
 
-    // Get the station name based on the index
-    var stationName = lastSearchJSON[index].name;
+        // Get the station name based on the index
+        var stationName = lastSearchJSON[index].name;
 
-    // Load Google Charts library if not already loaded
-    google.charts.load('current', { packages: ['corechart'] });
+        // Load Google Charts library if not already loaded
+        google.charts.load('current', { packages: ['corechart'] });
 
-    // Set a callback to run when the Google Visualization API is loaded
-    google.charts.setOnLoadCallback(function() {
-        // Call the function to generate prediction graphs
-        var bikeData, parkingData;
-        generatePredictionGraphs(stationName, function(predictionData) {
-            bikeData = predictionData.bikeData;
-            parkingData = predictionData.parkingData;
+        // Set a callback to run when the Google Visualization API is loaded
+        google.charts.setOnLoadCallback(function() {
+            // Find the station data based on the stationName
+            var stationData;
+            if (lastSearchJSON && lastSearchJSON.length > 0) {
+                for (var i = 0; i < lastSearchJSON.length; i++) {
+                    if (lastSearchJSON[i].name === stationName) {
+                        stationData = lastSearchJSON[i];
+                        break;
+                    }
+                }
+            }
 
-            // Define options for the chart
+            if (!stationData) {
+                throw new Error("Station data not found for station: " + stationName);
+            }
+
+            // Parse the timestamp string into a Date object
+            var timeUpdateDate = new Date(stationData.last_update);
+
+            // Check if last_update is a valid date
+            if (isNaN(timeUpdateDate.getTime())) {
+                throw new Error("Invalid last update date for station: " + stationName);
+            }
+
+            // Initialize variables for daily predictions
+            var dailyBikeCount = 0;
+            var dailyParkingCount = 0;
+
+            // Initialize variables for weekly predictions
+            var weeklyBikeCount = 0;
+            var weeklyParkingCount = 0;
+
+            // Get the day of the week (0 for Sunday, 1 for Monday, ..., 6 for Saturday)
+            var dayOfWeek = timeUpdateDate.getDay();
+
+            // Get the current hour (0-23)
+            var currentHour = timeUpdateDate.getHours();
+
+            // Logic for daily predictions
+            // If it's the beginning of a new day, reset daily counts
+            if (currentHour === 0) {
+                dailyBikeCount = stationData.total_bikes;
+                dailyParkingCount = stationData.empty_stands_number;
+            }
+
+            // Logic for weekly predictions
+            // If it's Sunday (dayOfWeek === 0) and the beginning of the day (currentHour === 0), reset weekly counts
+            if (dayOfWeek === 0 && currentHour === 0) {
+                weeklyBikeCount = stationData.total_bikes;
+                weeklyParkingCount = stationData.empty_stands_number;
+            }
+
+            // Create and populate the data table for bike prediction
+            var bikeData = google.visualization.arrayToDataTable([
+                ['Category', 'Count'],
+                ['Today', dailyBikeCount],
+                ['This Week', weeklyBikeCount]
+            ]);
+
+            // Create and populate the data table for parking prediction
+            var parkingData = google.visualization.arrayToDataTable([
+                ['Category', 'Count'],
+                ['Today', dailyParkingCount],
+                ['This Week', weeklyParkingCount]
+            ]);
+
+            // Set options for both charts
             var options = {
-                title: isRent ? 'Bike Prediction for ' + stationName : 'Parking Prediction for ' + stationName,
+                title: 'Prediction Graph for ' + stationName,
                 curveType: 'function',
                 legend: { position: 'bottom' }
             };
 
-            // Drawing logic
-            var chart = new google.visualization.LineChart(document.getElementById('bikePredictionChart'));
-            var chartData = isRent ? bikeData : parkingData;
-            chart.draw(chartData, options);
-        });
-    });
+            // Draw the bike prediction chart
+            var bikeChart = new google.visualization.LineChart(document.getElementById('bikePredictionChart'));
+            bikeChart.draw(bikeData, options);
 
-    // Update all markers
-    updateMarkers(index);
+            // Draw the parking prediction chart
+            var parkingChart = new google.visualization.LineChart(document.getElementById('parkPredictionChart'));
+            parkingChart.draw(parkingData, options);
+
+            // Update all markers
+            updateMarkers(index);
+        });
+
+    } catch (error) {
+        console.error("An error occurred in selectStation:", error);
+        // Handle the error, e.g., display a message to the user or gracefully recover
+    }
 }
 
-*/
+/*
 
 // Function to handle the selection of a station box
 function selectStation(index, isRent) {
@@ -516,7 +582,7 @@ function selectStation(index, isRent) {
         console.error("Container element '" + containerId + "' not found.");
     }
 } 
-
+*/
 // Right hand Panel function to populate station and bike data
 function populateRightPanel(stationName, isRent) {
     try {

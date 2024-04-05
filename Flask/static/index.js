@@ -445,43 +445,15 @@ function selectStation(index, isRent) {
     // Get the station name based on the index
     var stationName = lastSearchJSON[index].name;
 
-    // Check if the container element exists
-    var containerElement = document.getElementById('bikePredictionChart');
-    if (!containerElement) {
-        console.error("Container element 'bikePredictionChart' not found.");
-        return;
-    }
+    //populateRightPanel(StationName, isRent);
 
     // Load Google Charts library if not already loaded
     google.charts.load('current', { packages: ['corechart'] });
 
     // Set a callback to run when the Google Visualization API is loaded
     google.charts.setOnLoadCallback(function() {
-        // Create and populate the data table for prediction
-        var data = google.visualization.arrayToDataTable([
-            ['Category', 'Count'],
-            ['Total Bikes', 10], // Example data, replace with actual values
-            ['Empty Stands', 5]  // Example data, replace with actual values
-        ]);
-
-        // Set options for the chart
-        var options = {
-            title: 'Prediction Graph for ' + stationName,
-            curveType: 'function',
-            legend: { position: 'bottom' }
-        };
-
-        // Instantiate and draw the prediction chart
-        var chart = new google.visualization.LineChart(containerElement);
-        chart.draw(data, options);
-
-        // Check if the container element exists before calling populateRightPanel
-        if (document.getElementById('rp_prediction_rent')) {
-            // Call the populateRigthPanel function with selected station name after drawing the chart
-            // populateRightPanel(stationName, isRent);
-        } else {
-            console.error("Container element 'rp_prediction_rent' not found.");
-        }
+        // Call the function to generate prediction graphs
+        generatePredictionGraphs(stationName, isRent);
     });
 
     //update all markers
@@ -611,7 +583,7 @@ function populateRightPanel(stationName, isRent) {
         // Handle the error, e.g., display a message to the user or gracefully recover
     }
 }
-/*
+
 // Function to create prediction graphs for predicting station and bike availability
 function generatePredictionGraphs(stationName, isRent) {
     try {
@@ -721,7 +693,7 @@ function generatePredictionGraphs(stationName, isRent) {
         // Handle the error, e.g., display a message to the user or gracefully recover
     }
 }
-*/
+
 
 // This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded
 // All JQuery event handler definitions should go in here

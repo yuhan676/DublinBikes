@@ -424,7 +424,7 @@ function selectionToggle(isRent) {
     }
 }
 // Function to handle the selection of a station box
-function selectStation(index, isRent) {
+function selectStation(index, isRent, populateRightPanel) {
     try {
         // Clear marker when search is clicked again
         clearMarkers();
@@ -450,96 +450,24 @@ function selectStation(index, isRent) {
 
         // Set a callback to run when the Google Visualization API is loaded
         google.charts.setOnLoadCallback(function() {
-            // Find the station data based on the stationName
-            var stationData;
-            if (lastSearchJSON && lastSearchJSON.length > 0) {
-                for (var i = 0; i < lastSearchJSON.length; i++) {
-                    if (lastSearchJSON[i].name === stationName) {
-                        stationData = lastSearchJSON[i];
-                        break;
-                    }
-                }
+            // Call the function to generate prediction graphs
+            generatePredictionGraphs(stationName, isRent);
+
+            // Call the populateRightPanel function with selected station name after drawing the chart
+            if (populateRightPanel) {
+                populateRightPanel(stationName, isRent);
+            } else {
+                console.error("populateRightPanel function is not provided.");
             }
-
-            if (!stationData) {
-                throw new Error("Station data not found for station: " + stationName);
-            }
-
-            // Parse the timestamp string into a Date object
-            var timeUpdateDate = new Date(stationData.last_update);
-
-            // Check if last_update is a valid date
-            if (isNaN(timeUpdateDate.getTime())) {
-                throw new Error("Invalid last update date for station: " + stationName);
-            }
-
-            // Initialize variables for daily predictions
-            var dailyBikeCount = 0;
-            var dailyParkingCount = 0;
-
-            // Initialize variables for weekly predictions
-            var weeklyBikeCount = 0;
-            var weeklyParkingCount = 0;
-
-            // Get the day of the week (0 for Sunday, 1 for Monday, ..., 6 for Saturday)
-            var dayOfWeek = timeUpdateDate.getDay();
-
-            // Get the current hour (0-23)
-            var currentHour = timeUpdateDate.getHours();
-
-            // Logic for daily predictions
-            // If it's the beginning of a new day, reset daily counts
-            if (currentHour === 0) {
-                dailyBikeCount = stationData.total_bikes;
-                dailyParkingCount = stationData.empty_stands_number;
-            }
-
-            // Logic for weekly predictions
-            // If it's Sunday (dayOfWeek === 0) and the beginning of the day (currentHour === 0), reset weekly counts
-            if (dayOfWeek === 0 && currentHour === 0) {
-                weeklyBikeCount = stationData.total_bikes;
-                weeklyParkingCount = stationData.empty_stands_number;
-            }
-
-            // Create and populate the data table for bike prediction
-            var bikeData = google.visualization.arrayToDataTable([
-                ['Category', 'Count'],
-                ['Today', dailyBikeCount],
-                ['This Week', weeklyBikeCount]
-            ]);
-
-            // Create and populate the data table for parking prediction
-            var parkingData = google.visualization.arrayToDataTable([
-                ['Category', 'Count'],
-                ['Today', dailyParkingCount],
-                ['This Week', weeklyParkingCount]
-            ]);
-
-            // Set options for both charts
-            var options = {
-                title: 'Prediction Graph for ' + stationName,
-                curveType: 'function',
-                legend: { position: 'bottom' }
-            };
-
-            // Draw the bike prediction chart
-            var bikeChart = new google.visualization.LineChart(document.getElementById('bikePredictionChart'));
-            bikeChart.draw(bikeData, options);
-
-            // Draw the parking prediction chart
-            var parkingChart = new google.visualization.LineChart(document.getElementById('parkPredictionChart'));
-            parkingChart.draw(parkingData, options);
-
-            // Update all markers
-            updateMarkers(index);
         });
 
+        // Update all markers
+        updateMarkers(index);
     } catch (error) {
         console.error("An error occurred in selectStation:", error);
         // Handle the error, e.g., display a message to the user or gracefully recover
     }
 }
-
 /*
 
 // Function to handle the selection of a station box

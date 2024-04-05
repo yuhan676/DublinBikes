@@ -167,6 +167,7 @@
     cursor: pointer; /* Cursor style */
     transition: background-color 0.3s; /* Transition effect for hover */
     display: inline; /* Display as inline block to allow width to take effect */
+    margin: 0 auto; /* center-align the tabs */
 }
 
 /* Active tab button style */

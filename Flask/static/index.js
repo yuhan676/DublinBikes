@@ -569,7 +569,7 @@ function selectStation(index, isRent) {
     // Call the populateRightPanel function with the selected station name
     populateRightPanel(stationName, isRent);
 } 
-
+// function to populate right hand pane
 function populateRightPanel(stationName, isRent) {
     try {
         // Find the station data based on the stationName
@@ -644,25 +644,31 @@ function populateRightPanel(stationName, isRent) {
         // Load Google Charts library and draw graphs when loaded
         google.charts.load('current', { packages: ['corechart'] });
         google.charts.setOnLoadCallback(function() {
-            // Generate prediction graphs
-            var predictionData = generatePredictionGraphs(stationName);
-            if (predictionData && predictionData.bikeData && predictionData.parkingData) {
-                // Draw the bike prediction graph
-                var bikeChart = new google.visualization.ColumnChart(document.getElementById('bike_prediction_chart'));
-                bikeChart.draw(predictionData.bikeData, {
-                    title: 'Bike Availability Prediction',
-                    legend: { position: 'none' }
-                });
+            // Draw the bike prediction graph
+            var bikeData = google.visualization.arrayToDataTable([
+                ['Category', 'Count'],
+                ['Today', stationData.total_bikes],
+                ['This Week', stationData.total_bikes] // Assuming the same value for simplicity
+            ]);
 
-                // Draw the parking prediction graph
-                var parkingChart = new google.visualization.ColumnChart(document.getElementById('parking_prediction_chart'));
-                parkingChart.draw(predictionData.parkingData, {
-                    title: 'Parking Availability Prediction',
-                    legend: { position: 'none' }
-                });
-            } else {
-                console.error("Failed to generate prediction graphs.");
-            }
+            var bikeChart = new google.visualization.ColumnChart(document.getElementById('bike_prediction_chart'));
+            bikeChart.draw(bikeData, {
+                title: 'Bike Availability Prediction',
+                legend: { position: 'none' }
+            });
+
+            // Draw the parking prediction graph
+            var parkingData = google.visualization.arrayToDataTable([
+                ['Category', 'Count'],
+                ['Today', stationData.empty_stands_number],
+                ['This Week', stationData.empty_stands_number] // Assuming the same value for simplicity
+            ]);
+
+            var parkingChart = new google.visualization.ColumnChart(document.getElementById('parking_prediction_chart'));
+            parkingChart.draw(parkingData, {
+                title: 'Parking Availability Prediction',
+                legend: { position: 'none' }
+            });
         });
 
     } catch (error) {

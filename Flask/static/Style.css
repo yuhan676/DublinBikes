@@ -162,7 +162,7 @@
     border: none; /* Remove border */
     color: #333; /* Text color */
     padding: 10px 0; /* Adjust vertical padding */
-    width: 50px; /* Set auto width for both tabs */
+    width: 175px; /* Set auto width for both tabs */
     text-align: center; /* Center-align the text */
     cursor: pointer; /* Cursor style */
     transition: background-color 0.3s; /* Transition effect for hover */

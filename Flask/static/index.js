@@ -540,8 +540,8 @@ function selectStation(index, isRent) {
         // Handle the error, e.g., display a message to the user or gracefully recover
     }
 }
-*/
 
+*/
 // Function to handle the selection of a station box
 function selectStation(index, isRent) {
     // Clear marker when search is clicked again
@@ -568,20 +568,105 @@ function selectStation(index, isRent) {
 
     // Call the populateRightPanel function with the selected station name
     populateRightPanel(stationName, isRent);
-
-    // Assuming your event handler creates a container element with ID 'bikePredictionChart'
-    var containerId = 'rp_prediction_rent';
-
-    // Check if the container element exists
-    var containerElement = document.getElementById(containerId);
-
-    if (containerElement) {
-        // Call the function to generate prediction graphs
-        generatePredictionGraphs(stationName);
-    } else {
-        console.error("Container element '" + containerId + "' not found.");
-    }
 } 
+
+function populateRightPanel(stationName, isRent) {
+    try {
+        // Find the station data based on the stationName
+        var stationData;
+        if (lastSearchJSON && lastSearchJSON.length > 0) {
+            for (var i = 0; i < lastSearchJSON.length; i++) {
+                if (lastSearchJSON[i].name === stationName) {
+                    stationData = lastSearchJSON[i];
+                    break;
+                }
+            }
+        }
+        
+        if (!stationData) {
+            throw new Error("Station data not found.");
+        }
+
+        console.log('Station data found:', stationData);
+
+        var rightPanelContainer = $('#rp_content');
+        if (!rightPanelContainer || rightPanelContainer.length === 0) {
+            throw new Error("Right panel container not found.");
+        }
+
+        console.log('Right panel container:', rightPanelContainer);
+
+        // Clear previous content
+        rightPanelContainer.empty();
+        console.log('Previous content cleared.');
+
+        // Create elements to display station information
+        var stationElementName = $('<div>').addClass('rp_station_name').text('Station Name: ' + stationData.name);
+        var totalBikeLabel = $('<div>').addClass('rp_bike_total_label').text('Total Bike: ').append($('<p>').attr('id', 'available-bikes').text(stationData.total_bikes));
+        var mechanicalBikeLabel = $('<div>').addClass('rp_info_label').text('Mechanical Bikes: ').append($('<p>').attr('id', 'available_mechanical').text(stationData.mechanical_bikes));
+        var eBikeRemovableLabel = $('<div>').addClass('rp_info_label').text('E-Bike Removable Battery: ').append($('<p>').attr('id', 'available_e_removable').text(stationData.electrical_removable_battery_bikes));
+        var eBikeInternalLabel = $('<div>').addClass('rp_info_label').text('E-Bike Internal Battery: ').append($('<p>').attr('id', 'available_e_internal').text(stationData.electrical_internal_battery_bikes));
+        var totalParkingLabel = $('<div>').addClass('rp_park_total_label').text('Total Parking: ').append($('<p>').attr('id', 'available-park').text(stationData.empty_stands_number));
+
+        // Parse the timestamp string into a Date object
+        var timeUpdateDate = new Date(stationData.last_update);
+
+        // Check if last_update is a valid date
+        if (isNaN(timeUpdateDate.getTime())) {
+            throw new Error("Invalid last update date.");
+        }
+
+        // Format the date and time components
+        var options = {
+            weekday: 'long', 
+            month: 'long',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            timeZone: 'Europe/Dublin'
+        };
+
+        // Format the date string using the specified options
+        var formatedTime = timeUpdateDate.toLocaleString(undefined, options);
+
+        // Create the HTML structure for displaying the formatted timestamp
+        var timeUpdateLabelRent = $('<div>').addClass('rp_info_label').html("<p style='margin-bottom: 5px;'><strong>Last Updated:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + formatedTime + "</span></p>");
+        var timeUpdateLabelReturn = $('<div>').addClass('rp_info_label').html("<p style='margin-bottom: 5px;'><strong>Last Updated:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + formatedTime + "</span></p>");
+
+        // Append the elements to the right panel container based on the section
+        if (isRent) {
+            rightPanelContainer.append(stationElementName, totalParkingLabel, totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabelRent);
+        } else {
+            rightPanelContainer.append(stationElementName, totalParkingLabel, totalBikeLabel, timeUpdateLabelReturn);
+        }
+        console.log('Station information appended to right panel container.');
+
+        // Generate prediction graphs
+        var predictionData = generatePredictionGraphs(stationName);
+        if (predictionData && predictionData.bikeData && predictionData.parkingData) {
+            // Draw the bike prediction graph
+            var bikeChart = new google.visualization.ColumnChart(document.getElementById('bike_prediction_chart'));
+            bikeChart.draw(predictionData.bikeData, {
+                title: 'Bike Availability Prediction',
+                legend: { position: 'none' }
+            });
+
+            // Draw the parking prediction graph
+            var parkingChart = new google.visualization.ColumnChart(document.getElementById('parking_prediction_chart'));
+            parkingChart.draw(predictionData.parkingData, {
+                title: 'Parking Availability Prediction',
+                legend: { position: 'none' }
+            });
+        } else {
+            console.error("Failed to generate prediction graphs.");
+        }
+
+    } catch (error) {
+        console.error("An error occurred in populateRightPanel:", error);
+        // Handle the error, e.g., display a message to the user or gracefully recover
+    }
+}
+/*
 // Right hand Panel function to populate station and bike data
 function populateRightPanel(stationName, isRent) {
     try {
@@ -661,6 +746,7 @@ function populateRightPanel(stationName, isRent) {
         // Handle the error, e.g., display a message to the user or gracefully recover
     }
 }
+*/
 /*
 // Function to create prediction graphs for predicting station and bike availability
 function generatePredictionGraphs(stationName) {

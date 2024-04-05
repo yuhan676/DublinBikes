@@ -604,10 +604,6 @@ function generatePredictionGraphs(stationName, isRent) {
 
         console.log('Station data found:', stationData);
 
-        // Clear previous content
-        generatePredictionGraphs.empty();
-        console.log('Previous content cleared.');
-
         // Parse the timestamp string into a Date object
         var timeUpdateDate = new Date(stationData.last_update);
 
@@ -664,13 +660,10 @@ function generatePredictionGraphs(stationName, isRent) {
             curveType: 'function',
             legend: { position: 'bottom' }
         };
+
         // Log messages to check if the container elements exist
         console.log("Checking if 'bikePredictionChart' container exists:", document.getElementById('bikePredictionChart'));
         console.log("Checking if 'rp_prediction_rent' container exists:", document.getElementById('rp_prediction_rent'));
-
-        // Instantiate and draw the prediction chart based on the tab (rent or return)
-        var chartElementId = isRent ? 'bikePredictionChart' : 'parkPredictionChart';
-        var chartData = isRent ? bikeData : parkingData;
 
         // Reference the container div by its class name
         var containerElements = Array.from(document.getElementsByClassName('rp_prediction_rent')).concat(Array.from(document.getElementsByClassName('rp_prediction_return')));
@@ -682,7 +675,8 @@ function generatePredictionGraphs(stationName, isRent) {
 
         // Loop through container elements and draw chart in each
         containerElements.forEach(function(containerElement) {
-            var chart = new google.visualization.LineChart(document.getElementById('bikePredictionChart'));
+            var chart = new google.visualization.LineChart(containerElement);
+            var chartData = isRent ? bikeData : parkingData;
             chart.draw(chartData, options);
         });
 
@@ -692,6 +686,7 @@ function generatePredictionGraphs(stationName, isRent) {
     }
 }
 
+        
 // This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded
 // All JQuery event handler definitions should go in here
 $(document).ready(function() {

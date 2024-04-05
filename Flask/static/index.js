@@ -641,25 +641,29 @@ function populateRightPanel(stationName, isRent) {
         }
         console.log('Station information appended to right panel container.');
 
-        // Generate prediction graphs
-        var predictionData = generatePredictionGraphs(stationName);
-        if (predictionData && predictionData.bikeData && predictionData.parkingData) {
-            // Draw the bike prediction graph
-            var bikeChart = new google.visualization.ColumnChart(document.getElementById('bike_prediction_chart'));
-            bikeChart.draw(predictionData.bikeData, {
-                title: 'Bike Availability Prediction',
-                legend: { position: 'none' }
-            });
+        // Load Google Charts library and draw graphs when loaded
+        google.charts.load('current', { packages: ['corechart'] });
+        google.charts.setOnLoadCallback(function() {
+            // Generate prediction graphs
+            var predictionData = generatePredictionGraphs(stationName);
+            if (predictionData && predictionData.bikeData && predictionData.parkingData) {
+                // Draw the bike prediction graph
+                var bikeChart = new google.visualization.ColumnChart(document.getElementById('bike_prediction_chart'));
+                bikeChart.draw(predictionData.bikeData, {
+                    title: 'Bike Availability Prediction',
+                    legend: { position: 'none' }
+                });
 
-            // Draw the parking prediction graph
-            var parkingChart = new google.visualization.ColumnChart(document.getElementById('parking_prediction_chart'));
-            parkingChart.draw(predictionData.parkingData, {
-                title: 'Parking Availability Prediction',
-                legend: { position: 'none' }
-            });
-        } else {
-            console.error("Failed to generate prediction graphs.");
-        }
+                // Draw the parking prediction graph
+                var parkingChart = new google.visualization.ColumnChart(document.getElementById('parking_prediction_chart'));
+                parkingChart.draw(predictionData.parkingData, {
+                    title: 'Parking Availability Prediction',
+                    legend: { position: 'none' }
+                });
+            } else {
+                console.error("Failed to generate prediction graphs.");
+            }
+        });
 
     } catch (error) {
         console.error("An error occurred in populateRightPanel:", error);

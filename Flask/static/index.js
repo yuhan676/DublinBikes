@@ -536,7 +536,7 @@ function populateRightPanel(stationName, isRent) {
             var bikeChartContainer = $('<div>').addClass('rp_prediction_rent').append($('<div>').attr('id', 'bikePredictionChart'));
             rightPanelContainer.append(bikeChartContainer);
 
-            var bikeChart = new google.visualization.LineChart(document.getElementById('bikePredictionChart'));
+            var bikeChart = new google.visualization.AreaChart(document.getElementById('bikePredictionChart'));
             bikeChart.draw(bikeData, {
                 title: 'Bike Availability Prediction',
                 legend: { position: 'none' }
@@ -552,7 +552,7 @@ function populateRightPanel(stationName, isRent) {
             var parkingChartContainer = $('<div>').addClass('rp_prediction_return').append($('<div>').attr('id', 'parkPredictionChart'));
             rightPanelContainer.append(parkingChartContainer);
 
-            var parkingChart = new google.visualization.LineChart(document.getElementById('parkPredictionChart'));
+            var parkingChart = new google.visualization.AreaChart(document.getElementById('parkPredictionChart'));
             parkingChart.draw(parkingData, {
                 title: 'Parking Availability Prediction',
                 legend: { position: 'none' }

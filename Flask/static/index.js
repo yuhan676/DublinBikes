@@ -686,14 +686,11 @@ function generatePredictionGraphs(stationName, isRent) {
             chart.draw(chartData, options);
         });
 
-        // return chartElementId;
-
     } catch (error) {
         console.error("An error occurred in generatePredictionGraphs:", error);
         // Handle the error, e.g., display a message to the user or gracefully recover
     }
 }
-
 
 // This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded
 // All JQuery event handler definitions should go in here

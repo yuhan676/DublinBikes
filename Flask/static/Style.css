@@ -330,16 +330,16 @@
 {
     display:block;
 }
-/*
-}
+
 .rp_prediction_rent,
 .rp_prediction_return {
     width: 75%; /* Adjust width as needed */
-   /* height: auto; /* Allow the height to adjust automatically */
-   /* border: 1px solid #ddd; /* Add a border for better visibility */
-   /* border-radius: 5px; /* Add rounded corners */
-   /* margin-bottom: 20px; /* Add some bottom margin for spacing */
-   /* padding: 10px; /* Add padding for spacing inside the container */
+    height: auto; /* Allow the height to adjust automatically */
+    display: 1px solid #ddd; /* Add a border for better visibility */
+    border-radius: 5px; /* Add rounded corners */
+    margin-bottom: 20px; /* Add some bottom margin for spacing */
+    padding: 10px; /* Add padding for spacing inside the container */
+}
 
 /* Tab container styling */
 .tab {

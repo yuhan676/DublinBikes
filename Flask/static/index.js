@@ -514,7 +514,7 @@ function selectStation(index, isRent) {
     updateMarkers(index);
 
     // Call the populateRightPanel function with the selected station name
-    // populateRightPanel(stationName, isRent);
+    populateRightPanel(stationName, isRent);
 
     // Assuming your event handler creates a container element with ID 'bikePredictionChart'
     var containerId = 'rp_prediction_rent';

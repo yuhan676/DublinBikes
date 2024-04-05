@@ -423,6 +423,7 @@ function selectionToggle(isRent) {
         console.error('One of the elements was not found in the DOM.');
     }
 }
+/*
 // Function to handle the selection of a station box
 function selectStation(index, isRent) {
     // Clear marker when search is clicked again
@@ -473,8 +474,8 @@ function selectStation(index, isRent) {
     updateMarkers(index);
 }
 
+*/
 
-/*
 // Function to handle the selection of a station box
 function selectStation(index, isRent) {
     // Clear marker when search is clicked again
@@ -515,7 +516,6 @@ function selectStation(index, isRent) {
         console.error("Container element '" + containerId + "' not found.");
     }
 } 
-*/
 
 // Right hand Panel function to populate station and bike data
 function populateRightPanel(stationName, isRent) {
@@ -596,6 +596,7 @@ function populateRightPanel(stationName, isRent) {
         // Handle the error, e.g., display a message to the user or gracefully recover
     }
 }
+/*
 // Function to create prediction graphs for predicting station and bike availability
 function generatePredictionGraphs(stationName) {
     try {
@@ -675,7 +676,7 @@ function generatePredictionGraphs(stationName) {
         return { bikeData: null, parkingData: null }; // Return null data in case of error
     }
 }      
-        
+*/ 
 // This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded
 // All JQuery event handler definitions should go in here
 $(document).ready(function() {

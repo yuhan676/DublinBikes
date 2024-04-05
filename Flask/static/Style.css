@@ -308,17 +308,16 @@
 }
 
 /* styling for prediction graphs container  */
-.rp_prediction_rent, .rp_prediction_return
+/*.rp_prediction_rent, .rp_prediction_return
 {
     height: 100px;
     display:none;
     margin-top: 20px; 
     padding: 10px;
-    background-color: #f2f2f2; /* Set the background color */
-    border-radius: 5px; /* Add rounded corners */
+    /* background-color: #f2f2f2; /* Set the background color */
+    /*border-radius: 5px; /* Add rounded corners */
     /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);  Add a shadow effect */
 
-}
 
 /* display rp_prediction_rent when id 'right_panel's class flag is set to .rp_rent */
 .rp_rent .rp_prediction_rent
@@ -331,20 +330,16 @@
 {
     display:block;
 }
+/*
+}
 .rp_prediction_rent,
 .rp_prediction_return {
     width: 75%; /* Adjust width as needed */
-    height: auto; /* Allow the height to adjust automatically */
-    border: 1px solid #ddd; /* Add a border for better visibility */
-    border-radius: 5px; /* Add rounded corners */
-    margin-bottom: 20px; /* Add some bottom margin for spacing */
-    padding: 10px; /* Add padding for spacing inside the container */
-}
-
-/* Optional: Add additional styles for specific elements inside the containers 
-.rp_prediction_rent #bikePredictionChart,
-.rp_prediction_return #parkPredictionChart {
-     Add styles for the chart elements if needed */
+   /* height: auto; /* Allow the height to adjust automatically */
+   /* border: 1px solid #ddd; /* Add a border for better visibility */
+   /* border-radius: 5px; /* Add rounded corners */
+   /* margin-bottom: 20px; /* Add some bottom margin for spacing */
+   /* padding: 10px; /* Add padding for spacing inside the container */
 
 /* Tab container styling */
 .tab {

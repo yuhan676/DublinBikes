@@ -424,7 +424,7 @@ function selectionToggle(isRent) {
     }
 }
 // Function to handle the selection of a station box
-function selectStation(index, isRent, populateRightPanel) {
+function selectStation(index, isRent) {
     try {
         // Clear marker when search is clicked again
         clearMarkers();
@@ -455,7 +455,7 @@ function selectStation(index, isRent, populateRightPanel) {
 
             // Call the populateRightPanel function with selected station name after drawing the chart
             if (populateRightPanel) {
-                populateRightPanel(stationName, isRent);
+                // populateRightPanel(stationName, isRent);
             } else {
                 console.error("populateRightPanel function is not provided.");
             }

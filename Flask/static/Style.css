@@ -399,6 +399,7 @@
     top: calc(100% + 2px);
     width: 100%;
     border: 1px solid #ccc;
+    z-index: 1;
 
     /* Equivalent to "#suggestion_box div" */
     & div {

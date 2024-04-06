@@ -95,12 +95,12 @@ function simulateUserLocation() {
 
   // Perform the AJAX request to the server
   $.ajax({
-    url: '/closest_station', // Your Flask endpoint
+    url: '/closest_station', // Flask endpoint
     type: 'POST',
     contentType: 'application/json',
     data: JSON.stringify(postData),
     success: function(response) {
-        $('#search_rent').val(data.closest_station);
+        $('#search_rent').val(response.closest_station);
       },
       error: function(jqXHR, textStatus, errorThrown) {
         console.error('AJAX request failed: ', textStatus, errorThrown);

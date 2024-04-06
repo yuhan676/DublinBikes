@@ -171,10 +171,11 @@ def fetch_extreme_weather():
 # Read the static station data downloaded from JCDecaux, compute the closest station and return the station name
 STATIONS_CSV = 'Static_dublin.csv'
 
-@app.route('/closest_station', methods=['GET'])
+@app.route('/closest_station', methods=['POST'])
 def closest_station():
-    user_lat = request.args.get('lat', type=float)
-    user_lng = request.args.get('lng', type=float)
+    data = request.get_json()
+    user_lat = data['latitude']
+    user_lng = data['longitude']
 
     # Load the station data
     stations = pd.read_csv(STATIONS_CSV)

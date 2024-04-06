@@ -71,34 +71,35 @@ function updateSearchBtn() {
     }
 }
 
-// Function to find the geolocation of user
-function findUserLocation() {
-    // Check if the Geolocation API is supported
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        const userLocation = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-        findClosestStation(userLocation);
-      }, function(error) {
-        console.error("Error Code = " + error.code + " - " + error.message);
-        // Handle location errors (user denying permission, etc) here
-      });
-    } else {
-      console.error("Geolocation is not supported by this browser.");
+// Function to send a simulated location to server, longitude and lattitude are that of Dublin
+function simulateUserLocation() {
+    // Simulate getting the position with a fake location
+  const position = {
+    coords: {
+      latitude: 53.3498053,
+      longitude: -6.2603097
     }
+  };
+
+  // Use the simulated position
+  sendPositionToServer(position);
   }
 
   // Function called by findUerLocation to send the query to the flask endpoint
-  function findClosestStation(userLocation) {
-    $.ajax({
-      url: '/closest_station',
-      data: {
-        lat: userLocation.lat,
-        lng: userLocation.lng
-      },
-      success: function(data) {
+  function findClosestStation(position) {
+    // Convert position to a format that your server expects
+  const postData = {
+    latitude: position.coords.latitude,
+    longitude: position.coords.longitude
+  };
+
+  // Perform the AJAX request to the server
+  $.ajax({
+    url: '/closest_station', // Your Flask endpoint
+    type: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify(postData),
+    success: function(response) {
         $('#search_rent').val(data.closest_station);
       },
       error: function(jqXHR, textStatus, errorThrown) {
@@ -579,7 +580,7 @@ $(document).ready(function() {
     });
 
     // Add event listener to find closest station button
-    document.getElementById('closestStation_btn').addEventListener('click', findUserLocation);
+    document.getElementById('closestStation_btn').addEventListener('click', simulateUserLocation);
 
     // set selected station when clicking suggestion
     $('#suggestion_box_rent').on('mousedown', '.suggestion_div', function() {

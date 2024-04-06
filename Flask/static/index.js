@@ -85,8 +85,8 @@ function simulateUserLocation() {
   sendPositionToServer(position);
   }
 
-  // Function called by findUerLocation to send the query to the flask endpoint
-  function findClosestStation(position) {
+  // Function called by findUerLocation to send the query to the flask endpoint adn update the server's respond
+  function sendPositionToServer(position) {
     // Convert position to a format that your server expects
   const postData = {
     latitude: position.coords.latitude,

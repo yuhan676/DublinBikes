@@ -450,6 +450,10 @@ function populateRightPanel(stationName, isRent) {
         // Load Google Charts library and draw graphs when loaded
         google.charts.load('current', { packages: ['corechart'] });
         google.charts.setOnLoadCallback(function() {
+
+            // abstract hourly element from global variable
+            var hour = timeUpdateDate.getHours();
+
             // Initialize the data table
             var hourlyBikeData = new google.visualization.DataTable();
             hourlyBikeData.addColumn('timeofday', 'Time of the Day');

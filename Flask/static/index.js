@@ -447,35 +447,45 @@ function populateRightPanel(stationName, isRent) {
 
         console.log('Station information appended to right panel container.');
 
-        /// Load Google Charts library and draw graphs when loaded
+        // Load Google Charts library and draw graphs when loaded
         google.charts.load('current', { packages: ['corechart'] });
         google.charts.setOnLoadCallback(function() {
-            
             // Initialize the data table
             var hourlyBikeData = new google.visualization.DataTable();
-            hourlyBikeData.addColumn('timeofday', 'Hour');
+            hourlyBikeData.addColumn('timeofday', 'Time of the Day');
             hourlyBikeData.addColumn('number', 'Bikes');
-     
-            // Manually add rows one by one
+
+            // Manually add rows for each hour
             for (var hour = 0; hour < 24; hour++) {
-                hourlyBikeData.addRow([hour, stationData.total_bikes]);
+                hourlyBikeData.addRow([[hour, 0, 0, 0], stationData.total_bikes]); 
             }
 
             // Define chart options
             var options = {
+                title: 'Hourly Bike Availability',
                 legend: { position: 'none' },
                 hAxis: {
-                    title: 'Hour',
+                    title: 'Time of the Day',
                     format: '0',
-                    ticks: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+                    ticks: [
+                        [0, '0:00'], [1, '1:00'], [2, '2:00'], [3, '3:00'], [4, '4:00'], [5, '5:00'],
+                        [6, '6:00'], [7, '7:00'], [8, '8:00'], [9, '9:00'], [10, '10:00'], [11, '11:00'],
+                        [12, '12:00'], [13, '13:00'], [14, '14:00'], [15, '15:00'], [16, '16:00'],
+                        [17, '17:00'], [18, '18:00'], [19, '19:00'], [20, '20:00']
+                    ],
+                    colors: ['#b87333'] // Set custom color
                 }
             };
-            
+
             // Create and draw the chart
-            var hourlyBikeChart = new google.visualization.ColumnChart(document.getElementById('bikePredictionChart'));
+            var hourlyBikeChart = new google.visualization.ColumnChart(document.getElementById('dailyBikePredictionChart'));
             hourlyBikeChart.draw(hourlyBikeData, options);
         });
-
+    } catch (error) {
+        console.error("An error occurred:", error);
+    }
+}
+/*
         var dailyBikeData = google.visualization.arrayToDataTable([
             ['Day', 'Bikes', { role: 'style' }],
             ['Monday', stationData.total_bikes,'color: purple'],
@@ -534,11 +544,8 @@ function populateRightPanel(stationName, isRent) {
         var dailyParkingChart = new google.visualization.ColumnChart(document.getElementById('dailyParkingPredictionChart'));
         dailyParkingChart.draw(dailyParkingData, {
             legend: { position: 'none' }
-        });
-    } catch (error) {
-        console.error("An error occurred in populateRightPanel:", error);
-    }
-}
+            */
+
 // This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded
 // All JQuery event handler definitions should go in here
 $(document).ready(function() {

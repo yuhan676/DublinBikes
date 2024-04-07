@@ -461,7 +461,7 @@ function populateRightPanel(stationName, isRent) {
 
             // Manually add rows for each hour
             for (var hour = 0; hour < 24; hour++) {
-                hourlyBikeData.addRow([[hour, 0, 0, 0], stationData.total_bikes]); 
+                hourlyBikeData.addRow([[hour], stationData.total_bikes]); 
             }
 
             // Define chart options
@@ -486,68 +486,68 @@ function populateRightPanel(stationName, isRent) {
     } catch (error) {
         console.error("An error occurred:", error);
     }
-}
-/*
-        var dailyBikeData = google.visualization.arrayToDataTable([
-            ['Day', 'Bikes', { role: 'style' }],
-            ['Monday', stationData.total_bikes,'color: purple'],
-            ['Tuesday', stationData.total_bikes, 'color: purple'],
-            ['Wednesday', stationData.total_bikes, 'color: purple'],
-            ['Thursday', stationData.total_bikes, 'color: purple'],
-            ['Friday', stationData.total_bikes, 'color: purple'],
-            ['Saturday', stationData.total_bikes, 'color: purple'],
-            ['Sunday', stationData.total_bikes, 'color: purple']
-        ]);
-        
-        var dailyBikeChartContainer = $('<div>').addClass('rp_prediction_rent').append($('<div>').attr('id', 'dailyBikePredictionChart'));
-        rightPanelContainer.append(dailyBikeChartContainer);
-        
-        var dailyBikeChart = new google.visualization.ColumnChart(document.getElementById('dailyBikePredictionChart'));
-        dailyBikeChart.draw(dailyBikeData, {
-            legend: { position: 'none' }
-        });
 
-        var hourlyParkingData = new google.visualization.DataTable();
-        hourlyParkingData.addColumn('number', 'Hour');
-        hourlyParkingData.addColumn('number', 'Station Data');
-        // hourlyParkingData.addColumn({ type: 'string', role: 'style' });
+    // Add the following code at the end
+    var dailyBikeData = google.visualization.arrayToDataTable([
+        ['Day', 'Bikes', { role: 'style' }],
+        ['Monday', stationData.total_bikes,'color: purple'],
+        ['Tuesday', stationData.total_bikes, 'color: purple'],
+        ['Wednesday', stationData.total_bikes, 'color: purple'],
+        ['Thursday', stationData.total_bikes, 'color: purple'],
+        ['Friday', stationData.total_bikes, 'color: purple'],
+        ['Saturday', stationData.total_bikes, 'color: purple'],
+        ['Sunday', stationData.total_bikes, 'color: purple']
+    ]);
+    
+    var dailyBikeChartContainer = $('<div>').addClass('rp_prediction_rent').append($('<div>').attr('id', 'dailyBikePredictionChart'));
+    rightPanelContainer.append(dailyBikeChartContainer);
+    
+    var dailyBikeChart = new google.visualization.ColumnChart(document.getElementById('dailyBikePredictionChart'));
+    dailyBikeChart.draw(dailyBikeData, {
+        legend: { position: 'none' }
+    });
 
-        for (var i = 0; i < 24; i++) {
-            hourlyParkingData.addRow([i, stationData.empty_stands_number[i], 'color: #b87333']);
+    var hourlyParkingData = new google.visualization.DataTable();
+    hourlyParkingData.addColumn('number', 'Hour');
+    hourlyParkingData.addColumn('number', 'Station Data');
+    // hourlyParkingData.addColumn({ type: 'string', role: 'style' });
+
+    for (var i = 0; i < 24; i++) {
+        hourlyParkingData.addRow([i, stationData.empty_stands_number[i], 'color: #b87333']);
+    }
+
+    var options = {
+        legend: { position: 'none' },
+        hAxis: {
+            title: 'Hour',
+            ticks: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
         }
+    };
+    var hourlyParkingChartContainer = $('<div>').addClass('rp_prediction_return').append($('<div>').attr('id', 'parkPredictionChart'));
+    rightPanelContainer.append(hourlyParkingChartContainer);
 
-        var options = {
-            legend: { position: 'none' },
-            hAxis: {
-                title: 'Hour',
-                ticks: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    var hourlyParkingChart = new google.visualization.ColumnChart(document.getElementById('parkPredictionChart'));
+    hourlyParkingChart.draw(hourlyParkingData, options);
 
-            }
-        };
-        var hourlyParkingChartContainer = $('<div>').addClass('rp_prediction_return').append($('<div>').attr('id', 'parkPredictionChart'));
-        rightPanelContainer.append(hourlyParkingChartContainer);
-
-        var hourlyParkingChart = new google.visualization.ColumnChart(document.getElementById('parkPredictionChart'));
-        hourlyParkingChart.draw(hourlyParkingData, options);
-
-        var dailyParkingData = google.visualization.arrayToDataTable([
-            ['Day', 'Parking', { role: 'style' }],
-            ['Monday', stationData.empty_stands_number, 'color: #871B47'],
-            ['Tuesday', stationData.empty_stands_number, 'color: #871B47'],
-            ['Wednesday', stationData.empty_stands_number, 'color: #871B47'],
-            ['Thursday', stationData.empty_stands_number, 'color: #871B47'],
-            ['Friday', stationData.empty_stands_number, 'color: #871B47'],
-            ['Saturday', stationData.empty_stands_number, 'color: #871B47'],
-            ['Sunday', stationData.empty_stands_number, 'color: #871B47']
-        ]);
-        var dailyParkingChartContainer = $('<div>').addClass('rp_prediction_return').append($('<div>').attr('id', 'dailyParkingPredictionChart'));
-        rightPanelContainer.append(dailyParkingChartContainer);
-        
-        var dailyParkingChart = new google.visualization.ColumnChart(document.getElementById('dailyParkingPredictionChart'));
-        dailyParkingChart.draw(dailyParkingData, {
-            legend: { position: 'none' }
-            */
-
+    var dailyParkingData = google.visualization.arrayToDataTable([
+        ['Day', 'Parking', { role: 'style' }],
+        ['Monday', stationData.empty_stands_number, 'color: #871B47'],
+        ['Tuesday', stationData.empty_stands_number, 'color: #871B47'],
+        ['Wednesday', stationData.empty_stands_number, 'color: #871B47'],
+        ['Thursday', stationData.empty_stands_number, 'color: #871B47'],
+        ['Friday', stationData.empty_stands_number, 'color: #871B47'],
+        ['Saturday', stationData.empty_stands_number, 'color: #871B47'],
+        ['Sunday', stationData.empty_stands_number, 'color: #871B47']
+    ]);
+    var dailyParkingChartContainer = $('<div>').addClass('rp_prediction_return').append($('<div>').attr('id', 'dailyParkingPredictionChart'));
+    rightPanelContainer.append(dailyParkingChartContainer);
+    
+    var dailyParkingChart = new google.visualization.ColumnChart(document.getElementById('dailyParkingPredictionChart'));
+    dailyParkingChart.draw(dailyParkingData, {
+        legend: { position: 'none' }
+    });
+}
 // This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded
 // All JQuery event handler definitions should go in here
 $(document).ready(function() {

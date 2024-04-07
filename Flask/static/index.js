@@ -105,7 +105,13 @@ function simulateUserLocation() {
     contentType: 'application/json',
     data: JSON.stringify(postData),
     success: function(response) {
-        $('#search_rent').val(response.closest_station);
+        if ( activeTab == "rent"){
+            $('#search_rent').val(response.closest_station);
+        }
+        else{
+            $('#search_return').val(response.closest_station);
+        }
+        
       },
       error: function(jqXHR, textStatus, errorThrown) {
         console.error('AJAX request failed: ', textStatus, errorThrown);

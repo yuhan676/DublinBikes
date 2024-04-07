@@ -464,14 +464,13 @@ function populateRightPanel(stationName, isRent) {
             var options = {
                 legend: { position: 'none' },
                 hAxis: {
-                    title: 'Hour'
+                    title: 'Hour',
+                    ticks: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
             }
         };
         // Create and draw the chart
         var hourlyBikeChart = new google.visualization.ColumnChart(document.getElementById('bikePredictionChart'));
         hourlyBikeChart.draw(hourlyBikeData, options);});
-
-        
 
         var dailyBikeData = google.visualization.arrayToDataTable([
             ['Day', 'Bikes', { role: 'style' }],
@@ -504,10 +503,11 @@ function populateRightPanel(stationName, isRent) {
         var options = {
             legend: { position: 'none' },
             hAxis: {
-                title: 'Hour'
+                title: 'Hour',
+                ticks: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+
             }
         };
-
         var hourlyParkingChartContainer = $('<div>').addClass('rp_prediction_return').append($('<div>').attr('id', 'parkPredictionChart'));
         rightPanelContainer.append(hourlyParkingChartContainer);
 

@@ -473,7 +473,7 @@ function populateRightPanel(stationName, isRent) {
         });
 
         var hourlyParkingData = new google.visualization.DataTable();
-        hourlyParkingData.addColumn('number', 'Hour');
+        hourlyParkingData.addColumn('timeofday', 'Hour');
         hourlyParkingData.addColumn('number', 'Station Data');
         hourlyParkingData.addColumn({ type: 'string', role: 'style' });
 
@@ -485,7 +485,7 @@ function populateRightPanel(stationName, isRent) {
             legend: { position: 'none' },
             hAxis: {
                 title: 'Hour',
-                ticks: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+                ticks: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
             }
         };

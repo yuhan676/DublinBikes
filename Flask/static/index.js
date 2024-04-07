@@ -445,31 +445,32 @@ function populateRightPanel(stationName, isRent) {
             // Draw the hourly bike prediction graph
             var hourlyBikeData = google.visualization.arrayToDataTable([
                 ['Hour', 'Bikes', { role: 'style' }],
-                [parseInt(hour) + ':00', stationData.total_bikes[0], 'color: #76A7FA'],
-                [parseInt(hour + 1)+ ':00', stationData.total_bikes[1], 'color: #76A7FA'],
-                [parseInt(hour + 2)+ ':00', stationData.total_bikes[2], 'color: #76A7FA'],
-                [parseInt(hour + 3)+ ':00', stationData.total_bikes[3], 'color: #76A7FA'],
-                [parseInt(hour + 4)+ ':00', stationData.total_bikes[4], 'color: #76A7FA'],
-                [parseInt(hour + 5)+ ':00', stationData.total_bikes[5], 'color: #76A7FA'],
-                [parseInt(hour + 6)+ ':00', stationData.total_bikes[6], 'color: #76A7FA'],
-                [parseInt(hour + 7)+ ':00', stationData.total_bikes[7], 'color: #76A7FA'],
-                [parseInt(hour + 8)+ ':00', stationData.total_bikes[8], 'color: #76A7FA'],
-                [parseInt(hour + 9)+ ':00', stationData.total_bikes[9], 'color: #76A7FA'],
-                [parseInt(hour + 10)+ ':00', stationData.total_bikes[10], 'color: #76A7FA'],
-                [parseInt(hour + 11)+ ':00', stationData.total_bikes[11], 'color: #76A7FA'],
-                [parseInt(hour + 12)+ ':00', stationData.total_bikes[12], 'color: #76A7FA'],
-                [parseInt(hour + 13)+ ':00', stationData.total_bikes[13], 'color: #76A7FA'],
-                [parseInt(hour + 14)+ ':00', stationData.total_bikes[14], 'color: #76A7FA'],
-                [parseInt(hour + 15)+ ':00', stationData.total_bikes[15], 'color: #76A7FA'],
-                [parseInt(hour + 16)+ ':00', stationData.total_bikes[16], 'color: #76A7FA'],
-                [parseInt(hour + 17)+ ':00', stationData.total_bikes[17], 'color: #76A7FA'],
-                [parseInt(hour + 18)+ ':00', stationData.total_bikes[18], 'color: #76A7FA'],
-                [parseInt(hour + 19)+ ':00', stationData.total_bikes[19], 'color: #76A7FA'],
-                [parseInt(hour + 20)+ ':00', stationData.total_bikes[20], 'color: #76A7FA'],
-                [parseInt(hour + 21)+ ':00', stationData.total_bikes[21], 'color: #76A7FA'],
-                [parseInt(hour + 22)+ ':00', stationData.total_bikes[22], 'color: #76A7FA'],
-                [parseInt(hour + 23)+ ':00', stationData.total_bikes[23], 'color: #76A7FA']
+                [parseInt(hour), stationData.total_bikes[0], 'color: #76A7FA'],
+                [parseInt(hour) + 1, stationData.total_bikes[1], 'color: #76A7FA'],
+                [parseInt(hour) + 2, stationData.total_bikes[2], 'color: #76A7FA'],
+                [parseInt(hour) + 3, stationData.total_bikes[3], 'color: #76A7FA'],
+                [parseInt(hour) + 4, stationData.total_bikes[4], 'color: #76A7FA'],
+                [parseInt(hour) + 5, stationData.total_bikes[5], 'color: #76A7FA'],
+                [parseInt(hour) + 6, stationData.total_bikes[6], 'color: #76A7FA'],
+                [parseInt(hour) + 7, stationData.total_bikes[7], 'color: #76A7FA'],
+                [parseInt(hour) + 8, stationData.total_bikes[8], 'color: #76A7FA'],
+                [parseInt(hour) + 9, stationData.total_bikes[9], 'color: #76A7FA'],
+                [parseInt(hour) + 10, stationData.total_bikes[10], 'color: #76A7FA'],
+                [parseInt(hour) + 11, stationData.total_bikes[11], 'color: #76A7FA'],
+                [parseInt(hour) + 12, stationData.total_bikes[12], 'color: #76A7FA'],
+                [parseInt(hour) + 13, stationData.total_bikes[13], 'color: #76A7FA'],
+                [parseInt(hour) + 14, stationData.total_bikes[14], 'color: #76A7FA'],
+                [parseInt(hour) + 15, stationData.total_bikes[15], 'color: #76A7FA'],
+                [parseInt(hour) + 16, stationData.total_bikes[16], 'color: #76A7FA'],
+                [parseInt(hour) + 17, stationData.total_bikes[17], 'color: #76A7FA'],
+                [parseInt(hour) + 18, stationData.total_bikes[18], 'color: #76A7FA'],
+                [parseInt(hour) + 19, stationData.total_bikes[19], 'color: #76A7FA'],
+                [parseInt(hour) + 20, stationData.total_bikes[20], 'color: #76A7FA'],
+                [parseInt(hour) + 21, stationData.total_bikes[21], 'color: #76A7FA'],
+                [parseInt(hour) + 22, stationData.total_bikes[22], 'color: #76A7FA'],
+                [parseInt(hour) + 23, stationData.total_bikes[23], 'color: #76A7FA']
             ]);
+            
 
 
             var hourlybikeChartContainer = $('<div>').addClass('rp_prediction_rent').append($('<div>').attr('id', 'bikePredictionChart'));
@@ -518,34 +519,32 @@ function populateRightPanel(stationName, isRent) {
             //    ['2050', 28, 'stroke-color: #871B47; stroke-opacity: 0.6; stroke-width: 8; fill-color: #BC5679; fill-opacity: 0.2']
              // ['Platinum', 21.45, 'color: #e5e4e2' ], // CSS-style declaration
 
-            var hourlyParkingData = google.visualization.arrayToDataTable([
+             var hourlyParkingData = google.visualization.arrayToDataTable([
                 ['Hour', 'Station Data', { role: 'style '}],
-                [parseInt(hour) +':00', stationData.empty_stands_number[0],'color: #b87333'],
-                [parseInt(hour + 1) + ':00', stationData.empty_stands_number[1], 'color: #b87333'],
-                [parseInt(hour + 2) + ':00', stationData.empty_stands_number[2], 'color: #b87333'],
-                [parseInt(hour + 3)+ ':00', stationData.empty_stands_number[3], 'color: #b87333'],
-                [parseInt(hour + 4)+ ':00', stationData.empty_stands_number[4], 'color: #b87333'],
-                [parseInt(hour + 5)+ ':00', stationData.empty_stands_number[5], 'color: #b87333'],
-                [parseInt(hour + 6)+ ':00', stationData.empty_stands_number[6], 'color: #b87333'],
-                [parseInt(hour + 7)+ ':00', stationData.empty_stands_number[7], 'color: #b87333'],
-                [parseInt(hour + 8)+ ':00', stationData.empty_stands_number[8], 'color: #b87333'],
-                [parseInt(hour + 9)+ ':00', stationData.empty_stands_number[9], 'color: #b87333'],
-                [parseInt(hour + 10)+ ':00', stationData.empty_stands_number[10], 'color: #b87333'],
-                [parseInt(hour + 11)+ ':00', stationData.empty_stands_number[11], 'color: #b87333'],
-                [parseInt(hour + 12)+ ':00', stationData.empty_stands_number[12], 'color: #b87333'],
-                [parseInt(hour + 13)+ ':00', stationData.empty_stands_number[13], 'color: #b87333'],
-                [parseInt(hour + 14)+ ':00', stationData.empty_stands_number[14], 'color: #b87333'],
-                [parseInt(hour + 15)+ ':00', stationData.empty_stands_number[15], 'color: #b87333'],
-                [parseInt(hour + 16)+ ':00', stationData.empty_stands_number[16], 'color: #b87333'],
-                [parseInt(hour + 17)+ ':00', stationData.empty_stands_number[17], 'color: #b87333'],
-                [parseInt(hour + 18)+ ':00', stationData.empty_stands_number[18], 'color: #b87333'],
-                [parseInt(hour + 19)+ ':00', stationData.empty_stands_number[19], 'color: #b87333'],
-                [parseInt(hour + 20)+ ':00', stationData.empty_stands_number[20], 'color: #b87333'],
-                [parseInt(hour + 21)+ ':00', stationData.empty_stands_number[21], 'color: #b87333'],
-                [parseInt(hour + 22)+ ':00', stationData.empty_stands_number[22], 'color: #b87333'],
-                [parseInt(hour + 23)+ ':00', stationData.empty_stands_number[23], 'color: #b87333']
+                [parseInt(hour) + 1, stationData.empty_stands_number[0], 'color: #b87333'],
+                [parseInt(hour) + 2, stationData.empty_stands_number[1], 'color: #b87333'],
+                [parseInt(hour) + 3, stationData.empty_stands_number[2], 'color: #b87333'],
+                [parseInt(hour) + 4, stationData.empty_stands_number[3], 'color: #b87333'],
+                [parseInt(hour) + 5, stationData.empty_stands_number[4], 'color: #b87333'],
+                [parseInt(hour) + 6, stationData.empty_stands_number[5], 'color: #b87333'],
+                [parseInt(hour) + 7, stationData.empty_stands_number[6], 'color: #b87333'],
+                [parseInt(hour) + 8, stationData.empty_stands_number[7], 'color: #b87333'],
+                [parseInt(hour) + 9, stationData.empty_stands_number[8], 'color: #b87333'],
+                [parseInt(hour) + 10, stationData.empty_stands_number[9], 'color: #b87333'],
+                [parseInt(hour) + 11, stationData.empty_stands_number[10], 'color: #b87333'],
+                [parseInt(hour) + 12, stationData.empty_stands_number[11], 'color: #b87333'],
+                [parseInt(hour) + 13, stationData.empty_stands_number[12], 'color: #b87333'],
+                [parseInt(hour) + 14, stationData.empty_stands_number[13], 'color: #b87333'],
+                [parseInt(hour) + 15, stationData.empty_stands_number[14], 'color: #b87333'],
+                [parseInt(hour) + 16, stationData.empty_stands_number[15], 'color: #b87333'],
+                [parseInt(hour) + 17, stationData.empty_stands_number[16], 'color: #b87333'],
+                [parseInt(hour) + 18, stationData.empty_stands_number[17], 'color: #b87333'],
+                [parseInt(hour) + 19, stationData.empty_stands_number[18], 'color: #b87333'],
+                [parseInt(hour) + 20, stationData.empty_stands_number[19], 'color: #b87333'],
+                [parseInt(hour) + 21, stationData.empty_stands_number[20], 'color: #b87333'],
+                [parseInt(hour) + 22, stationData.empty_stands_number[21], 'color: #b87333'],
+                [parseInt(hour) + 23, stationData.empty_stands_number[22], 'color: #b87333']
             ]);
-
             var hourlyParkingChartContainer = $('<div>').addClass('rp_prediction_return').append($('<div>').attr('id', 'parkPredictionChart'));
             rightPanelContainer.append(hourlyParkingChartContainer);
 

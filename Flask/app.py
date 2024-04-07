@@ -187,7 +187,7 @@ def closest_station():
             min_distance = distance
             closest_station = station['Name']
 
-    return jsonify(closest_station=closest_station)
+    return jsonify(closest_station=closest_station.title())
 
 # provide suggestion for station names based on user's input of station name
 @app.route('/suggest_stations')

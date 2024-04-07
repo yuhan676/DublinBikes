@@ -111,6 +111,7 @@ function simulateUserLocation() {
         else{
             $('#search_return').val(response.closest_station);
         }
+        updateSearchBtn()
         
       },
       error: function(jqXHR, textStatus, errorThrown) {

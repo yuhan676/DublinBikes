@@ -362,6 +362,7 @@ function selectStation(index, isRent) {
     populateRightPanel(stationName, isRent);
 } 
 // Function to populate the right-hand pane
+// Function to populate the right-hand pane
 function populateRightPanel(stationName, isRent) {
     try {
         // Find the station data based on the stationName
@@ -436,65 +437,150 @@ function populateRightPanel(stationName, isRent) {
 
         // Load Google Charts library and draw graphs when loaded
         google.charts.load('current', { packages: ['corechart'] });
-        google.charts.setOnLoadCallback(function () {
-            var hour = timeUpdateDate.getHours();
-            var daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-        
-            // Prepare data for hourly bike prediction graph
-            var hourlyBikeData = [['Hour', 'Bikes']];
-            for (var i = 0; i < 24; i++) {
-                hourlyBikeData.push([(hour + i) + ':00', stationData.total_bikes, 'color: #76A7FA']);
-            }
-        
-            var hourlyBikeOptions = {
-                title: 'Hourly Bike Availability Prediction: ' + formattedTime,
+        google.charts.setOnLoadCallback(function() {
+
+                // Extract the hour from the timeUpdateDate variable
+                var hour = timeUpdateDate.getHours();
+
+                  //  ['2040', 22, 'stroke-color: #703593; stroke-width: 4; fill-color: #C5A5CF'],
+                   // ['2050', 28, 'stroke-color: #871B47; stroke-opacity: 0.6; stroke-width: 8; fill-color: #BC5679; fill-opacity: 0.2']
+            // Draw the hourly bike prediction graph
+            var hourlyBikeData = google.visualization.arrayToDataTable([
+                ['Hour', 'Bikes', { role: 'style' }],
+                [hour + ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 1)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 2)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 3)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 4)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 5)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 6)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 7)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 8)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 9)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 10)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 11)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 12)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 13)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 14)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 15)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 16)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 17)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 18)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 19)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 20)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 21)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 22)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 23)+ ':00', stationData.total_bikes, 'color: #76A7FA']
+            ]);
+
+
+            var hourlybikeChartContainer = $('<div>').addClass('rp_prediction_rent').append($('<div>').attr('id', 'bikePredictionChart'));
+            rightPanelContainer.append(hourlybikeChartContainer);
+
+            var hourlybikeChart = new google.visualization.ColumnChart(document.getElementById('bikePredictionChart'));
+            hourlybikeChart.draw(hourlyBikeData, {
+                title: 'Hourly Bike Availability Prediction: ' + timeUpdateDate.toLocaleString() + ')',
                 legend: { position: 'none' }
-            };
-        
-            var hourlyBikeChart = new google.visualization.ColumnChart(document.getElementById('rp_hourly_bike_chart'));
-            hourlyBikeChart.draw(google.visualization.arrayToDataTable(hourlyBikeData), hourlyBikeOptions);
-        
-            // Prepare data for weekly hourly bike prediction graph
-            var weeklyHourlyBikeData = [['Day', 'Bikes']];
-            for (var i = 0; i < 7; i++) {
-                weeklyHourlyBikeData.push([daysOfWeek[i], stationData.total_bikes, 'color: #76A7FA']);
-            }
-        
-            var weeklyHourlyBikeOptions = {
-                title: 'Weekly Hourly Bike Availability Prediction: ' + formattedTime,
+            });
+
+            // ['2010', 10, 'color: gray'],
+            // ['2020', 14, 'color: #76A7FA'],
+            // ['2030', 16, 'opacity: 0.2'],
+            // ['2040', 22, 'stroke-color: #703593; stroke-width: 4; fill-color: #C5A5CF'],
+            // ['2050', 28, 'stroke-color: #871B47; stroke-opacity: 0.6; stroke-width: 8; fill-color: #BC5679; fill-opacity: 0.2']
+                    
+            // Draw the daily bike prediction graph
+            var dailyBikeData = google.visualization.arrayToDataTable([
+                ['Day', 'Bikes', { role: 'style' }],
+                ['Monday', stationData.total_bikes,'color: purple'],
+                ['Tuesday', stationData.total_bikes, 'color: purple'],
+                ['Wednesday', stationData.total_bikes, 'color: purple'],
+                ['Thursday', stationData.total_bikes, 'color: purple'],
+                ['Friday', stationData.total_bikes, 'color: purple'],
+                ['Saturday', stationData.total_bikes, 'color: purple'],
+                ['Sunday', stationData.total_bikes, 'color: purple']
+            ]);
+            
+            var dailyBikeChartContainer = $('<div>').addClass('rp_prediction_rent').append($('<div>').attr('id', 'dailyBikePredictionChart'));
+            rightPanelContainer.append(dailyBikeChartContainer);
+            
+            var dailyBikeChart = new google.visualization.ColumnChart(document.getElementById('dailyBikePredictionChart'));
+            dailyBikeChart.draw(dailyBikeData, {
+                title: 'Daily Bike Availability Prediction: ' + timeUpdateDate.toLocaleString() + ')',
                 legend: { position: 'none' }
-            };
-        
-            var weeklyHourlyBikeChart = new google.visualization.ColumnChart(document.getElementById('rp_weekly_hourly_bike_chart'));
-            weeklyHourlyBikeChart.draw(google.visualization.arrayToDataTable(weeklyHourlyBikeData), weeklyHourlyBikeOptions);
-        
-            // Prepare data for hourly parking prediction graph
-            var hourlyParkingData = [['Hour', 'Stations']];
-            for (var i = 0; i < 24; i++) {
-                hourlyParkingData.push([(hour + i) + ':00', stationData.empty_stands_number, 'color: #b87333']);
-            }
-        
-            var hourlyParkingOptions = {
-                title: 'Hourly Station Availability Prediction: ' + formattedTime,
+            });
+
+            // Draw the hourly parking prediction graph
+
+             //   ['Copper', 8.94, '#b87333'],            // RGB value
+             //   ['Silver', 10.49, 'silver'],            // English color name
+             //   ['Gold', 19.30, 'gold'],
+            //  ['2040', 22, 'stroke-color: #703593; stroke-width: 4; fill-color: #C5A5CF'],
+            //    ['2050', 28, 'stroke-color: #871B47; stroke-opacity: 0.6; stroke-width: 8; fill-color: #BC5679; fill-opacity: 0.2']
+             // ['Platinum', 21.45, 'color: #e5e4e2' ], // CSS-style declaration
+
+            var hourlyParkingData = google.visualization.arrayToDataTable([
+                ['Hour', 'Station Data', { role: 'style '}],
+                [hour + ':00', stationData.empty_stands_number,'color: #b87333'],
+                [(hour + 1) + ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 2) + ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 3)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 4)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 5)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 6)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 7)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 8)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 9)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 10)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 11)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 12)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 13)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 14)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 15)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 16)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 17)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 18)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 19)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 20)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 21)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 22)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 23)+ ':00', stationData.empty_stands_number, 'color: #b87333']
+            ]);
+
+            var hourlyParkingChartContainer = $('<div>').addClass('rp_prediction_return').append($('<div>').attr('id', 'parkPredictionChart'));
+            rightPanelContainer.append(hourlyParkingChartContainer);
+
+            var hourlyParkingChart = new google.visualization.ColumnChart(document.getElementById('parkPredictionChart'));
+            hourlyParkingChart.draw(hourlyParkingData, {
+                title: 'Hourly Stand Availability Prediction: ' + timeUpdateDate.toLocaleString() + ')',
                 legend: { position: 'none' }
-            };
+            });
+                        // Draw the hourly parking prediction graph
+                         //   ['Copper', 8.94, '#b87333'],            // RGB value
+                         //   ['Silver', 10.49, 'silver'],            // English color name
+                         //   ['Gold', 19.30, 'gold'],
         
-            var hourlyParkingChart = new google.visualization.ColumnChart(document.getElementById('rp_hourly_station_chart'));
-            hourlyParkingChart.draw(google.visualization.arrayToDataTable(hourlyParkingData), hourlyParkingOptions);
-        
-            // Prepare data for weekly hourly parking prediction graph
-            var weeklyHourlyParkingData = [['Day', 'Stations']];
-            for (var i = 0; i < 7; i++) {
-                weeklyHourlyParkingData.push([daysOfWeek[i], stationData.empty_stands_number, 'color: #b87333']);
-            }
-        
-            var weeklyHourlyParkingOptions = {
-                title: 'Weekly Hourly Station Availability Prediction: ' + formattedTime,
+                        //  ['2040', 22, 'stroke-color: #703593; stroke-width: 4; fill-color: #C5A5CF'],
+                        //    ['2050', 28, 'stroke-color: #871B47; stroke-opacity: 0.6; stroke-width: 8; fill-color: #BC5679; fill-opacity: 0.2']                         // ['Platinum', 21.45, 'color: #e5e4e2' ], // CSS-style declaration
+            // Draw the daily parking prediction graph
+            var dailyParkingData = google.visualization.arrayToDataTable([
+                ['Day', 'Parking', { role: 'style' }],
+                ['Monday', stationData.empty_stands_number, 'color: #871B47'],
+                ['Tuesday', stationData.empty_stands_number, 'color: #871B47'],
+                ['Wednesday', stationData.empty_stands_number, 'color: #871B47'],
+                ['Thursday', stationData.empty_stands_number, 'color: #871B47'],
+                ['Friday', stationData.empty_stands_number, 'color: #871B47'],
+                ['Saturday', stationData.empty_stands_number, 'color: #871B47'],
+                ['Sunday', stationData.empty_stands_number, 'color: #871B47']
+            ]);
+            var dailyParkingChartContainer = $('<div>').addClass('rp_prediction_return').append($('<div>').attr('id', 'dailyParkingPredictionChart'));
+            rightPanelContainer.append(dailyParkingChartContainer);
+
+            var dailyParkingChart = new google.visualization.ColumnChart(document.getElementById('dailyParkingPredictionChart'));
+            dailyParkingChart.draw(dailyParkingData, {
+                title: 'Daily Stand Availability Prediction: ' + timeUpdateDate.toLocaleString() + ')',
                 legend: { position: 'none' }
-            };
-        
-            var weeklyHourlyParkingChart = new google.visualization.ColumnChart(document.getElementById('rp_weekly_hourly_station_chart'));
-            weeklyHourlyParkingChart.draw(google.visualization.arrayToDataTable(weeklyHourlyParkingData), weeklyHourlyParkingOptions);
+            });
         });
 
     } catch (error) {

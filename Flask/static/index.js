@@ -362,6 +362,7 @@ function selectStation(index, isRent) {
     populateRightPanel(stationName, isRent);
 } 
 // Function to populate the right-hand pane
+// Function to populate the right-hand pane
 function populateRightPanel(stationName, isRent) {
     try {
         // Find the station data based on the stationName
@@ -440,57 +441,29 @@ function populateRightPanel(stationName, isRent) {
             // Extract the hour from the timeUpdateDate variable
             var hour = timeUpdateDate.getHours();
 
-            //  ['2040', 22, 'stroke-color: #703593; stroke-width: 4; fill-color: #C5A5CF'],
-            // ['2050', 28, 'stroke-color: #871B47; stroke-opacity: 0.6; stroke-width: 8; fill-color: #BC5679; fill-opacity: 0.2']
             // Draw the hourly bike prediction graph
-            var hourlyBikeData = google.visualization.arrayToDataTable([
-                ['Hour', 'Bikes', { role: 'style' }],
-                [parseInt(hour), stationData.total_bikes, 'color: #76A7FA'],
-                [parseInt(hour) + 1, stationData.total_bikes, 'color: #76A7FA'],
-                [parseInt(hour) + 2, stationData.total_bikes, 'color: #76A7FA'],
-                [parseInt(hour) + 3, stationData.total_bikes, 'color: #76A7FA'],
-                [parseInt(hour) + 4, stationData.total_bikes, 'color: #76A7FA'],
-                [parseInt(hour) + 5, stationData.total_bikes, 'color: #76A7FA'],
-                [parseInt(hour) + 6, stationData.total_bikes, 'color: #76A7FA'],
-                [parseInt(hour) + 7, stationData.total_bikes, 'color: #76A7FA'],
-                [parseInt(hour) + 8, stationData.total_bikes, 'color: #76A7FA'],
-                [parseInt(hour) + 9, stationData.total_bikes, 'color: #76A7FA'],
-                [parseInt(hour) + 10, stationData.total_bikes, 'color: #76A7FA'],
-                [parseInt(hour) + 11, stationData.total_bikes, 'color: #76A7FA'],
-                [parseInt(hour) + 12, stationData.total_bikes, 'color: #76A7FA'],
-                [parseInt(hour) + 13, stationData.total_bikes, 'color: #76A7FA'],
-                [parseInt(hour) + 14, stationData.total_bikes, 'color: #76A7FA'],
-                [parseInt(hour) + 15, stationData.total_bikes, 'color: #76A7FA'],
-                [parseInt(hour) + 16, stationData.total_bikes, 'color: #76A7FA'],
-                [parseInt(hour) + 17, stationData.total_bikes, 'color: #76A7FA'],
-                [parseInt(hour) + 18, stationData.total_bikes, 'color: #76A7FA'],
-                [parseInt(hour) + 19, stationData.total_bikes, 'color: #76A7FA'],
-                [parseInt(hour) + 20, stationData.total_bikes, 'color: #76A7FA'],
-                [parseInt(hour) + 21, stationData.total_bikes, 'color: #76A7FA'],
-                [parseInt(hour) + 22, stationData.total_bikes, 'color: #76A7FA'],
-                [parseInt(hour) + 23, stationData.total_bikes, 'color: #76A7FA']
-            ]);
-            
+            var hourlyBikeData = new google.visualization.DataTable();
+            hourlyBikeData.addColumn('number', 'Hour');
+            hourlyBikeData.addColumn('number', 'Bikes');
+            hourlyBikeData.addColumn({ type: 'string', role: 'style' });
 
+            for (var i = 0; i < 24; i++) {
+                hourlyBikeData.addRow([hour + i, stationData.total_bikes, 'color: #76A7FA']);
+            }
 
-            var hourlybikeChartContainer = $('<div>').addClass('rp_prediction_rent').append($('<div>').attr('id', 'bikePredictionChart'));
-            rightPanelContainer.append(hourlybikeChartContainer);
+            var hourlyBikeChartContainer = $('<div>').addClass('rp_prediction_rent').append($('<div>').attr('id', 'bikePredictionChart'));
+            rightPanelContainer.append(hourlyBikeChartContainer);
 
-            var hourlybikeChart = new google.visualization.ColumnChart(document.getElementById('bikePredictionChart'));
-            hourlybikeChart.draw(hourlyBikeData, {
+            var hourlyBikeChart = new google.visualization.ColumnChart(document.getElementById('bikePredictionChart'));
+            hourlyBikeChart.draw(hourlyBikeData, {
                 legend: { position: 'none' },
                 hAxis: {
                     title: 'Hour',
                     format: 'HH:mm' // Format the x-axis to display hours and minutes
                 }
             });
-            // ['2010', 10, 'color: gray'],
-            // ['2020', 14, 'color: #76A7FA'],
-            // ['2030', 16, 'opacity: 0.2'],
-            // ['2040', 22, 'stroke-color: #703593; stroke-width: 4; fill-color: #C5A5CF'],
-            // ['2050', 28, 'stroke-color: #871B47; stroke-opacity: 0.6; stroke-width: 8; fill-color: #BC5679; fill-opacity: 0.2']
-                    
-            // Draw the daily bike prediction graph, have to modify to display hourly over the week
+
+            // Draw the daily bike prediction graph
             var dailyBikeData = google.visualization.arrayToDataTable([
                 ['Day', 'Bikes', { role: 'style' }],
                 ['Monday', stationData.total_bikes,'color: purple'],
@@ -511,43 +484,18 @@ function populateRightPanel(stationName, isRent) {
             });
 
             // Draw the hourly parking prediction graph
-
-             //   ['Copper', 8.94, '#b87333'],            // RGB value
-             //   ['Silver', 10.49, 'silver'],            // English color name
-             //   ['Gold', 19.30, 'gold'],
-            //  ['2040', 22, 'stroke-color: #703593; stroke-width: 4; fill-color: #C5A5CF'],
-            //    ['2050', 28, 'stroke-color: #871B47; stroke-opacity: 0.6; stroke-width: 8; fill-color: #BC5679; fill-opacity: 0.2']
-             // ['Platinum', 21.45, 'color: #e5e4e2' ], // CSS-style declaration
-
-             var hourlyParkingData = google.visualization.arrayToDataTable([
-                ['Hour', 'Station Data', { role: 'style '}],
-                [parseInt(hour) + 1, stationData.empty_stands_number, 'color: #b87333'],
-                [parseInt(hour) + 2, stationData.empty_stands_number, 'color: #b87333'],
-                [parseInt(hour) + 3, stationData.empty_stands_number, 'color: #b87333'],
-                [parseInt(hour) + 4, stationData.empty_stands_number, 'color: #b87333'],
-                [parseInt(hour) + 5, stationData.empty_stands_number, 'color: #b87333'],
-                [parseInt(hour) + 6, stationData.empty_stands_number, 'color: #b87333'],
-                [parseInt(hour) + 7, stationData.empty_stands_number, 'color: #b87333'],
-                [parseInt(hour) + 8, stationData.empty_stands_number, 'color: #b87333'],
-                [parseInt(hour) + 9, stationData.empty_stands_number, 'color: #b87333'],
-                [parseInt(hour) + 10, stationData.empty_stands_number, 'color: #b87333'],
-                [parseInt(hour) + 11, stationData.empty_stands_number, 'color: #b87333'],
-                [parseInt(hour) + 12, stationData.empty_stands_number, 'color: #b87333'],
-                [parseInt(hour) + 13, stationData.empty_stands_number, 'color: #b87333'],
-                [parseInt(hour) + 14, stationData.empty_stands_number, 'color: #b87333'],
-                [parseInt(hour) + 15, stationData.empty_stands_number, 'color: #b87333'],
-                [parseInt(hour) + 16, stationData.empty_stands_number, 'color: #b87333'],
-                [parseInt(hour) + 17, stationData.empty_stands_number, 'color: #b87333'],
-                [parseInt(hour) + 18, stationData.empty_stands_number, 'color: #b87333'],
-                [parseInt(hour) + 19, stationData.empty_stands_number, 'color: #b87333'],
-                [parseInt(hour) + 20, stationData.empty_stands_number, 'color: #b87333'],
-                [parseInt(hour) + 21, stationData.empty_stands_number, 'color: #b87333'],
-                [parseInt(hour) + 22, stationData.empty_stands_number, 'color: #b87333'],
-                [parseInt(hour) + 23, stationData.empty_stands_number, 'color: #b87333']
-            ]);
+            var hourlyParkingData = new google.visualization.DataTable();
+            hourlyParkingData.addColumn('number', 'Hour');
+            hourlyParkingData.addColumn('number', 'Station Data');
+            hourlyParkingData.addColumn({ type: 'string', role: 'style' });
+            
+            for (var i = 0; i < 24; i++) {
+                hourlyParkingData.addRow([hour + i, stationData.empty_stands_number[i], 'color: #b87333']);
+            }
+            
             var hourlyParkingChartContainer = $('<div>').addClass('rp_prediction_return').append($('<div>').attr('id', 'parkPredictionChart'));
             rightPanelContainer.append(hourlyParkingChartContainer);
-
+            
             var hourlyParkingChart = new google.visualization.ColumnChart(document.getElementById('parkPredictionChart'));
             hourlyParkingChart.draw(hourlyParkingData, {
                 legend: { position: 'none' },
@@ -557,13 +505,6 @@ function populateRightPanel(stationName, isRent) {
                 }
             });
 
-                        // Draw the hourly parking prediction graph
-                         //   ['Copper', 8.94, '#b87333'],            // RGB value
-                         //   ['Silver', 10.49, 'silver'],            // English color name
-                         //   ['Gold', 19.30, 'gold'],
-        
-                        //  ['2040', 22, 'stroke-color: #703593; stroke-width: 4; fill-color: #C5A5CF'],
-                        //    ['2050', 28, 'stroke-color: #871B47; stroke-opacity: 0.6; stroke-width: 8; fill-color: #BC5679; fill-opacity: 0.2']                         // ['Platinum', 21.45, 'color: #e5e4e2' ], // CSS-style declaration
             // Draw the daily parking prediction graph
             var dailyParkingData = google.visualization.arrayToDataTable([
                 ['Day', 'Parking', { role: 'style' }],
@@ -577,13 +518,12 @@ function populateRightPanel(stationName, isRent) {
             ]);
             var dailyParkingChartContainer = $('<div>').addClass('rp_prediction_return').append($('<div>').attr('id', 'dailyParkingPredictionChart'));
             rightPanelContainer.append(dailyParkingChartContainer);
-
+            
             var dailyParkingChart = new google.visualization.ColumnChart(document.getElementById('dailyParkingPredictionChart'));
             dailyParkingChart.draw(dailyParkingData, {
                 legend: { position: 'none' }
             });
         });
-
     } catch (error) {
         console.error("An error occurred in populateRightPanel:", error);
         // Handle the error, e.g., display a message to the user or gracefully recover

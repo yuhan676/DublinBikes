@@ -424,26 +424,54 @@ function populateRightPanel(stationName, isRent) {
 
         console.log('Station information appended to right panel container.');
 
+        /// Load Google Charts library and draw graphs when loaded
         google.charts.load('current', { packages: ['corechart'] });
         google.charts.setOnLoadCallback(function() {
+            
+            // Initialize the data table
             var hourlyBikeData = new google.visualization.DataTable();
             hourlyBikeData.addColumn('number', 'Hour');
             hourlyBikeData.addColumn('number', 'Bikes');
-        
-            for (var hour = 0; hour < 24; hour++) {
-                hourlyBikeData.addRow([hour, stationData.total_bikes]);
-            }
-        
+            hourlyikeData.addColumn({ type: 'string', role: 'style' });
+
+            // Manually add rows one by one
+            hourlyBikeData.addRow([0, stationData.total_bikes]);
+            hourlyBikeData.addRow([1, stationData.total_bikes]);
+            hourlyBikeData.addRow([2, stationData.total_bikes]);
+            hourlyBikeData.addRow([3, stationData.total_bikes]);
+            hourlyBikeData.addRow([4, stationData.total_bikes]);
+            hourlyBikeData.addRow([5, stationData.total_bikes]);
+            hourlyBikeData.addRow([6, stationData.total_bikes]);
+            hourlyBikeData.addRow([7, stationData.total_bikes]);
+            hourlyBikeData.addRow([8, stationData.total_bikes]);
+            hourlyBikeData.addRow([9, stationData.total_bikes]);
+            hourlyBikeData.addRow([10, stationData.total_bikes]);
+            hourlyBikeData.addRow([11, stationData.total_bikes]);
+            hourlyBikeData.addRow([12, stationData.total_bikes]);
+            hourlyBikeData.addRow([13, stationData.total_bikes]);
+            hourlyBikeData.addRow([14, stationData.total_bikes]);
+            hourlyBikeData.addRow([15, stationData.total_bikes]);
+            hourlyBikeData.addRow([16, stationData.total_bikes]);
+            hourlyBikeData.addRow([17, stationData.total_bikes]);
+            hourlyBikeData.addRow([18, stationData.total_bikes]);
+            hourlyBikeData.addRow([19, stationData.total_bikes]);
+            hourlyBikeData.addRow([20, stationData.total_bikes]);
+            hourlyBikeData.addRow([21, stationData.total_bikes]);
+            hourlyBikeData.addRow([22, stationData.total_bikes]);
+            hourlyBikeData.addRow([23, stationData.total_bikes]);
+            
+            // Define chart options
             var options = {
                 legend: { position: 'none' },
                 hAxis: {
                     title: 'Hour'
-                }
-            };
+            }
+        };
+        // Create and draw the chart
+        var hourlyBikeChart = new google.visualization.ColumnChart(document.getElementById('bikePredictionChart'));
+        hourlyBikeChart.draw(hourlyBikeData, options);});
+
         
-            var hourlyBikeChart = new google.visualization.ColumnChart(document.getElementById('bikePredictionChart'));
-            hourlyBikeChart.draw(hourlyBikeData, options);
-        });        
 
         var dailyBikeData = google.visualization.arrayToDataTable([
             ['Day', 'Bikes', { role: 'style' }],

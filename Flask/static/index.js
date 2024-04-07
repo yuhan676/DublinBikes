@@ -480,16 +480,19 @@ function populateRightPanel(stationName, isRent) {
             var hourlybikeChart = new google.visualization.ColumnChart(document.getElementById('bikePredictionChart'));
             hourlybikeChart.draw(hourlyBikeData, {
                 title: 'Hourly Bike Availability Prediction: ' + timeUpdateDate.toLocaleString() + ')',
-                legend: { position: 'none' }
+                legend: { position: 'none' },
+                hAxis: {
+                    title: 'Hour',
+                    format: 'HH:mm' // Format the x-axis to display hours and minutes
+                }
             });
-
             // ['2010', 10, 'color: gray'],
             // ['2020', 14, 'color: #76A7FA'],
             // ['2030', 16, 'opacity: 0.2'],
             // ['2040', 22, 'stroke-color: #703593; stroke-width: 4; fill-color: #C5A5CF'],
             // ['2050', 28, 'stroke-color: #871B47; stroke-opacity: 0.6; stroke-width: 8; fill-color: #BC5679; fill-opacity: 0.2']
                     
-            // Draw the daily bike prediction graph
+            // Draw the daily bike prediction graph, have to modify to display hourly over the week
             var dailyBikeData = google.visualization.arrayToDataTable([
                 ['Day', 'Bikes', { role: 'style' }],
                 ['Monday', stationData.total_bikes,'color: purple'],
@@ -552,9 +555,14 @@ function populateRightPanel(stationName, isRent) {
 
             var hourlyParkingChart = new google.visualization.ColumnChart(document.getElementById('parkPredictionChart'));
             hourlyParkingChart.draw(hourlyParkingData, {
-                title: 'Hourly Stand Availability Prediction: ' + timeUpdateDate.toLocaleString() + ')',
-                legend: { position: 'none' }
+                title: 'Hourly Stand Availability Prediction: ' + timeUpdateDate.toLocaleString(),
+                legend: { position: 'none' },
+                hAxis: {
+                    title: 'Hour',
+                    format: 'HH:mm' // Format the x-axis to display hours and minutes
+                }
             });
+
                         // Draw the hourly parking prediction graph
                          //   ['Copper', 8.94, '#b87333'],            // RGB value
                          //   ['Silver', 10.49, 'silver'],            // English color name
@@ -588,7 +596,6 @@ function populateRightPanel(stationName, isRent) {
         // Handle the error, e.g., display a message to the user or gracefully recover
     }
 }
-        
 // This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded
 // All JQuery event handler definitions should go in here
 $(document).ready(function() {

@@ -476,9 +476,7 @@ function populateRightPanel(stationName, isRent) {
                     colors: ['#b87333'] // Set custom color
                 }
             };
-
-            // Create and draw the chart
-            var hourlyBikeChart = new google.visualization.ColumnChart(document.getElementById('dailyBikePredictionChart'));
+            var hourlyBikeChart = new google.visualization.ColumnChart($('<div>').addClass('rp_prediction_rent').append($('<div>').attr('id', 'dailyBikePredictionChart'))[0]);
             hourlyBikeChart.draw(hourlyBikeData, options);
         });
     } catch (error) {

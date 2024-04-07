@@ -455,7 +455,7 @@ function populateRightPanel(stationName, isRent) {
             var hour = timeUpdateDate.getHours();
 
             // Initialize the data table
-            var hourlyBikeData = google.visualization.DataTable.from(document.getElementById('dailyBikePredictionChart'));
+            var hourlyBikeData = google.visualization.arrayToDataTable(document.getElementById('dailyBikePredictionChart'));
 
             hourlyBikeData.addColumn('timeofday', 'Time of the Day');
             hourlyBikeData.addColumn('number', 'Bikes');

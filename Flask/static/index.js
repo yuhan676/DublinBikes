@@ -362,7 +362,6 @@ function selectStation(index, isRent) {
     populateRightPanel(stationName, isRent);
 } 
 // Function to populate the right-hand pane
-// Function to populate the right-hand pane
 function populateRightPanel(stationName, isRent) {
     try {
         // Find the station data based on the stationName

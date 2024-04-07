@@ -18,18 +18,19 @@ async function addMarker(map, item, isRent) {
     const colors = {
         unavailable: {
             glyphColor: "#fff",
-            background: "#ff7f7f", // Light Neon Red
-            borderColor: "#ff7f7f" // Light Neon Red
+            background: "red",
+            borderColor: "red"
         },
         crowded: {
             glyphColor: "#fff",
-            background: "#8cff66", // Light Neon Green
-            borderColor: "#8cff66" // Light Neon Green
+            background: "#FBBC04",
+            borderColor: "#FBBC04"
         },
         available: {
             glyphColor: "#fff",
-            background: "#ffff66", // Light Neon Yellow
-            borderColor: "#ffff66" // Light Neon Yellow
+            background: "green",
+            borderColor: "green"
+            
         }
     }
 

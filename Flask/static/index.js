@@ -816,7 +816,7 @@ function openPopupWithKeystroke(event) {
         }
     }
 }
-
+// Function to test dummy data on local machine
 function testDummyData() {
     lastSearchJSON = [
         {

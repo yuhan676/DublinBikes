@@ -477,7 +477,6 @@ function populateRightPanel(stationName, isRent) {
 
             var hourlybikeChart = new google.visualization.ColumnChart(document.getElementById('bikePredictionChart'));
             hourlybikeChart.draw(hourlyBikeData, {
-                title: 'Hourly Bike Availability Prediction: ' + timeUpdateDate.toLocaleString() + ')',
                 legend: { position: 'none' },
                 hAxis: {
                     title: 'Hour',
@@ -507,7 +506,6 @@ function populateRightPanel(stationName, isRent) {
             
             var dailyBikeChart = new google.visualization.ColumnChart(document.getElementById('dailyBikePredictionChart'));
             dailyBikeChart.draw(dailyBikeData, {
-                title: 'Daily Bike Availability Prediction: ' + timeUpdateDate.toLocaleString() + ')',
                 legend: { position: 'none' }
             });
 
@@ -553,7 +551,6 @@ function populateRightPanel(stationName, isRent) {
 
             var hourlyParkingChart = new google.visualization.ColumnChart(document.getElementById('parkPredictionChart'));
             hourlyParkingChart.draw(hourlyParkingData, {
-                title: 'Hourly Stand Availability Prediction: ' + timeUpdateDate.toLocaleString(),
                 legend: { position: 'none' },
                 hAxis: {
                     title: 'Hour',
@@ -584,7 +581,6 @@ function populateRightPanel(stationName, isRent) {
 
             var dailyParkingChart = new google.visualization.ColumnChart(document.getElementById('dailyParkingPredictionChart'));
             dailyParkingChart.draw(dailyParkingData, {
-                title: 'Daily Stand Availability Prediction: ' + timeUpdateDate.toLocaleString() + ')',
                 legend: { position: 'none' }
             });
         });

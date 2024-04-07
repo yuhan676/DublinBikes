@@ -438,12 +438,11 @@ function populateRightPanel(stationName, isRent) {
         // Load Google Charts library and draw graphs when loaded
         google.charts.load('current', { packages: ['corechart'] });
         google.charts.setOnLoadCallback(function() {
+            // Extract the hour from the timeUpdateDate variable
+            var hour = timeUpdateDate.getHours();
 
-                // Extract the hour from the timeUpdateDate variable
-                var hour = timeUpdateDate.getHours();
-
-                  //  ['2040', 22, 'stroke-color: #703593; stroke-width: 4; fill-color: #C5A5CF'],
-                   // ['2050', 28, 'stroke-color: #871B47; stroke-opacity: 0.6; stroke-width: 8; fill-color: #BC5679; fill-opacity: 0.2']
+            //  ['2040', 22, 'stroke-color: #703593; stroke-width: 4; fill-color: #C5A5CF'],
+            // ['2050', 28, 'stroke-color: #871B47; stroke-opacity: 0.6; stroke-width: 8; fill-color: #BC5679; fill-opacity: 0.2']
             // Draw the hourly bike prediction graph
             var hourlyBikeData = google.visualization.arrayToDataTable([
                 ['Hour', 'Bikes', { role: 'style' }],

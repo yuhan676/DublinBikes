@@ -104,7 +104,7 @@ function clearMarkers() {
 }
 
 function staggeredAddMarkers() {
-    lastSearchJSON.forEach((item, index) => {
+    getLastSearchJSON().forEach((item, index) => {
         setTimeout(() => {
             addMarker(map, item, true);
         }, index * 2000); // Adjust the delay as needed
@@ -115,7 +115,7 @@ function updateMarkers(isRent) {
     // CLear existing markers before addig new ones.
     clearMarkers();
     // Add markers for the new search result
-    lastSearchJSON.forEach(item => {
+    getLastSearchJSON().forEach(item => {
         addMarker(map, item, isRent)
     })
 }

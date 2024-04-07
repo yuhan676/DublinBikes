@@ -1,5 +1,6 @@
 // Global variable to store the last search results
-var lastSearchJSON = {};
+var lastRentSearchJSON = {};
+var lastReturnSearchJSON = {};
 
 // Global variable to store the last weather search data
 var lastWeatherJSON = {};
@@ -7,6 +8,10 @@ var lastWeatherJSON = {};
 // We use this for our state a lot, so keep track of the currently open tab here
 // Rent is open by default
 var activeTab = "rent";
+
+function getLastSearchJSON() {
+    return (activeTab == "rent" ? lastRentSearchJSON : lastReturnSearchJSON);
+}
 
 // Define a global variable to store the active tab
 var weatherActiveTab = 'weather-current-content';
@@ -161,13 +166,13 @@ function verifyAndSubmitQuery() {
             // Pass this to a function to display here, maybe don't add population code here to keep things clean
 
             // Clear the global variable
-            lastSearchJSON = {};
+            (isRent ? lastRentSearchJSON : lastReturnSearchJSON) = {};
 
             // Update the global variable with the new data
-            lastSearchJSON = return_data;
+            (isRent ? lastRentSearchJSON : lastReturnSearchJSON) = return_data;
             
             // Now, lastSearchJSON contains the latest search results
-            console.log(lastSearchJSON); // For debugging: log the latest search results. 
+            console.log(getLastSearchJSON()); // For debugging: log the latest search results. 
             updateMarkers(isRent)
             // Determine the current date in the same format as your 'date' variable
             // var currentDate = new Date().toISOString();
@@ -294,7 +299,7 @@ function populateStationBoxes(isRent) {
     selectionWrapper.textContent = ''; // Clear any existing content
 
     // Loop through the lastSearchJSON array and create a selection box for each station
-    lastSearchJSON.forEach(stationData => {
+    getLastSearchJSON().forEach(stationData => {
         createStationBox(isRent, {
             name: stationData.name,
             status: stationData.status,
@@ -351,7 +356,7 @@ function selectStation(index, isRent) {
     console.log('Station selected:', index, 'Is Rent:', isRent);
 
     // Get the station name based on the index
-    var stationName = lastSearchJSON[index].name;
+    var stationName = getLastSearchJSON()[index].name;
 
     // // update all markers
     // updateMarkers(index);
@@ -364,6 +369,7 @@ function selectStation(index, isRent) {
 // Function to populate the right-hand pane
 function populateRightPanel(stationName, isRent) {
     try {
+        var lastSearchJSON = getLastSearchJSON();
         var stationData;
         if (lastSearchJSON && lastSearchJSON.length > 0) {
             for (var i = 0; i < lastSearchJSON.length; i++) {
@@ -647,6 +653,9 @@ function openTab(evt, tabName) {
     // Adjust the weather panel position
     adjustWeatherPanelPosition();
 
+    // Clear markers and repopulate
+    updateMarkers(activeTab == "rent");
+    selectStation(0, activeTab == "rent");
 }
 function weatherOpenTab(evt, tabContentId) {
     try {

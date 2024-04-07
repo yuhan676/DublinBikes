@@ -474,7 +474,7 @@ function populateRightPanel(stationName, isRent) {
 
             var hourlybikeChart = new google.visualization.ColumnChart(document.getElementById('bikePredictionChart'));
             hourlybikeChart.draw(hourlyBikeData, {
-                title: 'Bike Availability Prediction',
+                title: 'Hourly Bike Availability Prediction (Last Update: ' + timeUpdateDate.toLocaleString() + ')',
                 legend: { position: 'none' }
             });
 
@@ -501,7 +501,7 @@ function populateRightPanel(stationName, isRent) {
             
             var dailyBikeChart = new google.visualization.ColumnChart(document.getElementById('dailyBikePredictionChart'));
             dailyBikeChart.draw(dailyBikeData, {
-                title: 'Daily Bike Availability Prediction',
+                title: 'Daily Bike Availability Prediction (Last Update: ' + timeUpdateDate.toLocaleString() + ')',
                 legend: { position: 'none' }
             });
 
@@ -547,7 +547,7 @@ function populateRightPanel(stationName, isRent) {
 
             var hourlyParkingChart = new google.visualization.ColumnChart(document.getElementById('parkPredictionChart'));
             hourlyParkingChart.draw(hourlyParkingData, {
-                title: 'Parking Availability Prediction',
+                title: 'Hourly Stand Availability Prediction (Last Update: ' + timeUpdateDate.toLocaleString() + ')',
                 legend: { position: 'none' }
             });
                         // Draw the hourly parking prediction graph
@@ -573,7 +573,7 @@ function populateRightPanel(stationName, isRent) {
 
             var dailyParkingChart = new google.visualization.ColumnChart(document.getElementById('dailyParkingPredictionChart'));
             dailyParkingChart.draw(dailyParkingData, {
-                title: 'Daily Parking Availability Prediction',
+                title: 'Daily Stand Availability Prediction (Last Update: ' + timeUpdateDate.toLocaleString() + ')',
                 legend: { position: 'none' }
             });
         });

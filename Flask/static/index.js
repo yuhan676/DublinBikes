@@ -166,10 +166,20 @@ function verifyAndSubmitQuery() {
             // Pass this to a function to display here, maybe don't add population code here to keep things clean
 
             // Clear the global variable
-            (isRent ? lastRentSearchJSON : lastReturnSearchJSON) = {};
+            if (isRent) {
+                lastRentSearchJSON = {};
+            }
+            else {
+                lastReturnSearchJSON = {};
+            }
 
             // Update the global variable with the new data
-            (isRent ? lastRentSearchJSON : lastReturnSearchJSON) = return_data;
+            if (isRent) {
+                lastRentSearchJSON = return_data;
+            }
+            else {
+                lastReturnSearchJSON = return_data;
+            }
             
             // Now, lastSearchJSON contains the latest search results
             console.log(getLastSearchJSON()); // For debugging: log the latest search results. 

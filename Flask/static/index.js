@@ -327,7 +327,6 @@ function populateStationBoxes(isRent) {
     });
     //Select the first box by default
     selectStation(0, isRent);
-    animateMarker(0);
 }
 
 // Function to show/unshow the selection wrapper using toggle, distinguishing rent and return

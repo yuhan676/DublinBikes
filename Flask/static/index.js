@@ -438,43 +438,47 @@ function populateRightPanel(stationName, isRent) {
         google.charts.load('current', { packages: ['corechart'] });
         google.charts.setOnLoadCallback(function() {
 
+                // Extract the hour from the timeUpdateDate variable
+                var hour = timeUpdateDate.getHours();
+
                   //  ['2040', 22, 'stroke-color: #703593; stroke-width: 4; fill-color: #C5A5CF'],
                    // ['2050', 28, 'stroke-color: #871B47; stroke-opacity: 0.6; stroke-width: 8; fill-color: #BC5679; fill-opacity: 0.2']
             // Draw the hourly bike prediction graph
             var hourlyBikeData = google.visualization.arrayToDataTable([
                 ['Hour', 'Bikes', { role: 'style' }],
-                ['00:00', stationData.total_bikes, 'color: #76A7FA'],
-                ['01:00', stationData.total_bikes, 'color: #76A7FA'],
-                ['02:00', stationData.total_bikes, 'color: #76A7FA'],
-                ['03:00', stationData.total_bikes, 'color: #76A7FA'],
-                ['04:00', stationData.total_bikes, 'color: #76A7FA'],
-                ['05:00', stationData.total_bikes, 'color: #76A7FA'],
-                ['06:00', stationData.total_bikes, 'color: #76A7FA'],
-                ['07:00', stationData.total_bikes, 'color: #76A7FA'],
-                ['08:00', stationData.total_bikes, 'color: #76A7FA'],
-                ['09:00', stationData.total_bikes, 'color: #76A7FA'],
-                ['10:00', stationData.total_bikes, 'color: #76A7FA'],
-                ['11:00', stationData.total_bikes, 'color: #76A7FA'],
-                ['12:00', stationData.total_bikes, 'color: #76A7FA'],
-                ['13:00', stationData.total_bikes, 'color: #76A7FA'],
-                ['14:00', stationData.total_bikes, 'color: #76A7FA'],
-                ['15:00', stationData.total_bikes, 'color: #76A7FA'],
-                ['16:00', stationData.total_bikes, 'color: #76A7FA'],
-                ['17:00', stationData.total_bikes, 'color: #76A7FA'],
-                ['18:00', stationData.total_bikes, 'color: #76A7FA'],
-                ['19:00', stationData.total_bikes, 'color: #76A7FA'],
-                ['20:00', stationData.total_bikes, 'color: #76A7FA'],
-                ['21:00', stationData.total_bikes, 'color: #76A7FA'],
-                ['22:00', stationData.total_bikes, 'color: #76A7FA'],
-                ['23:00', stationData.total_bikes, 'color: #76A7FA']
+                [hour + ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 1)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 2)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 3)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 4)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 5)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 6)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 7)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 8)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 9)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 10)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 11)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 12)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 13)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 14)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 15)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 16)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 17)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 18)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 19)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 20)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 21)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 22)+ ':00', stationData.total_bikes, 'color: #76A7FA'],
+                [(hour + 23)+ ':00', stationData.total_bikes, 'color: #76A7FA']
             ]);
+
 
             var hourlybikeChartContainer = $('<div>').addClass('rp_prediction_rent').append($('<div>').attr('id', 'bikePredictionChart'));
             rightPanelContainer.append(hourlybikeChartContainer);
 
             var hourlybikeChart = new google.visualization.ColumnChart(document.getElementById('bikePredictionChart'));
             hourlybikeChart.draw(hourlyBikeData, {
-                title: 'Hourly Bike Availability Prediction (Last Update: ' + timeUpdateDate.toLocaleString() + ')',
+                title: 'Hourly Bike Availability Prediction: ' + timeUpdateDate.toLocaleString() + ')',
                 legend: { position: 'none' }
             });
 
@@ -501,7 +505,7 @@ function populateRightPanel(stationName, isRent) {
             
             var dailyBikeChart = new google.visualization.ColumnChart(document.getElementById('dailyBikePredictionChart'));
             dailyBikeChart.draw(dailyBikeData, {
-                title: 'Daily Bike Availability Prediction (Last Update: ' + timeUpdateDate.toLocaleString() + ')',
+                title: 'Daily Bike Availability Prediction: ' + timeUpdateDate.toLocaleString() + ')',
                 legend: { position: 'none' }
             });
 
@@ -516,30 +520,30 @@ function populateRightPanel(stationName, isRent) {
 
             var hourlyParkingData = google.visualization.arrayToDataTable([
                 ['Hour', 'Station Data', { role: 'style '}],
-                ['00:00', stationData.empty_stands_number,'color: #b87333'],
-                ['01:00', stationData.empty_stands_number, 'color: #b87333'],
-                ['02:00', stationData.empty_stands_number, 'color: #b87333'],
-                ['03:00', stationData.empty_stands_number, 'color: #b87333'],
-                ['04:00', stationData.empty_stands_number, 'color: #b87333'],
-                ['05:00', stationData.empty_stands_number, 'color: #b87333'],
-                ['06:00', stationData.empty_stands_number, 'color: #b87333'],
-                ['07:00', stationData.empty_stands_number, 'color: #b87333'],
-                ['08:00', stationData.empty_stands_number, 'color: #b87333'],
-                ['09:00', stationData.empty_stands_number, 'color: #b87333'],
-                ['10:00', stationData.empty_stands_number, 'color: #b87333'],
-                ['11:00', stationData.empty_stands_number, 'color: #b87333'],
-                ['12:00', stationData.empty_stands_number, 'color: #b87333'],
-                ['13:00', stationData.empty_stands_number, 'color: #b87333'],
-                ['14:00', stationData.empty_stands_number, 'color: #b87333'],
-                ['15:00', stationData.empty_stands_number, 'color: #b87333'],
-                ['16:00', stationData.empty_stands_number, 'color: #b87333'],
-                ['17:00', stationData.empty_stands_number, 'color: #b87333'],
-                ['18:00', stationData.empty_stands_number, 'color: #b87333'],
-                ['19:00', stationData.empty_stands_number, 'color: #b87333'],
-                ['20:00', stationData.empty_stands_number, 'color: #b87333'],
-                ['21:00', stationData.empty_stands_number, 'color: #b87333'],
-                ['22:00', stationData.empty_stands_number, 'color: #b87333'],
-                ['23:00', stationData.empty_stands_number, 'color: #b87333']
+                [hour + ':00', stationData.empty_stands_number,'color: #b87333'],
+                [(hour + 1) + ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 2) + ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 3)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 4)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 5)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 6)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 7)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 8)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 9)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 10)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 11)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 12)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 13)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 14)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 15)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 16)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 17)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 18)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 19)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 20)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 21)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 22)+ ':00', stationData.empty_stands_number, 'color: #b87333'],
+                [(hour + 23)+ ':00', stationData.empty_stands_number, 'color: #b87333']
             ]);
 
             var hourlyParkingChartContainer = $('<div>').addClass('rp_prediction_return').append($('<div>').attr('id', 'parkPredictionChart'));
@@ -547,7 +551,7 @@ function populateRightPanel(stationName, isRent) {
 
             var hourlyParkingChart = new google.visualization.ColumnChart(document.getElementById('parkPredictionChart'));
             hourlyParkingChart.draw(hourlyParkingData, {
-                title: 'Hourly Stand Availability Prediction (Last Update: ' + timeUpdateDate.toLocaleString() + ')',
+                title: 'Hourly Stand Availability Prediction: ' + timeUpdateDate.toLocaleString() + ')',
                 legend: { position: 'none' }
             });
                         // Draw the hourly parking prediction graph
@@ -573,7 +577,7 @@ function populateRightPanel(stationName, isRent) {
 
             var dailyParkingChart = new google.visualization.ColumnChart(document.getElementById('dailyParkingPredictionChart'));
             dailyParkingChart.draw(dailyParkingData, {
-                title: 'Daily Stand Availability Prediction (Last Update: ' + timeUpdateDate.toLocaleString() + ')',
+                title: 'Daily Stand Availability Prediction: ' + timeUpdateDate.toLocaleString() + ')',
                 legend: { position: 'none' }
             });
         });

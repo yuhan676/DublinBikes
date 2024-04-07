@@ -362,10 +362,8 @@ function selectStation(index, isRent) {
     populateRightPanel(stationName, isRent);
 } 
 // Function to populate the right-hand pane
-// Function to populate the right-hand pane
 function populateRightPanel(stationName, isRent) {
     try {
-        // Find the station data based on the stationName
         var stationData;
         if (lastSearchJSON && lastSearchJSON.length > 0) {
             for (var i = 0; i < lastSearchJSON.length; i++) {
@@ -389,11 +387,9 @@ function populateRightPanel(stationName, isRent) {
 
         console.log('Right panel container:', rightPanelContainer);
 
-        // Clear previous content
         rightPanelContainer.empty();
         console.log('Previous content cleared.');
 
-        // Create elements to display station information
         var stationElementName = $('<div>').addClass('rp_station_name').text('Station Name: ' + stationData.name);
         var totalBikeLabel = $('<div>').addClass('rp_bike_total_label').text('Total Bike: ').append($('<p>').attr('id', 'available-bikes').text(stationData.total_bikes));
         var mechanicalBikeLabel = $('<div>').addClass('rp_info_label').text('Mechanical Bikes: ').append($('<p>').attr('id', 'available_mechanical').text(stationData.mechanical_bikes));
@@ -401,15 +397,11 @@ function populateRightPanel(stationName, isRent) {
         var eBikeInternalLabel = $('<div>').addClass('rp_info_label').text('E-Bike Internal Battery: ').append($('<p>').attr('id', 'available_e_internal').text(stationData.electrical_internal_battery_bikes));
         var totalParkingLabel = $('<div>').addClass('rp_park_total_label').text('Total Parking: ').append($('<p>').attr('id', 'available-park').text(stationData.empty_stands_number));
 
-        // Parse the timestamp string into a Date object
         var timeUpdateDate = new Date(stationData.last_update);
-
-        // Check if last_update is a valid date
         if (isNaN(timeUpdateDate.getTime())) {
             throw new Error("Invalid last update date.");
         }
 
-        // Format the date and time components
         var options = {
             weekday: 'long', 
             month: 'long',
@@ -419,14 +411,11 @@ function populateRightPanel(stationName, isRent) {
             timeZone: 'Europe/Dublin'
         };
 
-        // Format the date string using the specified options
         var formattedTime = timeUpdateDate.toLocaleString(undefined, options);
 
-        // Create the HTML structure for displaying the formatted timestamp
         var timeUpdateLabelRent = $('<div>').addClass('rp_info_label').html("<p style='margin-bottom: 5px;'><strong>Last Updated:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + formattedTime + "</span></p>");
         var timeUpdateLabelReturn = $('<div>').addClass('rp_info_label').html("<p style='margin-bottom: 5px;'><strong>Last Updated:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + formattedTime + "</span></p>");
 
-        // Append the elements to the right panel container based on the section
         if (isRent) {
             rightPanelContainer.append(stationElementName, totalParkingLabel, totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabelRent);
         } else {
@@ -435,98 +424,87 @@ function populateRightPanel(stationName, isRent) {
 
         console.log('Station information appended to right panel container.');
 
-        // Load Google Charts library and draw graphs when loaded
         google.charts.load('current', { packages: ['corechart'] });
         google.charts.setOnLoadCallback(function() {
-            // Extract the hour from the timeUpdateDate variable
-            var hour = timeUpdateDate.getHours();
-
-            // Draw the hourly bike prediction graph
             var hourlyBikeData = new google.visualization.DataTable();
             hourlyBikeData.addColumn('number', 'Hour');
             hourlyBikeData.addColumn('number', 'Bikes');
-            hourlyBikeData.addColumn({ type: 'string', role: 'style' });
-
-            for (var i = 0; i < 24; i++) {
-                hourlyBikeData.addRow([hour + i, stationData.total_bikes, 'color: #76A7FA']);
+        
+            for (var hour = 0; hour < 24; hour++) {
+                hourlyBikeData.addRow([hour, stationData.total_bikes]);
             }
-
-            var hourlyBikeChartContainer = $('<div>').addClass('rp_prediction_rent').append($('<div>').attr('id', 'bikePredictionChart'));
-            rightPanelContainer.append(hourlyBikeChartContainer);
-
+        
+            var options = {
+                legend: { position: 'none' },
+                hAxis: {
+                    title: 'Hour'
+                }
+            };
+        
             var hourlyBikeChart = new google.visualization.ColumnChart(document.getElementById('bikePredictionChart'));
-            hourlyBikeChart.draw(hourlyBikeData, {
-                legend: { position: 'none' },
-                hAxis: {
-                    title: 'Hour',
-                    format: 'HH:mm' // Format the x-axis to display hours and minutes
-                }
-            });
+            hourlyBikeChart.draw(hourlyBikeData, options);
+        });        
 
-            // Draw the daily bike prediction graph
-            var dailyBikeData = google.visualization.arrayToDataTable([
-                ['Day', 'Bikes', { role: 'style' }],
-                ['Monday', stationData.total_bikes,'color: purple'],
-                ['Tuesday', stationData.total_bikes, 'color: purple'],
-                ['Wednesday', stationData.total_bikes, 'color: purple'],
-                ['Thursday', stationData.total_bikes, 'color: purple'],
-                ['Friday', stationData.total_bikes, 'color: purple'],
-                ['Saturday', stationData.total_bikes, 'color: purple'],
-                ['Sunday', stationData.total_bikes, 'color: purple']
-            ]);
-            
-            var dailyBikeChartContainer = $('<div>').addClass('rp_prediction_rent').append($('<div>').attr('id', 'dailyBikePredictionChart'));
-            rightPanelContainer.append(dailyBikeChartContainer);
-            
-            var dailyBikeChart = new google.visualization.ColumnChart(document.getElementById('dailyBikePredictionChart'));
-            dailyBikeChart.draw(dailyBikeData, {
-                legend: { position: 'none' }
-            });
+        var dailyBikeData = google.visualization.arrayToDataTable([
+            ['Day', 'Bikes', { role: 'style' }],
+            ['Monday', stationData.total_bikes,'color: purple'],
+            ['Tuesday', stationData.total_bikes, 'color: purple'],
+            ['Wednesday', stationData.total_bikes, 'color: purple'],
+            ['Thursday', stationData.total_bikes, 'color: purple'],
+            ['Friday', stationData.total_bikes, 'color: purple'],
+            ['Saturday', stationData.total_bikes, 'color: purple'],
+            ['Sunday', stationData.total_bikes, 'color: purple']
+        ]);
+        
+        var dailyBikeChartContainer = $('<div>').addClass('rp_prediction_rent').append($('<div>').attr('id', 'dailyBikePredictionChart'));
+        rightPanelContainer.append(dailyBikeChartContainer);
+        
+        var dailyBikeChart = new google.visualization.ColumnChart(document.getElementById('dailyBikePredictionChart'));
+        dailyBikeChart.draw(dailyBikeData, {
+            legend: { position: 'none' }
+        });
 
-            // Draw the hourly parking prediction graph
-            var hourlyParkingData = new google.visualization.DataTable();
-            hourlyParkingData.addColumn('number', 'Hour');
-            hourlyParkingData.addColumn('number', 'Station Data');
-            hourlyParkingData.addColumn({ type: 'string', role: 'style' });
-            
-            for (var i = 0; i < 24; i++) {
-                hourlyParkingData.addRow([hour + i, stationData.empty_stands_number[i], 'color: #b87333']);
+        var hourlyParkingData = new google.visualization.DataTable();
+        hourlyParkingData.addColumn('number', 'Hour');
+        hourlyParkingData.addColumn('number', 'Station Data');
+        hourlyParkingData.addColumn({ type: 'string', role: 'style' });
+
+        for (var i = 0; i < 24; i++) {
+            hourlyParkingData.addRow([i, stationData.empty_stands_number[i], 'color: #b87333']);
+        }
+
+        var options = {
+            legend: { position: 'none' },
+            hAxis: {
+                title: 'Hour'
             }
-            
-            var hourlyParkingChartContainer = $('<div>').addClass('rp_prediction_return').append($('<div>').attr('id', 'parkPredictionChart'));
-            rightPanelContainer.append(hourlyParkingChartContainer);
-            
-            var hourlyParkingChart = new google.visualization.ColumnChart(document.getElementById('parkPredictionChart'));
-            hourlyParkingChart.draw(hourlyParkingData, {
-                legend: { position: 'none' },
-                hAxis: {
-                    title: 'Hour',
-                    format: 'HH:mm' // Format the x-axis to display hours and minutes
-                }
-            });
+        };
 
-            // Draw the daily parking prediction graph
-            var dailyParkingData = google.visualization.arrayToDataTable([
-                ['Day', 'Parking', { role: 'style' }],
-                ['Monday', stationData.empty_stands_number, 'color: #871B47'],
-                ['Tuesday', stationData.empty_stands_number, 'color: #871B47'],
-                ['Wednesday', stationData.empty_stands_number, 'color: #871B47'],
-                ['Thursday', stationData.empty_stands_number, 'color: #871B47'],
-                ['Friday', stationData.empty_stands_number, 'color: #871B47'],
-                ['Saturday', stationData.empty_stands_number, 'color: #871B47'],
-                ['Sunday', stationData.empty_stands_number, 'color: #871B47']
-            ]);
-            var dailyParkingChartContainer = $('<div>').addClass('rp_prediction_return').append($('<div>').attr('id', 'dailyParkingPredictionChart'));
-            rightPanelContainer.append(dailyParkingChartContainer);
-            
-            var dailyParkingChart = new google.visualization.ColumnChart(document.getElementById('dailyParkingPredictionChart'));
-            dailyParkingChart.draw(dailyParkingData, {
-                legend: { position: 'none' }
-            });
+        var hourlyParkingChartContainer = $('<div>').addClass('rp_prediction_return').append($('<div>').attr('id', 'parkPredictionChart'));
+        rightPanelContainer.append(hourlyParkingChartContainer);
+
+        var hourlyParkingChart = new google.visualization.ColumnChart(document.getElementById('parkPredictionChart'));
+        hourlyParkingChart.draw(hourlyParkingData, options);
+
+        var dailyParkingData = google.visualization.arrayToDataTable([
+            ['Day', 'Parking', { role: 'style' }],
+            ['Monday', stationData.empty_stands_number, 'color: #871B47'],
+            ['Tuesday', stationData.empty_stands_number, 'color: #871B47'],
+            ['Wednesday', stationData.empty_stands_number, 'color: #871B47'],
+            ['Thursday', stationData.empty_stands_number, 'color: #871B47'],
+            ['Friday', stationData.empty_stands_number, 'color: #871B47'],
+            ['Saturday', stationData.empty_stands_number, 'color: #871B47'],
+            ['Sunday', stationData.empty_stands_number, 'color: #871B47']
+        ]);
+        var dailyParkingChartContainer = $('<div>').addClass('rp_prediction_return').append($('<div>').attr('id', 'dailyParkingPredictionChart'));
+        rightPanelContainer.append(dailyParkingChartContainer);
+        
+        var dailyParkingChart = new google.visualization.ColumnChart(document.getElementById('dailyParkingPredictionChart'));
+        dailyParkingChart.draw(dailyParkingData, {
+            legend: { position: 'none' }
         });
     } catch (error) {
         console.error("An error occurred in populateRightPanel:", error);
-        // Handle the error, e.g., display a message to the user or gracefully recover
     }
 }
 // This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded

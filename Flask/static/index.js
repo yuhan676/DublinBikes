@@ -430,8 +430,8 @@ function populateRightPanel(stationName, isRent) {
             
             // Initialize the data table
             var hourlyBikeData = new google.visualization.DataTable();
-            hourlyBikeData.addColumn('number', stationData.time_update);
-            hourlyBikeData.addColumn('number', stationData.total_bikes);
+            hourlyBikeData.addColumn('timeofday', 'Hour');
+            hourlyBikeData.addColumn('number', 'Bikes');
      
             // Manually add rows one by one
             for (var hour = 0; hour < 24; hour++) {

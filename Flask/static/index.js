@@ -473,9 +473,9 @@ function populateRightPanel(stationName, isRent) {
         });
 
         var hourlyParkingData = new google.visualization.DataTable();
-        hourlyParkingData.addColumn('timeofday', 'Hour');
+        hourlyParkingData.addColumn('number', 'Hour');
         hourlyParkingData.addColumn('number', 'Station Data');
-        hourlyParkingData.addColumn({ type: 'string', role: 'style' });
+        // hourlyParkingData.addColumn({ type: 'string', role: 'style' });
 
         for (var i = 0; i < 24; i++) {
             hourlyParkingData.addRow([i, stationData.empty_stands_number[i], 'color: #b87333']);

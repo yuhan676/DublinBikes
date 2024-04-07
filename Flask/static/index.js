@@ -437,33 +437,36 @@ function populateRightPanel(stationName, isRent) {
         // Load Google Charts library and draw graphs when loaded
         google.charts.load('current', { packages: ['corechart'] });
         google.charts.setOnLoadCallback(function() {
+
+                  //  ['2040', 22, 'stroke-color: #703593; stroke-width: 4; fill-color: #C5A5CF'],
+                   // ['2050', 28, 'stroke-color: #871B47; stroke-opacity: 0.6; stroke-width: 8; fill-color: #BC5679; fill-opacity: 0.2']
             // Draw the hourly bike prediction graph
             var hourlyBikeData = google.visualization.arrayToDataTable([
-                ['Hour', 'Bikes'],
-                [timeUpdateDate[0], stationData.total_bikes],
-                [timeUpdateDate[1], stationData.total_bikes],
-                [timeUpdateDate[2], stationData.total_bikes],
-                [timeUpdateDate[3], stationData.total_bikes],
-                [timeUpdateDate[3], stationData.total_bikes],
-                [timeUpdateDate[4], stationData.total_bikes],
-                [timeUpdateDate[5], stationData.total_bikes],
-                [timeUpdateDate[5], stationData.total_bikes],
-                [timeUpdateDate[5], stationData.total_bikes],
-                [timeUpdateDate[6], stationData.total_bikes],
-                [timeUpdateDate[7], stationData.total_bikes],
-                [timeUpdateDate[8], stationData.total_bikes],
-                [timeUpdateDate[9], stationData.total_bikes],
-                [timeUpdateDate[10], stationData.total_bikes],
-                [timeUpdateDate[11], stationData.total_bikes],
-                [timeUpdateDate[12], stationData.total_bikes],
-                [timeUpdateDate[13], stationData.total_bikes],
-                [timeUpdateDate[14], stationData.total_bikes],
-                [timeUpdateDate[15], stationData.total_bikes],
-                [timeUpdateDate[16], stationData.total_bikes],
-                [timeUpdateDate[17], stationData.total_bikes],
-                [timeUpdateDate[18], stationData.total_bikes],
-                [timeUpdateDate[19], stationData.total_bikes],
-                [timeUpdateDate[20], stationData.total_bikes]
+                ['Hour', 'Bikes', { role: 'style' }],
+                ['00:00', stationData.total_bikes, 'color: #76A7FA'],
+                ['01:00', stationData.total_bikes, 'color: #76A7FA'],
+                ['02:00', stationData.total_bikes, 'color: #76A7FA'],
+                ['03:00', stationData.total_bikes, 'color: #76A7FA'],
+                ['04:00', stationData.total_bikes, 'color: #76A7FA'],
+                ['05:00', stationData.total_bikes, 'color: #76A7FA'],
+                ['06:00', stationData.total_bikes, 'color: #76A7FA'],
+                ['07:00', stationData.total_bikes, 'color: #76A7FA'],
+                ['08:00', stationData.total_bikes, 'color: #76A7FA'],
+                ['09:00', stationData.total_bikes, 'color: #76A7FA'],
+                ['10:00', stationData.total_bikes, 'color: #76A7FA'],
+                ['11:00', stationData.total_bikes, 'color: #76A7FA'],
+                ['12:00', stationData.total_bikes, 'color: #76A7FA'],
+                ['13:00', stationData.total_bikes, 'color: #76A7FA'],
+                ['14:00', stationData.total_bikes, 'color: #76A7FA'],
+                ['15:00', stationData.total_bikes, 'color: #76A7FA'],
+                ['16:00', stationData.total_bikes, 'color: #76A7FA'],
+                ['17:00', stationData.total_bikes, 'color: #76A7FA'],
+                ['18:00', stationData.total_bikes, 'color: #76A7FA'],
+                ['19:00', stationData.total_bikes, 'color: #76A7FA'],
+                ['20:00', stationData.total_bikes, 'color: #76A7FA'],
+                ['21:00', stationData.total_bikes, 'color: #76A7FA'],
+                ['22:00', stationData.total_bikes, 'color: #76A7FA'],
+                ['23:00', stationData.total_bikes, 'color: #76A7FA']
             ]);
 
             var hourlybikeChartContainer = $('<div>').addClass('rp_prediction_rent').append($('<div>').attr('id', 'bikePredictionChart'));
@@ -474,16 +477,23 @@ function populateRightPanel(stationName, isRent) {
                 title: 'Bike Availability Prediction',
                 legend: { position: 'none' }
             });
+
+            // ['2010', 10, 'color: gray'],
+            // ['2020', 14, 'color: #76A7FA'],
+            // ['2030', 16, 'opacity: 0.2'],
+            // ['2040', 22, 'stroke-color: #703593; stroke-width: 4; fill-color: #C5A5CF'],
+            // ['2050', 28, 'stroke-color: #871B47; stroke-opacity: 0.6; stroke-width: 8; fill-color: #BC5679; fill-opacity: 0.2']
+                    
             // Draw the daily bike prediction graph
             var dailyBikeData = google.visualization.arrayToDataTable([
-                ['Day', 'Bikes'],
-                [timeUpdateDate[0], stationData.total_bikes[0]],
-                [timeUpdateDate[1], stationData.total_bikes[1]],
-                [timeUpdateDate[2], stationData.total_bikes[2]],
-                [timeUpdateDate[3], stationData.total_bikes[3]],
-                [timeUpdateDate[4], stationData.total_bikes[4]],
-                [timeUpdateDate[5], stationData.total_bikes[5]],
-                [timeUpdateDate[6], stationData.total_bikes[6]]
+                ['Day', 'Bikes', { role: 'style' }],
+                ['Monday', stationData.total_bikes,'color: purple'],
+                ['Tuesday', stationData.total_bikes, 'color: purple'],
+                ['Wednesday', stationData.total_bikes, 'color: purple'],
+                ['Thursday', stationData.total_bikes, 'color: purple'],
+                ['Friday', stationData.total_bikes, 'color: purple'],
+                ['Saturday', stationData.total_bikes, 'color: purple'],
+                ['Sunday', stationData.total_bikes, 'color: purple']
             ]);
             
             var dailyBikeChartContainer = $('<div>').addClass('rp_prediction_rent').append($('<div>').attr('id', 'dailyBikePredictionChart'));
@@ -496,32 +506,40 @@ function populateRightPanel(stationName, isRent) {
             });
 
             // Draw the hourly parking prediction graph
+
+             //   ['Copper', 8.94, '#b87333'],            // RGB value
+             //   ['Silver', 10.49, 'silver'],            // English color name
+             //   ['Gold', 19.30, 'gold'],
+            //  ['2040', 22, 'stroke-color: #703593; stroke-width: 4; fill-color: #C5A5CF'],
+            //    ['2050', 28, 'stroke-color: #871B47; stroke-opacity: 0.6; stroke-width: 8; fill-color: #BC5679; fill-opacity: 0.2']
+             // ['Platinum', 21.45, 'color: #e5e4e2' ], // CSS-style declaration
+
             var hourlyParkingData = google.visualization.arrayToDataTable([
-                ['Hour', 'Parking'],
-                [timeUpdateDate[0], stationData.empty_stands_number],
-                [timeUpdateDate[1], stationData.empty_stands_number],
-                [timeUpdateDate[2], stationData.empty_stands_number],
-                [timeUpdateDate[3], stationData.empty_stands_number],
-                [timeUpdateDate[4], stationData.empty_stands_number],
-                [timeUpdateDate[5], stationData.empty_stands_number],
-                [timeUpdateDate[6], stationData.empty_stands_number],
-                [timeUpdateDate[7], stationData.empty_stands_number],
-                [timeUpdateDate[8], stationData.empty_stands_number],
-                [timeUpdateDate[9], stationData.empty_stands_number],
-                [timeUpdateDate[10], stationData.empty_stands_number],
-                [timeUpdateDate[11], stationData.empty_stands_number],
-                [timeUpdateDate[12], stationData.empty_stands_number],
-                [timeUpdateDate[13], stationData.empty_stands_number],
-                [timeUpdateDate[14], stationData.empty_stands_number],
-                [timeUpdateDate[15], stationData.empty_stands_number],
-                [timeUpdateDate[16], stationData.empty_stands_number],
-                [timeUpdateDate[17], stationData.empty_stands_number],
-                [timeUpdateDate[18], stationData.empty_stands_number],
-                [timeUpdateDate[19], stationData.empty_stands_number],
-                [timeUpdateDate[20], stationData.empty_stands_number],
-                [timeUpdateDate[21], stationData.empty_stands_number],
-                [timeUpdateDate[22], stationData.empty_stands_number],
-                [timeUpdateDate[23], stationData.empty_stands_number]
+                ['Hour', 'Station Data', { role: 'style '}],
+                ['00:00', stationData.empty_stands_number,'color: #b87333'],
+                ['01:00', stationData.empty_stands_number, 'color: #b87333'],
+                ['02:00', stationData.empty_stands_number, 'color: #b87333'],
+                ['03:00', stationData.empty_stands_number, 'color: #b87333'],
+                ['04:00', stationData.empty_stands_number, 'color: #b87333'],
+                ['05:00', stationData.empty_stands_number, 'color: #b87333'],
+                ['06:00', stationData.empty_stands_number, 'color: #b87333'],
+                ['07:00', stationData.empty_stands_number, 'color: #b87333'],
+                ['08:00', stationData.empty_stands_number, 'color: #b87333'],
+                ['09:00', stationData.empty_stands_number, 'color: #b87333'],
+                ['10:00', stationData.empty_stands_number, 'color: #b87333'],
+                ['11:00', stationData.empty_stands_number, 'color: #b87333'],
+                ['12:00', stationData.empty_stands_number, 'color: #b87333'],
+                ['13:00', stationData.empty_stands_number, 'color: #b87333'],
+                ['14:00', stationData.empty_stands_number, 'color: #b87333'],
+                ['15:00', stationData.empty_stands_number, 'color: #b87333'],
+                ['16:00', stationData.empty_stands_number, 'color: #b87333'],
+                ['17:00', stationData.empty_stands_number, 'color: #b87333'],
+                ['18:00', stationData.empty_stands_number, 'color: #b87333'],
+                ['19:00', stationData.empty_stands_number, 'color: #b87333'],
+                ['20:00', stationData.empty_stands_number, 'color: #b87333'],
+                ['21:00', stationData.empty_stands_number, 'color: #b87333'],
+                ['22:00', stationData.empty_stands_number, 'color: #b87333'],
+                ['23:00', stationData.empty_stands_number, 'color: #b87333']
             ]);
 
             var hourlyParkingChartContainer = $('<div>').addClass('rp_prediction_return').append($('<div>').attr('id', 'parkPredictionChart'));
@@ -532,16 +550,23 @@ function populateRightPanel(stationName, isRent) {
                 title: 'Parking Availability Prediction',
                 legend: { position: 'none' }
             });
+                        // Draw the hourly parking prediction graph
+                         //   ['Copper', 8.94, '#b87333'],            // RGB value
+                         //   ['Silver', 10.49, 'silver'],            // English color name
+                         //   ['Gold', 19.30, 'gold'],
+        
+                        //  ['2040', 22, 'stroke-color: #703593; stroke-width: 4; fill-color: #C5A5CF'],
+                        //    ['2050', 28, 'stroke-color: #871B47; stroke-opacity: 0.6; stroke-width: 8; fill-color: #BC5679; fill-opacity: 0.2']                         // ['Platinum', 21.45, 'color: #e5e4e2' ], // CSS-style declaration
             // Draw the daily parking prediction graph
             var dailyParkingData = google.visualization.arrayToDataTable([
-                ['Day', 'Parking'],
-                [timeUpdateDate[0], stationData.empty_stands_number[0]],
-                [timeUpdateDate[1], stationData.empty_stands_number[1]],
-                [timeUpdateDate[2], stationData.empty_stands_number[2]],
-                [timeUpdateDate[3], stationData.empty_stands_number[3]],
-                [timeUpdateDate[4], stationData.empty_stands_number[4]],
-                [timeUpdateDate[5], stationData.empty_stands_number[5]],
-                [timeUpdateDate[6], stationData.empty_stands_number[6]]
+                ['Day', 'Parking', { role: 'style' }],
+                ['Monday', stationData.empty_stands_number, 'color: #871B47'],
+                ['Tuesday', stationData.empty_stands_number, 'color: #871B47'],
+                ['Wednesday', stationData.empty_stands_number, 'color: #871B47'],
+                ['Thursday', stationData.empty_stands_number, 'color: #871B47'],
+                ['Friday', stationData.empty_stands_number, 'color: #871B47'],
+                ['Saturday', stationData.empty_stands_number, 'color: #871B47'],
+                ['Sunday', stationData.empty_stands_number, 'color: #871B47']
             ]);
             var dailyParkingChartContainer = $('<div>').addClass('rp_prediction_return').append($('<div>').attr('id', 'dailyParkingPredictionChart'));
             rightPanelContainer.append(dailyParkingChartContainer);

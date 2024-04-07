@@ -665,7 +665,11 @@ function openTab(evt, tabName) {
 
     // Clear markers and repopulate
     updateMarkers(activeTab == "rent");
-    selectStation(0, activeTab == "rent");
+    if (Object.keys(getLastSearchJSON()).length)
+    {
+        selectStation(0, activeTab == "rent");
+    }
+    // TODO: clear/hide the right hand panel
 }
 function weatherOpenTab(evt, tabContentId) {
     try {

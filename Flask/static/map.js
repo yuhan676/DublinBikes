@@ -115,9 +115,13 @@ function updateMarkers(isRent) {
     // CLear existing markers before addig new ones.
     clearMarkers();
     // Add markers for the new search result
-    getLastSearchJSON().forEach(item => {
-        addMarker(map, item, isRent)
-    })
+    var JSON = getLastSearchJSON();
+    if (Object.keys(JSON).length)
+    {
+        JSON.forEach(item => {
+            addMarker(map, item, isRent)
+        })
+    }
 }
 function addMarkerToGlobalArray(marker) {
     // Add the new marker to the global array

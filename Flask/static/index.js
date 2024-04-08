@@ -492,13 +492,13 @@ function populateRightPanel(stationName, isRent) {
     // Add the following code at the end
     var dailyBikeData = google.visualization.arrayToDataTable([
         ['Day', 'Bikes', { role: 'style' }],
-        ['Monday', stationData.hour, stationData.total_bikes,'color: purple'],
-        ['Tuesday', stationData.hour, stationData.total_bikes, 'color: purple'],
-        ['Wednesday', stationData.hour, stationData.total_bikes, 'color: purple'],
-        ['Thursday', stationData.hour, stationData.total_bikes, 'color: purple'],
-        ['Friday', stationData.hour, stationData.total_bikes, 'color: purple'],
-        ['Saturday', stationData.hour, stationData.total_bikes, 'color: purple'],
-        ['Sunday', stationData.hour, stationData.total_bikes, 'color: purple']
+        ['Monday', stationData.total_bikes,'color: purple'],
+        ['Tuesday', stationData.total_bikes, 'color: purple'],
+        ['Wednesday', stationData.total_bikes, 'color: purple'],
+        ['Thursday', stationData.total_bikes, 'color: purple'],
+        ['Friday', stationData.total_bikes, 'color: purple'],
+        ['Saturday', stationData.total_bikes, 'color: purple'],
+        ['Sunday', stationData.total_bikes, 'color: purple']
     ]);
     var options = {
         title: 'Bike Availability',
@@ -507,7 +507,7 @@ function populateRightPanel(stationName, isRent) {
         legend: { position: 'none'}
 
     };
-    
+
     var dailyBikeChartContainer = $('<div>').addClass('rp_prediction_rent').append($('<div>').attr('id', 'dailyBikePredictionChart'));
     rightPanelContainer.append(dailyBikeChartContainer);
     

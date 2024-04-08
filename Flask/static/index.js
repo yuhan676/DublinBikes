@@ -451,7 +451,7 @@ function populateRightPanel(stationName, isRent) {
         // Load Google Charts library and draw graphs when loaded
         google.charts.load('current', { packages: ['corechart'] });
         google.charts.setOnLoadCallback(function() {
-        /*
+        /* very nice opacity graph shit.....
             function drawChart() {
                 var data = google.visualization.arrayToDataTable([
                   ['Year', 'Visitations', { role: 'style' } ],
@@ -468,31 +468,25 @@ function populateRightPanel(stationName, isRent) {
             var hourlyBikeData = new google.visualization.DataTable();
             hourlyBikeData.addColumn('datetime', 'Time of Day');
             hourlyBikeData.addColumn('number', 'Bikes');
-
-            var timeUpdateDate = "Mon Apr 08 2024 14:45:17 GMT+0100 (British Summer Time)";
-            var date = new Date(timeUpdateDate);
-            var hours = date.getHours();
-            if (hours < 12) {
-                hours = " " + hours;
-                // console.log("Hours are so long and draining: " + hours); // Example output: "Hour: 07"
-            }
-            console.log("Hours are so long and draining: " + hours); // Example output: "Hour: 07"
+            
+            var formatedTimestamp = timeUpdateDate.toISOString().slice(0, 19).replace('T', ' ');
+            console.log(formatedTimestamp);
 
 
             for (var hour = 0; hour < 24; hour++) {
-                hourlyBikeData.addRow([{v: timeUpdateDate, f: '8 am'}, stationData.total_bikes]);
-                hourlyBikeData.addRow([{v: timeUpdateDate, f: '8 am'}, stationData.total_bikes]);
-                hourlyBikeData.addRow([{v: timeUpdateDate, f: '9 am'}, stationData.total_bikes]);
-                hourlyBikeData.addRow([{v: timeUpdateDate, f: '10 am'}, stationData.total_bikes]);
-                hourlyBikeData.addRow([{v: timeUpdateDate, f: '11 am'}, stationData.total_bikes]);
-                hourlyBikeData.addRow([{v: timeUpdateDate, f: '12 am'}, stationData.total_bikes]);
-                hourlyBikeData.addRow([{v: timeUpdateDate, f: '1 pm'}, stationData.total_bikes]);
-                hourlyBikeData.addRow([{v: timeUpdateDate, f: '2 pm'}, stationData.total_bikes]);
-                hourlyBikeData.addRow([{v: timeUpdateDate, f: '3 pm'}, stationData.total_bikes]);
-                hourlyBikeData.addRow([{v: timeUpdateDate, f: '4 pm'}, stationData.total_bikes]);
-                hourlyBikeData.addRow([{v: timeUpdateDate, f: '5 pm'}, stationData.total_bikes]);
-                hourlyBikeData.addRow([{v: timeUpdateDate, f: '6 pm'}, stationData.total_bikes]);
-                hourlyBikeData.addRow([{v: timeUpdateDate, f: '5 pm'}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: formatedTimestamp, f: '8 am'}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: formatedTimestamp, f: '8 am'}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: formatedTimestamp, f: '9 am'}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: formatedTimestamp, f: '10 am'}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: formatedTimestamp, f: '11 am'}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: formatedTimestamp, f: '12 am'}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: formatedTimestamp, f: '1 pm'}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: formatedTimestamp, f: '2 pm'}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: formatedTimestamp, f: '3 pm'}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: formatedTimestamp, f: '4 pm'}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: formatedTimestamp, f: '5 pm'}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: formatedTimestamp, f: '6 pm'}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: formatedTimestamp, f: '5 pm'}, stationData.total_bikes]);
 
             }            
             // Define options for daily bike availability chart
@@ -724,6 +718,7 @@ function fetchCurrentWeatherData() {
                 var timezone = timeupdate.toLocaleTimeString(undefined, { timeZone: 'Europe/Dublin', hour: '2-digit', minute: '2-digit', hour12: true });
 
                 var timestamp = dayOfWeek + ", " + month + "  " + day + ", " + timezone;
+                console.log("just want to see this format here:" + timestamp);
 
                 // Update HTML content with fetched weather data
                 $('#weather-current-content').html(

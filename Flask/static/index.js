@@ -480,9 +480,13 @@ function populateRightPanel(stationName, isRent) {
             var options = {
                 title: 'Bike Availability',
                 hAxis: { title: 'Hourly Availability', titleTextStyle: { color: '#333' } },
-                // vAxis is removed to allow automatic scaling
+                vAxis: { 
+                    title: "Testing again....",
+                    minValue: 0,  // Set the minimum value for the vertical axis
+                    maxValue: 20, // Set the maximum value for the vertical axis
+                },
                 legend: { position: 'none' }
-            };
+            };            
             
             // Create container for the chart
             var dailyBikeChartContainer = $('<div>').addClass('rp_prediction_rent').append($('<div>').attr('id', 'dailyBikePredictionChart'));

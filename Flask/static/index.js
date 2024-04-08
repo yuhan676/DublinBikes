@@ -469,9 +469,12 @@ function populateRightPanel(stationName, isRent) {
             console.log("Hourly bike data:", stationData.hourlyBikeData[hour]);
 
             for (var hour = 0; hour < 24; hour++) {
+                console.log("Hour:", hour);
+                console.log("Hourly bike data:", stationData.hourlyBikeData[hour]);
                 var date = new Date(timeUpdateDate.getFullYear(), timeUpdateDate.getMonth(), timeUpdateDate.getDate(), hour, 0, 0);
-                hourlyBikeData.addRow([date, stationData.hourlyBikeData[hour]]);
-            }
+                var bikes = stationData.hourlyBikeData[hour] || 0; // If data is undefined, use 0
+                hourlyBikeData.addRow([date, bikes]);
+            }            
             
             // Define options for daily bike availability chart
             var options = {

@@ -451,17 +451,21 @@ function populateRightPanel(stationName, isRent) {
         google.charts.load('current', { packages: ['corechart'] });
         google.charts.setOnLoadCallback(function() {
 
-            // abstract hourly element from global variable
-            var hour = timeUpdateDate.getHours(); 
+            var dayOfWeek = timeUpdateDate.getDay(); // Get day of the week (0-6)
+            var hourOfDay = timeUpdateDate.getHours(); // Get hour of the day (0-23)
+
             // Initialize the data table for hourly bike availability
             var hourlyBikeData = new google.visualization.DataTable();
+            hourlyBikeData.addColumn('string', 'Day');
             hourlyBikeData.addColumn('number', 'Hour');
             hourlyBikeData.addColumn('number', 'Bikes');
             
             // Populate data for hourly bike availability
-            for (var hour = 0; hour < 24; hour++) {
-                hourlyBikeData.addRow([hour, stationData.total_bikes]);
+            var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            for (var hourOfDay = 0; hourOfDay < 24; hourOfDay++) {
+                hourlyBikeData.addRow([days[dayOfWeek], hourOfDay, stationData.total_bikes[days[dayOfWeek]][hourOfDay]]);
             }
+
             // Define options for daily bike availability chart
             var options = {
                 title: 'Bike Availability',

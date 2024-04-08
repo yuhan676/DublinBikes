@@ -479,7 +479,7 @@ function populateRightPanel(stationName, isRent) {
                     var formattedTimestamp = updatedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
                     
                     // Add row for each hour with the correct timestamp
-                    hourlyBikeData.addRow([{ v: formattedTimestamp, f: formattedTimestamp }, stationData.total_bikes]);
+                    hourlyBikeData.addRow([{ v: formattedTimestamp, f: formattedTimestamp }, parseInt(stationData.total_bikes)]);
                 }
 
                 // hourlyBikeData.addRow([{v: formattedTimestamp, f: '1 am'}, stationData.total_bikes]);
@@ -499,7 +499,17 @@ function populateRightPanel(stationName, isRent) {
             // Define options for daily bike availability chart
             var options = {
                 title: 'Bike Availability',
-                hAxis: { title: 'Hourly Availability', titleTextStyle: { color: '#333' } },
+                hAxis: { 
+                    title: 'Hourly Availability', 
+                    titleTextStyle: { 
+                        color: '#871B47', // Title color
+                        opacity: 0.6 // Title opacity
+                    }, 
+                    textStyle: { // Text style for axis labels
+                        color: '#BC5679', // Color of axis labels
+                        opacity: 0.2 // Opacity of axis labels
+                    }
+                },
                 vAxis: { 
                     title: "Testing again....",
                     minValue: 0,  // Set the minimum value for the vertical axis
@@ -508,8 +518,8 @@ function populateRightPanel(stationName, isRent) {
                 legend: { position: 'none' },
                 width: 400, // Set the width of the chart
                 height: 350 // Set the height of the chart
-            }; 
-            
+            };
+
             // Create container for the chart
             var dailyBikeChartContainer = $('<div>').addClass('rp_prediction_rent').append($('<div>').attr('id', 'dailyBikePredictionChart'));
             rightPanelContainer.append(dailyBikeChartContainer);

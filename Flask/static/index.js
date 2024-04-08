@@ -462,15 +462,14 @@ function populateRightPanel(stationName, isRent) {
                   ['2050', 28, 'stroke-color: #871B47; stroke-opacity: 0.6; stroke-width: 8; fill-color: #BC5679; fill-opacity: 0.2']
                 ]);
                 */
-            /// Loop through each hour of the day
-            for (var hour = 0; hour < 24; hour++) {
-                
+               // Loop through each hour of the day
+               for (var hour = 0; hour < 24; hour++) {
                 // Clone the timeUpdateDate to avoid modifying the original object
                 var updatedTime = new Date(timeUpdateDate);
                 
                 // Set the hour of the updatedTime
                 updatedTime.setHours(hour);
-                                
+                
                 // Extract the timestamp in milliseconds
                 var timestampMilliseconds = updatedTime.getTime();
                 

@@ -459,6 +459,11 @@ function populateRightPanel(stationName, isRent) {
             hourlyBikeData.addColumn('datetime', 'Time of Day');
             hourlyBikeData.addColumn('number', 'Bikes');
 
+            // Extracting the hour component using getHours()
+            var hours = timeUpdateDate.getHours();
+            
+            console.log("Hour: " + hours);
+
         //  var timeUpdateDate = new Date(stationData.last_update);
 
             // Populate data for hourly bike availability

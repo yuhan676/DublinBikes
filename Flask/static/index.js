@@ -488,8 +488,7 @@ function populateRightPanel(stationName, isRent) {
         console.error("An error occurred:", error);
     }
     
-
-    // Add the following code at the end
+    // Initialize the data table for daily bike availability
     var dailyBikeData = google.visualization.arrayToDataTable([
         ['Day', 'Bikes', { role: 'style' }],
         ['Monday', stationData.total_bikes,'color: purple'],
@@ -500,19 +499,28 @@ function populateRightPanel(stationName, isRent) {
         ['Saturday', stationData.total_bikes, 'color: purple'],
         ['Sunday', stationData.total_bikes, 'color: purple']
     ]);
+    // Initialize the data table for hourly bike availability
+    var hourlyBikeData = new google.visualization.DataTable();
+    hourlyBikeData.addColumn('number', 'Hour');
+    hourlyBikeData.addColumn('number', 'Bikes');
+    
+    // Populate data for hourly bike availability
+    for (var hour = 0; hour < 24; hour++) {
+        hourlyBikeData.addRow([hour, stationData.total_bikes]);
+    }
+    // Define options for daily bike availability chart
     var options = {
         title: 'Bike Availability',
-        hAxis: {title: 'Hourly Availability', titleTextStyle: {color: '#333'}},
-        vAxis: {minValue: 0},
-        legend: { position: 'none'}
-
+        hAxis: { title: 'Hourly Availability', titleTextStyle: { color: '#333' } },
+        vAxis: { minValue: 0 },
+        legend: { position: 'none' }
     };
-
+    // Create container for the chart
     var dailyBikeChartContainer = $('<div>').addClass('rp_prediction_rent').append($('<div>').attr('id', 'dailyBikePredictionChart'));
     rightPanelContainer.append(dailyBikeChartContainer);
-    
+    // Draw the chart
     var dailyBikeChart = new google.visualization.ColumnChart(document.getElementById('dailyBikePredictionChart'));
-    dailyBikeChart.draw(dailyBikeData, options); 
+    dailyBikeChart.draw(dailyBikeData, options);
 
     var hourlyParkingData = new google.visualization.DataTable();
     hourlyParkingData.addColumn('number', 'Hour');

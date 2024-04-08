@@ -467,36 +467,27 @@ function populateRightPanel(stationName, isRent) {
             hourlyBikeData.addColumn('string', 'Time of Day');
             hourlyBikeData.addColumn('number', 'Bikes');
 
-            // timeUpdateDate.setHours(8, 0, 0, 0); // Set the time to 8:00:00 AM
-            // console.log(timeUpdateDate);
-            // console.log("I want to see what you have here", timeUpdateDate);
-            
-            // var formattedTimestamp = timeUpdateDate.toISOString().slice(11, 19); // Extracting hours, minutes, and seconds
-            // console.log(formattedTimestamp); // Output the formatted timestamp
-
             // [{v: [8, 0, 0], f: '8 am'}, 1, .25];
 
             for (var hour = 0; hour < 24; hour++) {
-                // Set the hour in the date object            
                 // Extract formatted timestamp for the current hour
                 var formattedTimestamp = timeUpdateDate.toISOString().slice(11, 19);
             
                 console.log(formattedTimestamp); // Output the formatted timestamp
             }            
-                
-                hourlyBikeData.addRow([{v: formattedTimestamp, f: '7 am'}, stationData.total_bikes]);
-                hourlyBikeData.addRow([{v: formattedTimestamp, f: '8 am'}, stationData.total_bikes]);
-                hourlyBikeData.addRow([{v: formattedTimestamp, f: '9 am'}, stationData.total_bikes]);
-                hourlyBikeData.addRow([{v: formattedTimestamp, f: '10 am'}, stationData.total_bikes]);
-                hourlyBikeData.addRow([{v: formattedTimestamp, f: '11 am'}, stationData.total_bikes]);
-                hourlyBikeData.addRow([{v: formattedTimestamp, f: '12 am'}, stationData.total_bikes]);
-                hourlyBikeData.addRow([{v: formattedTimestamp, f: '1 pm'}, stationData.total_bikes]);
-                hourlyBikeData.addRow([{v: formattedTimestamp, f: '2 pm'}, stationData.total_bikes]);
-                hourlyBikeData.addRow([{v: formattedTimestamp, f: '3 pm'}, stationData.total_bikes]);
-                hourlyBikeData.addRow([{v: formattedTimestamp, f: '4 pm'}, stationData.total_bikes]);
-                hourlyBikeData.addRow([{v: formattedTimestamp, f: '5 pm'}, stationData.total_bikes]);
-                hourlyBikeData.addRow([{v: formattedTimestamp, f: '6 pm'}, stationData.total_bikes]);
-                hourlyBikeData.addRow([{v: formattedTimestamp, f: '5 pm'}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: formattedTimestamp, f: '1 am'}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: formattedTimestamp, f: '2 am'}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: formattedTimestamp, f: '3 am'}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: formattedTimestamp, f: '4 am'}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: formattedTimestamp, f: '5 am'}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: formattedTimestamp, f: '6 am'}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: formattedTimestamp, f: '7 pm'}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: formattedTimestamp, f: '8 pm'}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: formattedTimestamp, f: '9 pm'}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: formattedTimestamp, f: '10 pm'}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: formattedTimestamp, f: '11 pm'}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: formattedTimestamp, f: '12 pm'}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: formattedTimestamp, f: '13 pm'}, stationData.total_bikes]);
                          
             // Define options for daily bike availability chart
             var options = {

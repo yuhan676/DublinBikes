@@ -462,8 +462,8 @@ function populateRightPanel(stationName, isRent) {
             
             // Populate data for hourly bike availability
             var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-            for (var hourOfDay = 0; hourOfDay < 24; hourOfDay++) {
-                hourlyBikeData.addRow([days[dayOfWeek], hourOfDay, stationData.total_bikes[days[dayOfWeek]][hourOfDay]]);
+            for (var hour = 0; hour < 24; hour++) {
+                hourlyBikeData.addRow([days[dayOfWeek], hour, stationData.total_bikes[days[dayOfWeek]][hour]]);
             }
 
             // Define options for daily bike availability chart

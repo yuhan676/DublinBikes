@@ -465,6 +465,8 @@ function populateRightPanel(stationName, isRent) {
             //for (var hour = 0; hour < 24; hour++) {
                  //hourlyBikeData.addRow([timeUpdateDate, stationData.total_bikes]);
             //}
+            console.log("Hour:", hour);
+            console.log("Hourly bike data:", stationData.hourlyBikeData[hour]);
 
             for (var hour = 0; hour < 24; hour++) {
                 var date = new Date(timeUpdateDate.getFullYear(), timeUpdateDate.getMonth(), timeUpdateDate.getDate(), hour, 0, 0);

@@ -473,6 +473,9 @@ function populateRightPanel(stationName, isRent) {
             
             // var formattedTimestamp = timeUpdateDate.toISOString().slice(11, 19); // Extracting hours, minutes, and seconds
             // console.log(formattedTimestamp); // Output the formatted timestamp
+            
+            // [{v: [8, 0, 0], f: '8 am'}, 1, .25];
+
             for (var hour = 0; hour < 24; hour++) {
                 // Set the hour in the date object
                 timeUpdateDate.setHours(hour, 0, 0, 0);
@@ -481,11 +484,7 @@ function populateRightPanel(stationName, isRent) {
                 var formattedTimestamp = timeUpdateDate.toISOString().slice(11, 19);
             
                 console.log(formattedTimestamp); // Output the formatted timestamp
-            }
-
-            // [{v: [8, 0, 0], f: '8 am'}, 1, .25];
-
-            for (var hour = 0; hour < 24; hour++) {
+                
                 hourlyBikeData.addRow([{v: formattedTimestamp, f: '7 am'}, stationData.total_bikes]);
                 hourlyBikeData.addRow([{v: formattedTimestamp, f: '8 am'}, stationData.total_bikes]);
                 hourlyBikeData.addRow([{v: formattedTimestamp, f: '9 am'}, stationData.total_bikes]);

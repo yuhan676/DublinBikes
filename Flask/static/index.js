@@ -487,26 +487,32 @@ function populateRightPanel(stationName, isRent) {
     } catch (error) {
         console.error("An error occurred:", error);
     }
+    
 
     // Add the following code at the end
     var dailyBikeData = google.visualization.arrayToDataTable([
         ['Day', 'Bikes', { role: 'style' }],
-        ['Monday', stationData.total_bikes,'color: purple'],
-        ['Tuesday', stationData.total_bikes, 'color: purple'],
-        ['Wednesday', stationData.total_bikes, 'color: purple'],
-        ['Thursday', stationData.total_bikes, 'color: purple'],
-        ['Friday', stationData.total_bikes, 'color: purple'],
-        ['Saturday', stationData.total_bikes, 'color: purple'],
-        ['Sunday', stationData.total_bikes, 'color: purple']
+        ['Monday', stationData.hour, stationData.total_bikes,'color: purple'],
+        ['Tuesday', stationData.hour, stationData.total_bikes, 'color: purple'],
+        ['Wednesday', stationData.hour, stationData.total_bikes, 'color: purple'],
+        ['Thursday', stationData.hour, stationData.total_bikes, 'color: purple'],
+        ['Friday', stationData.hour, stationData.total_bikes, 'color: purple'],
+        ['Saturday', stationData.hour, stationData.total_bikes, 'color: purple'],
+        ['Sunday', stationData.hour, stationData.total_bikes, 'color: purple']
     ]);
+    var options = {
+        title: 'Bike Availability',
+        hAxis: {title: 'Hourly Availability', titleTextStyle: {color: '#333'}},
+        vAxis: {minValue: 0},
+        legend: { position: 'none'}
+
+    };
     
     var dailyBikeChartContainer = $('<div>').addClass('rp_prediction_rent').append($('<div>').attr('id', 'dailyBikePredictionChart'));
     rightPanelContainer.append(dailyBikeChartContainer);
     
     var dailyBikeChart = new google.visualization.ColumnChart(document.getElementById('dailyBikePredictionChart'));
-    dailyBikeChart.draw(dailyBikeData, {
-        legend: { position: 'none' }
-    });
+    dailyBikeChart.draw(dailyBikeData, options); 
 
     var hourlyParkingData = new google.visualization.DataTable();
     hourlyParkingData.addColumn('number', 'Hour');

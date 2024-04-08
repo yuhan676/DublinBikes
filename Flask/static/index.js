@@ -522,11 +522,77 @@ function populateRightPanel(stationName, isRent) {
             };
 
             // Create container for the chart
-            var dailyBikeChartContainer = $('<div>').addClass('rp_prediction_rent').append($('<div>').attr('id', 'dailyBikePredictionChart'));
-            rightPanelContainer.append(dailyBikeChartContainer);
+            var dailyStandChartContainer = $('<div>').addClass('rp_prediction_return').append($('<div>').attr('id', 'dailyStandPredictionChart'));
+            rightPanelContainer.append(dailyStandChartContainer);
             // Draw the chart
-            var dailyBikeChart = new google.visualization.ColumnChart(document.getElementById('dailyBikePredictionChart'));
-            dailyBikeChart.draw(hourlyBikeData, options);
+            var dailyStandChart = new google.visualization.ColumnChart(document.getElementById('dailyStandPredictionChart'));
+            dailyStandChart.draw(dailyStandData, options);
+
+            // Initialize the data table for hourly bike availability
+            var dailyStandData = new google.visualization.DataTable();
+            dailyStandData.addColumn('string', 'Day of the Week');
+            dailyStandData.addColumn('number', 'Available Stands');
+            
+            // Loop through each hour of the day
+            for (var hour = 0; hour < 24; hour++) {
+                // Clone the timeUpdateDate to avoid modifying the original object
+                var updatedTime = new Date(timeUpdateDate);
+                
+                // Set the hour of the updatedTime
+                updatedTime.setHours(hour);
+                
+                // Extract formatted timestamp for the current hour
+                var formattedTimestamp = updatedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                
+                // Add row for each hour with the correct timestamp
+                dailyStandData.addRow([{ v: formattedTimestamp, f: formattedTimestamp }, parseInt(stationData.empty_stands_number)]);
+            }
+
+            // hourlyBikeData.addRow([{v: formattedTimestamp, f: '1 am'}, stationData.total_bikes]);
+            // hourlyBikeData.addRow([{v: formattedTimestamp, f: '3 am'}, stationData.total_bikes]);
+            // hourlyBikeData.addRow([{v: formattedTimestamp, f: '6 am'}, stationData.total_bikes]);
+            // hourlyBikeData.addRow([{v: formattedTimestamp, f: '7 am'}, stationData.total_bikes]);
+            // hourlyBikeData.addRow([{v: formattedTimestamp, f: '8 am'}, stationData.total_bikes]);
+            // hourlyBikeData.addRow([{v: formattedTimestamp, f: '10 am'}, stationData.total_bikes]);
+            // hourlyBikeData.addRow([{v: formattedTimestamp, f: '13 pm'}, stationData.total_bikes]);
+            // hourlyBikeData.addRow([{v: formattedTimestamp, f: '17 pm'}, stationData.total_bikes]);
+            // hourlyBikeData.addRow([{v: formattedTimestamp, f: '9 pm'}, stationData.total_bikes]);
+            // hourlyBikeData.addRow([{v: formattedTimestamp, f: '10 pm'}, stationData.total_bikes]);
+            // hourlyBikeData.addRow([{v: formattedTimestamp, f: '11 pm'}, stationData.total_bikes]);
+            // hourlyBikeData.addRow([{v: formattedTimestamp, f: '12 pm'}, stationData.total_bikes]);
+            // hourlyBikeData.addRow([{v: formattedTimestamp, f: '13 pm'}, stationData.total_bikes]);
+                     
+        // Define options for daily bike availability chart
+        var options = {
+            title: 'Stand Availability',
+            hAxis: { 
+                title: 'Hourly Availability', 
+                titleTextStyle: { 
+                    color: '#871B47', // Title color
+                    opacity: 0.6 // Title opacity
+                }, 
+                textStyle: { // Text style for axis labels
+                    color: '#BC5679', // Color of axis labels
+                    opacity: 0.2 // Opacity of axis labels
+                }
+            },
+            vAxis: { 
+                title: "Testing again....",
+                color: '##76A7FA',
+                minValue: 0,  // Set the minimum value for the vertical axis
+                maxValue: 25 // Set the maximum value for the vertical axis
+            },
+            legend: { position: 'none' },
+            width: 400, // Set the width of the chart
+            height: 300 // Set the height of the chart
+        };
+
+        // Create container for the chart
+        var dailyStandChartContainer = $('<div>').addClass('rp_prediction_rent').append($('<div>').attr('id', 'dailyStandPredictionChart'));
+        rightPanelContainer.append(dailyStandChartContainer);
+        // Draw the chart
+        var dailyStandChart = new google.visualization.ColumnChart(document.getElementById('dailyStandPredictionChart'));
+        dailyStandChart.draw(dailyStandData, options);
             
         });
     } catch (error) {

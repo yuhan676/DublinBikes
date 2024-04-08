@@ -451,12 +451,12 @@ function populateRightPanel(stationName, isRent) {
         google.charts.load('current', { packages: ['corechart'] });
         google.charts.setOnLoadCallback(function() {
 
-            var dayOfWeek = timeUpdateDate.getDay(); // Get day of the week (0-6)
-            var hourOfDay = timeUpdateDate.getHours(); // Get hour of the day (0-23)
+            // var dayOfWeek = timeUpdateDate.getDay(); // Get day of the week (0-6)
+            // var hourOfDay = timeUpdateDate.getHours(); // Get hour of the day (0-23)
 
             // Initialize the data table for hourly bike availability
             var hourlyBikeData = new google.visualization.DataTable();
-            hourlyBikeData.addColumn('number', 'Hour');
+            hourlyBikeData.addColumn('datetime', 'Time of Day');
             hourlyBikeData.addColumn('number', 'Bikes');
             
             // Populate data for hourly bike availability

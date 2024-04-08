@@ -420,8 +420,6 @@ function populateRightPanel(stationName, isRent) {
         var eBikeInternalLabel = $('<div>').addClass('rp_info_label').text('E-Bike Internal Battery: ').append($('<p>').attr('id', 'available_e_internal').text(stationData.electrical_internal_battery_bikes));
         var totalParkingLabel = $('<div>').addClass('rp_park_total_label').text('Total Parking: ').append($('<p>').attr('id', 'available-park').text(stationData.empty_stands_number));
 
-        console.log("Timestamp:", stationData.last_update);
-
         var timeUpdateDate = new Date(stationData.last_update);
         if (isNaN(timeUpdateDate.getTime())) {
             throw new Error("Invalid last update date.");
@@ -465,6 +463,9 @@ function populateRightPanel(stationName, isRent) {
             var hours = timeUpdateDate.getHours();
             
             console.log("Hour: " + hours);
+
+            console.log("Timestamp:", stationData.last_update);
+
 
         //  var timeUpdateDate = new Date(stationData.last_update);
 

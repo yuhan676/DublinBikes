@@ -502,8 +502,7 @@ function populateRightPanel(stationName, isRent) {
                 vAxis: { 
                     title: "Testing again....",
                     minValue: 0,  // Set the minimum value for the vertical axis
-                    maxValue: 25, // Set the maximum value for the vertical axis
-                    ticks: [0, 1, 3, 4, 5, 6]
+                    maxValue: 25 // Set the maximum value for the vertical axis
                 },
                 legend: { position: 'none' }
             };            

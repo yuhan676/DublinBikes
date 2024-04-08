@@ -456,22 +456,12 @@ function populateRightPanel(stationName, isRent) {
             hourlyBikeData.addColumn('datetime', 'Time of Day');
             hourlyBikeData.addColumn('number', 'Bikes');
 
-            var timeUpdateDate = new Date(stationData.last_update);
+        //  var timeUpdateDate = new Date(stationData.last_update);
 
             // Populate data for hourly bike availability
             hourlyBikeData.addRows([
-                [new Date(0, 0, 0, 8, 0, 0), 1],
-                [new Date(0, 0, 0, 9, 0, 0), 2],
-                [new Date(0, 0, 0, 10, 0, 0), 3],
-                [new Date(0, 0, 0, 11, 0, 0), 4],
-                [new Date(0, 0, 0, 12, 0, 0), 5],
-                [new Date(0, 0, 0, 13, 0, 0), 6],
-                [new Date(0, 0, 0, 14, 0, 0), 7],
-                [new Date(0, 0, 0, 15, 0, 0), 8],
-                [new Date(0, 0, 0, 16, 0, 0), 9],
-                [new Date(0, 0, 0, 17, 0, 0), 10],
-            ]);            
-        
+                [new Date(timeUpdateDate.getFullYear(), timeUpdateDate.getMonth(), timeUpdateDate.getDate(), 9, 0, 0), stationData.hourlyBikeData[9]],
+            ]);
             // for (var hour = 0; hour < 24; hour++) {
                 // hourlyBikeData.addRow([timeUpdateDate, stationData.total_bikes]);
             // }
@@ -481,7 +471,8 @@ function populateRightPanel(stationName, isRent) {
                 hAxis: { title: 'Hourly Availability', titleTextStyle: { color: '#333' } },
                 vAxis: { 
                     title: "Testing again....",  // This line was missing in your original code
-                    minValue: 0 
+                    min: 0,
+                    max: [15, 30, 0]
                 },
                 legend: { position: 'none' }
             };

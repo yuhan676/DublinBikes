@@ -518,7 +518,7 @@ function populateRightPanel(stationName, isRent) {
                 },
                 legend: { position: 'none' },
                 width: 400, // Set the width of the chart
-                height: 350 // Set the height of the chart
+                height: 300 // Set the height of the chart
             };
 
             // Create container for the chart

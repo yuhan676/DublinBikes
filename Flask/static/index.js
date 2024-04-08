@@ -462,7 +462,7 @@ function populateRightPanel(stationName, isRent) {
             
             // Populate data for hourly bike availability
             console.log('Station data:', stationData); // Add this line to check stationData before iterating
-            var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            var days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
             for (var hour = 0; hour < 24; hour++) {
                 var dayOfWeekData = stationData.total_bikes[days[dayOfWeek]];
                 console.log('Day of the week:', days[dayOfWeek]);

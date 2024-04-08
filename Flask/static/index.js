@@ -477,9 +477,7 @@ function populateRightPanel(stationName, isRent) {
             // [{v: [8, 0, 0], f: '8 am'}, 1, .25];
 
             for (var hour = 0; hour < 24; hour++) {
-                // Set the hour in the date object
-                timeUpdateDate.setHours(hour, 0, 0, 0);
-            
+                // Set the hour in the date object            
                 // Extract formatted timestamp for the current hour
                 var formattedTimestamp = timeUpdateDate.toISOString().slice(11, 19);
             

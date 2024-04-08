@@ -455,9 +455,11 @@ function populateRightPanel(stationName, isRent) {
             var hourlyBikeData = new google.visualization.DataTable();
             hourlyBikeData.addColumn('datetime', 'Time of Day');
             hourlyBikeData.addColumn('number', 'Bikes');
-            
+
+            var timeUpdateDate = new Date(stationData.last_update);
+
             // Populate data for hourly bike availability
-            timeUpdateData.forEach(function(row) {
+            timeUpdateDate.forEach(function(row) {
                 hourlyBikeData.addRow([new Date(row[0]), row[1]]);
             });
             // Define options for daily bike availability chart

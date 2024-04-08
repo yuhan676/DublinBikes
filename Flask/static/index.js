@@ -458,14 +458,14 @@ function populateRightPanel(stationName, isRent) {
             hourlyBikeData.addColumn('datetime', 'Time of Day');
             hourlyBikeData.addColumn('number', 'Bikes');
 
-            // var myMinutes = 1; // This represent 1 minute subtraction
             var myHours   = 60; // This represent 60 minutes subtraction which is 1 hour
-            // var dateMSubObject= new Date(timeUpdateDate.getTime() - myMinutes*60000); //Substracting your minutes variable
             var dateHSubObject= new Date(timeUpdateDate.getTime() - myHours*60000); //Substracting your hours variable
             console.log("So, what now? ",dateHSubObject);
 
+            const hour1 = dateHSubObject.getHours();
+            console.log('pleasseeee',hour1);
+
             for (var hour = 0; hour < 24; hour++) {
-                // hourlyBikeData.addRow([timeUpdateDate, stationData.total_bikes]);
                 hourlyBikeData.addRow([{v: dateHSubObject, f: '8 am'}, stationData.total_bikes]);
                 hourlyBikeData.addRow([{v: dateHSubObject, f: '8 am'}, stationData.total_bikes]);
                 hourlyBikeData.addRow([{v: dateHSubObject, f: '9 am'}, stationData.total_bikes]);
@@ -480,9 +480,7 @@ function populateRightPanel(stationName, isRent) {
                 hourlyBikeData.addRow([{v: dateHSubObject, f: '6 pm'}, stationData.total_bikes]);
                 hourlyBikeData.addRow([{v: dateHSubObject, f: '5 pm'}, stationData.total_bikes]);
 
-            }
-            // [{v: [8, 0, 0], f: '8 am'}, 1, .25]    
-            
+            }            
             // Define options for daily bike availability chart
             var options = {
                 title: 'Bike Availability',

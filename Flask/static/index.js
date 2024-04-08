@@ -459,14 +459,30 @@ function populateRightPanel(stationName, isRent) {
             var timeUpdateDate = new Date(stationData.last_update);
 
             // Populate data for hourly bike availability
-            for (var hour = 0; hour < 24; hour++) {
-                hourlyBikeData.addRow([timeUpdateDate, stationData.total_bikes]);
-            }
+            hourlyBikeData.addRows([
+                [{v: [8, 0, 0], f: '8 am'}, 1],
+                [{v: [9, 0, 0], f: '9 am'}, 2],
+                [{v: [10, 0, 0], f:'10 am'}, 3],
+                [{v: [11, 0, 0], f: '11 am'}, 4],
+                [{v: [12, 0, 0], f: '12 pm'}, 5],
+                [{v: [13, 0, 0], f: '1 pm'}, 6],
+                [{v: [14, 0, 0], f: '2 pm'}, 7],
+                [{v: [15, 0, 0], f: '3 pm'}, 8],
+                [{v: [16, 0, 0], f: '4 pm'}, 9],
+                [{v: [17, 0, 0], f: '5 pm'}, 10],
+              ]);
+        
+            // for (var hour = 0; hour < 24; hour++) {
+                // hourlyBikeData.addRow([timeUpdateDate, stationData.total_bikes]);
+            // }
             // Define options for daily bike availability chart
             var options = {
                 title: 'Bike Availability',
                 hAxis: { title: 'Hourly Availability', titleTextStyle: { color: '#333' } },
-                vAxis: { minValue: 0 },
+                vAxis: { 
+                    title: "Testing again....",  // This line was missing in your original code
+                    minValue: 0 
+                },
                 legend: { position: 'none' }
             };
             // Create container for the chart

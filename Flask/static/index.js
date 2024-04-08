@@ -453,7 +453,6 @@ function populateRightPanel(stationName, isRent) {
         google.charts.setOnLoadCallback(function() {
 
 
-
             // Initialize the data table for hourly bike availability
             var hourlyBikeData = new google.visualization.DataTable();
             hourlyBikeData.addColumn('datetime', 'Time of Day');
@@ -466,8 +465,17 @@ function populateRightPanel(stationName, isRent) {
 
             console.log("Timestamp:", stationData.last_update);
 
-
-        //  var timeUpdateDate = new Date(stationData.last_update);
+            var timestamp = stationData.last_update;
+            console.log("Timestamp before parsing:", timestamp);
+            
+            var timeUpdateDate1 = new Date(timestamp);
+            console.log("Date object after parsing:", timeUpdateDate1);
+            
+            if (isNaN(timeUpdateDate1.getTime())) {
+                throw new Error("Invalid last update date.");
+            }
+            
+            //  var timeUpdateDate = new Date(stationData.last_update);
 
             // Populate data for hourly bike availability
             //hourlyBikeData.addRows([

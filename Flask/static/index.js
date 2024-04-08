@@ -423,6 +423,7 @@ function populateRightPanel(stationName, isRent) {
         var timeUpdateDate = new Date(stationData.last_update);
         if (isNaN(timeUpdateDate.getTime())) {
             throw new Error("Invalid last update date.");
+            
         }
 
         var options = {
@@ -451,6 +452,8 @@ function populateRightPanel(stationName, isRent) {
         google.charts.load('current', { packages: ['corechart'] });
         google.charts.setOnLoadCallback(function() {
 
+
+
             // Initialize the data table for hourly bike availability
             var hourlyBikeData = new google.visualization.DataTable();
             hourlyBikeData.addColumn('datetime', 'Time of Day');
@@ -463,7 +466,7 @@ function populateRightPanel(stationName, isRent) {
              //   [new Date(timeUpdateDate.getFullYear(), timeUpdateDate.getMonth(), timeUpdateDate.getDate(), 9, 0, 0), stationData.hourlyBikeData[9]],
             //]);
             for (var hour = 0; hour < 24; hour++) {
-                hourlyBikeData.addRow([timeUpdateDate, stationData.total_bikes]);
+                hourlyBikeData.addRow([timeUpdateDate.getTime(), stationData.total_bikes]);
             }
             //console.log("Hour:", hour);
             //console.log("Hourly bike data:", stationData.hourlyBikeData[hour]);

@@ -462,20 +462,24 @@ function populateRightPanel(stationName, isRent) {
                   ['2050', 28, 'stroke-color: #871B47; stroke-opacity: 0.6; stroke-width: 8; fill-color: #BC5679; fill-opacity: 0.2']
                 ]);
                 */
-               // Loop through each hour of the day
-               for (var hour = 0; hour < 24; hour++) {
-                // Clone the timeUpdateDate to avoid modifying the original object
-                var updatedTime = new Date(timeUpdateDate);
+                // Initialize the data table for hourly bike availability
+                var hourlyBikeData = new google.visualization.DataTable();
+                hourlyBikeData.addColumn('datetime', 'Time of Day');
+                hourlyBikeData.addColumn('number', 'Bikes');
+                // Loop through each hour of the day
+                for (var hour = 0; hour < 24; hour++) {
+                    // Clone the timeUpdateDate to avoid modifying the original object
+                    var updatedTime = new Date(timeUpdateDate);
                 
-                // Set the hour of the updatedTime
-                updatedTime.setHours(hour);
+                    // Set the hour of the updatedTime
+                    updatedTime.setHours(hour);
                 
-                // Extract the timestamp in milliseconds
-                var timestampMilliseconds = updatedTime.getTime();
+                    // Extract the timestamp in milliseconds
+                    var timestampMilliseconds = updatedTime.getTime();
                 
-                // Add row for each hour with the correct timestamp
-                hourlyBikeData.addRow([{ v: timestampMilliseconds, f: updatedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }, stationData.total_bikes]);
-            }
+                    // Add row for each hour with the correct timestamp
+                    hourlyBikeData.addRow([{ v: timestampMilliseconds, f: updatedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }, stationData.total_bikes]);
+                }
                 // hourlyBikeData.addRow([{v: formattedTimestamp, f: '1 am'}, stationData.total_bikes]);
                 // hourlyBikeData.addRow([{v: formattedTimestamp, f: '3 am'}, stationData.total_bikes]);
                 // hourlyBikeData.addRow([{v: formattedTimestamp, f: '6 am'}, stationData.total_bikes]);

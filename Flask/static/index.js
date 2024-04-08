@@ -464,7 +464,7 @@ function populateRightPanel(stationName, isRent) {
                 */
             // Initialize the data table for hourly bike availability
             var hourlyBikeData = new google.visualization.DataTable();
-            hourlyBikeData.addColumn('string', 'Time of Day');
+            hourlyBikeData.addColumn('datetime', 'Time of Day');
             hourlyBikeData.addColumn('number', 'Bikes');
 
             // timeUpdateDate.setHours(8, 0, 0, 0); // Set the time to 8:00:00 AM

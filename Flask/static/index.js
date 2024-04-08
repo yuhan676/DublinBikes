@@ -458,7 +458,7 @@ function populateRightPanel(stationName, isRent) {
             
             // Populate data for hourly bike availability
             // Populate data for hourly bike availability
-            for (var hour = 0; hour < 24; hour++) {
+            for (var hour = 1; hour < 24; hour++) {
                 hourlyBikeData.addRow([hour.toString(), stationData.total_bikes]);
             }
             // Define options for daily bike availability chart

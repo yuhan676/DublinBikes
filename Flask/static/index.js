@@ -467,17 +467,22 @@ function populateRightPanel(stationName, isRent) {
             hourlyBikeData.addColumn('string', 'Time of Day');
             hourlyBikeData.addColumn('number', 'Bikes');
 
-            // [{v: [8, 0, 0], f: '8 am'}, 1, .25];
-
             // Loop through each hour of the day
             for (var hour = 0; hour < 24; hour++) {
+                // Clone the timeUpdateDate to avoid modifying the original object
+                var updatedTime = new Date(timeUpdateDate);
+                
+                // Set the hour of the updatedTime
+                updatedTime.setHours(hour);
+                
                 // Extract formatted timestamp for the current hour
-                var formattedTimestamp = timeUpdateDate.toISOString().slice(11, 19);
+                var formattedTimestamp = updatedTime.toISOString().slice(11, 19);
                 console.log(formattedTimestamp); // Output the formatted timestamp
                 
                 // Add row for each hour with the correct timestamp
-                hourlyBikeData.addRow([{v: formattedTimestamp, f: hour + ' am'}, stationData.total_bikes]);
-            }            
+                hourlyBikeData.addRow([{ v: formattedTimestamp, f: hour + ' am' }, stationData.total_bikes]);
+            }
+           
                 // hourlyBikeData.addRow([{v: formattedTimestamp, f: '1 am'}, stationData.total_bikes]);
                 // hourlyBikeData.addRow([{v: formattedTimestamp, f: '3 am'}, stationData.total_bikes]);
                 // hourlyBikeData.addRow([{v: formattedTimestamp, f: '6 am'}, stationData.total_bikes]);

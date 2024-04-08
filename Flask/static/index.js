@@ -466,8 +466,21 @@ function populateRightPanel(stationName, isRent) {
              //   [new Date(timeUpdateDate.getFullYear(), timeUpdateDate.getMonth(), timeUpdateDate.getDate(), 9, 0, 0), stationData.hourlyBikeData[9]],
             //]);
             for (var hour = 0; hour < 24; hour++) {
-                hourlyBikeData.addRow([timeUpdateDate.getTime(), stationData.total_bikes]);
+                // hourlyBikeData.addRow([timeUpdateDate, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: [variable, 0, 0], f: '8 am', timeUpdateDate}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: [variable, 0, 0], f: '9 am', timeUpdateDate}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: [variable, 0, 0], f: 'string', timeUpdateDate}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: [variable, 0, 0], f: 'string', timeUpdateDate}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: [variable, 0, 0], f: 'string', timeUpdateDate}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: [variable, 0, 0], f: 'string', timeUpdateDate}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: [variable, 0, 0], f: 'string', timeUpdateDate}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: [variable, 0, 0], f: 'string', timeUpdateDate}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: [variable, 0, 0], f: 'string', timeUpdateDate}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: [variable, 0, 0], f: 'string', timeUpdateDate}, stationData.total_bikes]);
+
             }
+            // [{v: [8, 0, 0], f: '8 am'}, 1, .25]
+
             //console.log("Hour:", hour);
             //console.log("Hourly bike data:", stationData.hourlyBikeData[hour]);
 

@@ -452,7 +452,7 @@ function populateRightPanel(stationName, isRent) {
         google.charts.setOnLoadCallback(function() {
 
             var dayOfWeek = timeUpdateDate.getDay(); // Get day of the week (0-6)
-            var hourOfDay = timeUpdateDate.getHours(); // Get hour of the day (0-23)
+            var hour = timeUpdateDate.getHours(); // Get hour of the day (0-23)
 
             // Initialize the data table for hourly bike availability
             var hourlyBikeData = new google.visualization.DataTable();

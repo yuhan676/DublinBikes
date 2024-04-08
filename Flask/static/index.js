@@ -462,9 +462,15 @@ function populateRightPanel(stationName, isRent) {
             //hourlyBikeData.addRows([
               //  [new Date(timeUpdateDate.getFullYear(), timeUpdateDate.getMonth(), timeUpdateDate.getDate(), 9, 0, 0), stationData.hourlyBikeData[9]],
             // ]);
+            //for (var hour = 0; hour < 24; hour++) {
+                 //hourlyBikeData.addRow([timeUpdateDate, stationData.total_bikes]);
+            //}
+
             for (var hour = 0; hour < 24; hour++) {
-                 hourlyBikeData.addRow([timeUpdateDate, stationData.total_bikes]);
+                var date = new Date(timeUpdateDate.getFullYear(), timeUpdateDate.getMonth(), timeUpdateDate.getDate(), hour, 0, 0);
+                hourlyBikeData.addRow([date, stationData.hourlyBikeData[hour]]);
             }
+            
             // Define options for daily bike availability chart
             var options = {
                 title: 'Bike Availability',

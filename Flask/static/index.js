@@ -460,17 +460,17 @@ function populateRightPanel(stationName, isRent) {
 
             // Populate data for hourly bike availability
             hourlyBikeData.addRows([
-                [{v: [8, 0, 0], f: '8 am'}, 1],
-                [{v: [9, 0, 0], f: '9 am'}, 2],
-                [{v: [10, 0, 0], f:'10 am'}, 3],
-                [{v: [11, 0, 0], f: '11 am'}, 4],
-                [{v: [12, 0, 0], f: '12 pm'}, 5],
-                [{v: [13, 0, 0], f: '1 pm'}, 6],
-                [{v: [14, 0, 0], f: '2 pm'}, 7],
-                [{v: [15, 0, 0], f: '3 pm'}, 8],
-                [{v: [16, 0, 0], f: '4 pm'}, 9],
-                [{v: [17, 0, 0], f: '5 pm'}, 10],
-              ]);
+                [new Date(0, 0, 0, 8, 0, 0), 1],
+                [new Date(0, 0, 0, 9, 0, 0), 2],
+                [new Date(0, 0, 0, 10, 0, 0), 3],
+                [new Date(0, 0, 0, 11, 0, 0), 4],
+                [new Date(0, 0, 0, 12, 0, 0), 5],
+                [new Date(0, 0, 0, 13, 0, 0), 6],
+                [new Date(0, 0, 0, 14, 0, 0), 7],
+                [new Date(0, 0, 0, 15, 0, 0), 8],
+                [new Date(0, 0, 0, 16, 0, 0), 9],
+                [new Date(0, 0, 0, 17, 0, 0), 10],
+            ]);            
         
             // for (var hour = 0; hour < 24; hour++) {
                 // hourlyBikeData.addRow([timeUpdateDate, stationData.total_bikes]);

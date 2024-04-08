@@ -469,8 +469,8 @@ function populateRightPanel(stationName, isRent) {
             hourlyBikeData.addColumn('datetime', 'Time of Day');
             hourlyBikeData.addColumn('number', 'Bikes');
 
-            var dateStr = "Mon Apr 08 2024 14:45:17 GMT+0100 (British Summer Time)";
-            var date = new Date(dateStr);
+            var timeUpdateDate = "Mon Apr 08 2024 14:45:17 GMT+0100 (British Summer Time)";
+            var date = new Date(timeUpdateDate);
             var hours = date.getHours();
             if (hours < 12) {
                 hours = " " + hours;

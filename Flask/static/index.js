@@ -453,8 +453,8 @@ function populateRightPanel(stationName, isRent) {
 
             // var dayOfWeek = timeUpdateDate.getDay(); // Get day of the week (0-6)
             // var hourOfDay = timeUpdateDate.getHours(); // Get hour of the day (0-23)
-            var timestamp = stationData.last_update; 
-            var timeUpdateDate = new Date(timestamp);
+            // var timestamp = stationData.last_update; 
+            // var timeUpdateDate = new Date(timestamp);
 
             // Initialize the data table for hourly bike availability
             var hourlyBikeData = new google.visualization.DataTable();

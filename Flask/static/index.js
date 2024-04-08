@@ -420,6 +420,8 @@ function populateRightPanel(stationName, isRent) {
         var eBikeInternalLabel = $('<div>').addClass('rp_info_label').text('E-Bike Internal Battery: ').append($('<p>').attr('id', 'available_e_internal').text(stationData.electrical_internal_battery_bikes));
         var totalParkingLabel = $('<div>').addClass('rp_park_total_label').text('Total Parking: ').append($('<p>').attr('id', 'available-park').text(stationData.empty_stands_number));
 
+        console.log("Timestamp:", stationData.last_update);
+
         var timeUpdateDate = new Date(stationData.last_update);
         if (isNaN(timeUpdateDate.getTime())) {
             throw new Error("Invalid last update date.");
@@ -472,18 +474,20 @@ function populateRightPanel(stationName, isRent) {
             //]);
             for (var hour = 0; hour < 24; hour++) {
                 // hourlyBikeData.addRow([timeUpdateDate, stationData.total_bikes]);
-                hourlyBikeData.addRow([{v: [hours, 0, 0], f: '8 am', formattedTime}, stationData.total_bikes]);
-                hourlyBikeData.addRow([{v: [hours, 0, 0], f: '9 am', formattedTime}, stationData.total_bikes]);
-                hourlyBikeData.addRow([{v: [hours, 0, 0], f: '10 am', formattedTime}, stationData.total_bikes]);
-                hourlyBikeData.addRow([{v: [hours, 0, 0], f: '11 am', formattedTime}, stationData.total_bikes]);
-                hourlyBikeData.addRow([{v: [hours, 0, 0], f: '12 am', formattedTime}, stationData.total_bikes]);
-                hourlyBikeData.addRow([{v: [hours, 0, 0], f: '1 pm', formattedTime}, stationData.total_bikes]);
-                hourlyBikeData.addRow([{v: [hours, 0, 0], f: '2 pm', formattedTime}, stationData.total_bikes]);
-                hourlyBikeData.addRow([{v: [hours, 0, 0], f: '3 pm', formattedTime}, stationData.total_bikes]);
-                hourlyBikeData.addRow([{v: [hours, 0, 0], f: '4 pm', formattedTime}, stationData.total_bikes]);
-                hourlyBikeData.addRow([{v: [hours, 0, 0], f: '5 pm', formattedTime}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: [hour, 0, 0], f: '8 am', formattedTime}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: [hour, 0, 0], f: '9 am', formattedTime}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: [hour, 0, 0], f: '10 am', formattedTime}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: [hour, 0, 0], f: '11 am', formattedTime}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: [hour, 0, 0], f: '12 am', formattedTime}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: [hour, 0, 0], f: '1 pm', formattedTime}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: [hour, 0, 0], f: '2 pm', formattedTime}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: [hour, 0, 0], f: '3 pm', formattedTime}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: [hour, 0, 0], f: '4 pm', formattedTime}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: [hour, 0, 0], f: '5 pm', formattedTime}, stationData.total_bikes]);
 
             }
+            // hourlyBikeData.addRow([{v: [..., 0, 0], f: '8 am', formattedTime}, stationData.total_bikes]);
+
             // [{v: [8, 0, 0], f: '8 am'}, 1, .25]
 
             //console.log("Hour:", hour);

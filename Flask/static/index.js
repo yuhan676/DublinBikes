@@ -447,41 +447,35 @@ function populateRightPanel(stationName, isRent) {
 
         console.log('Station information appended to right panel container.');
 
-         // Load Google Charts library and draw graphs when loaded
-         google.charts.load('current', { packages: ['corechart'] });
-         google.charts.setOnLoadCallback(function() {
- 
-             var dayOfWeek = timeUpdateDate.getDay(); // Get day of the week (0-6)
-             var hourOfDay = timeUpdateDate.getHours(); // Get hour of the day (0-23)
- 
-             // Initialize the data table for hourly bike availability
-             var hourlyBikeData = new google.visualization.DataTable();
-             hourlyBikeData.addColumn('number', 'Hour');
-             hourlyBikeData.addColumn('number', 'Bikes');
-             
-             // Populate data for hourly bike availability
-             for (var hour = 0; hour < 24; hour++) {
-                 hourlyBikeData.addRow([hour, stationData.total_bikes]);
-             }
-             // Define options for daily bike availability chart
-             var options = {
-                 title: 'Bike Availability',
-                 hAxis: { title: 'Hourly Availability', titleTextStyle: { color: '#333' } },
-                 vAxis: { minValue: 0 },
-                 legend: { position: 'none' }
-             };
-             // Create container for the chart
-             var dailyBikeChartContainer = $('<div>').addClass('rp_prediction_rent').append($('<div>').attr('id', 'dailyBikePredictionChart'));
-             rightPanelContainer.append(dailyBikeChartContainer);
-             // Draw the chart
-             var dailyBikeChart = new google.visualization.ColumnChart(document.getElementById('dailyBikePredictionChart'));
-             dailyBikeChart.draw(hourlyBikeData, options);
-             
-         });
-     } catch (error) {
-         console.error("An error occurred:", error);
-     }
- }
+        // Load Google Charts library and draw graphs when loaded
+        google.charts.load('current', { packages: ['corechart'] });
+        google.charts.setOnLoadCallback(function() {
+            var node = document.getElementById('dailyBikePredictionChart');
+
+            // Initialize the data table for hourly bike availability
+            var hourlyBikeData = new google.visualization.DataTable();
+            hourlyBikeData.addColumn('datetime', 'Time of Day');
+            hourlyBikeData.addColumn('number', 'Bikes');
+
+            // Assuming your data is in an object format
+            _.forEach(hourlyBikeData, function(row) {
+                hourlyBikeData.addRow([new Date(row[0]), row[1]]);
+            });
+
+            var options = {
+                title: 'Bike Availability',
+                hAxis: { title: 'Hourly Availability', titleTextStyle: { color: '#333' } },
+                vAxis: { minValue: 0 },
+                legend: { position: 'none' }
+            };
+
+            var chart = new google.visualization.ColumnChart(node);
+            chart.draw(hourlyBikeData, options);
+        });
+    } catch (error) {
+        console.error("An error occurred:", error);
+    }
+}
 // This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded
 // All JQuery event handler definitions should go in here
 $(document).ready(function() {

@@ -451,6 +451,17 @@ function populateRightPanel(stationName, isRent) {
         // Load Google Charts library and draw graphs when loaded
         google.charts.load('current', { packages: ['corechart'] });
         google.charts.setOnLoadCallback(function() {
+        /*
+            function drawChart() {
+                var data = google.visualization.arrayToDataTable([
+                  ['Year', 'Visitations', { role: 'style' } ],
+                  ['2010', 10, 'color: gray'],
+                  ['2020', 14, 'color: #76A7FA'],
+                  ['2030', 16, 'opacity: 0.2'],
+                  ['2040', 22, 'stroke-color: #703593; stroke-width: 4; fill-color: #C5A5CF'],
+                  ['2050', 28, 'stroke-color: #871B47; stroke-opacity: 0.6; stroke-width: 8; fill-color: #BC5679; fill-opacity: 0.2']
+                ]);
+                */
 
 
             // Initialize the data table for hourly bike availability
@@ -486,6 +497,7 @@ function populateRightPanel(stationName, isRent) {
                     title: "Testing again....",
                     minValue: 0,  // Set the minimum value for the vertical axis
                     maxValue: 25, // Set the maximum value for the vertical axis
+                    ticks: [0, 1, 3, 4, 5, 6]
                 },
                 legend: { position: 'none' }
             };            

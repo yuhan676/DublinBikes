@@ -474,13 +474,7 @@ function populateRightPanel(stationName, isRent) {
             if (isNaN(timeUpdateDate1.getTime())) {
                 throw new Error("Invalid last update date.");
             }
-            
-            //  var timeUpdateDate = new Date(stationData.last_update);
 
-            // Populate data for hourly bike availability
-            //hourlyBikeData.addRows([
-             //   [new Date(timeUpdateDate.getFullYear(), timeUpdateDate.getMonth(), timeUpdateDate.getDate(), 9, 0, 0), stationData.hourlyBikeData[9]],
-            //]);
             for (var hour = 0; hour < 24; hour++) {
                 // hourlyBikeData.addRow([timeUpdateDate, stationData.total_bikes]);
                 hourlyBikeData.addRow([{v: [hour, 0, 0], f: '8 am', formattedTime}, stationData.total_bikes]);
@@ -497,18 +491,7 @@ function populateRightPanel(stationName, isRent) {
             }
             // hourlyBikeData.addRow([{v: [..., 0, 0], f: '8 am', formattedTime}, stationData.total_bikes]);
 
-            // [{v: [8, 0, 0], f: '8 am'}, 1, .25]
-
-            //console.log("Hour:", hour);
-            //console.log("Hourly bike data:", stationData.hourlyBikeData[hour]);
-
-            //for (var hour = 0; hour < 24; hour++) {
-                //console.log("Hour:", hour);
-                //console.log("Hourly bike data:", stationData.hourlyBikeData[hour]);
-                //var date = new Date(timeUpdateDate.getFullYear(), timeUpdateDate.getMonth(), timeUpdateDate.getDate(), hour, 0, 0);
-                //var bikes = stationData.hourlyBikeData[hour] || 0; // If data is undefined, use 0
-                //hourlyBikeData.addRow([date, bikes]);
-            //}            
+            // [{v: [8, 0, 0], f: '8 am'}, 1, .25]    
             
             // Define options for daily bike availability chart
             var options = {

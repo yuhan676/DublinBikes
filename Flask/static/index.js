@@ -469,9 +469,14 @@ function populateRightPanel(stationName, isRent) {
             hourlyBikeData.addColumn('datetime', 'Time of Day');
             hourlyBikeData.addColumn('number', 'Bikes');
 
-            var myHours   = 60; // This represent 60 minutes subtraction which is 1 hour
-            var dateHSubObject= new Date(timeUpdateDate.getTime() - myHours*60000); //Substracting your hours variable
-            console.log("So, what now? ",dateHSubObject);
+            var dateStr = "Mon Apr 08 2024 14:45:17 GMT+0100 (British Summer Time)";
+            var date = new Date(dateStr);
+            var hours = date.getHours();
+            if (hours < 12) {
+                hours = " " + hours;
+                console.log("Hour: " + hours); // Example output: "Hour: 07"
+            }
+
 
             for (var hour = 0; hour < 24; hour++) {
                 hourlyBikeData.addRow([{v: timeUpdateDate, f: '8 am'}, stationData.total_bikes]);

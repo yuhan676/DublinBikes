@@ -471,8 +471,8 @@ function populateRightPanel(stationName, isRent) {
                 hAxis: { title: 'Hourly Availability', titleTextStyle: { color: '#333' } },
                 vAxis: { 
                     title: "Testing again....",  // This line was missing in your original code
-                    min: 0,
-                    max: [15, 30, 0]
+                    minValue: 0,
+                    //max: [15, 30, 0]
                 },
                 legend: { position: 'none' }
             };

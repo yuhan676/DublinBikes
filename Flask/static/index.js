@@ -505,8 +505,10 @@ function populateRightPanel(stationName, isRent) {
                     minValue: 0,  // Set the minimum value for the vertical axis
                     maxValue: 25 // Set the maximum value for the vertical axis
                 },
-                legend: { position: 'none' }
-            };            
+                legend: { position: 'none' },
+                width: 800, // Set the width of the chart
+                height: 400 // Set the height of the chart
+            }; 
             
             // Create container for the chart
             var dailyBikeChartContainer = $('<div>').addClass('rp_prediction_rent').append($('<div>').attr('id', 'dailyBikePredictionChart'));

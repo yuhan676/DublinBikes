@@ -459,22 +459,22 @@ function populateRightPanel(stationName, isRent) {
         //  var timeUpdateDate = new Date(stationData.last_update);
 
             // Populate data for hourly bike availability
-            //hourlyBikeData.addRows([
-              //  [new Date(timeUpdateDate.getFullYear(), timeUpdateDate.getMonth(), timeUpdateDate.getDate(), 9, 0, 0), stationData.hourlyBikeData[9]],
-            // ]);
-            //for (var hour = 0; hour < 24; hour++) {
-                 //hourlyBikeData.addRow([timeUpdateDate, stationData.total_bikes]);
-            //}
-            console.log("Hour:", hour);
-            console.log("Hourly bike data:", stationData.hourlyBikeData[hour]);
-
+            hourlyBikeData.addRows([
+                [new Date(timeUpdateDate.getFullYear(), timeUpdateDate.getMonth(), timeUpdateDate.getDate(), 9, 0, 0), stationData.hourlyBikeData[9]],
+            ]);
             for (var hour = 0; hour < 24; hour++) {
-                console.log("Hour:", hour);
-                console.log("Hourly bike data:", stationData.hourlyBikeData[hour]);
-                var date = new Date(timeUpdateDate.getFullYear(), timeUpdateDate.getMonth(), timeUpdateDate.getDate(), hour, 0, 0);
-                var bikes = stationData.hourlyBikeData[hour] || 0; // If data is undefined, use 0
-                hourlyBikeData.addRow([date, bikes]);
-            }            
+                hourlyBikeData.addRow([timeUpdateDate, stationData.total_bikes]);
+            }
+            //console.log("Hour:", hour);
+            //console.log("Hourly bike data:", stationData.hourlyBikeData[hour]);
+
+            //for (var hour = 0; hour < 24; hour++) {
+                //console.log("Hour:", hour);
+                //console.log("Hourly bike data:", stationData.hourlyBikeData[hour]);
+                //var date = new Date(timeUpdateDate.getFullYear(), timeUpdateDate.getMonth(), timeUpdateDate.getDate(), hour, 0, 0);
+                //var bikes = stationData.hourlyBikeData[hour] || 0; // If data is undefined, use 0
+                //hourlyBikeData.addRow([date, bikes]);
+            //}            
             
             // Define options for daily bike availability chart
             var options = {

@@ -474,8 +474,9 @@ function populateRightPanel(stationName, isRent) {
             var hours = date.getHours();
             if (hours < 12) {
                 hours = " " + hours;
-                console.log("Hours are so long and draining: " + hours); // Example output: "Hour: 07"
+                // console.log("Hours are so long and draining: " + hours); // Example output: "Hour: 07"
             }
+            console.log("Hours are so long and draining: " + hours); // Example output: "Hour: 07"
 
 
             for (var hour = 0; hour < 24; hour++) {

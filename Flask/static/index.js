@@ -474,6 +474,8 @@ function populateRightPanel(stationName, isRent) {
             if (isNaN(timeUpdateDate1.getTime())) {
                 throw new Error("Invalid last update date.");
             }
+            var hour = timeUpdateDate1.getHours();
+            console.log("Hour:", hour);
 
             for (var hour = 0; hour < 24; hour++) {
                 // hourlyBikeData.addRow([timeUpdateDate, stationData.total_bikes]);

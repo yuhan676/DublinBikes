@@ -462,7 +462,7 @@ function populateRightPanel(stationName, isRent) {
             var myHours   = 60; // This represent 60 minutes subtraction which is 1 hour
             // var dateMSubObject= new Date(timeUpdateDate.getTime() - myMinutes*60000); //Substracting your minutes variable
             var dateHSubObject= new Date(timeUpdateDate.getTime() - myHours*60000); //Substracting your hours variable
-            console.log("So, what now? ",dateSubObject);
+            console.log("So, what now? ",dateHSubObject);
 
             for (var hour = 0; hour < 24; hour++) {
                 // hourlyBikeData.addRow([timeUpdateDate, stationData.total_bikes]);

@@ -506,8 +506,8 @@ function populateRightPanel(stationName, isRent) {
                     maxValue: 25 // Set the maximum value for the vertical axis
                 },
                 legend: { position: 'none' },
-                width: 100, // Set the width of the chart
-                height: 100 // Set the height of the chart
+                width: 150, // Set the width of the chart
+                height: 150 // Set the height of the chart
             }; 
             
             // Create container for the chart

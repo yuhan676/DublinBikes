@@ -473,7 +473,7 @@ function populateRightPanel(stationName, isRent) {
             
             // var formattedTimestamp = timeUpdateDate.toISOString().slice(11, 19); // Extracting hours, minutes, and seconds
             // console.log(formattedTimestamp); // Output the formatted timestamp
-            
+
             // [{v: [8, 0, 0], f: '8 am'}, 1, .25];
 
             for (var hour = 0; hour < 24; hour++) {
@@ -484,6 +484,12 @@ function populateRightPanel(stationName, isRent) {
                 var formattedTimestamp = timeUpdateDate.toISOString().slice(11, 19);
             
                 console.log(formattedTimestamp); // Output the formatted timestamp
+                
+                // Add rows for each hour
+                hourlyBikeData.addRow([{v: formattedTimestamp, f: hour + ' am'}, stationData.total_bikes]);
+                hourlyBikeData.addRow([{v: formattedTimestamp, f: (hour === 0 ? 12 : (hour <= 12 ? hour : hour - 12)) + ' pm'}, stationData.total_bikes]);
+            }            
+                /*
                 
                 hourlyBikeData.addRow([{v: formattedTimestamp, f: '7 am'}, stationData.total_bikes]);
                 hourlyBikeData.addRow([{v: formattedTimestamp, f: '8 am'}, stationData.total_bikes]);
@@ -498,8 +504,7 @@ function populateRightPanel(stationName, isRent) {
                 hourlyBikeData.addRow([{v: formattedTimestamp, f: '5 pm'}, stationData.total_bikes]);
                 hourlyBikeData.addRow([{v: formattedTimestamp, f: '6 pm'}, stationData.total_bikes]);
                 hourlyBikeData.addRow([{v: formattedTimestamp, f: '5 pm'}, stationData.total_bikes]);
-
-            }            
+        */                  
             // Define options for daily bike availability chart
             var options = {
                 title: 'Bike Availability',

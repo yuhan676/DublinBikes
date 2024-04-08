@@ -187,6 +187,8 @@
     right: 10px;
     width: 400px;
     padding: 0;
+    color: #666; /* Text color on hover */
+
 }
 /* container for rent/return station info tab  */
 .rp_tab_container

@@ -197,9 +197,7 @@
     display: flex;
 }
 
-/* styling for right panel rent/return tab */
-.rp_tab_rent, .rp_tab_return
-{
+.rp_tab_rent, .rp_tab_return {
     width: 50%;
     padding: 20px;
     display: inline-block;
@@ -208,6 +206,17 @@
     border: 0px solid grey;
     border-bottom-width: 2px;
     cursor: pointer;
+    /* Additional styling */
+    background-color: #f0f0f0; /* Background color */
+    color: #333; /* Text color */
+    border-radius: 5px; /* Rounded corners */
+    margin-bottom: 10px; /* Margin bottom */
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+/* Hover effect */
+.rp_tab_rent:hover, .rp_tab_return:hover {
+    background-color: #e0e0e0; /* Darker background color on hover */
 }
 
 /* change tab styling when tab is set to rp_rent or rp_return */

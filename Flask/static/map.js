@@ -23,8 +23,8 @@ async function addMarker(map, item, isRent) {
         },
         crowded: {
             glyphColor: "#fff",
-            background: "##fff600",
-            borderColor: "##fff600"
+            background: "#fff600",
+            borderColor: "#fff600"
         },
         available: {
             glyphColor: "#fff",

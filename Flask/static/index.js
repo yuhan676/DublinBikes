@@ -501,7 +501,7 @@ function populateRightPanel(stationName, isRent) {
                     }
                 },
                 vAxis: { 
-                    title: "Testing again....",
+                    title: "Number of Available Bikes",
                     color: '##76A7FA',
                     minValue: 0,  // Set the minimum value for the vertical axis
                     maxValue: 25 // Set the maximum value for the vertical axis
@@ -567,7 +567,7 @@ function populateRightPanel(stationName, isRent) {
                 }
             },
             vAxis: { 
-                title: "Testing again....",
+                title: "Number of Available Stands",
                 color: '##76A7FA',
                 minValue: 0,  // Set the minimum value for the vertical axis
                 maxValue: 25 // Set the maximum value for the vertical axis
@@ -576,6 +576,8 @@ function populateRightPanel(stationName, isRent) {
             width: 400, // Set the width of the chart
             height: 300 // Set the height of the chart
         };
+        // color styling https://developers.google.com/chart/interactive/docs/roles#stylerole
+        // color styling https://developers.google.com/chart/interactive/docs/gallery/columnchart
 
         // Create container for the chart
         var dailyStandChartContainer = $('<div>').addClass('rp_prediction_rent').append($('<div>').attr('id', 'dailyStandPredictionChart'));

@@ -18,13 +18,13 @@ async function addMarker(map, item, isRent) {
     const colors = {
         unavailable: {
             glyphColor: "#fff",
-            background: "red",
-            borderColor: "red"
+            background: "#c8001d",
+            borderColor: "#c8001d"
         },
         crowded: {
             glyphColor: "#fff",
-            background: "#FBBC04",
-            borderColor: "#FBBC04"
+            background: "##fff600",
+            borderColor: "##fff600"
         },
         available: {
             glyphColor: "#fff",

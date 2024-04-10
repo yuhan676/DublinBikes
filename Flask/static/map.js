@@ -21,7 +21,7 @@ async function addMarker(map, item, isRent) {
             background: "#c8001d",
             borderColor: "#c8001d"
         },
-        crowded: {
+        limited_availability: {
             glyphColor: "#fff",
             background: "#fff600",
             borderColor: "#fff600"
@@ -36,9 +36,9 @@ async function addMarker(map, item, isRent) {
 
     let station = item.position
     let total = isRent ? item.total_bikes : item.empty_stands_number
-    let style = total === 0 ? colors.unavailable : total < 7 ? colors.crowded : colors.available
+    let style = total === 0 ? colors.unavailable : total < 7 ? colors.limited_availability : colors.available
 
-    let status = total === 0 ? 'Unavailable' : total < 7 ? 'Crowded' : 'Available'
+    let status = total === 0 ? 'Unavailable' : total < 7 ? 'Limited Availability' : 'Available'
 
     let contentString =  `
         <p><b>Status:</b> ${status}</p>
@@ -132,6 +132,7 @@ function addMarkerToGlobalArray(marker) {
 
 
 function animateMarker(index) {
+    console.log('9779 index', index , allMarkers.length);
     allMarkers.forEach(marker => {
         marker?.content?.classList.remove("bounce")
     })

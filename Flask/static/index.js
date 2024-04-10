@@ -155,6 +155,7 @@ function verifyAndSubmitQuery() {
     dateSelected.setHours(timeSelected.getHours());
     dateSelected.setMinutes(timeSelected.getMinutes());
     // This is the dummy data I used to test on my local machine
+    // console.log("run here")
     // testDummyData();
     // return
     // Package and submit query
@@ -204,6 +205,9 @@ function verifyAndSubmitQuery() {
             {createSelectionToggle(isRent);}
             // Populate the selection boxes
             populateStationBoxes(isRent);
+            setTimeOut(() => {
+                animateMarker(0)
+            }, 100)
         
     },
         error: function(request, status, errorString) {
@@ -471,6 +475,15 @@ function populateRightPanel(stationName, isRent) {
             }
             
             // Add additional rows as per your specified array
+            // data = [
+            //     2
+            //     4 
+            //     6
+            // ]
+            // data.forEach(item => {
+            //     hourlyBikeData.addRow([{v: formattedTimestamp, f: formattedTimestamp}, item]);
+            // })
+
             hourlyBikeData.addRow([{v: formattedTimestamp, f: formattedTimestamp}, stationData.total_bikes]);
             hourlyBikeData.addRow([{v: formattedTimestamp, f: formattedTimestamp}, stationData.total_bikes]);
             hourlyBikeData.addRow([{v: formattedTimestamp, f: formattedTimestamp}, stationData.total_bikes]);
@@ -517,6 +530,7 @@ function populateRightPanel(stationName, isRent) {
             // Draw the chart
             var dailyStandChart = new google.visualization.ColumnChart(document.getElementById('dailyStandPredictionChart'));
             dailyStandChart.draw(dailyStandData, options);
+            // console.log('9779 daily', stationData);
 
             // Initialize the data table for hourly bike availability
             var dailyStandData = new google.visualization.DataTable();
@@ -941,7 +955,7 @@ function openPopupWithKeystroke(event) {
 }
 // Function to test dummy data on local machine
 function testDummyData() {
-    lastSearchJSON = [
+    lastRentSearchJSON = [
         {
             "address": "Clarendon Row",
             "banking": 0,
@@ -1032,8 +1046,12 @@ function testDummyData() {
             "status": "OPEN",
             "total_bikes": 0
         }
-    ];
+    ];  
     updateMarkers(isRent);
     createSelectionToggle(isRent)
     populateStationBoxes(isRent);
+    setTimeout(() => {
+        animateMarker(0)
+        
+    },100)
 }

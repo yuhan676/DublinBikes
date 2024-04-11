@@ -292,5 +292,84 @@ def search():
         app.logger.error(f"Unhandled exception in /search route for station '{stationName}': {e}\n{traceback.format_exc()}")
         return jsonify(error="An unexpected error occurred."), 500
 
+
+from datetime import datetime, timedelta
+
+@app.route('/bike_station_data', methods=['GET'])
+def bike_station_data():
+    isRent = request.args.get('isRent')
+    stationName = request.args.get('stationName').strip()
+    date = request.args.get('date')
+
+    results = []
+    
+    try:
+        with open('1_to_5_Mapping.json', 'r') as f:
+            station_data = json.load(f)
+        
+        station_numbers = []
+        # First, find the station numbers directly if the station name matches exactly
+        if stationName in station_data:
+            station_numbers = station_data[stationName]
+        else:
+            # If not found, attempt to find a station starting with the given name
+            for station, numbers in station_data.items():
+                if station.lower().startswith(stationName.lower()):
+                    station_numbers = numbers
+                    break
+
+        engine = connect_db()
+        connection = engine.connect()
+
+        results = []
+
+        hourly_avg_data = {}
+        daily_avg_data = {}
+
+        # Calculate average hourly data for the previous day
+        prev_day = datetime.now() - timedelta(days=1)
+        for numbers in station_numbers:
+            for number in numbers:
+                hourly_avg_query = text("""
+                    SELECT HOUR(last_update) AS hour, AVG(total_bikes) AS avg_bikes, AVG(empty_stands_number) AS avg_empty_stands
+                    FROM station_status
+                    WHERE station_number = :number
+                    AND DATE(last_update) = DATE(:date)
+                    GROUP BY hour
+                """)
+                hourly_avg_results = connection.execute(hourly_avg_query, {"number": number, "date": prev_day}).fetchall()
+
+                hourly_avg_data[number] = [{'hour': hour, 'avg_bikes': avg_bikes, 'avg_empty_stands': avg_empty_stands} for hour, avg_bikes, avg_empty_stands in hourly_avg_results]
+
+        # Calculate average daily data for the past 7 days
+        for numbers in station_numbers:
+            for number in numbers:
+                daily_avg_query = text("""
+                    SELECT DATE(last_update) AS date, AVG(total_bikes) AS avg_bikes, AVG(empty_stands_number) AS avg_empty_stands
+                    FROM station_status
+                    WHERE station_number = :number
+                    AND last_update >= DATE(:date - INTERVAL 7 DAY)
+                    AND last_update <= DATE(:date)
+                    GROUP BY date
+                """)
+                daily_avg_results = connection.execute(daily_avg_query, {"number": number, "date": datetime.now()}).fetchall()
+
+                daily_avg_data[number] = [{'date': date.strftime('%Y-%m-%d'), 'avg_bikes': avg_bikes, 'avg_empty_stands': avg_empty_stands} for date, avg_bikes, avg_empty_stands in daily_avg_results]
+
+        connection.close()
+
+        return jsonify({
+            'hourly_avg_data': hourly_avg_data,
+            'daily_avg_data': daily_avg_data
+        })
+
+    except FileNotFoundError:
+        app.logger.error("Mapping file not found.")
+        return jsonify(error="Mapping file not found."), 500
+
+    except Exception as e:
+        app.logger.error(f"Unhandled exception in /bike_station_graph_data route: {e}\n{traceback.format_exc()}")
+        return jsonify(error="An unexpected error occurred."), 500
+
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=8080)

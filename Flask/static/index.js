@@ -79,7 +79,7 @@ function updateSearchBtn() {
 // Function to send a simulated location to server, longitude and lattitude are that of Dublin
 function simulateUserLocation() {
     // Simulate getting the position with a fake location
-  const position = {
+  return position = {
     coords: {
       latitude: 53.3498053,
       longitude: -6.2603097
@@ -619,7 +619,7 @@ $(document).ready(function() {
     });
 
     // Add event listener to find closest station button
-    document.getElementById('closestStation_btn').addEventListener('click', simulateUserLocation);
+    document.getElementById('closestStation_btn').addEventListener('click', addUserLocationMarker(simulateUserLocation()));
 
     // set selected station when clicking suggestion
     $('#suggestion_box_rent').on('mousedown', '.suggestion_div', function() {

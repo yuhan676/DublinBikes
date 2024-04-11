@@ -140,6 +140,28 @@ function animateMarker(index) {
     const content = marker?.content
     content?.classList.add("bounce")
 }
+
+function addUserLocationMarker(position) {
+    var userLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+    if (userLocationMarker) {
+      // Marker already created - Move it to new location
+      userLocationMarker.setPosition(userLocation);
+    } else {
+      // Create a marker and set its position
+      userLocationMarker = new google.maps.Marker({
+        map: map,
+        position: userLocation,
+        icon: {
+          url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png', // The URL to your custom icon
+          // set desired size and anchor settings here if necessary
+        }
+      });
+    }
+
+    // Center the map on the user's location
+    map.setCenter(userLocation);
+  }
 // Attach function to the window object
 window.animateMarker = animateMarker
 window.updateMarkers = updateMarkers;

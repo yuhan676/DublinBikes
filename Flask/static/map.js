@@ -71,7 +71,7 @@ const marker = new AdvancedMarkerElement({
     position: position,
     title: item.number.toString(),
     content: pinElement.element,
-    zIndex: 100
+    zIndex: 1
 });
 
   marker.addListener("click", () => {

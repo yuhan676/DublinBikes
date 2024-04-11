@@ -71,6 +71,7 @@ const marker = new AdvancedMarkerElement({
     position: position,
     title: item.number.toString(),
     content: pinElement.element,
+    zIndex: 100
 });
 
   marker.addListener("click", () => {
@@ -157,7 +158,7 @@ function addUserLocationMarker(position) {
           url: 'http://maps.gstatic.com/mapfiles/ms2/micons/woman.png', // The URL to your custom icon
           // set desired size and anchor settings here if necessary
         },
-        zIndex: 10
+        zIndex: google.maps.Marker.MAX_ZINDEX + 1
       });
     }
 

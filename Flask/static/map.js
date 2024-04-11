@@ -155,7 +155,7 @@ function addUserLocationMarker(position) {
         map: map,
         position: userLocation,
         icon: {
-          url: 'http://maps.gstatic.com/mapfiles/ms2/micons/woman.png', // The URL to your custom icon
+          url: 'http://maps.gstatic.com/mapfiles/ms2/micons/ltblue-dot.png', // The URL to your custom icon
           // set desired size and anchor settings here if necessary
         },
         zIndex: google.maps.Marker.MAX_ZINDEX + 1

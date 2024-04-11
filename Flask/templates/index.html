@@ -44,11 +44,11 @@
 </head>
 <body>
     <div id="map"></div>
-    <div id="left-panel">
+    <div id="left-panel" class="centred">
+        <img class="bike_no_man" src="{{ url_for('static', filename='image/bike_no_man.png') }}"/>
         <div class="tab">
             <button class="tablinks active" onclick="openTab(event, 'rent')">Rent</button>
             <button class="tablinks" onclick="openTab(event, 'return')">Return</button>
-            <button class="tablinks" onclick="openTab(event, 'rent_return')">Rent & Return</button>
         </div>
         <div id="rent" class="tabcontent">
             <input type="time" id="rent_time" name="rent-time">
@@ -56,7 +56,7 @@
             <div class="input_wrap">
                 <div id="available-bikes-rent"></div>
                 <input type="text" placeholder="Search for bike station to rent" id="search_rent" autocomplete="off">
-                <div class="suggestion_box" id="suggestion_box_rent"> </div>
+                <div class="suggestion_box" id="suggestion_box_rent"></div>
                 <div class="selection_container" id="selection_container_rent"></div>
             </div>
         </div>
@@ -65,8 +65,8 @@
             <input type="date" id="return_date" name="rent-date">
             <div class="input_wrap">
                 <input type="text" placeholder="Search for bike station to return" id="search_return" autocomplete="off">
-                <div class="suggestion_box" id="suggestion_box_return"> </div>
-                <div class="selection_container" id="selection_container_return"> </div>
+                <div class="suggestion_box" id="suggestion_box_return"></div>
+                <div class="selection_container" id="selection_container_return"></div>
             </div>
         </div>
         <div class="closestStation_btn_container">
@@ -89,7 +89,7 @@
     </div> -->
 
     <!-- class flag set by jquery to change panel content -->
-    <div id="right_panel" class="rp_live rp_closed rp_rent">
+    <div id="right_panel" class="rp_live rp_closed rp_rent slide_out">
         <div class="rp_tab_container">
             <div class="rp_tab_rent" id="rp_tab_rent">Rent</div>
             <div class="rp_tab_return" id="rp_tab_return">Return</div>

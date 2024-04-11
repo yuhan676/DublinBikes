@@ -358,6 +358,8 @@ def bike_station_data():
 
         connection.close()
 
+        print(hourly_avg_data)
+        print(daily_avg_data)
         return jsonify({
             'hourly_avg_data': hourly_avg_data,
             'daily_avg_data': daily_avg_data
@@ -367,9 +369,9 @@ def bike_station_data():
         app.logger.error("Mapping file not found.")
         return jsonify(error="Mapping file not found."), 500
 
-    except Exception as e:
-        app.logger.error(f"Unhandled exception in /bike_station_graph_data route: {e}\n{traceback.format_exc()}")
-        return jsonify(error="An unexpected error occurred."), 500
+    # except Exception as e:
+    #     app.logger.error(f"Unhandled exception in /bike_station_graph_data route: {e}\n{traceback.format_exc()}")
+    #     return jsonify(error="An unexpected error occurred."), 500
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=8080)

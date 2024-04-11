@@ -179,6 +179,10 @@ function verifyAndSubmitQuery() {
             // Success! return_data should contain the five stations plus any other necessary info
             // Pass this to a function to display here, maybe don't add population code here to keep things clean
 
+            // Show the right panel, slide search panel to the left
+            $('#right_panel').removeClass('slide_out');
+            $('#left-panel').removeClass('centred');
+
             // Clear the global variable
             if (isRent) {
                 lastRentSearchJSON = {};
@@ -851,6 +855,7 @@ $(document).ready(function() {
 
     // Search button click listener
     $('#search_btn').click(function() {
+        $('#right_panel').removeClass('slide_out');
         verifyAndSubmitQuery();
     });
     // Add event listener to detect keyboard stroke for opening the popup
@@ -906,15 +911,8 @@ function openTab(evt, tabName) {
     }
 
     // Show the current tab, and add an "active" class to the button that opened the tab
-    if (tabName == "rent_return")
-    {
-        document.getElementById("rent").style.display = 'block';
-        document.getElementById("return").style.display = 'block';
-    }
-    else
-    {
-        document.getElementById(tabName).style.display = 'block';
-    }
+    document.getElementById(tabName).style.display = 'block';
+    
     if (evt) {
         evt.currentTarget.className += ' active';
     }
@@ -930,8 +928,13 @@ function openTab(evt, tabName) {
     if (Object.keys(getLastSearchJSON()).length)
     {
         selectStation(0, activeTab == "rent");
+        $('#right_panel').removeClass('slide_out');
     }
-    // TODO: clear/hide the right hand panel
+    else 
+    {
+        // Clear/hide the right hand panel
+        $('#right_panel').addClass('slide_out');
+    }
 }
 function weatherOpenTab(evt, tabContentId) {
     try {

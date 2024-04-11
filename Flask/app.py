@@ -329,17 +329,16 @@ def bike_station_data():
         # Calculate average hourly data for the previous day
         prev_day = datetime.now() - timedelta(days=1)
         for numbers in station_numbers:
-            for number in numbers:
-                hourly_avg_query = text("""
+            hourly_avg_query = text("""
                     SELECT HOUR(last_update) AS hour, AVG(total_bikes) AS avg_bikes, AVG(empty_stands_number) AS avg_empty_stands
                     FROM station_status
                     WHERE station_number = :number
                     AND DATE(last_update) = DATE(:date)
                     GROUP BY hour
                 """)
-                hourly_avg_results = connection.execute(hourly_avg_query, {"number": number, "date": prev_day}).fetchall()
+            hourly_avg_results = connection.execute(hourly_avg_query, {"number": number, "date": prev_day}).fetchall()
 
-                hourly_avg_data[number] = [{'hour': hour, 'avg_bikes': avg_bikes, 'avg_empty_stands': avg_empty_stands} for hour, avg_bikes, avg_empty_stands in hourly_avg_results]
+            hourly_avg_data[number] = [{'hour': hour, 'avg_bikes': avg_bikes, 'avg_empty_stands': avg_empty_stands} for hour, avg_bikes, avg_empty_stands in hourly_avg_results]
 
         # Calculate average daily data for the past 7 days
         for numbers in station_numbers:

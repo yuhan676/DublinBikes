@@ -619,110 +619,50 @@ function populateRightPanel(stationName, isRent) {
     }
 }
 
-function draw7DayAverageBikeAvailabilityChart(stationData) {
-    var dailyAverageBikeData = new google.visualization.DataTable();
-    dailyAverageBikeData.addColumn('string', 'Day');
-    dailyAverageBikeData.addColumn('number', 'Average Bikes');
 
-    // Calculate 7-day average availability
-    var totalBikes = 0;
-    for (var i = 0; i < stationData.daily_availability.length; i++) {
-        totalBikes += stationData.daily_availability[i].total_bikes;
-    }
-    var averageBikes = totalBikes / stationData.daily_availability.length;
+// This function returns 2 arrays in Dictionary format
+function makeArrays(isRent, stationName){
+    var fetchUrl = '/bike_station_data?isRent=' + isRent + '&stationName=' + stationName + '&date=' + date;
+    fetch(fetchUrl)
+    .then(response => response.json())
+    .then(data => {
+        let hourlyAvgData = [];
+        let dailyAvgData = [];
 
-    dailyAverageBikeData.addRow(['7-Day Average', averageBikes]);
+        // Loop through each station number in the hourly_avg_data object
+        for (let stationNumber in data.hourly_avg_data) {
+            // Push each data object into the hourlyAvgData array
+            data.hourly_avg_data[stationNumber].forEach(item => {
+                hourlyAvgData.push({
+                    stationNumber: stationNumber,
+                    hour: item.hour,
+                    avg_bikes: item.avg_bikes,
+                    avg_empty_stands: item.avg_empty_stands
+                });
+            });
+        }
 
-    var options = {
-        title: '7-Day Average Bike Availability',
-        hAxis: {
-            title: 'Day',
-            titleTextStyle: { color: '#871B47' },
-            textStyle: { color: '#BC5679' }
-        },
-        vAxis: {
-            title: 'Average Bikes',
-            titleTextStyle: { color: '#76A7FA' },
-            minValue: 0,
-            maxValue: 25
-        },
-        legend: { position: 'none' },
-        width: 400,
-        height: 300
-    };
+        // Loop through each station number in the daily_avg_data object
+        for (let stationNumber in data.daily_avg_data) {
+            // Push each data object into the dailyAvgData array
+            data.daily_avg_data[stationNumber].forEach(item => {
+                dailyAvgData.push({
+                    stationNumber: stationNumber,
+                    date: item.date,
+                    avg_bikes: item.avg_bikes,
+                    avg_empty_stands: item.avg_empty_stands
+                });
+            });
+        }
 
-    var dailyAverageBikeChart = new google.visualization.ColumnChart(document.getElementById('dailyAverageBikeAvailabilityChart'));
-    dailyAverageBikeChart.draw(dailyAverageBikeData, options);
-}
+        let dataInArrays = {
+            'hourly': hourlyAvgData,
+            'daily': dailyAvgData
+        }
+        return dataInArrays;
+    })
+    .catch(error => console.error('Error:', error));
 
-function drawHourlyStandAvailabilityChart(stationData) {
-    var hourlyStandData = new google.visualization.DataTable();
-    hourlyStandData.addColumn('string', 'Time of Day');
-    hourlyStandData.addColumn('number', 'Available Stands');
-
-    // Assuming stationData.hourly_availability is an array of hourly availability data
-    for (var i = 0; i < stationData.hourly_availability.length; i++) {
-        var hourData = stationData.hourly_availability[i];
-        var formattedHour = hourData.hour + ':00';
-        hourlyStandData.addRow([formattedHour, hourData.empty_stands]);
-    }
-
-    var options = {
-        title: 'Hourly Stand Availability',
-        hAxis: {
-            title: 'Time of Day',
-            titleTextStyle: { color: '#871B47' },
-            textStyle: { color: '#BC5679' }
-        },
-        vAxis: {
-            title: 'Available Stands',
-            titleTextStyle: { color: '#76A7FA' },
-            minValue: 0,
-            maxValue: 25
-        },
-        legend: { position: 'none' },
-        width: 400,
-        height: 300
-    };
-
-    var hourlyStandChart = new google.visualization.ColumnChart(document.getElementById('hourlyStandAvailabilityChart'));
-    hourlyStandChart.draw(hourlyStandData, options);
-}
-
-function draw7DayAverageStandAvailabilityChart(stationData) {
-    var dailyAverageStandData = new google.visualization.DataTable();
-    dailyAverageStandData.addColumn('string', 'Day');
-    dailyAverageStandData.addColumn('number', 'Average Stands');
-
-    // Calculate 7-day average availability
-    var totalStands = 0;
-    for (var i = 0; i < stationData.daily_availability.length; i++) {
-        totalStands += stationData.daily_availability[i].empty_stands;
-    }
-    var averageStands = totalStands / stationData.daily_availability.length;
-
-    dailyAverageStandData.addRow(['7-Day Average', averageStands]);
-
-    var options = {
-        title: '7-Day Average Stand Availability',
-        hAxis: {
-            title: 'Day',
-            titleTextStyle: { color: '#871B47' },
-            textStyle: { color: '#BC5679' }
-        },
-        vAxis: {
-            title: 'Average Stands',
-            titleTextStyle: { color: '#76A7FA' },
-            minValue: 0,
-            maxValue: 25
-        },
-        legend: { position: 'none' },
-        width: 400,
-        height: 300
-    };
-
-    var dailyAverageStandChart = new google.visualization.ColumnChart(document.getElementById('dailyAverageStandAvailabilityChart'));
-    dailyAverageStandChart.draw(dailyAverageStandData, options);
 }
 
 // This line indicates that the following function only triggers after 'document' (i.e. index.html) has loaded

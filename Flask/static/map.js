@@ -143,6 +143,7 @@ function animateMarker(index) {
 
 function addUserLocationMarker(position) {
     var userLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    var userLocationMarker;
 
     if (userLocationMarker) {
       // Marker already created - Move it to new location

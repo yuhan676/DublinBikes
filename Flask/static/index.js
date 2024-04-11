@@ -79,7 +79,7 @@ function updateSearchBtn() {
 // Function to send a simulated location to server, longitude and lattitude are that of Dublin
 function simulateUserLocation() {
     // Simulate getting the position with a fake location
-  return position = {
+   var position = {
     coords: {
       latitude: 53.3498053,
       longitude: -6.2603097
@@ -88,6 +88,12 @@ function simulateUserLocation() {
 
   // Use the simulated position
   sendPositionToServer(position);
+  return {
+    coords: {
+        latitude: 53.3498053,
+        longitude: -6.2603097
+    }
+};
   }
 
   // Function called by findUerLocation to send the query to the flask endpoint adn update the server's respond

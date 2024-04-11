@@ -154,7 +154,7 @@ function addUserLocationMarker(position) {
         map: map,
         position: userLocation,
         icon: {
-          url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png', // The URL to your custom icon
+          url: 'http://maps.gstatic.com/mapfiles/ms2/micons/man.png', // The URL to your custom icon
           // set desired size and anchor settings here if necessary
         }
       });

@@ -619,7 +619,7 @@ $(document).ready(function() {
     });
 
     // Add event listener to find closest station button
-    document.getElementById('closestStation_btn').addEventListener('click', addUserLocationMarker(simulateUserLocation()));
+    document.getElementById('closestStation_btn').addEventListener('click', function(){addUserLocationMarker(simulateUserLocation())});
 
     // set selected station when clicking suggestion
     $('#suggestion_box_rent').on('mousedown', '.suggestion_div', function() {

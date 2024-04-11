@@ -162,8 +162,8 @@ function verifyAndSubmitQuery() {
     dateSelected.setMinutes(timeSelected.getMinutes());
     // This is the dummy data I used to test on my local machine
     // console.log("run here")
-    // testDummyData();
-    // return
+    testDummyData();
+    return
     // Package and submit query
     var stationName = $(isRent ? '#search_rent' : '#search_return').val();
     $.ajax({
@@ -461,21 +461,79 @@ function populateRightPanel(stationName, isRent) {
         }
 
         console.log('Station information appended to right panel container.');
+        let data = makeArrays(isRent, stationName);
+        let hourly = data['hourly'];
+        let daily = data['daily'];
 
         // Load Google Charts library and draw graphs when loaded
-        // google.charts.load('current', { packages: ['corechart'] });
-        // google.charts.setOnLoadCallback(function() {
-        //     // Initialize the data table for hourly bike availability
-        //     var hourlyBikeData = new google.visualization.DataTable();
-        //     hourlyBikeData.addColumn('string', 'Time of Day');
-        //     hourlyBikeData.addColumn('number', 'Available Bikes');
-        //     // Loop through each hour of the day
-        //     for (var hour = 0; hour < 24; hour++) {
-        //         // Clone the timeUpdateDate to avoid modifying the original object
-        //         var updatedTime = new Date(timeUpdateDate);
-                
-        //         // Set the hour of the updatedTime
-        //         updatedTime.setHours(hour);
+        google.charts.load('current', { packages: ['corechart'] });
+        google.charts.setOnLoadCallback(function() {
+            // Initialize the data table for hourly bike availability
+            var hourlyBikeData = new google.visualization.DataTable();
+            hourlyBikeData.addColumn('string', 'Time of Day');
+            hourlyBikeData.addColumn('number', 'Available Bikes');
+            
+            hourly.forEach(item => {
+                var formattedTimestamp = new Date(item.hour).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                hourlyBikeData.addRow([formattedTimestamp, item.avg_bikes]);
+            });
+            // Define options for the hourly bike availability chart
+            var hourlyOptions = {
+                title: 'Hourly Bike Availability',
+                hAxis: {
+                    title: 'Day',
+                    titleTextStyle: { color: '#871B47' },
+                    textStyle: { color: '#BC5679' }
+                },
+                vAxis: {
+                    title: 'Average Bikes',
+                    titleTextStyle: { color: '#76A7FA' },
+                    minValue: 0,
+                    maxValue: 25
+                },
+                legend: { position: 'none' },
+                width: 400,
+                height: 300
+            };
+
+    // Draw the hourly bike availability chart
+    var hourlyChart = new google.visualization.ColumnChart(document.getElementById('hourly_chart_div'));
+    hourlyChart.draw(hourlyBikeData, hourlyOptions);
+
+    // Initialize the data table for daily bike availability
+    var dailyBikeData = new google.visualization.DataTable();
+    dailyBikeData.addColumn('string', 'Date');
+    dailyBikeData.addColumn('number', 'Available Bikes');
+
+    // Populate the dailyBikeData with the dailyAvgData array
+    daily.forEach(item => {
+        dailyBikeData.addRow([item.date, item.avg_bikes]);
+    });
+
+    // Define options for the daily bike availability chart
+    var dailyOptions = {
+        title: 'Daily Bike Availability',
+            hAxis: {
+                title: 'Day',
+                titleTextStyle: { color: '#871B47' },
+                textStyle: { color: '#BC5679' }
+            },
+            vAxis: {
+                title: 'Average Bikes',
+                titleTextStyle: { color: '#76A7FA' },
+                minValue: 0,
+                maxValue: 25
+            },
+            legend: { position: 'none' },
+            width: 400,
+            height: 300
+        };
+
+    // Draw the daily bike availability chart
+    var dailyChart = new google.visualization.ColumnChart(document.getElementById('daily_chart_div'));
+    dailyChart.draw(dailyBikeData, dailyOptions);
+        }
+        )
                 
         //         // Extract formatted timestamp for the current hour
         //         var formattedTimestamp = updatedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -611,86 +669,54 @@ function populateRightPanel(stationName, isRent) {
         // dailyStandChart.draw(dailyStandData, options);
             
         // });
-
-            try {
-                // Make AJAX request to fetch station data
-                $.ajax({
-                    url: '/search',
-                    method: 'GET',
-                    data: { stationName: stationName, isRent: isRent },
-                    success: function(response) {
-                        var stationData = response;
-        
-                        if (!stationData || stationData.length === 0) {
-                            throw new Error("Station data not found.");
-                        }
-        
-                        console.log('Station data found:', stationData);
-        
-                        var rightPanelContainer = $('#rp_content');
-                        if (!rightPanelContainer || rightPanelContainer.length === 0) {
-                            throw new Error("Right panel container not found.");
-                        }
-        
-                        console.log('Right panel container:', rightPanelContainer);
-        
-                        rightPanelContainer.empty();
-                        console.log('Previous content cleared.');
-        
-                        var stationElementName = $('<div>').addClass('rp_station_name').text('Station Name: ' + stationData.name);
-                        var totalBikeLabel = $('<div>').addClass('rp_bike_total_label').text('Total Bike: ').append($('<p>').attr('id', 'available-bikes').text(stationData.total_bikes));
-                        var mechanicalBikeLabel = $('<div>').addClass('rp_info_label').text('Mechanical Bikes: ').append($('<p>').attr('id', 'available_mechanical').text(stationData.mechanical_bikes));
-                        var eBikeRemovableLabel = $('<div>').addClass('rp_info_label').text('E-Bike Removable Battery: ').append($('<p>').attr('id', 'available_e_removable').text(stationData.electrical_removable_battery_bikes));
-                        var eBikeInternalLabel = $('<div>').addClass('rp_info_label').text('E-Bike Internal Battery: ').append($('<p>').attr('id', 'available_e_internal').text(stationData.electrical_internal_battery_bikes));
-                        var totalParkingLabel = $('<div>').addClass('rp_park_total_label').text('Total Parking: ').append($('<p>').attr('id', 'available-park').text(stationData.empty_stands_number));
-        
-                        var timeUpdateDate = new Date(stationData.last_update);
-                        if (isNaN(timeUpdateDate.getTime())) {
-                            throw new Error("Invalid last update date.");
-                        }
-        
-                        var options = {
-                            weekday: 'long', 
-                            month: 'long',
-                            day: 'numeric',
-                            hour: 'numeric',
-                            minute: 'numeric',
-                            timeZone: 'Europe/Dublin'
-                        };
-        
-                        var formattedTime = timeUpdateDate.toLocaleString(undefined, options);
-        
-                        var timeUpdateLabel = $('<div>').addClass('rp_info_label').html("<p style='margin-bottom: 5px;'><strong>Last Updated:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + formattedTime + "</span></p>");
-        
-                        if (isRent) {
-                            rightPanelContainer.append(stationElementName, totalParkingLabel, totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabel);
-        
-                            // Draw charts for 1-day and 7-day average bike availability
-                            drawHourlyBikeAvailabilityChart(stationData);
-                            draw7DayAverageBikeAvailabilityChart(stationData);
-                        } else {
-                            rightPanelContainer.append(stationElementName, totalParkingLabel, totalBikeLabel, timeUpdateLabel);
-        
-                            // Draw charts for 1-day and 7-day average stand availability
-                            drawHourlyStandAvailabilityChart(stationData);
-                            draw7DayAverageStandAvailabilityChart(stationData);
-                        }
-        
-                        console.log('Station information appended to right panel container.');
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("An error occurred while fetching station data:", error);
-                    }
-                });
-            } catch (error) {
-                console.error("An error occurred:", error);
-            }
         
     } catch (error) {
         console.error("An error occurred:", error);
     }
 }
+function makeArrays(isRent, stationName){
+    var fetchUrl = '/bike_station_data?isRent=' + isRent + '&stationName=' + stationName + '&date=' + date;
+    fetch(fetchUrl)
+    .then(response => response.json())
+    .then(data => {
+        let hourlyAvgData = [];
+        let dailyAvgData = [];
 
+        // Loop through each station number in the hourly_avg_data object
+        for (let stationNumber in data.hourly_avg_data) {
+            // Push each data object into the hourlyAvgData array
+            data.hourly_avg_data[stationNumber].forEach(item => {
+                hourlyAvgData.push({
+                    stationNumber: stationNumber,
+                    hour: item.hour,
+                    avg_bikes: item.avg_bikes,
+                    avg_empty_stands: item.avg_empty_stands
+                });
+            });
+        }
+
+        // Loop through each station number in the daily_avg_data object
+        for (let stationNumber in data.daily_avg_data) {
+            // Push each data object into the dailyAvgData array
+            data.daily_avg_data[stationNumber].forEach(item => {
+                dailyAvgData.push({
+                    stationNumber: stationNumber,
+                    date: item.date,
+                    avg_bikes: item.avg_bikes,
+                    avg_empty_stands: item.avg_empty_stands
+                });
+            });
+        }
+
+        let dataInArrays = {
+            'hourly': hourlyAvgData,
+            'daily': dailyAvgData
+        }
+        return dataInArrays;
+    })
+    .catch(error => console.error('Error:', error));
+
+}
 function draw7DayAverageBikeAvailabilityChart(stationData) {
     var dailyAverageBikeData = new google.visualization.DataTable();
     dailyAverageBikeData.addColumn('string', 'Day');

@@ -1,0 +1,9 @@
+{
+    "db_type": "mysql",
+    "username": "admin",
+    "password": "DublinBike2024%",
+    "default_db": "mysql",
+    "db_name": "dublinbike_db",
+    "url": "mysql://admin:DublinBike2024%@database-dublinbike.c1g2mg4aerll.eu-north-1.rds.amazonaws.com:3306/dublinbike_db"
+}
+

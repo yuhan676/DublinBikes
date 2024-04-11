@@ -19,17 +19,20 @@ async function addMarker(map, item, isRent) {
         unavailable: {
             glyphColor: "#fff",
             background: "#c8001d",
-            borderColor: "#c8001d"
+            borderColor: "#c8001d",
+            border: "2px",
         },
         limited_availability: {
             glyphColor: "#fff",
             background: "#fff600",
-            borderColor: "#fff600"
+            borderColor: "#fff600",
+            border: "2px",
         },
         available: {
             glyphColor: "#fff",
             background: "green",
-            borderColor: "green"
+            borderColor: "green",
+            border: "2px",
             
         }
     }
@@ -158,7 +161,7 @@ function addUserLocationMarker(position) {
           url: 'http://maps.gstatic.com/mapfiles/ms2/micons/ltblue-dot.png', // The URL to your custom icon
           // set desired size and anchor settings here if necessary
         },
-        zIndex: google.maps.Marker.MAX_ZINDEX + 1
+        scaledSize: new google.maps.Size(32, 32)
       });
     }
 

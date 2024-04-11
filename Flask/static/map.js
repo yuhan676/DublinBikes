@@ -19,20 +19,17 @@ async function addMarker(map, item, isRent) {
         unavailable: {
             glyphColor: "#fff",
             background: "#c8001d",
-            borderColor: "#c8001d",
-            border: "2px",
+            borderColor: "#c8001d"
         },
         limited_availability: {
             glyphColor: "#fff",
             background: "#fff600",
-            borderColor: "#fff600",
-            border: "2px",
+            borderColor: "#fff600"
         },
         available: {
             glyphColor: "#fff",
             background: "green",
-            borderColor: "green",
-            border: "2px",
+            borderColor: "green"
             
         }
     }
@@ -74,7 +71,6 @@ const marker = new AdvancedMarkerElement({
     position: position,
     title: item.number.toString(),
     content: pinElement.element,
-    zIndex: 1
 });
 
   marker.addListener("click", () => {
@@ -158,10 +154,9 @@ function addUserLocationMarker(position) {
         map: map,
         position: userLocation,
         icon: {
-          url: 'http://maps.gstatic.com/mapfiles/ms2/micons/ltblue-dot.png', // The URL to your custom icon
+          url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png', // The URL to your custom icon
           // set desired size and anchor settings here if necessary
-        },
-        scaledSize: new google.maps.Size(32, 32)
+        }
       });
     }
 

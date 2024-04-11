@@ -5,11 +5,6 @@
     box-sizing: border-box;
 }
 
-body
-{
-    overflow: hidden;
-}
-
 /* Full-screen map */
 #map {
     height: 100vh;
@@ -28,45 +23,11 @@ body
 }
 
 #left-panel {
-    top: 100px;
+    top: 10px;
     left: 10px;
     display: flex;
     flex-direction: column; /* Stack children vertically */
     z-index: 11;
-    overflow: hidden;
-    transition: all 1.5s;
-    &.centred {
-        left: calc(50vw - 250px);
-        width: 500px;
-        padding-bottom: 50px;
-    }
-}
-
-.centred .bike_no_man
-{
-    opacity: 1;    
-}
-
-.bike_no_man
-{
-    opacity: 0;
-    transition: opacity 1.5s;
-    width: 67px;
-    height: auto;
-    bottom: 0;
-    left: 0;
-    position: absolute;
-    animation: linear infinite;
-    animation-name: run;
-    animation-duration: 10s;
-}
-@keyframes run {
-0% {
-    left: -67px;
-}
-100% {
-    left: 100%;
-}
 }
 
 /* Style input fields to fill the panel width and add margin */
@@ -131,14 +92,7 @@ body
     cursor: pointer;
     border: 2px solid rgb(2, 189, 2);
     border-radius: 5px;
-    transition: padding 1.5s;
 }
-
-.centred #search_btn,#closestStation_btn
-{
-    padding: 20px;
-}
-
 #closestStation_btn{
     background-color: rgb(24, 149, 221);
     border: 2px solid rgb(74, 185, 241);
@@ -234,11 +188,7 @@ body
     width: 400px;
     padding: 0;
     box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-    transition: all 1.5s;
 
-    &.slide_out {
-        right: -400px;
-    }
 }
 /* container for rent/return station info tab  */
 .rp_tab_container
@@ -411,6 +361,7 @@ body
 .tab {
     /* Adjustments to flex container */
     display: flex;
+    justify-content: space-between; /* Space out tabs evenly */
     width: 100%; /* Ensure the tabs container fills the panel width */
     background-color: #f1f1f1;
 }
@@ -425,13 +376,7 @@ body
     padding: 14px 16px;
     transition: 0.3s;
     font-size: 17px;
-    width: 50%;
-    transition: padding 1.5s, background-color 0.3s;
-}
-
-.centred button.tablinks {
-    padding: 20px 16px;
-}
+    }
 
 .tab button:hover {
     background-color: #ddd;
@@ -444,7 +389,7 @@ body
 /* keep as it turns out to be styling the inputbox */
 .tabcontent {
     display: none;
-    padding: 15px 12px;
+    padding: 6px 12px;
     border: 1px solid #ccc;
     border-top: none;
 }

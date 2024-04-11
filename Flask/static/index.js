@@ -179,10 +179,6 @@ function verifyAndSubmitQuery() {
             // Success! return_data should contain the five stations plus any other necessary info
             // Pass this to a function to display here, maybe don't add population code here to keep things clean
 
-            // Show the right panel, slide search panel to the left
-            $('#right_panel').removeClass('slide_out');
-            $('#left-panel').removeClass('centred');
-
             // Clear the global variable
             if (isRent) {
                 lastRentSearchJSON = {};
@@ -463,228 +459,155 @@ function populateRightPanel(stationName, isRent) {
         console.log('Station information appended to right panel container.');
 
         // Load Google Charts library and draw graphs when loaded
-        // google.charts.load('current', { packages: ['corechart'] });
-        // google.charts.setOnLoadCallback(function() {
-        //     // Initialize the data table for hourly bike availability
-        //     var hourlyBikeData = new google.visualization.DataTable();
-        //     hourlyBikeData.addColumn('string', 'Time of Day');
-        //     hourlyBikeData.addColumn('number', 'Available Bikes');
-        //     // Loop through each hour of the day
-        //     for (var hour = 0; hour < 24; hour++) {
-        //         // Clone the timeUpdateDate to avoid modifying the original object
-        //         var updatedTime = new Date(timeUpdateDate);
+        google.charts.load('current', { packages: ['corechart'] });
+        google.charts.setOnLoadCallback(function() {
+            // Initialize the data table for hourly bike availability
+            var hourlyBikeData = new google.visualization.DataTable();
+            hourlyBikeData.addColumn('string', 'Time of Day');
+            hourlyBikeData.addColumn('number', 'Available Bikes');
+            // Loop through each hour of the day
+            for (var hour = 0; hour < 24; hour++) {
+                // Clone the timeUpdateDate to avoid modifying the original object
+                var updatedTime = new Date(timeUpdateDate);
                 
-        //         // Set the hour of the updatedTime
-        //         updatedTime.setHours(hour);
+                // Set the hour of the updatedTime
+                updatedTime.setHours(hour);
                 
-        //         // Extract formatted timestamp for the current hour
-        //         var formattedTimestamp = updatedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                // Extract formatted timestamp for the current hour
+                var formattedTimestamp = updatedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
                 
-        //         // Add row for each hour with the correct timestamp
-        //         hourlyBikeData.addRow([{ v: formattedTimestamp, f: formattedTimestamp }, parseInt(stationData.total_bikes)]);
-        //     }
-            
-        //     // Add additional rows as per your specified array
-        //     // data = [
-        //     //     2
-        //     //     4 
-        //     //     6
-        //     // ]
-        //     // data.forEach(item => {
-        //     //     hourlyBikeData.addRow([{v: formattedTimestamp, f: formattedTimestamp}, item]);
-        //     // })
-
-        //     hourlyBikeData.addRow([{v: formattedTimestamp, f: formattedTimestamp}, stationData.total_bikes]);
-        //     hourlyBikeData.addRow([{v: formattedTimestamp, f: formattedTimestamp}, stationData.total_bikes]);
-        //     hourlyBikeData.addRow([{v: formattedTimestamp, f: formattedTimestamp}, stationData.total_bikes]);
-        //     hourlyBikeData.addRow([{v: formattedTimestamp, f: formattedTimestamp}, stationData.total_bikes]);
-        //     hourlyBikeData.addRow([{v: formattedTimestamp, f: formattedTimestamp}, stationData.total_bikes]);
-        //     hourlyBikeData.addRow([{v: formattedTimestamp, f: formattedTimestamp}, stationData.total_bikes]);
-        //     hourlyBikeData.addRow([{v: formattedTimestamp, f: formattedTimestamp}, stationData.total_bikes]);
-        //     hourlyBikeData.addRow([{v: formattedTimestamp, f: formattedTimestamp}, stationData.total_bikes]);
-        //     hourlyBikeData.addRow([{v: formattedTimestamp, f: formattedTimestamp}, stationData.total_bikes]);
-        //     hourlyBikeData.addRow([{v: formattedTimestamp, f: formattedTimestamp}, stationData.total_bikes]);
-        //     hourlyBikeData.addRow([{v: formattedTimestamp, f: formattedTimestamp}, stationData.total_bikes]);
-        //     hourlyBikeData.addRow([{v: formattedTimestamp, f: formattedTimestamp}, stationData.total_bikes]);
-        //     hourlyBikeData.addRow([{v: formattedTimestamp, f: formattedTimestamp}, stationData.total_bikes]);
-
-
-        //     // Define options for daily bike availability chart
-        //     var options = {
-        //         title: 'Bike Availability',
-        //         hAxis: { 
-        //             title: 'Hourly Availability', 
-        //             titleTextStyle: { 
-        //                 color: '#871B47', // Title color
-        //                 opacity: 0.6 // Title opacity
-        //             }, 
-        //             textStyle: { // Text style for axis labels
-        //                 color: '#BC5679', // Color of axis labels
-        //                 opacity: 0.2 // Opacity of axis labels
-        //             }
-        //         },
-        //         vAxis: { 
-        //             title: "Number of Available Bikes",
-        //             color: '##76A7FA',
-        //             minValue: 0,  // Set the minimum value for the vertical axis
-        //             maxValue: 25 // Set the maximum value for the vertical axis
-        //         },
-        //         legend: { position: 'none' },
-        //         width: 400, // Set the width of the chart
-        //         height: 300 // Set the height of the chart
-        //     };
-
-        //     // Create container for the chart
-        //     var dailyStandChartContainer = $('<div>').addClass('rp_prediction_return').append($('<div>').attr('id', 'dailyStandPredictionChart'));
-        //     rightPanelContainer.append(dailyStandChartContainer);
-        //     // Draw the chart
-        //     var dailyStandChart = new google.visualization.ColumnChart(document.getElementById('dailyStandPredictionChart'));
-        //     dailyStandChart.draw(dailyStandData, options);
-        //     // console.log('9779 daily', stationData);
-
-        //     // Initialize the data table for hourly bike availability
-        //     var dailyStandData = new google.visualization.DataTable();
-        //     dailyStandData.addColumn('string', 'Day of the Week');
-        //     dailyStandData.addColumn('number', 'Available Stands');
-            
-        //     // Loop through each hour of the day
-        //     for (var hour = 0; hour < 24; hour++) {
-        //         // Clone the timeUpdateDate to avoid modifying the original object
-        //         var updatedTime = new Date(timeUpdateDate);
-                
-        //         // Set the hour of the updatedTime
-        //         updatedTime.setHours(hour);
-                
-        //         // Extract formatted timestamp for the current hour
-        //         var formattedTimestamp = updatedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                
-        //         // Add row for each hour with the correct timestamp
-        //         dailyStandData.addRow([{ v: formattedTimestamp, f: formattedTimestamp }, parseInt(stationData.empty_stands_number)]);
-        //     }
-
-        //     // hourlyBikeData.addRow([{v: formattedTimestamp, f: '1 am'}, stationData.total_bikes]);
-        //     // hourlyBikeData.addRow([{v: formattedTimestamp, f: '3 am'}, stationData.total_bikes]);
-        //     // hourlyBikeData.addRow([{v: formattedTimestamp, f: '6 am'}, stationData.total_bikes]);
-        //     // hourlyBikeData.addRow([{v: formattedTimestamp, f: '7 am'}, stationData.total_bikes]);
-        //     // hourlyBikeData.addRow([{v: formattedTimestamp, f: '8 am'}, stationData.total_bikes]);
-        //     // hourlyBikeData.addRow([{v: formattedTimestamp, f: '10 am'}, stationData.total_bikes]);
-        //     // hourlyBikeData.addRow([{v: formattedTimestamp, f: '13 pm'}, stationData.total_bikes]);
-        //     // hourlyBikeData.addRow([{v: formattedTimestamp, f: '17 pm'}, stationData.total_bikes]);
-        //     // hourlyBikeData.addRow([{v: formattedTimestamp, f: '9 pm'}, stationData.total_bikes]);
-        //     // hourlyBikeData.addRow([{v: formattedTimestamp, f: '10 pm'}, stationData.total_bikes]);
-        //     // hourlyBikeData.addRow([{v: formattedTimestamp, f: '11 pm'}, stationData.total_bikes]);
-        //     // hourlyBikeData.addRow([{v: formattedTimestamp, f: '12 pm'}, stationData.total_bikes]);
-        //     // hourlyBikeData.addRow([{v: formattedTimestamp, f: '13 pm'}, stationData.total_bikes]);
-                     
-        // // Define options for daily bike availability chart
-        // var options = {
-        //     title: 'Stand Availability',
-        //     hAxis: { 
-        //         title: 'Hourly Availability', 
-        //         titleTextStyle: { 
-        //             color: '#871B47', // Title color
-        //             opacity: 0.6 // Title opacity
-        //         }, 
-        //         textStyle: { // Text style for axis labels
-        //             color: '#BC5679', // Color of axis labels
-        //             opacity: 0.2 // Opacity of axis labels
-        //         }
-        //     },
-        //     vAxis: { 
-        //         title: "Number of Available Stands",
-        //         color: '##76A7FA',
-        //         minValue: 0,  // Set the minimum value for the vertical axis
-        //         maxValue: 25 // Set the maximum value for the vertical axis
-        //     },
-        //     legend: { position: 'none' },
-        //     width: 400, // Set the width of the chart
-        //     height: 300 // Set the height of the chart
-        // };
-        // // color styling https://developers.google.com/chart/interactive/docs/roles#stylerole
-        // // color styling https://developers.google.com/chart/interactive/docs/gallery/columnchart
-
-        // // Create container for the chart
-        // var dailyStandChartContainer = $('<div>').addClass('rp_prediction_rent').append($('<div>').attr('id', 'dailyStandPredictionChart'));
-        // rightPanelContainer.append(dailyStandChartContainer);
-        // // Draw the chart
-        // var dailyStandChart = new google.visualization.ColumnChart(document.getElementById('dailyStandPredictionChart'));
-        // dailyStandChart.draw(dailyStandData, options);
-            
-        // });
-
-            try {
-                // Make AJAX request to fetch station data
-                $.ajax({
-                    url: '/search',
-                    method: 'GET',
-                    data: { stationName: stationName, isRent: isRent },
-                    success: function(response) {
-                        var stationData = response;
-        
-                        if (!stationData || stationData.length === 0) {
-                            throw new Error("Station data not found.");
-                        }
-        
-                        console.log('Station data found:', stationData);
-        
-                        var rightPanelContainer = $('#rp_content');
-                        if (!rightPanelContainer || rightPanelContainer.length === 0) {
-                            throw new Error("Right panel container not found.");
-                        }
-        
-                        console.log('Right panel container:', rightPanelContainer);
-        
-                        rightPanelContainer.empty();
-                        console.log('Previous content cleared.');
-        
-                        var stationElementName = $('<div>').addClass('rp_station_name').text('Station Name: ' + stationData.name);
-                        var totalBikeLabel = $('<div>').addClass('rp_bike_total_label').text('Total Bike: ').append($('<p>').attr('id', 'available-bikes').text(stationData.total_bikes));
-                        var mechanicalBikeLabel = $('<div>').addClass('rp_info_label').text('Mechanical Bikes: ').append($('<p>').attr('id', 'available_mechanical').text(stationData.mechanical_bikes));
-                        var eBikeRemovableLabel = $('<div>').addClass('rp_info_label').text('E-Bike Removable Battery: ').append($('<p>').attr('id', 'available_e_removable').text(stationData.electrical_removable_battery_bikes));
-                        var eBikeInternalLabel = $('<div>').addClass('rp_info_label').text('E-Bike Internal Battery: ').append($('<p>').attr('id', 'available_e_internal').text(stationData.electrical_internal_battery_bikes));
-                        var totalParkingLabel = $('<div>').addClass('rp_park_total_label').text('Total Parking: ').append($('<p>').attr('id', 'available-park').text(stationData.empty_stands_number));
-        
-                        var timeUpdateDate = new Date(stationData.last_update);
-                        if (isNaN(timeUpdateDate.getTime())) {
-                            throw new Error("Invalid last update date.");
-                        }
-        
-                        var options = {
-                            weekday: 'long', 
-                            month: 'long',
-                            day: 'numeric',
-                            hour: 'numeric',
-                            minute: 'numeric',
-                            timeZone: 'Europe/Dublin'
-                        };
-        
-                        var formattedTime = timeUpdateDate.toLocaleString(undefined, options);
-        
-                        var timeUpdateLabel = $('<div>').addClass('rp_info_label').html("<p style='margin-bottom: 5px;'><strong>Last Updated:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + formattedTime + "</span></p>");
-        
-                        if (isRent) {
-                            rightPanelContainer.append(stationElementName, totalParkingLabel, totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabel);
-        
-                            // Draw charts for 1-day and 7-day average bike availability
-                            drawHourlyBikeAvailabilityChart(stationData);
-                            draw7DayAverageBikeAvailabilityChart(stationData);
-                        } else {
-                            rightPanelContainer.append(stationElementName, totalParkingLabel, totalBikeLabel, timeUpdateLabel);
-        
-                            // Draw charts for 1-day and 7-day average stand availability
-                            drawHourlyStandAvailabilityChart(stationData);
-                            draw7DayAverageStandAvailabilityChart(stationData);
-                        }
-        
-                        console.log('Station information appended to right panel container.');
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("An error occurred while fetching station data:", error);
-                    }
-                });
-            } catch (error) {
-                console.error("An error occurred:", error);
+                // Add row for each hour with the correct timestamp
+                hourlyBikeData.addRow([{ v: formattedTimestamp, f: formattedTimestamp }, parseInt(stationData.total_bikes)]);
             }
+            
+            // Add additional rows as per your specified array
+            // data = [
+            //     2
+            //     4 
+            //     6
+            // ]
+            // data.forEach(item => {
+            //     hourlyBikeData.addRow([{v: formattedTimestamp, f: formattedTimestamp}, item]);
+            // })
+
+            hourlyBikeData.addRow([{v: formattedTimestamp, f: formattedTimestamp}, stationData.total_bikes]);
+            hourlyBikeData.addRow([{v: formattedTimestamp, f: formattedTimestamp}, stationData.total_bikes]);
+            hourlyBikeData.addRow([{v: formattedTimestamp, f: formattedTimestamp}, stationData.total_bikes]);
+            hourlyBikeData.addRow([{v: formattedTimestamp, f: formattedTimestamp}, stationData.total_bikes]);
+            hourlyBikeData.addRow([{v: formattedTimestamp, f: formattedTimestamp}, stationData.total_bikes]);
+            hourlyBikeData.addRow([{v: formattedTimestamp, f: formattedTimestamp}, stationData.total_bikes]);
+            hourlyBikeData.addRow([{v: formattedTimestamp, f: formattedTimestamp}, stationData.total_bikes]);
+            hourlyBikeData.addRow([{v: formattedTimestamp, f: formattedTimestamp}, stationData.total_bikes]);
+            hourlyBikeData.addRow([{v: formattedTimestamp, f: formattedTimestamp}, stationData.total_bikes]);
+            hourlyBikeData.addRow([{v: formattedTimestamp, f: formattedTimestamp}, stationData.total_bikes]);
+            hourlyBikeData.addRow([{v: formattedTimestamp, f: formattedTimestamp}, stationData.total_bikes]);
+            hourlyBikeData.addRow([{v: formattedTimestamp, f: formattedTimestamp}, stationData.total_bikes]);
+            hourlyBikeData.addRow([{v: formattedTimestamp, f: formattedTimestamp}, stationData.total_bikes]);
+
+
+            // Define options for daily bike availability chart
+            var options = {
+                title: 'Bike Availability',
+                hAxis: { 
+                    title: 'Hourly Availability', 
+                    titleTextStyle: { 
+                        color: '#871B47', // Title color
+                        opacity: 0.6 // Title opacity
+                    }, 
+                    textStyle: { // Text style for axis labels
+                        color: '#BC5679', // Color of axis labels
+                        opacity: 0.2 // Opacity of axis labels
+                    }
+                },
+                vAxis: { 
+                    title: "Number of Available Bikes",
+                    color: '##76A7FA',
+                    minValue: 0,  // Set the minimum value for the vertical axis
+                    maxValue: 25 // Set the maximum value for the vertical axis
+                },
+                legend: { position: 'none' },
+                width: 400, // Set the width of the chart
+                height: 300 // Set the height of the chart
+            };
+
+            // Create container for the chart
+            var dailyStandChartContainer = $('<div>').addClass('rp_prediction_return').append($('<div>').attr('id', 'dailyStandPredictionChart'));
+            rightPanelContainer.append(dailyStandChartContainer);
+            // Draw the chart
+            var dailyStandChart = new google.visualization.ColumnChart(document.getElementById('dailyStandPredictionChart'));
+            dailyStandChart.draw(dailyStandData, options);
+            // console.log('9779 daily', stationData);
+
+            // Initialize the data table for hourly bike availability
+            var dailyStandData = new google.visualization.DataTable();
+            dailyStandData.addColumn('string', 'Day of the Week');
+            dailyStandData.addColumn('number', 'Available Stands');
+            
+            // Loop through each hour of the day
+            for (var hour = 0; hour < 24; hour++) {
+                // Clone the timeUpdateDate to avoid modifying the original object
+                var updatedTime = new Date(timeUpdateDate);
+                
+                // Set the hour of the updatedTime
+                updatedTime.setHours(hour);
+                
+                // Extract formatted timestamp for the current hour
+                var formattedTimestamp = updatedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                
+                // Add row for each hour with the correct timestamp
+                dailyStandData.addRow([{ v: formattedTimestamp, f: formattedTimestamp }, parseInt(stationData.empty_stands_number)]);
+            }
+
+            // hourlyBikeData.addRow([{v: formattedTimestamp, f: '1 am'}, stationData.total_bikes]);
+            // hourlyBikeData.addRow([{v: formattedTimestamp, f: '3 am'}, stationData.total_bikes]);
+            // hourlyBikeData.addRow([{v: formattedTimestamp, f: '6 am'}, stationData.total_bikes]);
+            // hourlyBikeData.addRow([{v: formattedTimestamp, f: '7 am'}, stationData.total_bikes]);
+            // hourlyBikeData.addRow([{v: formattedTimestamp, f: '8 am'}, stationData.total_bikes]);
+            // hourlyBikeData.addRow([{v: formattedTimestamp, f: '10 am'}, stationData.total_bikes]);
+            // hourlyBikeData.addRow([{v: formattedTimestamp, f: '13 pm'}, stationData.total_bikes]);
+            // hourlyBikeData.addRow([{v: formattedTimestamp, f: '17 pm'}, stationData.total_bikes]);
+            // hourlyBikeData.addRow([{v: formattedTimestamp, f: '9 pm'}, stationData.total_bikes]);
+            // hourlyBikeData.addRow([{v: formattedTimestamp, f: '10 pm'}, stationData.total_bikes]);
+            // hourlyBikeData.addRow([{v: formattedTimestamp, f: '11 pm'}, stationData.total_bikes]);
+            // hourlyBikeData.addRow([{v: formattedTimestamp, f: '12 pm'}, stationData.total_bikes]);
+            // hourlyBikeData.addRow([{v: formattedTimestamp, f: '13 pm'}, stationData.total_bikes]);
+                     
+        // Define options for daily bike availability chart
+        var options = {
+            title: 'Stand Availability',
+            hAxis: { 
+                title: 'Hourly Availability', 
+                titleTextStyle: { 
+                    color: '#871B47', // Title color
+                    opacity: 0.6 // Title opacity
+                }, 
+                textStyle: { // Text style for axis labels
+                    color: '#BC5679', // Color of axis labels
+                    opacity: 0.2 // Opacity of axis labels
+                }
+            },
+            vAxis: { 
+                title: "Number of Available Stands",
+                color: '##76A7FA',
+                minValue: 0,  // Set the minimum value for the vertical axis
+                maxValue: 25 // Set the maximum value for the vertical axis
+            },
+            legend: { position: 'none' },
+            width: 400, // Set the width of the chart
+            height: 300 // Set the height of the chart
+        };
+        // color styling https://developers.google.com/chart/interactive/docs/roles#stylerole
+        // color styling https://developers.google.com/chart/interactive/docs/gallery/columnchart
+
+        // Create container for the chart
+        var dailyStandChartContainer = $('<div>').addClass('rp_prediction_rent').append($('<div>').attr('id', 'dailyStandPredictionChart'));
+        rightPanelContainer.append(dailyStandChartContainer);
+        // Draw the chart
+        var dailyStandChart = new google.visualization.ColumnChart(document.getElementById('dailyStandPredictionChart'));
+        dailyStandChart.draw(dailyStandData, options);
+            
+        });
+
         
     } catch (error) {
         console.error("An error occurred:", error);
@@ -855,7 +778,6 @@ $(document).ready(function() {
 
     // Search button click listener
     $('#search_btn').click(function() {
-        $('#right_panel').removeClass('slide_out');
         verifyAndSubmitQuery();
     });
     // Add event listener to detect keyboard stroke for opening the popup
@@ -911,8 +833,15 @@ function openTab(evt, tabName) {
     }
 
     // Show the current tab, and add an "active" class to the button that opened the tab
-    document.getElementById(tabName).style.display = 'block';
-    
+    if (tabName == "rent_return")
+    {
+        document.getElementById("rent").style.display = 'block';
+        document.getElementById("return").style.display = 'block';
+    }
+    else
+    {
+        document.getElementById(tabName).style.display = 'block';
+    }
     if (evt) {
         evt.currentTarget.className += ' active';
     }
@@ -928,13 +857,8 @@ function openTab(evt, tabName) {
     if (Object.keys(getLastSearchJSON()).length)
     {
         selectStation(0, activeTab == "rent");
-        $('#right_panel').removeClass('slide_out');
     }
-    else 
-    {
-        // Clear/hide the right hand panel
-        $('#right_panel').addClass('slide_out');
-    }
+    // TODO: clear/hide the right hand panel
 }
 function weatherOpenTab(evt, tabContentId) {
     try {

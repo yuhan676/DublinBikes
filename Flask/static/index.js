@@ -41,6 +41,8 @@ function initTimeAndDate() {
     // Set min data to today
     rentDateElem.min = date.toISOString().split("T")[0];
     returnDateElem.min = date.toISOString().split("T")[0];
+    returnDateElem.min = date.toISOString().split("T")[0];
+    returnDateElem.max = maxDate.toISOString().split("T")[0];
 }
 
 // Given the user input, fetch station name suggestions and populate given output element

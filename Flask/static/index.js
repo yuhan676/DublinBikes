@@ -35,14 +35,17 @@ function initTimeAndDate() {
     // time number into a useable format. substring(11,16) gets the bit we need (current time HH:MM)
     rentTimeElem.value = date.toISOString().substring(11,16);
     returnTimeElem.value = date.toISOString().substring(11,16);
-    rentDateElem.valueAsDate = date;
-    returnDateElem.valueAsDate = date;
+    // Convert dates to YYYY-MM-DD format for input min and max attributes
+    var isoDate = date.toISOString().split("T")[0];
+    var isoMaxDate = maxDate.toISOString().split("T")[0];
 
-    // Set min data to today
-    rentDateElem.min = date.toISOString().split("T")[0];
-    returnDateElem.min = date.toISOString().split("T")[0];
-    returnDateElem.min = date.toISOString().split("T")[0];
-    returnDateElem.max = maxDate.toISOString().split("T")[0];
+    rentDateElem.value = isoDate;
+    returnDateElem.value = isoDate;
+
+    rentDateElem.min = isoDate;
+    rentDateElem.max = isoMaxDate;
+    returnDateElem.min = isoDate;
+    returnDateElem.max = isoMaxDate;
 }
 
 // Given the user input, fetch station name suggestions and populate given output element

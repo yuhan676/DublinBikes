@@ -456,7 +456,7 @@ function populateRightPanel(stationName, isRent) {
 
         if (isRent) {
             // Set title
-            $('#rp_title').textContent("Rent");
+            $('#rp_title').text("Rent");
             rightPanelContainer.append(stationElementName, totalParkingLabel, totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabelRent);
         } else {
             // Set title

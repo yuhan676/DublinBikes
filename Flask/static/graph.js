@@ -34,12 +34,13 @@ function processData(data) {
   return dataInArrays;
 }
 
-function makeDataArrays(isRent, stationName){
+async function makeDataArrays(isRent, stationName){
   var fetchUrl = '/bike_station_data?isRent=' + isRent + '&stationName=' + stationName;
   // return processData(dummyData) // for test dummy data
-  fetch(fetchUrl)
+  return fetch(fetchUrl)
   .then(response => response.json())
   .then(data => {
+    console.log("🚀 ~ data:", data)
      return processData(data)
   })
   .catch(error => console.error('Error:', error));
@@ -47,14 +48,15 @@ function makeDataArrays(isRent, stationName){
 }
 
 
-function drawDaily(chartId, options, isRent, stationName, stationNumber, isDaily) {
+async function drawDaily(chartId, options, isRent, stationName, stationNumber, isDaily) {
   var dailyStandChart = new google.visualization.ColumnChart(document.getElementById(chartId));
   var dailyStandData = new google.visualization.DataTable();
   dailyStandData.addColumn('string', 'Day of the Week');
 
   dailyStandData.addColumn('number', isRent ? 'Available Bikes' : 'Available Stands');
 
-  let array = makeDataArrays(isRent, stationName)
+  let array = await makeDataArrays(isRent, stationName)
+  console.log("🚀 ~ array:", array)
   let dataToRender = isDaily ? array.daily : array.hourly
   dataToRender.forEach(item => {
     var updatedTime = new Date(item.date || null);

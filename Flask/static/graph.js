@@ -49,7 +49,7 @@ async function makeDataArrays(isRent, stationName){
 
 
 async function drawDaily(chartId, options, isRent, stationName, stationNumber, isDaily) {
-  console.log("🚀 ~ stationNumber:", stationNumber, stationName)
+  console.log("🚀 ~ stationNumber:", stationNumber, typeof stationNumber)
   var dailyStandChart = new google.visualization.ColumnChart(document.getElementById(chartId));
   var dailyStandData = new google.visualization.DataTable();
   dailyStandData.addColumn('string', 'Day of the Week');
@@ -60,7 +60,10 @@ async function drawDaily(chartId, options, isRent, stationName, stationNumber, i
   console.log("🚀 ~ array:", array)
   let dataToRender = isDaily ? array.daily : array.hourly
   console.log("🚀 ~ dataToRender before:", dataToRender, dataToRender.length)
-  let filteredData = dataToRender.filter(item => item.stationNumber === stationNumber)
+  let filteredData = dataToRender.filter(item => {
+    console.log("🚀 ~ item:", item.stationNumber, stationNumber)
+    return item.stationNumber == stationNumber
+  })
   console.log("🚀 ~ dataToRender:", filteredData, filteredData.length)
   filteredData.forEach(item => {
     var updatedTime = new Date(item.date || null);

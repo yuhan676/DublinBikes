@@ -20,6 +20,10 @@ function initTimeAndDate() {
     // A new Date object defaults to today and now
     var date = new Date();
 
+    // Set the max date to 5 days from today
+    var maxDate = new Date();
+    maxDate.setDate(date.getDate() + 5);
+
     // Get our elements
     var rentTimeElem = document.getElementById("rent_time");
     var returnTimeElem = document.getElementById("return_time");

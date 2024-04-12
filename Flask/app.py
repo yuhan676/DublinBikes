@@ -326,6 +326,22 @@ def bike_station_data():
         hourly_avg_data = {}
         daily_avg_data = {}
 
+
+        query = """
+        SELECT COLUMN_NAME 
+        FROM INFORMATION_SCHEMA.COLUMNS 
+        WHERE TABLE_NAME = :table_name;
+        """
+
+        # Replace 'your_table_name' with the name of your table
+        params = {"table_name": "station_status"}
+
+        results = connection.execute(text(query), params).fetchall()
+
+        for result in results:
+            print(result[0])
+
+        
         # Calculate average hourly data for the previous day
         prev_day = datetime.now() - timedelta(days=1)
         for number in station_numbers:
@@ -337,6 +353,21 @@ def bike_station_data():
                     GROUP BY hour
                 """)
             hourly_avg_results = connection.execute(hourly_avg_query, {"number": number, "date": prev_day}).fetchall()
+            print(hourly_avg_results)
+
+            hourly_avg_check = text("""
+                    SELECT HOUR(last_update) AS hour, COUNT(*) AS count
+                    FROM station_status
+                    WHERE station_number = :number
+                    AND DATE(last_update) = DATE(:date)
+                    GROUP BY hour
+                    ORDER BY hour;
+
+                """)
+            hourly_avg_results_check = connection.execute(hourly_avg_check, {"number": number, "date": prev_day}).fetchall()
+            print(hourly_avg_results_check)
+
+
 
             hourly_avg_data[number] = [{'hour': hour, 'avg_bikes': avg_bikes, 'avg_empty_stands': avg_empty_stands} for hour, avg_bikes, avg_empty_stands in hourly_avg_results]
 

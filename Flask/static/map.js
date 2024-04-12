@@ -19,21 +19,17 @@ async function addMarker(map, item, isRent) {
         unavailable: {
             glyphColor: "#fff",
             background: "#c8001d",
-            borderColor: "#c8001d",
-            border: "2px",
+            borderColor: "#black"
         },
         limited_availability: {
             glyphColor: "#fff",
             background: "#fff600",
-            borderColor: "#fff600",
-            border: "2px",
+            borderColor: "black"
         },
         available: {
             glyphColor: "#fff",
             background: "green",
-            borderColor: "green",
-            border: "2px",
-            
+            borderColor: "black"            
         }
     }
 

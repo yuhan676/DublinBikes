@@ -33,7 +33,7 @@ body
     display: flex;
     flex-direction: column; /* Stack children vertically */
     z-index: 11;
-    overflow: hidden;
+    overflow:visible;
     transition: all 1.5s;
     &.centred {
         left: calc(50vw - 250px);

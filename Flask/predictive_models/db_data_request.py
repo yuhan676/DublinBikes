@@ -1,6 +1,5 @@
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
-#  from db_config import db_type, username, password, hostname, port, db_name
 
 db_type = 'mysql'  # Change to 'mysql' for MySQL/MariaDB
 username = 'admin'

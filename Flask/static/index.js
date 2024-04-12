@@ -462,7 +462,7 @@ function populateRightPanel(stationName, isRent) {
 
         console.log('Station information appended to right panel container.');
         // let stationNumber = stationData.number
-        initGraph(stationName, stationData.number, isRent)
+        initGraph(stationName, "59", isRent)
         return 
         // Load Google Charts library and draw graphs when loaded
         google.charts.load('current', { packages: ['corechart'] });

@@ -59,9 +59,10 @@ async function drawDaily(chartId, options, isRent, stationName, stationNumber, i
   let array = await makeDataArrays(isRent, stationName)
   console.log("🚀 ~ array:", array)
   let dataToRender = isDaily ? array.daily : array.hourly
-  dataToRender = dataToRender.filter(item => item.stationNumber === stationNumber)
-  console.log("🚀 ~ dataToRender:", dataToRender)
-  dataToRender.forEach(item => {
+  console.log("🚀 ~ dataToRender before:", dataToRender)
+  let filteredData = dataToRender.filter(item => item.stationNumber === stationNumber)
+  console.log("🚀 ~ dataToRender:", filteredData)
+  filteredData.forEach(item => {
     var updatedTime = new Date(item.date || null);
     let value = isRent ? item.avg_bikes : item.avg_empty_stands
     // Extract formatted timestamp for the current hour

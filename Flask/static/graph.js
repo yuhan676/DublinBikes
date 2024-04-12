@@ -35,7 +35,7 @@ function processData(data) {
 }
 
 function makeDataArrays(isRent, stationName){
-  // var fetchUrl = '/bike_station_data?isRent=' + isRent + '&stationName=' + stationName;
+  var fetchUrl = '/bike_station_data?isRent=' + isRent + '&stationName=' + stationName;
   // return processData(dummyData) // for test dummy data
   fetch(fetchUrl)
   .then(response => response.json())

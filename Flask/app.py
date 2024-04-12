@@ -272,11 +272,12 @@ def search():
                         'electrical_removable_battery_bikes': status_result.electrical_removable_battery_bikes
                     }
                     results.append(combined_result)
+                    results.append({'isNow':isNow})
 
         connection.close()
         if not results:
             return jsonify(message='No data found for closest stations'), 404
-        return jsonify({'results': results, 'isNow': isNow})
+        return jsonify(results)
     
     except JSONDecodeError as jde:
         # Specific error handling for JSON decoding errors

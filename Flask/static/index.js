@@ -169,10 +169,9 @@ function verifyAndSubmitQuery() {
     // For simplicity, compact our date and time into one
     dateSelected.setHours(timeSelected.getHours());
     dateSelected.setMinutes(timeSelected.getMinutes());
-    // This is the dummy data I used to test on my local machine
-    // console.log("run here")
-    // testDummyData();
-    // return
+    // Check if the combined date and time is in the future
+    var isNow = dateSelected.getTime() <= new Date().getTime();
+
     // Package and submit query
     var stationName = $(isRent ? '#search_rent' : '#search_return').val();
     $.ajax({
@@ -182,7 +181,8 @@ function verifyAndSubmitQuery() {
         data: { 
             'isRent': isRent,
             'stationName': stationName,
-            'date': JSON.stringify(dateSelected) // format: YYYY-MM-DDTHH:MM:SS.MMMZ
+            'date': JSON.stringify(dateSelected), // format: YYYY-MM-DDTHH:MM:SS.MMMZ
+            'isNow': isNow // Send the time status nature to Flask endpoint
         },
         success: function(return_data) {
             // Success! return_data should contain the five stations plus any other necessary info

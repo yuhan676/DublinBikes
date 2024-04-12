@@ -272,7 +272,7 @@ def search():
                         'electrical_removable_battery_bikes': status_result.electrical_removable_battery_bikes
                     }
                     results.append(combined_result)
-                    results.append({'isNow':isNow})
+        results.append({'isNow':isNow})
 
         connection.close()
         if not results:

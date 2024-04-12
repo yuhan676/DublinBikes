@@ -39,6 +39,7 @@ body
         left: calc(50vw - 250px);
         width: 500px;
         padding-bottom: 50px;
+        overflow: hidden;
     }
 }
 

@@ -215,7 +215,7 @@ function verifyAndSubmitQuery() {
             {createSelectionToggle(isRent);}
             // Populate the selection boxes
             populateStationBoxes(isRent);
-            setTimeOut(() => {
+            setTimeout(() => {
                 animateMarker(0)
             }, 100)
         

@@ -59,9 +59,9 @@ async function drawDaily(chartId, options, isRent, stationName, stationNumber, i
   let array = await makeDataArrays(isRent, stationName)
   console.log("🚀 ~ array:", array)
   let dataToRender = isDaily ? array.daily : array.hourly
-  console.log("🚀 ~ dataToRender before:", dataToRender)
+  console.log("🚀 ~ dataToRender before:", dataToRender, dataToRender.length)
   let filteredData = dataToRender.filter(item => item.stationNumber === stationNumber)
-  console.log("🚀 ~ dataToRender:", filteredData)
+  console.log("🚀 ~ dataToRender:", filteredData, filteredData.length)
   filteredData.forEach(item => {
     var updatedTime = new Date(item.date || null);
     let value = isRent ? item.avg_bikes : item.avg_empty_stands

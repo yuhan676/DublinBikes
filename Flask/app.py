@@ -212,6 +212,7 @@ def search():
     stationName = request.args.get('stationName').strip()
     # format: YYYY-MM-DDTHH:MM:SS.MMMZ
     date = request.args.get('date')
+    isNow = request.args.get('isNow') == 'true'
 
     results = []
     try:
@@ -275,7 +276,7 @@ def search():
         connection.close()
         if not results:
             return jsonify(message='No data found for closest stations'), 404
-        return jsonify(results)
+        return jsonify({'results': results, 'isNow': isNow})
     
     except JSONDecodeError as jde:
         # Specific error handling for JSON decoding errors

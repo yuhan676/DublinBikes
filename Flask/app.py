@@ -276,7 +276,7 @@ def search():
         connection.close()
         if not results:
             return jsonify(message='No data found for closest stations'), 404
-        return jsonify(results), isNow
+        return jsonify(results)
     
     except JSONDecodeError as jde:
         # Specific error handling for JSON decoding errors

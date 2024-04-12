@@ -455,8 +455,12 @@ function populateRightPanel(stationName, isRent) {
         var timeUpdateLabelReturn = $('<div>').addClass('rp_info_label').html("<p style='margin-bottom: 5px;'><strong>Last Updated:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + formattedTime + "</span></p>");
 
         if (isRent) {
+            // Set title
+            $('#rp_title').textContent("Rent");
             rightPanelContainer.append(stationElementName, totalParkingLabel, totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabelRent);
         } else {
+            // Set title
+            $('#rp_title').textContent("Return");
             rightPanelContainer.append(stationElementName, totalParkingLabel, totalBikeLabel, timeUpdateLabelReturn);
         }
 
@@ -725,7 +729,6 @@ $(document).ready(function() {
 
     // Search button click listener
     $('#search_btn').click(function() {
-        $('#right_panel').removeClass('slide_out');
         verifyAndSubmitQuery();
     });
     // Add event listener to detect keyboard stroke for opening the popup

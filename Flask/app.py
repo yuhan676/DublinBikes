@@ -212,7 +212,7 @@ def search():
     stationName = request.args.get('stationName').strip()
     # format: YYYY-MM-DDTHH:MM:SS.MMMZ
     date = request.args.get('date')
-    isNow = request.args.get('isNow') == 'true'
+    isNow = request.args.get('isNow')
 
     results = []
     try:

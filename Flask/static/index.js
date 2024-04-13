@@ -451,7 +451,7 @@ function populateRightPanel(stationName, isRent) {
             $('#right_panel').removeClass('rp_rent');
         }
 
-        if (stationData.isNow == "true"){
+        if (stationData.isNow === "true"){
             $('#right_panel').addClass('rp_live');
             $('#right_panel').removeClass('rp_predicted');
         } else {

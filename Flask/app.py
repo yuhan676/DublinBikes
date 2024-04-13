@@ -269,7 +269,8 @@ def search():
                         'total_bikes': status_result.total_bikes,
                         'mechanical_bikes': status_result.mechanical_bikes,
                         'electrical_internal_battery_bikes': status_result.electrical_internal_battery_bikes,
-                        'electrical_removable_battery_bikes': status_result.electrical_removable_battery_bikes
+                        'electrical_removable_battery_bikes': status_result.electrical_removable_battery_bikes,
+                        'is_now':isNow
                     }
                     results.append(combined_result)
 

@@ -19,9 +19,13 @@ var weatherActiveTab = 'weather-current-content';
 function initTimeAndDate() {
     // A new Date object defaults to today and now
     var date = new Date();
+    // Correct now for summertime
+    date.setTime( date.getTime() - date.getTimezoneOffset()*60*1000 );
 
     // Set the max date to 5 days from today
     var maxDate = new Date();
+    // Correct now for summertime
+    maxDate.setTime( maxDate.getTime() - maxDate.getTimezoneOffset()*60*1000 );
     maxDate.setDate(date.getDate() + 5);
 
     // Get our elements
@@ -152,6 +156,8 @@ function verifyAndSubmitQuery() {
 
     // If date is today, check that the time is not earlier than now or correct it
     var dateNow = new Date();
+    // Correct now for summertime
+    dateNow.setTime( dateNow.getTime() - dateNow.getTimezoneOffset()*60*1000 );
     var dateSelected = dateElem.valueAsDate;
     var timeSelected = timeElem.valueAsDate;
     if (!(dateSelected > dateNow))
@@ -170,7 +176,7 @@ function verifyAndSubmitQuery() {
     dateSelected.setHours(timeSelected.getHours());
     dateSelected.setMinutes(timeSelected.getMinutes());
     // Check if the combined date and time is in the future
-    var isNow = dateSelected.getTime() <= new Date().getTime();
+    var isNow = dateSelected.getTime() <= dateNow.getTime();
 
     // Package and submit query
     var stationName = $(isRent ? '#search_rent' : '#search_return').val();

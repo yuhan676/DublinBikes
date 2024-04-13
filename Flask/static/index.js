@@ -459,7 +459,7 @@ function populateRightPanel(stationName, isRent) {
             $('#right_panel').removeClass('rp_live');
         }
 
-        if (stationData.status == "CLOSED")
+        if (stationData.status === "CLOSED")
         {
             $('#right_panel').addClass('rp_closed');
             $('#right_panel').removeClass('rp_open');

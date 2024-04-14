@@ -60,7 +60,9 @@ def fetch_prediction_weather():
         timestamp = request.args.get('timestamp')
 
         # Parse the timestamp into a datetime object
-        selected_time = datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S')
+        # selected_time = datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S')
+        selected_time = timestamp[:-8]
+        selected_time.replace("T", ' ')
 
         # Call connect_db to get the SQLAlchemy Engine object
         engine = connect_db()

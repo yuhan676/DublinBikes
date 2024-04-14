@@ -87,11 +87,11 @@ function initGraph(stationName, stationNumber, isRent) {
       hAxis: { 
           title: 'Average Daily Availability', 
           titleTextStyle: { 
-              color: '#871B47', // Title color
+              color: '#202124', // Title color
               opacity: 0.6 // Title opacity
           }, 
           textStyle: { // Text style for axis labels
-              color: '#871B47', // Color of axis labels
+              color: '#202124', // Color of axis labels
               opacity: 0.6 // Opacity of axis labels
           }
       },
@@ -110,11 +110,11 @@ function initGraph(stationName, stationNumber, isRent) {
     hAxis: { 
         title: 'Average Hourly Availability', 
         titleTextStyle: { 
-            color: '#871B47', // Title color
+            color: '#202124', // Title color
             opacity: 0.6 // Title opacity
         }, 
         textStyle: { // Text style for axis labels
-            color: '#871B47', // Color of axis labels
+            color: '#202124', // Color of axis labels
             opacity: 0.6 // Opacity of axis labels
         }
     },

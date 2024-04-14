@@ -6,6 +6,7 @@ import traceback
 from json.decoder import JSONDecodeError
 import pandas as pd
 from haversine import haversine
+from sqlalchemy.exc import SQLAlchemyError
 
 
 app = Flask(__name__, static_url_path='')
@@ -89,6 +90,16 @@ def fetch_prediction_weather():
 
         connection.close()
         return jsonify(weather_data)
+    except ValueError as ve:
+        # Handle the case where the timestamp format is incorrect
+        app.logger.error('Error parsing timestamp:', ve)
+        return jsonify(error="Invalid timestamp format. Please provide the timestamp in the format 'YYYY-MM-DD HH:MM:SS'."), 400
+
+    except SQLAlchemyError as sqle:
+        # Handle SQLAlchemy errors (e.g., database connectivity issues, SQL syntax errors)
+        app.logger.error('SQLAlchemy error:', sqle)
+        return jsonify(error="An error occurred while querying the database."), 500
+
 
     except Exception as e:
         app.logger.error('Error fetching weather prediction data:', e)

@@ -59,7 +59,7 @@ def fetch_prediction_weather():
         timestamp = request.args.get('timestamp')
 
         # Parse the timestamp into a datetime object
-        selected_time = datetime.strptime(timestamp, '%Y-%m-%dT%H:%M:%S.%fZ')
+        selected_time = datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S')
 
         # Call connect_db to get the SQLAlchemy Engine object
         engine = connect_db()
@@ -68,11 +68,12 @@ def fetch_prediction_weather():
         # Query the weather prediction data closest to the selected timestamp
         query = text("""
             SELECT temp_min, temp_max, wind_speed, gust, rain_3h, time_update
-            FROM WeatherPrediction
+            FROM FiveDayPrediction
             WHERE time_update <= :selected_time
             ORDER BY time_update DESC
             LIMIT 1
         """)
+        
         result = connection.execute(query, {"selected_time": selected_time})
         row = result.fetchone()
 

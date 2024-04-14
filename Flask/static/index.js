@@ -921,7 +921,7 @@ function fetchCurrentWeatherData() {
     }
 }
 // Function to fetch forecast data using AJAX
-function fetchForecastData() {
+// function fetchForecastData() {
     return;
     $.ajax({
         url: "/five_day_prediction",
@@ -970,12 +970,12 @@ function fetchForecastData() {
             $('#weather-forecast-content').html('Error fetching weather data');
         }
     });
-}
+// }
 
 // Call the fetchCurrentWeatherData 
-fetchCurrentWeatherData();
+// fetchCurrentWeatherData();
 // Call the fetchForecastData function 
-fetchForecastData();
+// fetchForecastData();
 
 // Dynamic conversion functions
 function kelvinToCelsius(kelvin) {

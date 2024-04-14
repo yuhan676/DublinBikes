@@ -3,6 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
 }
 
 body
@@ -172,62 +173,64 @@ body
     margin-top: 0;
 }
 
-/* Panel styling */
-#weather-panel {
-    top: calc(100% + 20px); /* Place it below the left panel with a 10px margin */
+/* Weather panel styling */
+#weather_panel {
+    position: absolute;
+    bottom: 0;
     width: 300px;
     overflow: hidden;
-    transition: max-height 0.5s ease;
+    transition: all 1.5s;
     border: 1px solid #ccc; /* Add border for better visibility */
     background-color: #f8f8f8; /* Set background color */
     left: 10px; /* Adjust the margin to move the weather panel slightly to the left */
 }
 
 
-.weather-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.weather_header {
     font-size: 1.1em;
+    font-weight: bold;
     padding: 10px;
     border-bottom: 1px solid #ccc; /* Add bottom border for header */
     background-color: #e0e0e0; /* Set header background color */
+    text-align: center;
 }
 
-/* Additional styles for specific elements */
-
-.weather-header h2 {
-    color: #333; /* Set header text color */
+.weather_content
+{
+    padding: 0 10px 10px 10px;
 }
 
-.weather-content p {
-    color: #555; /* Set content text color */
-}
-/* Style the tab buttons */
-.weather-tablinks {
-    background-color: #f0f0f0; /* Background color */
-    border: none; /* Remove border */
-    color: #333; /* Text color */
-    padding: 10px 0; /* Adjust vertical padding */
-    width: 115px; /* Set auto width for both tabs */
-    text-align: center; /* Center-align the text */
-    cursor: pointer; /* Cursor style */
-    transition: background-color 0.3s; /* Transition effect for hover */
-    display: inline; /* Display as inline block to allow width to take effect */
-    margin: 0 auto; /* center-align the tabs */
+.big_temp
+{
+    width: 100%;
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px 0;
 }
 
-/* Active tab button style */
-.weather-tablinks.active {
-    background-color: #666; /* Background color */
-    color: #fff; /* Text color */
+.low_high_row
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-bottom: 20px;
 }
 
-/* Hover effect */
-.weather-tablinks:hover {
-    background-color: #ddd; /* Background color on hover */
-    color: #666; /* Text color on hover */
+.weather_row
+{
+    margin-bottom: 5px;
+    text-align: center;
 }
+
+.weather_row:last-child
+{
+    margin-top: 20px;
+    & span {
+        color: #007ACC;
+    }
+}
+
 /* container for right panel */
 #right_panel {
     top: 10px;
@@ -236,7 +239,6 @@ body
     padding: 0;
     box-shadow: 0 2px 6px rgba(0,0,0,0.3);
     transition: all 1.5s;
-    font-family: 'Arial', sans-serif;
 
     &.slide_out {
         right: -400px;
@@ -536,7 +538,7 @@ body
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-family: 'Arial', sans-serif;}
+}
   
   
   .selection_container:empty {
@@ -555,7 +557,6 @@ body
     width:100%;
     padding: 5px;
     text-align: center;
-    font-family: 'Arial', sans-serif;
     background-color: #50a152;
     border:1.5px black;
     border-radius: 2px;

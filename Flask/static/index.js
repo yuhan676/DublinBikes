@@ -4,6 +4,7 @@ var lastReturnSearchJSON = {};
 
 // Global variable to store the last weather search data
 var lastWeatherJSON = {};
+var lastWeatherPredictionJSON = {}
 
 // We use this for our state a lot, so keep track of the currently open tab here
 // Rent is open by default
@@ -12,9 +13,6 @@ var activeTab = "rent";
 function getLastSearchJSON() {
     return (activeTab == "rent" ? lastRentSearchJSON : lastReturnSearchJSON);
 }
-
-// Define a global variable to store the active tab
-var weatherActiveTab = 'weather-current-content';
 
 function initTimeAndDate() {
     // A new Date object defaults to today and now
@@ -233,7 +231,16 @@ function verifyAndSubmitQuery() {
             setTimeout(() => {
                 animateMarker(0)
             }, 100)
-        
+
+            if (isNow) {
+                // Call current weather fetch and populate function
+                fetchCurrentWeatherData();
+            } else {
+                // Call predicted weather fetch and populate function
+                // Use the date, can be like above:
+                // 'date': JSON.stringify(dateSelected), // format: YYYY-MM-DDTHH:MM:SS.MMMZ
+                fetchForecastData();
+            }
     },
         error: function(request, status, errorString) {
             if (request.status == 500)
@@ -244,6 +251,27 @@ function verifyAndSubmitQuery() {
         }
     });
     // Handle failure/invalid station name
+}
+function fetchForecastData(timestamp) {
+    $.ajax({
+        url: '/prediction_weather',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+            'timestamp': timestamp
+        },
+        success: function(predictionData) {
+            lastWeatherPredictionJSON = predictionData;
+            console.log(lastWeatherPredictionJSON())
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            if (request.status == 500)
+            {
+                // 500 here is so we can show the user when they have entered an invalid station name
+                $('#error_text').text(request.responseJSON.message);
+            }
+        }
+    });
 }
 // The following functions populate the selection box dynamically
 
@@ -793,14 +821,6 @@ $(document).ready(function() {
     selectStation(index, false);});
 });
 
-function adjustWeatherPanelPosition() {
-    // Adjust the weather panel position based on the height of the left panel
-    var leftPanel = document.getElementById('left-panel');
-    var weatherPanel = document.getElementById('weather-panel');
-    var topPosition = leftPanel.offsetTop + leftPanel.offsetHeight + 10; // Additional 10px for spacing
-    weatherPanel.style.top = topPosition + 'px';
-}
-
 function openTab(evt, tabName) {
     // Update global tab value
     activeTab = tabName;
@@ -829,9 +849,6 @@ function openTab(evt, tabName) {
 
     // Check if the search button needs updating
     updateSearchBtn();
-        
-    // Adjust the weather panel position
-    adjustWeatherPanelPosition();
 
     // Clear markers and repopulate
     updateMarkers(activeTab == "rent");
@@ -846,42 +863,8 @@ function openTab(evt, tabName) {
         $('#right_panel').addClass('slide_out');
     }
 }
-function weatherOpenTab(evt, tabContentId) {
-    try {
-        // Update the value of the global variable
-        weatherActiveTab = tabContentId;
-
-        // Get all elements with class="weather-tabcontent" and hide them
-        var weather_tabcontent = document.getElementsByClassName('weather-tabcontent');
-        if (!weather_tabcontent || weather_tabcontent.length === 0) {
-            throw new Error("Weather tab content elements not found.");
-        }
-        for (var i = 0; i < weather_tabcontent.length; i++) {
-            weather_tabcontent[i].style.display = 'none';
-        }
-
-        // Get all elements with class="weather-tablinks" and remove the class "active"
-        var weather_tablinks = document.getElementsByClassName('weather-tablinks');
-        if (!weather_tablinks || weather_tablinks.length === 0) {
-            throw new Error("Weather tab links elements not found.");
-        }
-        for (var i = 0; i < weather_tablinks.length; i++) {
-            weather_tablinks[i].classList.remove('active');
-        }
-
-        // Show the content of the clicked tab and add the "active" class to the button
-        var tabElement = document.getElementById(tabContentId);
-        if (!tabElement) {
-            throw new Error("Weather tab content element with ID '" + tabContentId + "' not found.");
-        }
-        tabElement.style.display = 'block';
-        evt.currentTarget.classList.add('active');
-    } catch (error) {
-        console.error("An error occurred in weatherOpenTab:", error);
-        // Handle the error, e.g., display a message to the user or gracefully recover
-    }
-}
 function fetchCurrentWeatherData() {
+    return;
     try {
         $.ajax({
             url: "/weather_data",
@@ -941,6 +924,7 @@ function fetchCurrentWeatherData() {
 }
 // Function to fetch forecast data using AJAX
 function fetchForecastData() {
+    return;
     $.ajax({
         url: "/five_day_prediction",
         type: "GET",

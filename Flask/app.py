@@ -52,6 +52,47 @@ def get_weather_data():
         traceback.print_exc()
         return jsonify(error=str(e)), 500
     
+@app.route('/prediction_weather', methods=['GET'])
+def fetch_prediction_weather():
+    try:
+        # Get the timestamp from the request parameters
+        timestamp = request.args.get('timestamp')
+
+        # Parse the timestamp into a datetime object
+        selected_time = datetime.strptime(timestamp, '%Y-%m-%dT%H:%M:%S.%fZ')
+
+        # Call connect_db to get the SQLAlchemy Engine object
+        engine = connect_db()
+        connection = engine.connect()
+
+        # Query the weather prediction data closest to the selected timestamp
+        query = text("""
+            SELECT temp_min, temp_max, wind_speed, gust, rain_3h, time_update
+            FROM WeatherPrediction
+            WHERE time_update <= :selected_time
+            ORDER BY time_update DESC
+            LIMIT 1
+        """)
+        result = connection.execute(query, {"selected_time": selected_time})
+        row = result.fetchone()
+
+        # If a row exists, convert it to a dictionary
+        if row:
+            weather_data = dict(row)
+            # Replace "NaN" and "undefined" values with "Not Available"
+            for key in weather_data:
+                if weather_data[key] == "NaN" or weather_data[key] == "undefined":
+                    weather_data[key] = "Not Available"
+        else:
+            weather_data = {}
+
+        connection.close()
+        return jsonify(weather_data)
+
+    except Exception as e:
+        app.logger.error('Error fetching weather prediction data:', e)
+        return jsonify(error=str(e)), 500
+
 @app.route('/five_day_prediction', methods=['GET'])
 def fetch_five_day_prediction():
     try:

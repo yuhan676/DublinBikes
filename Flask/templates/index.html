@@ -36,9 +36,6 @@
             initMap();
             initTimeAndDate();
             openTab(null, 'rent'); // Open the 'Rent' tab by default
-            adjustWeatherPanelPosition(); // Adjust the weather panel position on load
-            // Call weatherOpenTab function with 'weather-current-content' tabContentId to make it active on page load
-            weatherOpenTab({ currentTarget: document.querySelector('.weather-tablinks.active') }, 'weather-current-content');
         };
 
     </script>
@@ -132,24 +129,40 @@
         <div id="extreme-weather-content"></div>
     </div>
      
-    <div id="weather-panel" class="panel">
-        <div class="weather-header">
-            <div class="weather-tab">
-                <!-- Dynamic tabs -->
-                <button class="weather-tablinks active" onclick="weatherOpenTab(event, 'weather-current-content')">Current Weather</button>   
-                <button class="weather-tablinks" onclick="weatherOpenTab(event, 'weather-forecast-content')">Forecast</button>
+    <div id="weather_panel" class="panel">
+        <div class="weather_header">
+            Current Weather
+        </div>
+        <div id="weather_current_content" class="weather_content" style="display: none;">
+            <div class="big_temp" id="current_temp">9°C</div>
+            <div class="low_high_row">
+                <div>L: <span id="low_temp">3</span>°C</div>
+                <div>H: <span id="high_temp">3</span>°C</div>
+            </div>
+            <div class="weather_row">
+                Feels like: <span>5</span>
+            </div>
+            <div class="weather_row">
+                Wind speed: <span>10</span>
+            </div>
+            <div class="weather_row">
+                Wind gust: <span>10</span>
+            </div>
+            <div class="weather_row">
+                Last updated: <span>5 B.C.</span>
             </div>
         </div>
-        <div id="weather-current-content" class="weather-tabcontent">
-            <!-- Content for Current Weather tab -->
-            <div class="current-weather-content">
-                <!-- This will display the current weather data -->
+        <div id="weather_forecast_content" class="weather_content">
+            <div class="big_temp" id="current_temp_pred">9°C</div>
+
+            <div class="weather_row">
+                Wind speed: <span>10</span>
             </div>
-        </div>
-        <div id="weather-forecast-content" class="weather-tabcontent" style="display: none;">
-            <!-- Content for Forecast tab -->
-            <div class="forecast-weather-content">
-                <!-- This will display the forecast weather data -->
+            <div class="weather_row">
+                Wind gust: <span>10</span>
+            </div>
+            <div class="weather_row">
+                Predicted time: <span>7:45</span>
             </div>
         </div>
     </div>    

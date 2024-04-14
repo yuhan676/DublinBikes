@@ -922,54 +922,54 @@ function fetchCurrentWeatherData() {
 }
 // Function to fetch forecast data using AJAX
 // function fetchForecastData() {
-    return;
-    $.ajax({
-        url: "/five_day_prediction",
-        type: "GET",
-        dataType: "json", // Specify that the expected response is JSON
-        success: function(response) {
-            // Store the fetched weather data in the global variable
-            lastWeatherJSON = response;
+    // return;
+    // $.ajax({
+    //     url: "/five_day_prediction",
+    //     type: "GET",
+    //     dataType: "json", // Specify that the expected response is JSON
+    //     success: function(response) {
+    //         // Store the fetched weather data in the global variable
+    //         lastWeatherJSON = response;
 
-            // Extract weather data from the response
-            var weatherData = response;
+    //         // Extract weather data from the response
+    //         var weatherData = response;
 
-            // Extracting individual weather data fields
-            // Convert time update to a Date object
-            var timeupdate = new Date(weatherData[0].time_update); 
-            var tempMin = kelvinToCelsius(weatherData[0].temp_min);
-            var tempMax = kelvinToCelsius(weatherData[0].temp_max);
-            var rain = weatherData[0].rain;
-            var windSpeed = mpsToKph(weatherData[0].wind_speed);
-            var windGust = mpsToKph(weatherData[0].gust);
+    //         // Extracting individual weather data fields
+    //         // Convert time update to a Date object
+    //         var timeupdate = new Date(weatherData[0].time_update); 
+    //         var tempMin = kelvinToCelsius(weatherData[0].temp_min);
+    //         var tempMax = kelvinToCelsius(weatherData[0].temp_max);
+    //         var rain = weatherData[0].rain;
+    //         var windSpeed = mpsToKph(weatherData[0].wind_speed);
+    //         var windGust = mpsToKph(weatherData[0].gust);
 
-            // Format time update as a timestamp
-            var dayOfWeek = timeupdate.toLocaleDateString(undefined, { weekday: 'long' });
-            var month = timeupdate.toLocaleDateString(undefined, { month: 'long' });
-            var day = timeupdate.toLocaleDateString(undefined, { day: 'numeric' });
-            var timezone = timeupdate.toLocaleTimeString(undefined, { timeZone: 'Europe/Dublin', hour: '2-digit', minute: '2-digit', hour12: true });
+    //         // Format time update as a timestamp
+    //         var dayOfWeek = timeupdate.toLocaleDateString(undefined, { weekday: 'long' });
+    //         var month = timeupdate.toLocaleDateString(undefined, { month: 'long' });
+    //         var day = timeupdate.toLocaleDateString(undefined, { day: 'numeric' });
+    //         var timezone = timeupdate.toLocaleTimeString(undefined, { timeZone: 'Europe/Dublin', hour: '2-digit', minute: '2-digit', hour12: true });
             
-            var timestamp = dayOfWeek + ", " + month + "  " + day + ", " + timezone;
+    //         var timestamp = dayOfWeek + ", " + month + "  " + day + ", " + timezone;
 
-            // Update HTML content with fetched weather data
-            $('#weather-forecast-content').html(
-                "<p style='margin-bottom: 5px;'><span style='font-size: 1.1em;'>Min Temperature:</span> " + tempMin + " °C</p>" +
-                "<p style='margin-bottom: 5px;'><span style='font-size: 1.1em;'>Max Temperature:</span> " + tempMax + " °C</p>" +
-                "<p style='margin-bottom: 5px;'><span style='font-size: 1.1em;'>Rain:</span> " + rain + "</p>" +
-                "<p style='margin-bottom: 5px;'><span style='font-size: 1.1em;'>Wind Speed:</span> " + windSpeed + " km/h</p>" +
-                "<p style='margin-bottom: 5px;'><span style='font-size: 1.1em;'>Wind Gust:</span> " + windGust + " km/h</p>" +
-                "<p style='margin-bottom: 5px;'><strong>Last Updated:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + timestamp + "</span></p>"
-            );
+    //         // Update HTML content with fetched weather data
+    //         $('#weather-forecast-content').html(
+    //             "<p style='margin-bottom: 5px;'><span style='font-size: 1.1em;'>Min Temperature:</span> " + tempMin + " °C</p>" +
+    //             "<p style='margin-bottom: 5px;'><span style='font-size: 1.1em;'>Max Temperature:</span> " + tempMax + " °C</p>" +
+    //             "<p style='margin-bottom: 5px;'><span style='font-size: 1.1em;'>Rain:</span> " + rain + "</p>" +
+    //             "<p style='margin-bottom: 5px;'><span style='font-size: 1.1em;'>Wind Speed:</span> " + windSpeed + " km/h</p>" +
+    //             "<p style='margin-bottom: 5px;'><span style='font-size: 1.1em;'>Wind Gust:</span> " + windGust + " km/h</p>" +
+    //             "<p style='margin-bottom: 5px;'><strong>Last Updated:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + timestamp + "</span></p>"
+    //         );
 
-            // Adjust the margin dynamically after content has been populated
-            $('#weather-forecast-content').css('margin-top', '10px');
-        },
-        error: function(_, _, error) {
-            // Handle AJAX error
-            console.error("An error occurred in fetchForecastData:", error);
-            $('#weather-forecast-content').html('Error fetching weather data');
-        }
-    });
+    //         // Adjust the margin dynamically after content has been populated
+    //         $('#weather-forecast-content').css('margin-top', '10px');
+    //     },
+    //     error: function(_, _, error) {
+    //         // Handle AJAX error
+    //         console.error("An error occurred in fetchForecastData:", error);
+    //         $('#weather-forecast-content').html('Error fetching weather data');
+    //     }
+    // });
 // }
 
 // Call the fetchCurrentWeatherData 

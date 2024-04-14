@@ -122,9 +122,6 @@ function updateMarkers(isRent) {
             addMarker(map, item, isRent)
         })
     }
-    setTimeout(() => {
-        animateMarker(0)
-    }, 100)
 }
 function addMarkerToGlobalArray(marker) {
     // Add the new marker to the global array

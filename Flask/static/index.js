@@ -19,6 +19,14 @@ var weatherActiveTab = 'weather-current-content';
 function initTimeAndDate() {
     // A new Date object defaults to today and now
     var date = new Date();
+    // Correct now for summertime
+    date.setTime( date.getTime() - date.getTimezoneOffset()*60*1000 );
+
+    // Set the max date to 5 days from today
+    var maxDate = new Date();
+    // Correct now for summertime
+    maxDate.setTime( maxDate.getTime() - maxDate.getTimezoneOffset()*60*1000 );
+    maxDate.setDate(date.getDate() + 5);
 
     // Get our elements
     var rentTimeElem = document.getElementById("rent_time");
@@ -31,12 +39,17 @@ function initTimeAndDate() {
     // time number into a useable format. substring(11,16) gets the bit we need (current time HH:MM)
     rentTimeElem.value = date.toISOString().substring(11,16);
     returnTimeElem.value = date.toISOString().substring(11,16);
-    rentDateElem.valueAsDate = date;
-    returnDateElem.valueAsDate = date;
+    // Convert dates to YYYY-MM-DD format for input min and max attributes
+    var isoDate = date.toISOString().split("T")[0];
+    var isoMaxDate = maxDate.toISOString().split("T")[0];
 
-    // Set min data to today
-    rentDateElem.min = date.toISOString().split("T")[0];
-    returnDateElem.min = date.toISOString().split("T")[0];
+    rentDateElem.value = isoDate;
+    returnDateElem.value = isoDate;
+
+    rentDateElem.min = isoDate;
+    rentDateElem.max = isoMaxDate;
+    returnDateElem.min = isoDate;
+    returnDateElem.max = isoMaxDate;
 }
 
 // Given the user input, fetch station name suggestions and populate given output element
@@ -143,6 +156,8 @@ function verifyAndSubmitQuery() {
 
     // If date is today, check that the time is not earlier than now or correct it
     var dateNow = new Date();
+    // Correct now for summertime
+    dateNow.setTime( dateNow.getTime() - dateNow.getTimezoneOffset()*60*1000 );
     var dateSelected = dateElem.valueAsDate;
     var timeSelected = timeElem.valueAsDate;
     if (!(dateSelected > dateNow))
@@ -160,10 +175,9 @@ function verifyAndSubmitQuery() {
     // For simplicity, compact our date and time into one
     dateSelected.setHours(timeSelected.getHours());
     dateSelected.setMinutes(timeSelected.getMinutes());
-    // This is the dummy data I used to test on my local machine
-    // console.log("run here")
-    // testDummyData();
-    // return
+    // Check if the combined date and time is in the future
+    var isNow = dateSelected.getTime() <= dateNow.getTime();
+
     // Package and submit query
     var stationName = $(isRent ? '#search_rent' : '#search_return').val();
     $.ajax({
@@ -173,7 +187,8 @@ function verifyAndSubmitQuery() {
         data: { 
             'isRent': isRent,
             'stationName': stationName,
-            'date': JSON.stringify(dateSelected) // format: YYYY-MM-DDTHH:MM:SS.MMMZ
+            'date': JSON.stringify(dateSelected), // format: YYYY-MM-DDTHH:MM:SS.MMMZ
+            'isNow': isNow // Send the time status nature to Flask endpoint
         },
         success: function(return_data) {
             // Success! return_data should contain the five stations plus any other necessary info
@@ -215,6 +230,10 @@ function verifyAndSubmitQuery() {
             {createSelectionToggle(isRent);}
             // Populate the selection boxes
             populateStationBoxes(isRent);
+            setTimeout(() => {
+                animateMarker(0)
+            }, 100)
+        
     },
         error: function(request, status, errorString) {
             if (request.status == 500)
@@ -420,15 +439,47 @@ function populateRightPanel(stationName, isRent) {
 
         console.log('Right panel container:', rightPanelContainer);
 
-        rightPanelContainer.empty();
-        console.log('Previous content cleared.');
+        if (isRent) {
+            // Set title
+            $('#rp_title').text("Rent");
+            $('#right_panel').addClass('rp_rent');
+            $('#right_panel').removeClass('rp_return');
+        } else {
+            // Set title
+            $('#rp_title').text("Return");
+            $('#right_panel').addClass('rp_return');
+            $('#right_panel').removeClass('rp_rent');
+        }
 
-        var stationElementName = $('<div>').addClass('rp_station_name').text('Station Name: ' + stationData.name);
-        var totalBikeLabel = $('<div>').addClass('rp_bike_total_label').text('Total Bike: ').append($('<p>').attr('id', 'available-bikes').text(stationData.total_bikes));
-        var mechanicalBikeLabel = $('<div>').addClass('rp_info_label').text('Mechanical Bikes: ').append($('<p>').attr('id', 'available_mechanical').text(stationData.mechanical_bikes));
-        var eBikeRemovableLabel = $('<div>').addClass('rp_info_label').text('E-Bike Removable Battery: ').append($('<p>').attr('id', 'available_e_removable').text(stationData.electrical_removable_battery_bikes));
-        var eBikeInternalLabel = $('<div>').addClass('rp_info_label').text('E-Bike Internal Battery: ').append($('<p>').attr('id', 'available_e_internal').text(stationData.electrical_internal_battery_bikes));
-        var totalParkingLabel = $('<div>').addClass('rp_park_total_label').text('Total Parking: ').append($('<p>').attr('id', 'available-park').text(stationData.empty_stands_number));
+        if (stationData.is_now === "true"){
+            $('#right_panel').addClass('rp_live');
+            $('#right_panel').removeClass('rp_predicted');
+        } else {
+            $('#right_panel').addClass('rp_predicted');
+            $('#right_panel').removeClass('rp_live');
+        }
+
+        if (stationData.status === "CLOSED")
+        {
+            $('#right_panel').addClass('rp_closed');
+            $('#right_panel').removeClass('rp_open');
+        } else {
+            $('#right_panel').addClass('rp_open');
+            $('#right_panel').removeClass('rp_closed');
+        }
+
+
+        // Set content
+        $('#rp_station_name').text('Station Name: ' + stationData.name);
+        $('#available-bikes').text(stationData.total_bikes);
+        $('#available_mechanical').text(stationData.mechanical_bikes);
+        $('#available_e_removable').text(stationData.electrical_removable_battery_bikes);
+        $('#available_e_internal').text(stationData.electrical_internal_battery_bikes);
+        $('#available-park').text(stationData.empty_stands_number);
+
+        // Move above the potential error throw below, so the only thing missed in the event of that error is the time population
+        let stationNumber = stationData.number
+        initGraph(stationName, stationNumber, isRent)
 
         var timeUpdateDate = new Date(stationData.last_update);
         if (isNaN(timeUpdateDate.getTime())) {
@@ -447,18 +498,12 @@ function populateRightPanel(stationName, isRent) {
 
         var formattedTime = timeUpdateDate.toLocaleString(undefined, options);
 
-        var timeUpdateLabelRent = $('<div>').addClass('rp_info_label').html("<p style='margin-bottom: 5px;'><strong>Last Updated:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + formattedTime + "</span></p>");
-        var timeUpdateLabelReturn = $('<div>').addClass('rp_info_label').html("<p style='margin-bottom: 5px;'><strong>Last Updated:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + formattedTime + "</span></p>");
+        $('#time-update').text(formattedTime);
+        $('#time-update-return').text(formattedTime);
 
-        if (isRent) {
-            rightPanelContainer.append(stationElementName, totalParkingLabel, totalBikeLabel, mechanicalBikeLabel, eBikeRemovableLabel, eBikeInternalLabel, timeUpdateLabelRent);
-        } else {
-            rightPanelContainer.append(stationElementName, totalParkingLabel, totalBikeLabel, timeUpdateLabelReturn);
-        }
+
 
         console.log('Station information appended to right panel container.');
-        let stationNumber = stationData.number
-        initGraph(stationName, stationNumber, isRent)
         return 
         // Load Google Charts library and draw graphs when loaded
         google.charts.load('current', { packages: ['corechart'] });
@@ -721,7 +766,6 @@ $(document).ready(function() {
 
     // Search button click listener
     $('#search_btn').click(function() {
-        $('#right_panel').removeClass('slide_out');
         verifyAndSubmitQuery();
     });
     // Add event listener to detect keyboard stroke for opening the popup

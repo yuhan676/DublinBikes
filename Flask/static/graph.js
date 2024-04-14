@@ -64,7 +64,7 @@ async function drawChart(chartId, options, isRent, stationName, stationNumber, i
     if (!isDaily) {
       updatedTime.setHours(item.hour)
     }
-    var formattedTimestamp = isDaily ? updatedTime.toLocaleDateString() : updatedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    var formattedTimestamp = isDaily ? `${updatedTime.getMonth()}/${updatedTime.getDate()}` : updatedTime.toLocaleTimeString([], { hour: '2-digit'});
     // Add row for each hour with the correct timestamp
       dailyStandData.addRow([{ v: formattedTimestamp, f: formattedTimestamp }, parseInt(value)]);
   })
@@ -77,22 +77,22 @@ function initGraph(stationName, stationNumber, isRent) {
   var rightPanelContainer = $('#rp_content');
   google.charts.load('current', { packages: ['corechart'] });
   google.charts.setOnLoadCallback(function() {
-    var dailyStandChartContainer = $('<div>').addClass('rp_prediction_return').append($('<div>').attr('id', 'dailyStandPredictionChart'));
-    var hourlyStandChartContainer = $('<div>').addClass('rp_prediction_return').append($('<div>').attr('id', 'hourlyStandPredictionChart'));
+    var dailyStandChartContainer = $('<div>').addClass('rp_prediction_return').append("<p class='chart-title'>Past 7 days</p>").append($('<div>').attr('id', 'dailyStandPredictionChart'));
+    var hourlyStandChartContainer = $('<div>').addClass('rp_prediction_return').append("<p class='chart-title'>Past 24 hours</p>").append($('<div>').attr('id', 'hourlyStandPredictionChart'));
     rightPanelContainer.append(dailyStandChartContainer);
     rightPanelContainer.append(hourlyStandChartContainer);
 
     let dailyOptions = {
       title: isRent ? 'Bike Availability' : 'Bike Parking Availability',
       hAxis: { 
-          title: 'Daily Availability', 
+          title: 'Average Daily Availability', 
           titleTextStyle: { 
               color: '#871B47', // Title color
               opacity: 0.6 // Title opacity
           }, 
           textStyle: { // Text style for axis labels
-              color: '#BC5679', // Color of axis labels
-              opacity: 0.2 // Opacity of axis labels
+              color: '#871B47', // Color of axis labels
+              opacity: 0.6 // Opacity of axis labels
           }
       },
       vAxis: { 
@@ -108,14 +108,14 @@ function initGraph(stationName, stationNumber, isRent) {
   let hourlyOptions = {
     title: isRent ? 'Bike Availability' : 'Bike Parking Availability',
     hAxis: { 
-        title: 'Hourly Availability', 
+        title: 'Average Hourly Availability', 
         titleTextStyle: { 
             color: '#871B47', // Title color
             opacity: 0.6 // Title opacity
         }, 
         textStyle: { // Text style for axis labels
-            color: '#BC5679', // Color of axis labels
-            opacity: 0.2 // Opacity of axis labels
+            color: '#871B47', // Color of axis labels
+            opacity: 0.6 // Opacity of axis labels
         }
     },
     vAxis: { 

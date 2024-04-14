@@ -237,9 +237,7 @@ function verifyAndSubmitQuery() {
                 fetchCurrentWeatherData();
             } else {
                 // Call predicted weather fetch and populate function
-                // Use the date, can be like above:
-                // 'date': JSON.stringify(dateSelected), // format: YYYY-MM-DDTHH:MM:SS.MMMZ
-                fetchForecastData();
+                fetchForecastData(dateSelected);
             }
     },
         error: function(request, status, errorString) {
@@ -258,7 +256,7 @@ function fetchForecastData(timestamp) {
         type: 'GET',
         dataType: 'json',
         data: {
-            'timestamp': timestamp
+            'timestamp': JSON.stringify(timestamp), // format: YYYY-MM-DDTHH:MM:SS.MMMZ
         },
         success: function(predictionData) {
             lastWeatherPredictionJSON = predictionData;

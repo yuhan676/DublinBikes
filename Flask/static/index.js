@@ -260,7 +260,7 @@ function fetchForecastData(timestamp) {
         },
         success: function(predictionData) {
             lastWeatherPredictionJSON = predictionData;
-            console.log(lastWeatherPredictionJSON())
+            console.log(predictionData);
         },
         error: function(jqXHR, textStatus, errorThrown) {
             if (request.status == 500)

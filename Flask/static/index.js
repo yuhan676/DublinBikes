@@ -958,6 +958,8 @@ function fetchCurrentWeatherData() {
     }
 }
 
+// let weatherStateIcon = new Map([["key","value"],[],[]]);
+// // Use as weatherStateIcon.get("key");
 function populateWeatherCurrent() {
     // Extracting individual weather data fields
     // Convert time update to a Date object
@@ -984,6 +986,7 @@ function populateWeatherCurrent() {
     $('#weather_panel').removeClass('show_predicted');
 
     $('#weather_panel_title').text("Current Weather");
+    $('#weather_des').text(weatherDescription);
 
     $('#current_temp').text(feelsLike + "°C");
     $('#low_temp').text(tempMin + "°C");

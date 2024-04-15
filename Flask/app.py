@@ -344,6 +344,7 @@ def search():
             tempMax = float(weatherData['temp_max'])
             feelsLike = (tempMin + tempMax)/2
             input = [[feelsLike, tempMin, tempMax, float(weatherData['wind_speed']), float(weatherData['gust'])]]
+            return jsonify(input)
             counter = 0
             for number in station_numbers:
 

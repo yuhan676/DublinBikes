@@ -384,6 +384,33 @@ function populateStationBoxes(isRent) {
     selectStation(0, isRent);
 }
 
+function populateWeatherPrediction(){
+    
+    var timeupdate = new Date(lastWeatherPredictionJSON.time_update); 
+    var tempMin = kelvinToCelsius(lastWeatherPredictionJSON.temp_min);
+    var tempMax = kelvinToCelsius(lastWeatherPredictionJSON.temp_max);
+    var rain = lastWeatherPredictionJSON.rain;
+    var windSpeed = mpsToKph(lastWeatherPredictionJSON.wind_speed);
+    var windGust = mpsToKph(lastWeatherPredictionJSON.gust);
+
+    // Format time update as a timestamp
+    var dayOfWeek = timeupdate.toLocaleDateString(undefined, { weekday: 'long' });
+    var month = timeupdate.toLocaleDateString(undefined, { month: 'long' });
+    var day = timeupdate.toLocaleDateString(undefined, { day: 'numeric' });
+    var timezone = timeupdate.toLocaleTimeString(undefined, { timeZone: 'Europe/Dublin', hour: '2-digit', minute: '2-digit', hour12: true });
+    var averageTemp = (tempMin+tempMax)/2;
+    var timestamp = dayOfWeek + ", " + month + "  " + day + ", " + timezone;
+    $('#current_temp_pred').text(averageTemp);
+    $('#rainfall_pred').text(rain);
+    $('#wind_speed_pred').text(windSpeed);
+    $('#wind_gust_pred').text(windGust);
+    $('#low_temp_pred').text(tempMin);
+    $('#high_temp_pred').text(tempMax);
+    $('#time_pred').text(timestamp);
+
+
+}
+
 // Function to show/unshow the selection wrapper using toggle, distinguishing rent and return
 function selectionToggle(isRent) {
     // Determine the correct ID based on isRent

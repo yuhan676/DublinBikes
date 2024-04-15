@@ -349,11 +349,11 @@ def search():
             counter = 0
             for number in station_numbers:
                 prediction = predict_station_status(number, weatherInput)
-                results[counter]['electrical_internal_battery_bikes'] = prediction[0]
-                results[counter]['mechanical_bikes'] = prediction[1]
-                results[counter]['electrical_removable_battery_bikes'] = prediction[2]
-                results[counter]['empty_stands_number'] = prediction[3]
-                results[counter]['total_bikes'] = prediction[4]
+                results[counter]['electrical_internal_battery_bikes'] = int(prediction[0])
+                results[counter]['mechanical_bikes'] = int(prediction[1])
+                results[counter]['electrical_removable_battery_bikes'] = int(prediction[2])
+                results[counter]['empty_stands_number'] = int(prediction[3])
+                results[counter]['total_bikes'] = int(prediction[4])
                 counter += 1
 
             return jsonify(results)

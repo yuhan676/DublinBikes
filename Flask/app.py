@@ -78,7 +78,7 @@ def fetch_prediction_weather(timestamp):
     # Parse the timestamp into a datetime object
     # selected_time = datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S')
     selected_time = timestamp[1:-6].replace("T", " ")
-
+    return selected_time
 
     # Call connect_db to get the SQLAlchemy Engine object
     engine = connect_db()
@@ -340,7 +340,6 @@ def search():
             return jsonify(results)
         else:
             # We need a prediction! Fetch and replace within results.
-            return jsonify(date)
             weatherData = json.loads(fetch_prediction_weather(date))[0]
             return jsonify(weatherData)
             tempMin = float(weatherData['temp_min'])

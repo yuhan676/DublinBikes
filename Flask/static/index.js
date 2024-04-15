@@ -409,6 +409,9 @@ function populateWeatherPrediction(){
 
     var timestamp = dayOfWeek + ", " + month + "  " + day + ", " + timezone;
 
+    $('#weather_panel').addClass('show_predicted');
+    $('#weather_panel').removeClass('show_current');
+
     $('#weather_panel_title').text("Predicted Weather");
 
     $('#current_temp_pred').text(((parseFloat(tempMaxCelsius) + parseFloat(tempMinCelsius)) / 2) + "°C"); // Display average temperature
@@ -939,13 +942,13 @@ function fetchCurrentWeatherData() {
 function populateWeatherCurrent() {
     // Extracting individual weather data fields
     // Convert time update to a Date object
-    var timeupdate = new Date(lastWeatherJSON.time_update);
-    var feelsLike = kelvinToCelsius(lastWeatherJSON.feels_like);
-    var tempMin = kelvinToCelsius(lastWeatherJSON.temperature_min);
-    var tempMax = kelvinToCelsius(lastWeatherJSON.temperature_max);
-    var weatherDescription = lastWeatherJSON.weather_description;
-    var windSpeed = mpsToKph(lastWeatherJSON.wind_speed);
-    var windGust = mpsToKph(lastWeatherJSON.wind_gust);
+    var timeupdate = new Date(lastWeatherJSON[0].time_update);
+    var feelsLike = kelvinToCelsius(lastWeatherJSON[0].feels_like);
+    var tempMin = kelvinToCelsius(lastWeatherJSON[0].temperature_min);
+    var tempMax = kelvinToCelsius(lastWeatherJSON[0].temperature_max);
+    var weatherDescription = lastWeatherJSON[0].weather_description;
+    var windSpeed = mpsToKph(lastWeatherJSON[0].wind_speed);
+    var windGust = mpsToKph(lastWeatherJSON[0].wind_gust);
 
     // Format time update as a timestamp
     var dayOfWeek = timeupdate.toLocaleDateString(undefined, { weekday: 'long' });
@@ -954,6 +957,11 @@ function populateWeatherCurrent() {
     var timezone = timeupdate.toLocaleTimeString(undefined, { timeZone: 'Europe/Dublin', hour: '2-digit', minute: '2-digit', hour12: true });
 
     var timestamp = dayOfWeek + ", " + month + "  " + day + ", " + timezone;
+
+    $('#weather_panel').addClass('show_current');
+    $('#weather_panel').removeClass('show_predicted');
+
+    $('#weather_panel_title').text("Current Weather");
 
     $('#current_temp').text(feelsLike + "°C");
     $('#low_temp').text(tempMin + "°C");

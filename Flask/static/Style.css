@@ -185,6 +185,15 @@ body
     left: 10px; /* Adjust the margin to move the weather panel slightly to the left */
 }
 
+.show_current #weather_current_content, .show_predicted #weather_forecast_content
+{
+    display: block;
+}
+.show_current #weather_forecast_content, .show_predicted #weather_current_content
+{
+    display: none;
+}
+
 
 .weather_header {
     font-size: 1.1em;

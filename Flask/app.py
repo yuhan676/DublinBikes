@@ -340,7 +340,7 @@ def search():
         else:
             # We need a prediction! Fetch and replace within results.
             weatherData = fetch_prediction_weather(date)
-            return jsonify(len(weatherData))
+            return jsonify(len(json.loads(weatherData)))
             tempMin = float(weatherData['temp_min'])
             tempMax = float(weatherData['temp_max'])
             feelsLike = (tempMin + tempMax)/2

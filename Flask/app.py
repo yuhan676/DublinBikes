@@ -365,7 +365,7 @@ def search():
 
     except FileNotFoundError:
         # Specific error when the mapping file is not found
-        app.logger.error(f"Mapping file not found for station search: {stationName}")
+        app.logger.error(f"Mapping file or pickle not found for station search: {station_numbers}")
         return jsonify(error="Mapping file not found."), 500
 
     except Exception as e:

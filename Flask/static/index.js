@@ -3,8 +3,10 @@ var lastRentSearchJSON = {};
 var lastReturnSearchJSON = {};
 
 // Global variable to store the last weather search data
-var lastWeatherJSON = {};
-var lastWeatherPredictionJSON = {}
+var lastWeatherRentJSON = {};
+var lastWeatherPredictionRentJSON = {}
+var lastWeatherReturnJSON = {};
+var lastWeatherPredictionReturnJSON = {}
 
 // We use this for our state a lot, so keep track of the currently open tab here
 // Rent is open by default
@@ -12,6 +14,14 @@ var activeTab = "rent";
 
 function getLastSearchJSON() {
     return (activeTab == "rent" ? lastRentSearchJSON : lastReturnSearchJSON);
+}
+
+function getCurrentWeatherJSON() {
+    return (activeTab == "rent" ? lastWeatherRentJSON : lastWeatherReturnJSON);
+}
+
+function getPredictedWeatherJSON() {
+    return (activeTab == "rent" ? lastWeatherPredictionRentJSON : lastWeatherPredictionReturnJSON);
 }
 
 function initTimeAndDate() {
@@ -259,7 +269,11 @@ function fetchForecastData(timestamp) {
             'timestamp': JSON.stringify(timestamp), // format: YYYY-MM-DDTHH:MM:SS.MMMZ
         },
         success: function(predictionData) {
-            lastWeatherPredictionJSON = predictionData;
+            if (activeTab == "rent") {
+                lastWeatherPredictionRentJSON = predictionData;
+            } else {
+                lastWeatherPredictionReturnJSON = predictionData;
+            }
             console.log(predictionData);
             populateWeatherPrediction();
         },
@@ -386,6 +400,7 @@ function populateStationBoxes(isRent) {
 }
 
 function populateWeatherPrediction(){
+    var lastWeatherPredictionJSON = getPredictedWeatherJSON();
     var timeupdate = new Date(lastWeatherPredictionJSON.time_update); 
     var tempMaxKelvin = parseFloat(lastWeatherPredictionJSON.temp_max);
     var tempMinKelvin = parseFloat(lastWeatherPredictionJSON.temp_min);
@@ -904,7 +919,7 @@ function openTab(evt, tabName) {
     // Update weather panel
     if (Object.keys(getLastSearchJSON()).length) {
         if (getLastSearchJSON()[0].isNow) {
-            populateWeatherCurrent();
+            fetchCurrentWeatherData();
         }
         else {
             populateWeatherPrediction();
@@ -923,7 +938,11 @@ function fetchCurrentWeatherData() {
             dataType: "json", // Specify that the expected response is JSON
             success: function(response) {
                 // Store the fetched weather data in the global variable
-                lastWeatherJSON = response;
+                if (activeTab == "rent") {
+                    lastWeatherRentJSON = response;
+                } else {
+                    lastWeatherReturnJSON = response;
+                }
                 // Populate content
                 populateWeatherCurrent();
             },
@@ -942,6 +961,7 @@ function fetchCurrentWeatherData() {
 function populateWeatherCurrent() {
     // Extracting individual weather data fields
     // Convert time update to a Date object
+    var lastWeatherJSON = getCurrentWeatherJSON();
     var timeupdate = new Date(lastWeatherJSON[0].time_update);
     // Correct now for summertime
     timeupdate.setTime( timeupdate.getTime() - timeupdate.getTimezoneOffset()*60*1000 );

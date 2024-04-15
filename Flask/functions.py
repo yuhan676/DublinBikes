@@ -127,7 +127,7 @@ def fetch_weather_data_database(query):
 def predict_station_status(stationNum, input):
     numpyInput = np.array(input).reshape(1, -1)  # Ensure input is shaped correctly
 
-    model_path = f'predictive_models/.ipynb_checkpoints/{stationNum}_output_data.pickle'
+    model_path = f'predictive_models/.ipynb_checkpoints/{stationNum}_model_current_weather_for_each_station.pickle'
     if not os.path.exists(model_path):
         raise FileNotFoundError(f"No model file found for station number {stationNum}")
 

@@ -409,6 +409,8 @@ function populateWeatherPrediction(){
 
     var timestamp = dayOfWeek + ", " + month + "  " + day + ", " + timezone;
 
+    $('#weather_panel_title').text("Predicted Weather");
+
     $('#current_temp_pred').text(((parseFloat(tempMaxCelsius) + parseFloat(tempMinCelsius)) / 2) + "°C"); // Display average temperature
     $('#rainfall_pred').text(rain);
     $('#wind_speed_pred').text(windSpeedKph);
@@ -895,9 +897,22 @@ function openTab(evt, tabName) {
         // Clear/hide the right hand panel
         $('#right_panel').addClass('slide_out');
     }
+
+    // Update weather panel
+    if (Object.keys(getLastSearchJSON()).length) {
+        if (getLastSearchJSON()[0].isNow) {
+            populateWeatherCurrent();
+        }
+        else {
+            populateWeatherPrediction();
+        }
+    }
+    else {
+        // No last search for this tab? Show current.
+        fetchCurrentWeatherData();
+    }
 }
 function fetchCurrentWeatherData() {
-    return;
     try {
         $.ajax({
             url: "/weather_data",
@@ -906,43 +921,8 @@ function fetchCurrentWeatherData() {
             success: function(response) {
                 // Store the fetched weather data in the global variable
                 lastWeatherJSON = response;
-
-                // Extract weather data from the response
-                var weatherData = response;
-
-                // Extracting individual weather data fields
-                // Convert time update to a Date object
-                var timeupdate = new Date(weatherData[0].time_update);
-                var feelsLike = kelvinToCelsius(weatherData[0].feels_like);
-                var tempMin = kelvinToCelsius(weatherData[0].temperature_min);
-                var tempMax = kelvinToCelsius(weatherData[0].temperature_max);
-                var weatherDescription = weatherData[0].weather_description;
-                var windSpeed = mpsToKph(weatherData[0].wind_speed);
-                var windGust = mpsToKph(weatherData[0].wind_gust);
-
-                // Format time update as a timestamp
-                var dayOfWeek = timeupdate.toLocaleDateString(undefined, { weekday: 'long' });
-                var month = timeupdate.toLocaleDateString(undefined, { month: 'long' });
-                var day = timeupdate.toLocaleDateString(undefined, { day: 'numeric' });
-                var timezone = timeupdate.toLocaleTimeString(undefined, { timeZone: 'Europe/Dublin', hour: '2-digit', minute: '2-digit', hour12: true });
-
-                var timestamp = dayOfWeek + ", " + month + "  " + day + ", " + timezone;
-                console.log("just want to see this format here:" + timestamp);
-
-                // Update HTML content with fetched weather data
-                $('#weather-current-content').html(
-                    // "<img src='static/image/weather.png' alt='TEST'>" +
-                    "<p style='margin-bottom: 5px;'><span style='font-size: 1.1em;'>Feels Like:</span> " + feelsLike + " °C</p>" +
-                    "<p style='margin-bottom: 5px;'><span style='font-size: 1.1em;'>Min Temperature:</span> " + tempMin + " °C</p>" +
-                    "<p style='margin-bottom: 5px;'><span style='font-size: 1.1em;'>Max Temperature:</span> " + tempMax + " °C</p>" +
-                    "<p style='margin-bottom: 5px;'><span style='font-size: 1.1em;'>Description:</span> " + weatherDescription + "</p>" +
-                    "<p style='margin-bottom: 5px;'><span style='font-size: 1.1em;'>Wind Speed:</span> " + windSpeed + " km/h</p>" +
-                    "<p style='margin-bottom: 5px;'><span style='font-size: 1.1em;'>Wind Gust:</span> " + windGust + " km/h</p>" +
-                    "<p style='margin-bottom: 5px;'><strong>Last Updated:</strong> <span style='color: #007ACC; font-size: 0.9em;'>" + timestamp + "</span></p>"
-                );
-
-                // Adjust the margin dynamically after content has been populated
-                $('#weather-current-content').css('margin-top', '10px');
+                // Populate content
+                populateWeatherCurrent();
             },
             error: function(_, _, error) {
                 // Handle AJAX error
@@ -954,6 +934,34 @@ function fetchCurrentWeatherData() {
         console.error("An error occurred in fetchCurrentWeatherData:", error);
         // Handle the error, e.g., display a message to the user or gracefully recover
     }
+}
+
+function populateWeatherCurrent() {
+    // Extracting individual weather data fields
+    // Convert time update to a Date object
+    var timeupdate = new Date(lastWeatherJSON.time_update);
+    var feelsLike = kelvinToCelsius(lastWeatherJSON.feels_like);
+    var tempMin = kelvinToCelsius(lastWeatherJSON.temperature_min);
+    var tempMax = kelvinToCelsius(lastWeatherJSON.temperature_max);
+    var weatherDescription = lastWeatherJSON.weather_description;
+    var windSpeed = mpsToKph(lastWeatherJSON.wind_speed);
+    var windGust = mpsToKph(lastWeatherJSON.wind_gust);
+
+    // Format time update as a timestamp
+    var dayOfWeek = timeupdate.toLocaleDateString(undefined, { weekday: 'long' });
+    var month = timeupdate.toLocaleDateString(undefined, { month: 'long' });
+    var day = timeupdate.toLocaleDateString(undefined, { day: 'numeric' });
+    var timezone = timeupdate.toLocaleTimeString(undefined, { timeZone: 'Europe/Dublin', hour: '2-digit', minute: '2-digit', hour12: true });
+
+    var timestamp = dayOfWeek + ", " + month + "  " + day + ", " + timezone;
+
+    $('#current_temp').text(feelsLike + "°C");
+    $('#low_temp').text(tempMin + "°C");
+    $('#high_temp').text(tempMax + "°C");
+    $('#feels_like').text(feelsLike + "°C");
+    $('#wind_speed').text(windSpeed + " km/h");
+    $('#wind_gust').text(windGust + " km/h");
+    $('#time_current').text(timestamp);
 }
 // Function to fetch forecast data using AJAX
 // function fetchForecastData() {

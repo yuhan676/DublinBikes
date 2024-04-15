@@ -36,6 +36,7 @@
             initMap();
             initTimeAndDate();
             openTab(null, 'rent'); // Open the 'Rent' tab by default
+            fetchCurrentWeatherData();
         };
 
     </script>
@@ -130,7 +131,7 @@
     </div>
      
     <div id="weather_panel" class="panel">
-        <div class="weather_header">
+        <div id="weather_panel_title" class="weather_header">
             Current Weather
         </div>
         <div id="weather_current_content" class="weather_content" style="display: none;">
@@ -140,16 +141,16 @@
                 <div>H: <span id="high_temp">3</span>°C</div>
             </div>
             <div class="weather_row">
-                Feels like: <span>5</span>
+                Feels like: <span id="feels_like">5</span>
             </div>
             <div class="weather_row">
-                Wind speed: <span>10</span>
+                Wind speed: <span id="wind_speed">10</span>
             </div>
             <div class="weather_row">
-                Wind gust: <span>10</span>
+                Wind gust: <span id="wind_gust">10</span>
             </div>
             <div class="weather_row">
-                Last updated: <span>5 B.C.</span>
+                Last updated: <span id="time_current">5 B.C.</span>
             </div>
         </div>
         <div id="weather_forecast_content" class="weather_content">

@@ -399,7 +399,7 @@ function populateWeatherPrediction(){
     var month = timeupdate.toLocaleDateString(undefined, { month: 'long' });
     var day = timeupdate.toLocaleDateString(undefined, { day: 'numeric' });
     var timezone = timeupdate.toLocaleTimeString(undefined, { timeZone: 'Europe/Dublin', hour: '2-digit', minute: '2-digit', hour12: true });
-    var averageTemp = int((tempMin+tempMax)/2);
+    var averageTemp = Math.round((tempMin + tempMax) / 2);
     var timestamp = dayOfWeek + ", " + month + "  " + day + ", " + timezone;
     $('#current_temp_pred').text(averageTemp);
     $('#rainfall_pred').text(rain);

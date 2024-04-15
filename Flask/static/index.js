@@ -238,6 +238,7 @@ function verifyAndSubmitQuery() {
             } else {
                 // Call predicted weather fetch and populate function
                 fetchForecastData(dateSelected);
+                populateWeatherPrediction();
             }
     },
         error: function(request, status, errorString) {

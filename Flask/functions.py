@@ -127,7 +127,7 @@ def predict_station_status(stationNum, input):
     numpyInput = np.array(input)
 
     # Load model from the pickle file
-    with open(str(stationNum) + '_output_data.pickle', 'rb') as file:
+    with open(('predictive_models/.ipynb_checkpoints/' + str(stationNum) + '_output_data.pickle'), 'rb') as file:
         model = pickle.load(file)
     
     # Predict!

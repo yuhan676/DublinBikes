@@ -346,9 +346,6 @@ def search():
             feelsLike = (tempMin + tempMax)/2
             weatherInput = [[feelsLike, tempMin, tempMax, float(weatherData['wind_speed']), float(weatherData['gust'])]]
             
-            prediction = predict_station_status(number, weatherInput)
-            return jsonify(prediction)
-
             counter = 0
             for number in station_numbers:
                 prediction = predict_station_status(number, weatherInput)
@@ -358,8 +355,7 @@ def search():
                 results[counter]['empty_stands_number'] = prediction[3]
                 results[counter]['total_bikes'] = prediction[4]
                 counter += 1
-            # temporarily add to see the prediction value
-            results.append(prediction)
+
             return jsonify(results)
     
     except JSONDecodeError as jde:

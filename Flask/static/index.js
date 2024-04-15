@@ -386,31 +386,38 @@ function populateStationBoxes(isRent) {
 }
 
 function populateWeatherPrediction(){
-    
     var timeupdate = new Date(lastWeatherPredictionJSON.time_update); 
-    var tempMin = kelvinToCelsius(lastWeatherPredictionJSON.temp_min);
-    var tempMax = kelvinToCelsius(lastWeatherPredictionJSON.temp_max);
-    var rain = lastWeatherPredictionJSON.rain;
-    var windSpeed = mpsToKph(lastWeatherPredictionJSON.wind_speed);
-    var windGust = mpsToKph(lastWeatherPredictionJSON.gust);
+    var tempMaxKelvin = parseFloat(lastWeatherPredictionJSON.temp_max);
+    var tempMinKelvin = parseFloat(lastWeatherPredictionJSON.temp_min);
+    var rain = parseFloat(lastWeatherPredictionJSON.rain_3h);
+    var windSpeedMps = parseFloat(lastWeatherPredictionJSON.wind_speed);
+    var gustMps = parseFloat(lastWeatherPredictionJSON.gust);
+
+    // Convert temperature from Kelvin to Celsius
+    var tempMaxCelsius = kelvinToCelsius(tempMaxKelvin);
+    var tempMinCelsius = kelvinToCelsius(tempMinKelvin);
+
+    // Convert wind speed from mps to Kph
+    var windSpeedKph = mpsToKph(windSpeedMps);
+    var gustKph = mpsToKph(gustMps);
 
     // Format time update as a timestamp
     var dayOfWeek = timeupdate.toLocaleDateString(undefined, { weekday: 'long' });
     var month = timeupdate.toLocaleDateString(undefined, { month: 'long' });
     var day = timeupdate.toLocaleDateString(undefined, { day: 'numeric' });
     var timezone = timeupdate.toLocaleTimeString(undefined, { timeZone: 'Europe/Dublin', hour: '2-digit', minute: '2-digit', hour12: true });
-    var averageTemp = Math.round((tempMin + tempMax) / 2);
+
     var timestamp = dayOfWeek + ", " + month + "  " + day + ", " + timezone;
-    $('#current_temp_pred').text(averageTemp);
+
+    $('#current_temp_pred').text((tempMaxCelsius + tempMinCelsius) / 2); // Display average temperature
     $('#rainfall_pred').text(rain);
-    $('#wind_speed_pred').text(windSpeed);
-    $('#wind_gust_pred').text(windGust);
-    $('#low_temp_pred').text(tempMin);
-    $('#high_temp_pred').text(tempMax);
+    $('#wind_speed_pred').text(windSpeedKph);
+    $('#wind_gust_pred').text(gustKph);
+    $('#low_temp_pred').text(tempMinCelsius);
+    $('#high_temp_pred').text(tempMaxCelsius);
     $('#time_pred').text(timestamp);
-
-
 }
+
 
 // Function to show/unshow the selection wrapper using toggle, distinguishing rent and return
 function selectionToggle(isRent) {

@@ -238,7 +238,6 @@ function verifyAndSubmitQuery() {
             } else {
                 // Call predicted weather fetch and populate function
                 fetchForecastData(dateSelected);
-                populateWeatherPrediction();
             }
     },
         error: function(request, status, errorString) {
@@ -262,6 +261,7 @@ function fetchForecastData(timestamp) {
         success: function(predictionData) {
             lastWeatherPredictionJSON = predictionData;
             console.log(predictionData);
+            populateWeatherPrediction();
         },
         error: function(jqXHR, textStatus, errorThrown) {
             if (request.status == 500)
@@ -409,7 +409,7 @@ function populateWeatherPrediction(){
 
     var timestamp = dayOfWeek + ", " + month + "  " + day + ", " + timezone;
 
-    $('#current_temp_pred').text((parseFloat(tempMaxCelsius) + parseFloat(tempMinCelsius)) / 2); // Display average temperature
+    $('#current_temp_pred').text(((parseFloat(tempMaxCelsius) + parseFloat(tempMinCelsius)) / 2) + "°C"); // Display average temperature
     $('#rainfall_pred').text(rain);
     $('#wind_speed_pred').text(windSpeedKph);
     $('#wind_gust_pred').text(gustKph);

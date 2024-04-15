@@ -355,7 +355,8 @@ def search():
                 results[counter]['empty_stands_number'] = prediction[3]
                 results[counter]['total_bikes'] = prediction[4]
                 counter += 1
-            
+            # temporarily add to see the prediction value
+            results.append(prediction)
             return jsonify(results)
     
     except JSONDecodeError as jde:

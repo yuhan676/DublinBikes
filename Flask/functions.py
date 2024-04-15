@@ -4,7 +4,7 @@ import matplotlib as mp
 import requests
 import sqlalchemy as sqla
 import datetime as dt
-import numpy as mp
+import numpy as np
 import traceback as tb
 import json
 from sqlalchemy import create_engine, text
@@ -12,6 +12,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from db_config import db_type,username,password,hostname,port,db_name
 from geopy.distance import geodesic
 import traceback
+import pickle
 
 def connect_db():
     try:
@@ -122,7 +123,18 @@ def fetch_weather_data_database(query):
         traceback.print_exc()  # Log the exception traceback
         return None, str(e)  # Handle any exceptions
 
+def predict_station_status(stationNum, input):
+    numpyInput = np.array(input)
 
+    # Load model from the pickle file
+    with open(str(stationNum) + '_output_data.pickle', 'rb') as file:
+        model = pickle.load(file)
+    
+    # Predict!
+    output = model.predict(numpyInput)
+
+    # [0] because output format is a list within a list
+    return output[0]
 
 
 

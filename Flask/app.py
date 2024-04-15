@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request, render_template
 from sqlalchemy import create_engine, text
-from functions import connect_db, get_station_names, fetch_weather_data_database
+from functions import connect_db, get_station_names, fetch_weather_data_database, predict_station_status
 import json
 import traceback 
 from json.decoder import JSONDecodeError
@@ -335,7 +335,28 @@ def search():
         connection.close()
         if not results:
             return jsonify(message='No data found for closest stations'), 404
-        return jsonify(results)
+        
+        if (isNow):
+            return jsonify(results)
+        else:
+            # We need a prediction! Fetch and replace within results.
+            weatherData = json.loads(fetch_prediction_weather(date))[0]
+            tempMin = float(weatherData['temp_min'])
+            tempMax = float(weatherData['temp_max'])
+            feelsLike = (tempMin + tempMax)/2
+            input = [[feelsLike, tempMin, tempMax, float(weatherData['wind_speed']), float(weatherData['gust'])]]
+            counter = 0
+            for number in station_numbers:
+
+                prediction = predict_station_status(number, input)
+                results[counter]['electrical_internal_battery_bikes'] = prediction[0]
+                results[counter]['mechanical_bikes'] = prediction[1]
+                results[counter]['electrical_removable_battery_bikes'] = prediction[2]
+                results[counter]['empty_stands_number'] = prediction[3]
+                results[counter]['total_bikes'] = prediction[4]
+                counter += 1
+            
+            return jsonify(results)
     
     except JSONDecodeError as jde:
         # Specific error handling for JSON decoding errors

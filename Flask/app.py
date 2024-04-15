@@ -340,6 +340,7 @@ def search():
             return jsonify(results)
         else:
             # We need a prediction! Fetch and replace within results.
+            return jsonify(date)
             weatherData = json.loads(fetch_prediction_weather(date))[0]
             return jsonify(weatherData)
             tempMin = float(weatherData['temp_min'])

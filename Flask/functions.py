@@ -13,6 +13,7 @@ from db_config import db_type,username,password,hostname,port,db_name
 from geopy.distance import geodesic
 import traceback
 import pickle
+import os
 
 def connect_db():
     try:
@@ -124,17 +125,23 @@ def fetch_weather_data_database(query):
         return None, str(e)  # Handle any exceptions
 
 def predict_station_status(stationNum, input):
-    numpyInput = np.array(input)
+    numpyInput = np.array(input).reshape(1, -1)  # Ensure input is shaped correctly
 
-    # Load model from the pickle file
-    with open(('predictive_models/.ipynb_checkpoints/' + str(stationNum) + '_output_data.pickle'), 'rb') as file:
-        model = pickle.load(file)
+    model_path = f'predictive_models/.ipynb_checkpoints/{stationNum}_output_data.pickle'
+    if not os.path.exists(model_path):
+        raise FileNotFoundError(f"No model file found for station number {stationNum}")
+
+    try:
+        with open(model_path, 'rb') as file:
+            model = pickle.load(file)
+    except Exception as e:
+        raise Exception(f"Failed to load the model: {str(e)}")
     
-    # Predict!
-    output = model.predict(numpyInput)
-
-    # [0] because output format is a list within a list
-    return output[0]
+    try:
+        output = model.predict(numpyInput)
+        return output[0]  # Assuming output is a list within a list
+    except Exception as e:
+        raise Exception(f"Prediction failed: {str(e)}")
 
 
 

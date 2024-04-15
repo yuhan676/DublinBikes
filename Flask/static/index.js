@@ -943,6 +943,8 @@ function populateWeatherCurrent() {
     // Extracting individual weather data fields
     // Convert time update to a Date object
     var timeupdate = new Date(lastWeatherJSON[0].time_update);
+    // Correct now for summertime
+    timeupdate.setTime( timeupdate.getTime() - timeupdate.getTimezoneOffset()*60*1000 );
     var feelsLike = kelvinToCelsius(lastWeatherJSON[0].feels_like);
     var tempMin = kelvinToCelsius(lastWeatherJSON[0].temperature_min);
     var tempMax = kelvinToCelsius(lastWeatherJSON[0].temperature_max);

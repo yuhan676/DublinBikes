@@ -363,10 +363,10 @@ def search():
         app.logger.error(f"Error decoding JSON from mapping file: {jde}")
         return jsonify(error="Error processing mapping file."), 500
 
-    except FileNotFoundError:
-        # Specific error when the mapping file is not found
-        app.logger.error(f"Mapping file or pickle not found for station search: {station_numbers}")
-        return jsonify(error="Mapping file not found."), 500
+    # except FileNotFoundError:
+    #     # Specific error when the mapping file is not found
+    #     app.logger.error(f"Mapping file or pickle not found for station search: {station_numbers}")
+    #     return jsonify(error="Mapping file not found."), 500
 
     except Exception as e:
         # Catch-all for any other exceptions that were not caught by the specific handlers

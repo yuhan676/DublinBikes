@@ -409,7 +409,7 @@ function populateWeatherPrediction(){
 
     var timestamp = dayOfWeek + ", " + month + "  " + day + ", " + timezone;
 
-    $('#current_temp_pred').text((tempMaxCelsius + tempMinCelsius) / 2); // Display average temperature
+    $('#current_temp_pred').text((parseFloat(tempMaxCelsius) + parseFloat(tempMinCelsius)) / 2); // Display average temperature
     $('#rainfall_pred').text(rain);
     $('#wind_speed_pred').text(windSpeedKph);
     $('#wind_gust_pred').text(gustKph);

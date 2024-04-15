@@ -58,7 +58,7 @@ def fetch_prediction_weather_route():
     # Get the timestamp from the request parameters
     timestamp = request.args.get('timestamp')
     try:
-        return fetch_prediction_weather(timestamp)
+        return jsonify(fetch_prediction_weather(timestamp))
     except ValueError as ve:
         # Handle the case where the timestamp format is incorrect
         app.logger.error('Error parsing timestamp:', ve)
@@ -106,7 +106,7 @@ def fetch_prediction_weather(timestamp):
         weather_data = {}
 
     connection.close()
-    return jsonify(weather_data)
+    return weather_data
 
 
 @app.route('/five_day_prediction', methods=['GET'])
@@ -339,13 +339,12 @@ def search():
             return jsonify(results)
         else:
             # We need a prediction! Fetch and replace within results.
-            weatherData = json.loads(fetch_prediction_weather(date).get_json())
-            return weatherData
+            weatherData = fetch_prediction_weather(date)
             tempMin = float(weatherData['temp_min'])
             tempMax = float(weatherData['temp_max'])
             feelsLike = (tempMin + tempMax)/2
             weatherInput = [[feelsLike, tempMin, tempMax, float(weatherData['wind_speed']), float(weatherData['gust'])]]
-            
+            return jsonify(weatherInput)
             counter = 0
             for number in station_numbers:
 

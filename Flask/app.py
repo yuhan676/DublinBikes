@@ -5,6 +5,7 @@ import json
 import traceback 
 from json.decoder import JSONDecodeError
 import pandas as pd
+import numpy
 from haversine import haversine
 from sqlalchemy.exc import SQLAlchemyError
 

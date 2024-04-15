@@ -139,7 +139,7 @@ def predict_station_status(stationNum, input):
     
     try:
         output = model.predict(numpyInput)
-        return output[0]  # Assuming output is a list within a list
+        return output.tolist()[0]  # Assuming output is a list within a list
     except Exception as e:
         raise Exception(f"Prediction failed: {str(e)}")
 

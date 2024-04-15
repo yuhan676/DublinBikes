@@ -336,7 +336,7 @@ def search():
         if not results:
             return jsonify(message='No data found for closest stations'), 404
         
-        if (isNow):
+        if isNow:
             return jsonify(results)
         else:
             # We need a prediction! Fetch and replace within results.

@@ -341,12 +341,12 @@ def search():
         else:
             # We need a prediction! Fetch and replace within results.
             weatherData = json.loads(fetch_prediction_weather(date))[0]
+            return jsonify(weatherData)
             tempMin = float(weatherData['temp_min'])
             tempMax = float(weatherData['temp_max'])
             feelsLike = (tempMin + tempMax)/2
             input = [[feelsLike, tempMin, tempMax, float(weatherData['wind_speed']), float(weatherData['gust'])]]
             counter = 0
-            return jsonify(input)
             for number in station_numbers:
 
                 prediction = predict_station_status(number, input)

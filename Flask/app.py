@@ -345,6 +345,9 @@ def search():
             feelsLike = (tempMin + tempMax)/2
             weatherInput = [[feelsLike, tempMin, tempMax, float(weatherData['wind_speed']), float(weatherData['gust'])]]
             
+            prediction = predict_station_status(number, weatherInput)
+            return jsonify(prediction)
+
             counter = 0
             for number in station_numbers:
                 prediction = predict_station_status(number, weatherInput)

@@ -439,6 +439,13 @@ function populateWeatherPrediction(){
     $('#low_temp_pred').text(tempMinCelsius);
     $('#high_temp_pred').text(tempMaxCelsius);
     $('#time_pred').text(timestamp);
+    var weatherIconName;
+    if (rain === 0) {
+        weatherIconName = "sun.png";
+    } else {
+        weatherIconName = "rainy.png";
+    }
+    $('#pred_weather_icon').attr("src", BASE_STATIC_URL + 'image/' + weatherIconName);
 }
 
 

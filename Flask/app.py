@@ -354,8 +354,12 @@ def search():
                 if prediction[3] < 0:
                     prediction[3] = 0
                     prediction[4] = 40
+                #If predicted total bikes number is 0, make all bike type's number 0
                 elif prediction[4] <0:
                     prediction[4] = 0
+                    prediction[0] = 0
+                    prediction[1] = 0
+                    prediction[2] = 0
                     prediction[3] = 40
 
                 

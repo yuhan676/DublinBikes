@@ -44,7 +44,7 @@
 <body>
     <div id="map"></div>
     <div id="left-panel" class="centred">
-        <img class="bike_no_man" src="{{ url_for('static', filename='image/bike_no_man.png') }}"/>
+        <img class="bike_no_man" draggable="false" src="{{ url_for('static', filename='image/bike_no_man.png') }}"/>
         <div class="tab">
             <button class="tablinks active" onclick="openTab(event, 'rent')">Rent</button>
             <button class="tablinks" onclick="openTab(event, 'return')">Return</button>
@@ -130,12 +130,14 @@
         <div id="extreme-weather-content"></div>
     </div>
      
+
     <div id="weather_panel" class="panel show_current">
+        <div id="weather_toggle" class="flip"><img draggable="false" src="{{ url_for('static', filename='image/weather_arrow.png') }}"/></div>
         <div id="weather_panel_title" class="weather_header">
             Current Weather
         </div>
         <div id="weather_current_content" class="weather_content">
-            <div class="weather_icon_container"><img id="weather_icon" src="{{ url_for('static', filename='image/sun.png') }}"></div>
+            <div class="weather_icon_container"><img draggable="false" id="weather_icon" src="{{ url_for('static', filename='image/sun.png') }}"></div>
             <div class="big_temp" id="current_temp">9°C</div>
             <div class="low_high_row">
                 <div>L: <span id="low_temp">3</span>°C</div>
@@ -158,7 +160,7 @@
             </div>
         </div>
         <div id="weather_forecast_content" class="weather_content">
-            <div class="weather_icon_container"><img id="pred_weather_icon" src="{{ url_for('static', filename='image/sun.png') }}"></div>
+            <div class="weather_icon_container"><img draggable="false" id="pred_weather_icon" src="{{ url_for('static', filename='image/sun.png') }}"></div>
             <div class="big_temp" id="current_temp_pred">9°C</div>
             <div class="low_high_row">
                 <div>L: <span id="low_temp_pred">3</span>°C</div>

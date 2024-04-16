@@ -886,6 +886,16 @@ $(document).ready(function() {
     $('#selection_container_return').on('mousedown','.selection_box',function(){
     var index = $('#selection_container_return .selection_box').index(this);
     selectStation(index, false);});
+
+    $('#weather_toggle').click(function() {
+        if ($('#weather_panel').hasClass('slide_out')) {
+            $('#weather_panel').removeClass('slide_out');
+            $('#weather_toggle').addClass('flip');
+        } else {
+            $('#weather_panel').addClass('slide_out');
+            $('#weather_toggle').removeClass('flip');
+        }
+    });
 });
 
 function openTab(evt, tabName) {

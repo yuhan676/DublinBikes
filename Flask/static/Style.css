@@ -193,7 +193,7 @@ body
 {
     display: none;
 }
-#weather_ico, #pred_weather_icon{
+#weather_icon, #pred_weather_icon{
     display:inline;
     align-items: center;
     width:30px;

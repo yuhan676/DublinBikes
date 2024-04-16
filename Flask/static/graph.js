@@ -79,10 +79,14 @@ function initGraph(stationName, stationNumber, isRent) {
   var rightPanelContainer = $('#rp_content');
   google.charts.load('current', { packages: ['corechart'] });
   google.charts.setOnLoadCallback(function() {
-    var dailyStandChartContainer = $('<div>').addClass('rp_prediction_return').append("<p class='chart-title'>Past 7 days</p>").append($('<div>').attr('id', 'dailyStandPredictionChart'));
-    var hourlyStandChartContainer = $('<div>').addClass('rp_prediction_return').append("<p class='chart-title'>Past 24 hours</p>").append($('<div>').attr('id', 'hourlyStandPredictionChart'));
-    rightPanelContainer.append(dailyStandChartContainer);
-    rightPanelContainer.append(hourlyStandChartContainer);
+    let graphContainers = document.querySelectorAll('.rp_prediction_return')
+    if (graphContainers.length < 2) {
+        var dailyStandChartContainer = $('<div>').addClass('rp_prediction_return').append("<p class='chart-title'>Past 7 days</p>").append($('<div>').attr('id', 'dailyStandPredictionChart'));
+        var hourlyStandChartContainer = $('<div>').addClass('rp_prediction_return').append("<p class='chart-title'>Past 24 hours</p>").append($('<div>').attr('id', 'hourlyStandPredictionChart'));
+        rightPanelContainer.append(dailyStandChartContainer);
+        rightPanelContainer.append(hourlyStandChartContainer);
+    }
+    
 
     let dailyOptions = {
       title: isRent ? 'Bike Availability' : 'Bike Parking Availability',

@@ -921,7 +921,7 @@ function openTab(evt, tabName) {
 
     // Update weather panel
     if (Object.keys(getLastSearchJSON()).length) {
-        if (getLastSearchJSON()[0].isNow) {
+        if (getLastSearchJSON()[0].is_now == "true") {
             fetchCurrentWeatherData();
         }
         else {

@@ -394,13 +394,14 @@ def search():
                 results[counter]['electrical_removable_battery_bikes'] = int(prediction[2])
                 results[counter]['empty_stands_number'] = int(prediction[3])
                 results[counter]['total_bikes'] = int(prediction[4])
-                counter += 1
 
                 # Check and set if the station status should be closed or open
                 if isRent and not withinOpeningHours:
                     results[counter]['status'] = "CLOSED"
                 else:
                     results[counter]['status'] = "OPEN"
+                    
+                counter += 1
 
             return jsonify(results)
     

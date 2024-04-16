@@ -210,9 +210,11 @@ function verifyAndSubmitQuery() {
             // Success! return_data should contain the five stations plus any other necessary info
             // Pass this to a function to display here, maybe don't add population code here to keep things clean
 
-            // Show the right panel, slide search panel to the left
+            // Show the right panel, slide search panel to the left, hide weather panel
             $('#right_panel').removeClass('slide_out');
             $('#left-panel').removeClass('centred');
+            $('#weather_panel').addClass('slide_out');
+            $('#weather_toggle').removeClass('flip');
 
             // Clear the global variable
             if (isRent) {

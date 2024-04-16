@@ -185,6 +185,10 @@ function verifyAndSubmitQuery() {
     dateSelected.setMinutes(timeSelected.getMinutes());
     // Check if the combined date and time is in the future
     var isNow = dateSelected.getTime() <= dateNow.getTime();
+
+    // Adjusted for summer time, according to Dublin official site
+    var withinOpeningHours = (timeSelected.getHours() >= 6) || (timeSelected.getHours() == 1 && timeSelected.getMinutes() < 30);
+
     // This is the dummy data I used to test on my local machine
     // console.log("run here")
     // testDummyData();
@@ -199,6 +203,7 @@ function verifyAndSubmitQuery() {
             'isRent': isRent,
             'stationName': stationName,
             'date': JSON.stringify(dateSelected), // format: YYYY-MM-DDTHH:MM:SS.MMMZ
+            'withinOpeningHours': withinOpeningHours,
             'isNow': isNow // Send the time status nature to Flask endpoint
         },
         success: function(return_data) {
@@ -226,7 +231,6 @@ function verifyAndSubmitQuery() {
             }
             
             // Now, lastSearchJSON contains the latest search results
-            console.log(getLastSearchJSON()); // For debugging: log the latest search results. 
             updateMarkers(isRent)
             // Determine the current date in the same format as your 'date' variable
             // var currentDate = new Date().toISOString();

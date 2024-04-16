@@ -270,6 +270,7 @@ def search():
     stationName = request.args.get('stationName').strip()
     # format: YYYY-MM-DDTHH:MM:SS.MMMZ
     date = request.args.get('date')
+    withinOpeningHours = (request.args.get('withinOpeningHours') == "true")
     isNow = request.args.get('isNow')
 
     results = []
@@ -394,6 +395,12 @@ def search():
                 results[counter]['empty_stands_number'] = int(prediction[3])
                 results[counter]['total_bikes'] = int(prediction[4])
                 counter += 1
+
+                # Check and set if the station status should be closed or open
+                if isRent and not withinOpeningHours:
+                    results[counter]['status'] = "CLOSED"
+                else:
+                    results[counter]['status'] = "OPEN"
 
             return jsonify(results)
     

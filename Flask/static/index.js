@@ -186,7 +186,7 @@ function verifyAndSubmitQuery() {
     // Check if the combined date and time is in the future
     var isNow = dateSelected.getTime() <= dateNow.getTime();
     // This is the dummy data I used to test on my local machine
-    console.log("run here")
+    // console.log("run here")
     // testDummyData();
     // return
     // Package and submit query

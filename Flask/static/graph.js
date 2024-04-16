@@ -36,7 +36,7 @@ function processData(data) {
 
 async function makeDataArrays(isRent, stationName){
   var fetchUrl = '/bike_station_data?isRent=' + isRent + '&stationName=' + stationName;
-//   return processData(dummyData) // for test dummy data
+  // return processData(dummyData) // for test dummy data
   return fetch(fetchUrl)
   .then(response => response.json())
   .then(data => {
@@ -79,15 +79,8 @@ function initGraph(stationName, stationNumber, isRent) {
   var rightPanelContainer = $('#rp_content');
   google.charts.load('current', { packages: ['corechart'] });
   google.charts.setOnLoadCallback(function() {
-    var dailyStandChartContainer = $('<div>').addClass('rp_prediction_return')
-    var hourlyStandChartContainer = $('<div>').addClass('rp_prediction_return')
-    let chartTitle = document.querySelectorAll(".chart-title")
-    if (chartTitle.length < 2) {
-        dailyStandChartContainer.append("<p class='chart-title'>Past 7 days</p>")
-        hourlyStandChartContainer.append("<p class='chart-title'>Past 24 hours</p>")
-    }
-    dailyStandChartContainer.append($('<div>').attr('id', 'dailyStandPredictionChart'));
-    hourlyStandChartContainer.append($('<div>').attr('id', 'hourlyStandPredictionChart'));
+    var dailyStandChartContainer = $('<div>').addClass('rp_prediction_return').append("<p class='chart-title'>Past 7 days</p>").append($('<div>').attr('id', 'dailyStandPredictionChart'));
+    var hourlyStandChartContainer = $('<div>').addClass('rp_prediction_return').append("<p class='chart-title'>Past 24 hours</p>").append($('<div>').attr('id', 'hourlyStandPredictionChart'));
     rightPanelContainer.append(dailyStandChartContainer);
     rightPanelContainer.append(hourlyStandChartContainer);
 

@@ -183,7 +183,7 @@ body
     transition: all 1.5s;
     border: 1px solid #ccc; /* Add border for better visibility */
     background-color: #f8f8f8; /* Set background color */
-    left: 0; /* Adjust the margin to move the weather panel slightly to the left */
+    left: 10px; /* Adjust the margin to move the weather panel slightly to the left */
     overflow: visible;
 }
 

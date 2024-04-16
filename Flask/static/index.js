@@ -1010,7 +1010,7 @@ function populateWeatherCurrent() {
     $('#time_current').text(timestamp);
 
     var imageName = weatherIcons[weatherDescription] || "default.png"; // Default image if no match found
-    $('#weather_icon').attr("src", BASE_STATIC_URL + imageName);
+    $('#weather_icon').attr("src", BASE_STATIC_URL + 'image/' + imageName);
 }
 // Function to fetch forecast data using AJAX
 // function fetchForecastData() {

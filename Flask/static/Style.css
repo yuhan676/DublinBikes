@@ -142,8 +142,8 @@ body
 }
 
 #closestStation_btn{
-    background-color: rgb(24, 149, 221);
-    border: 2px solid rgb(74, 185, 241);
+    background-color: #2E9CCA;
+    border: 0px;
 }
 
 #search_btn:not(.disabled):hover
@@ -471,12 +471,12 @@ body
     /* Adjustments to flex container */
     display: flex;
     width: 100%; /* Ensure the tabs container fills the panel width */
-    background-color: #f1f1f1;
 }
 
 /* Tab button styling */
 .tab button.tablinks {
-    background-color: inherit;
+    color: white;
+    background-color: #2E9CCA;
     float: left; /* Remove float and use flexbox instead */
     border: none;
     outline: none;
@@ -493,11 +493,11 @@ body
 }
 
 .tab button:hover {
-    background-color: #ddd;
+    background-color: #3c78a1;
 }
 
 .tab button.active {
-    background-color: #ccc;
+    background-color: #29648A;
 }
 
 /* keep as it turns out to be styling the inputbox */
@@ -548,14 +548,6 @@ body
     }
 }
 
-/* Style adjustments for when a tab is active or hovered */
-.tab button.tablinks:hover {
-    background-color: #ddd;
-}
-
-.tab button.tablinks.active {
-    background-color: #ccc;
-}
 /* Extreme weather pop up */
 .popup {
     position: fixed;

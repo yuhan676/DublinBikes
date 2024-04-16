@@ -348,6 +348,7 @@ def search():
             
             counter = 0
             for number in station_numbers:
+                prediction = predict_station_status(number, weatherInput)
                 # Handling extreme values predicted by linear regression model
                 # 40 is selected as an upper bar of bike number/ station number
                 if prediction[3] < 0:
@@ -357,7 +358,7 @@ def search():
                     prediction[4] = 0
                     prediction[3] = 40
 
-                prediction = predict_station_status(number, weatherInput)
+                
                 results[counter]['electrical_internal_battery_bikes'] = int(prediction[0])
                 results[counter]['mechanical_bikes'] = int(prediction[1])
                 results[counter]['electrical_removable_battery_bikes'] = int(prediction[2])

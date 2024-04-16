@@ -298,6 +298,7 @@ body
     color: #333;
     height: 80vh;
     overflow-y: auto;
+    overflow: hidden;
 }
 
 /* styling for station name container */

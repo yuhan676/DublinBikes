@@ -238,9 +238,9 @@ function verifyAndSubmitQuery() {
             {createSelectionToggle(isRent);}
             // Populate the selection boxes
             populateStationBoxes(isRent);
-            setTimeout(() => {
-                animateMarker(0)
-            }, 100)
+            // setTimeout(() => {
+            //     animateMarker(0)
+            // }, 100)
 
             if (isNow) {
                 // Call current weather fetch and populate function

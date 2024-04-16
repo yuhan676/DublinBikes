@@ -7,7 +7,7 @@ async function initMap() {
     var dublin = { lat: 53.349805, lng: -6.26031 };
     map = new Map(document.getElementById("map"), {
         center: dublin,
-        zoom: 14,
+        zoom: 17,
         mapId: "d002b4f3df859edb",
     });
 }
@@ -122,6 +122,9 @@ function updateMarkers(isRent) {
             addMarker(map, item, isRent)
         })
     }
+    setTimeout(() => {
+        animateMarker(0)
+    }, 100)
 }
 function addMarkerToGlobalArray(marker) {
     // Add the new marker to the global array

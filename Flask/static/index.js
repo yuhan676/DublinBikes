@@ -960,9 +960,19 @@ function fetchCurrentWeatherData() {
         // Handle the error, e.g., display a message to the user or gracefully recover
     }
 }
+// Mapping for weather icons
+const weatherIcons = {
+    "clear sky": "sun.png",
+    "few clouds": "cloudy.png",
+    "broken clouds": "cloudy.png",
+    "scattered clouds": "cloudy.png",
+    "overcast clouds": "cloud.png",
+    "light rain": "rainy.png",
+    "moderate rain": "rainy_moderate.png",
+    "mist": "foog.png",
+    "thunderstorm with light rain": "storm.png"}
 
-// let weatherStateIcon = new Map([["key","value"],[],[]]);
-// // Use as weatherStateIcon.get("key");
+
 function populateWeatherCurrent() {
     // Extracting individual weather data fields
     // Convert time update to a Date object
@@ -998,6 +1008,9 @@ function populateWeatherCurrent() {
     $('#wind_speed').text(windSpeed + " km/h");
     $('#wind_gust').text(windGust + " km/h");
     $('#time_current').text(timestamp);
+
+    var imageName = weatherIcons[weatherDescription] || "default.png"; // Default image if no match found
+    $('#weather_icon').attr("src", BASE_STATIC_URL + imageName);
 }
 // Function to fetch forecast data using AJAX
 // function fetchForecastData() {

@@ -7,7 +7,7 @@ async function initMap() {
     var dublin = { lat: 53.349805, lng: -6.26031 };
     map = new Map(document.getElementById("map"), {
         center: dublin,
-        zoom: 17,
+        zoom: 15,
         mapId: "d002b4f3df859edb",
     });
 }

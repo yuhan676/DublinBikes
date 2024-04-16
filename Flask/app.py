@@ -351,6 +351,8 @@ def search():
                 realTotalBikes = results[counter]['total_bikes'] + results[counter]['empty_stands_number']
                 prediction = predict_station_status(number, weatherInput)
                 
+                # Detect crazy predicted values. Negative is crazy, and so is any number bigger than the current
+                # total number of bike slots
                 correctCrazyValues = False
                 for num in prediction:
                     if (num < 0) or (num > realTotalBikes):
@@ -359,40 +361,33 @@ def search():
 
                 # Handling extreme values predicted by linear regression model
                 if correctCrazyValues:
+                    # Since I cannot assume the extreme values to have any worth or bearing on truth, let's
+                    # use their relative fractions to generate some correct-looking values
                     elein_bike = abs(prediction[0])
                     mec_bike = abs(prediction[1])
                     elerem_bike = abs(prediction[2])
                     emt_stand = abs(prediction[3])
                     predCrazyTotal = elein_bike + mec_bike + elerem_bike + emt_stand
 
+                    # This way each value becomes a fraction relative to the crazy total (predCrazyTotal) which
+                    # is then multiplied against the known total number of bike stands for this station from
+                    # the current data
                     elein_bike = (elein_bike/predCrazyTotal) * realTotalBikes
                     mec_bike = (mec_bike/predCrazyTotal) * realTotalBikes
                     elerem_bike = (elerem_bike/predCrazyTotal) * realTotalBikes
                     emt_stand = (emt_stand/predCrazyTotal) * realTotalBikes
 
+                    # Put them back like nothing happened...
                     prediction[0] = elein_bike
                     prediction[1] = mec_bike
                     prediction[2] = elerem_bike
                     prediction[3] = emt_stand
-                    prediction[4] = elein_bike + mec_bike + elerem_bike
 
-
-
-                    # # 40 is selected as an upper bar of bike number/ station number
-                    # if prediction[3] < 0:
-                    #     prediction[3] = 0
-
-                    #     prediction[1] = abs(prediction[1])/prediction[4]*realTotalBikes
-                    #     prediction[4] = realTotalBikes
-                    # #If predicted total bikes number is 0, make all bike type's number 0
-                    # elif prediction[4] <0:
-                    #     prediction[3] = prediction[0] + prediction[1] + prediction[2] 
-                    #     prediction[0] = 0
-                    #     prediction[1] = 0
-                    #     prediction[2] = 0
-                    #     prediction[4] = 0
-
-                
+                # Do this no matter if the predictions are crazy, because the number of total bikes
+                # should always be the sum of the three bike types
+                # int() here to make sure the total matches the bike numbers
+                prediction[4] = int(prediction[0]) + int(prediction[1]) + int(prediction[2])
+  
                 results[counter]['electrical_internal_battery_bikes'] = int(prediction[0])
                 results[counter]['mechanical_bikes'] = int(prediction[1])
                 results[counter]['electrical_removable_battery_bikes'] = int(prediction[2])

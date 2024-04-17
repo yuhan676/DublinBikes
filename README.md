@@ -8,6 +8,12 @@ The repository is for the Dublin bikes app. Please refer to the report for devel
 # Project Outlook
 
 <img width="1467" alt="Screenshot 2024-04-17 at 12 20 49" src="https://github.com/yuhan676/DublinBikes/assets/157690180/245e03e9-8fe6-4c37-abff-fb6365e6d6e3">
+Decide whether you are renting or returning, you'd like to do it now or in the future, then click on the 'Find Closest station to Simulated User location' button to find the closest station to you, or manually type in a station name!
+<img width="1470" alt="Screenshot 2024-04-17 at 13 58 17" src="https://github.com/yuhan676/DublinBikes/assets/157690180/c53250ef-79d5-4b5e-8175-b8b7c3f77878">
+The user location, the station of interest and its closest 4 stations are shown on map! Click on the selection box on the left to see their location and availability information in the past day/ week! 
+You can also click on the weather toggle to see updated weather status!
+<img width="1470" alt="Screenshot 2024-04-17 at 14 01 05" src="https://github.com/yuhan676/DublinBikes/assets/157690180/562a5187-985c-4560-933c-f78d72f108e5">
+Want to travel in the future? No problem! See the predicted station availability and predicted weather information to plan your trip!
 
 # Key elements of project in this repository
 ## /Scrapers

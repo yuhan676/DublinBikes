@@ -1010,13 +1010,16 @@ function populateWeatherCurrent() {
     var windSpeed = mpsToKph(lastWeatherJSON[0].wind_speed);
     var windGust = mpsToKph(lastWeatherJSON[0].wind_gust);
 
-    // Format time update as a timestamp
-    var dayOfWeek = timeupdate.toLocaleDateString(undefined, { weekday: 'long' });
-    var month = timeupdate.toLocaleDateString(undefined, { month: 'long' });
-    var day = timeupdate.toLocaleDateString(undefined, { day: 'numeric' });
-    var timezone = timeupdate.toLocaleTimeString(undefined, { timeZone: 'Europe/Dublin', hour: '2-digit', minute: '2-digit', hour12: true });
+    var options = {
+        weekday: 'long', 
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        timeZone: 'Europe/Dublin'
+    };
 
-    var timestamp = dayOfWeek + ", " + month + "  " + day + ", " + timezone;
+    var formattedTime = timeupdate.toLocaleString(undefined, options);
 
     $('#weather_panel').addClass('show_current');
     $('#weather_panel').removeClass('show_predicted');
@@ -1030,7 +1033,7 @@ function populateWeatherCurrent() {
     $('#feels_like').text(feelsLike + "°C");
     $('#wind_speed').text(windSpeed + " km/h");
     $('#wind_gust').text(windGust + " km/h");
-    $('#time_current').text(timestamp);
+    $('#time_current').text(formattedTime);
 
     var imageName = weatherIcons[weatherDescription] || "default.png"; // Default image if no match found
     $('#weather_icon').attr("src", BASE_STATIC_URL + 'image/' + imageName);

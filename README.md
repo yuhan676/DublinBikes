@@ -6,7 +6,7 @@ The repository is for the Dublin bikes app. Please refer to the report for devel
 * An ML model was developed with data and deployed on a flask instance
 
 # Project Outlook
-![Uploading Screenshot 2024-04-17 at 12.16.15.png…]()
 
+<img width="1467" alt="Screenshot 2024-04-17 at 12 20 49" src="https://github.com/yuhan676/DublinBikes/assets/157690180/245e03e9-8fe6-4c37-abff-fb6365e6d6e3">
 
 # Outline for repo content

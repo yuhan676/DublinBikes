@@ -9,4 +9,35 @@ The repository is for the Dublin bikes app. Please refer to the report for devel
 
 <img width="1467" alt="Screenshot 2024-04-17 at 12 20 49" src="https://github.com/yuhan676/DublinBikes/assets/157690180/245e03e9-8fe6-4c37-abff-fb6365e6d6e3">
 
-# Outline for repo content
+# Key elements of project in this repository
+## /Scrapers
+* contains the config files for scrapers (*jcdinfo.py*, *winfo.py*)
+* contains the config file for RDS database connection (*db_config.py)
+* contains the 3 scraper python files that are running on crontab to store data in RDS instance (*JCDDynamic.py*, *JCDStatic.py*, *OWDynamic.py)
+
+## /Database/Yuhan_database
+* contains the python files used to create database and schemas in the RDS instance
+
+## /Flask
+* contains all the necessary code for running the applciation on flask
+key files:
+* ** app.py ** : contains all the flask endpoint for handling user queries (e.g. fetching appropriate data from RDS and sending it back to ajax handler in index.js)
+* ** functions.py** : contains some of the python functions utilised by app.py
+* ** Static_dublin.csv ** : contains the static information of Dublin Bike stations, used to calculate the closest stations to user and the closest five station for each station
+* ** pull_1_5_mapJSON.py **: contains a python function that maps each station name to its 5 closest stations' numbers (including itself)
+
+### /Template
+* ** indx.html **: the html page of the application
+
+### /predictive_models/.ipynb_checkpoints/
+* contains the linear regression predictive model for each station. When user inputs a future timepoint and a station name, the {stationNumber}_model_current_weather_for_each_station.pickle file is called to give it the input of the weather prediction data of that future time point in an array [feels-like temperature, minimum temperature, maximum temperature, windspeed, windgust] and outputs an array of [electrical_internal_batter_bikes, mechanical_bikes, electrical_removable_battery_bikes, empty_stand_number and total_bikes, total_bikes]. This array is checked for any need apply extreme values corrections before used to populate the left panel and right panel for displaying predicted bike station status.
+### /Static
+* Style.css (all styling for webpage)
+* graph.js (javascript for plotting availability graph)
+* index. js (contains all js functionality for app display and user interactions, except for those functionality related to the map)
+* map.js (contains all js functionality relatedto map display and google API functionalities)
+
+### /Static/image
+* contains all of the icons and images used for styling image display
+
+

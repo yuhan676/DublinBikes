@@ -10,5 +10,5 @@
 #     return "https://api.openweathermap.org/data/2.5/forecast?q=dublin"
 
 API_KEY = "daf15fe5d6b088b90171f21de62933df"
-URL1 = "https://api.openweathermap.org/data/2.5/weather?q=ireland"
-URL2 = "https://api.openweathermap.org/data/2.5/forecast?q=ireland"
+URL1 = "https://api.openweathermap.org/data/2.5/weather?lat=53.350140&lon=-6.266155"
+URL2 = "https://api.openweathermap.org/data/2.5/forecast?lat=53.350140&lon=-6.266155"

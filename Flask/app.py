@@ -15,7 +15,7 @@ app.config.from_object('config')
 
 connect_db()
 
-@app.route('/root')
+@app.route('/')
 def hello_world():
     # return 'hello world'
     return render_template("index.html")
@@ -400,7 +400,7 @@ def search():
                     results[counter]['status'] = "CLOSED"
                 else:
                     results[counter]['status'] = "OPEN"
-                    
+
                 counter += 1
 
             return jsonify(results)

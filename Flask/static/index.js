@@ -1029,14 +1029,14 @@ function populateWeatherCurrent() {
     $('#weather_des').text(weatherDescription);
 
     $('#current_temp').text(feelsLike + "°C");
-    $('#low_temp').text(tempMin + "°C");
-    $('#high_temp').text(tempMax + "°C");
+    $('#low_temp').text(tempMin);
+    $('#high_temp').text(tempMax);
     $('#feels_like').text(feelsLike + "°C");
     $('#wind_speed').text(windSpeed + " km/h");
     $('#wind_gust').text(windGust + " km/h");
     $('#time_current').text(formattedTime);
 
-    var imageName = weatherIcons[weatherDescription] || "default.png"; // Default image if no match found
+    var imageName = weatherIcons[weatherDescription] || "cloudy.png"; // Default image if no match found
     $('#weather_icon').attr("src", BASE_STATIC_URL + 'image/' + imageName);
 }
 // Function to fetch forecast data using AJAX

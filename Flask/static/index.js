@@ -438,12 +438,12 @@ function populateWeatherPrediction(){
 
     $('#weather_panel_title').text("Predicted Weather");
 
-    $('#current_temp_pred').text(((parseFloat(tempMaxCelsius) + parseFloat(tempMinCelsius)) / 2) + "°C"); // Display average temperature
+    $('#current_temp_pred').text(Math.round(((parseFloat(tempMaxCelsius) + parseFloat(tempMinCelsius)) / 2)) + "°C"); // Display average temperature
     $('#rainfall_pred').text(rain);
     $('#wind_speed_pred').text(windSpeedKph);
     $('#wind_gust_pred').text(gustKph);
-    $('#low_temp_pred').text(tempMinCelsius);
-    $('#high_temp_pred').text(tempMaxCelsius);
+    $('#low_temp_pred').text(Math.round(tempMinCelsius));
+    $('#high_temp_pred').text(Math.round(tempMaxCelsius));
     $('#time_pred').text(timestamp);
     var weatherIconName;
     if (rain === 0) {
@@ -991,6 +991,7 @@ const weatherIcons = {
     "scattered clouds": "cloudy.png",
     "overcast clouds": "cloud.png",
     "light rain": "rainy.png",
+    "light intensity drizzle": "rainy.png",
     "moderate rain": "rainy_moderate.png",
     "mist": "foog.png",
     "thunderstorm with light rain": "storm.png"}
@@ -1004,8 +1005,8 @@ function populateWeatherCurrent() {
     // Correct now for summertime
     timeupdate.setTime( timeupdate.getTime() - timeupdate.getTimezoneOffset()*60*1000 );
     var feelsLike = Math.round(kelvinToCelsius(lastWeatherJSON[0].feels_like));
-    var tempMin = kelvinToCelsius(lastWeatherJSON[0].temperature_min);
-    var tempMax = kelvinToCelsius(lastWeatherJSON[0].temperature_max);
+    var tempMin = Math.round(kelvinToCelsius(lastWeatherJSON[0].temperature_min));
+    var tempMax = Math.round(kelvinToCelsius(lastWeatherJSON[0].temperature_max));
     var weatherDescription = lastWeatherJSON[0].weather_description;
     var windSpeed = mpsToKph(lastWeatherJSON[0].wind_speed);
     var windGust = mpsToKph(lastWeatherJSON[0].wind_gust);
